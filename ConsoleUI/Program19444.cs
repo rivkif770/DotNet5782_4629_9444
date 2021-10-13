@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//checking if the merge was fixed
 namespace ConsoleUI
 {
     partial class Program_1_
