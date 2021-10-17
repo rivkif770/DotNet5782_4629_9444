@@ -7,19 +7,29 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Choose one of the following:\n add:Insert options\n update:Update options\n display:Display options\n ViewTheLists:Options List view\n exit:Output ");
-            string ans;
+            Console.WriteLine( "Choose one of the following:\n" +
+                "add: Insert options\n" +
+                "update: Update options\n" +
+                "display: Display options\n" +
+                "ViewTheLists: List view options\n" +
+                "exit: Output\n");
+            string ans = "";
             ans = Console.ReadLine();
-            switch (ans){
-                case add: AddStation(BaseStation)
+            switch (ans)
+            {
+                
+                    
             }
-            AddStation(BaseStation);
             Stam();
-            Console.WriteLine("Press any key to continue...");
+            Console.WriteLine("Pr" +
+                "ess any key to continue...");
             Console.ReadKey();
         }
-        public void AddStation(BaseStation) 
-        { }
+        public void AddStation()
+        {
+
+        }
+
         private static void Stam()
         {
             IDAL.DO.Client client = new IDAL.DO.Client
