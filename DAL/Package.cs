@@ -10,8 +10,8 @@ namespace IDAL
             public int IDgets { get; set; }
             public WeightCategories Weight { get; set; }
             public Priorities priority { get; set; }
-            public DronStatuses IDSkimmerOperation { get; set; }
-            public int PackageCreationTime { get; set; }
+            public int IDSkimmerOperation { get; set; }
+            public DateTime PackageCreationTime { get; set; }
             public DateTime TimeAssignGlider { get; set; }
             public DateTime PackageCollectionTime { get; set; }
             public DateTime TimeArrivalRecipient { get; set; }

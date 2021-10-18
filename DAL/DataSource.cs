@@ -88,47 +88,41 @@ namespace DalObject
                 DJ.PackageArry[i].ID = r.Next(99999, 100000);
                 DJ.PackageArry[i].IDSender =DJ.ClientArry[r.Next(6)].ID ;
                 DJ.PackageArry[i].IDgets = DJ.ClientArry[r.Next(6)].ID;
+                DJ.PackageArry[i].PackageCreationTime = new DateTime(2021, r.Next(1, 13), r.Next(1, 30), r.Next(1, 24), r.Next(1, 61),r.Next(1, 61));
+                DJ.PackageArry[i].TimeAssignGlider = new DateTime(2021, r.Next(1, 13), r.Next(1, 30), r.Next(1, 24), r.Next(1, 61), r.Next(1, 61));
+                DJ.PackageArry[i].PackageCollectionTime = new DateTime(2021, r.Next(1, 13), r.Next(1, 30), r.Next(1, 24), r.Next(1, 61), r.Next(1, 61));
+                DJ.PackageArry[i].TimeArrivalRecipient = new DateTime(2021, r.Next(1, 13), r.Next(1, 30), r.Next(1, 24), r.Next(1, 61), r.Next(1, 61));
             }
 
             DJ.PackageArry[0].Weight = WeightCategories.heavy;
             DJ.PackageArry[0].priority = Priorities.emergency;
-            DJ.PackageArry[0].IDSkimmerOperation = DronStatuses.shipping;
 
             DJ.PackageArry[1].Weight = WeightCategories.middle;
             DJ.PackageArry[1].priority = Priorities.emergency;
-            DJ.PackageArry[1].IDSkimmerOperation = DronStatuses.free;
 
             DJ.PackageArry[2].Weight = WeightCategories.low;
             DJ.PackageArry[2].priority = Priorities.regular;
-            DJ.PackageArry[2].IDSkimmerOperation = DronStatuses.maintenance;
 
             DJ.PackageArry[3].Weight = WeightCategories.low;
             DJ.PackageArry[3].priority = Priorities.regular;
-            DJ.PackageArry[3].IDSkimmerOperation = DronStatuses.free;
 
             DJ.PackageArry[4].Weight = WeightCategories.heavy;
             DJ.PackageArry[4].priority = Priorities.emergency;
-            DJ.PackageArry[4].IDSkimmerOperation = DronStatuses.shipping;
 
             DJ.PackageArry[5].Weight = WeightCategories.middle;
             DJ.PackageArry[5].priority = Priorities.fast;
-            DJ.PackageArry[5].IDSkimmerOperation = DronStatuses.free;
 
             DJ.PackageArry[6].Weight = WeightCategories.low;
             DJ.PackageArry[6].priority = Priorities.regular;
-            DJ.PackageArry[6].IDSkimmerOperation = DronStatuses.maintenance;
 
             DJ.PackageArry[7].Weight = WeightCategories.low;
             DJ.PackageArry[7].priority = Priorities.emergency;
-            DJ.PackageArry[7].IDSkimmerOperation = DronStatuses.shipping;
 
             DJ.PackageArry[8].Weight = WeightCategories.heavy;
             DJ.PackageArry[8].priority = Priorities.regular;
-            DJ.PackageArry[8].IDSkimmerOperation = DronStatuses.shipping;
 
             DJ.PackageArry[9].Weight = WeightCategories.heavy;
             DJ.PackageArry[9].priority = Priorities.fast;
-            DJ.PackageArry[9].IDSkimmerOperation = DronStatuses.maintenance;
         }
     }
 }
