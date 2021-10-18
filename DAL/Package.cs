@@ -8,13 +8,13 @@ namespace IDAL
             public int ID { get; set; }
             public int IDSender { get; set; }
             public int IDgets { get; set; }
-            public string Weight { get; set; }
-            public string priority { get; set; }
-            public string IDSkimmerOperation { get; set; }
-            public string PackageCreationTime { get; set; }
-            public string TimeAssignGlider { get; set; }
-            public string PackageCollectionTime { get; set; }
-            public string TimeArrivalRecipient { get; set; }
+            public WeightCategories Weight { get; set; }
+            public Priorities priority { get; set; }
+            public DronStatuses IDSkimmerOperation { get; set; }
+            public int PackageCreationTime { get; set; }
+            public DateTime TimeAssignGlider { get; set; }
+            public DateTime PackageCollectionTime { get; set; }
+            public DateTime TimeArrivalRecipient { get; set; }
             public override string ToString()
             {
                 String result = "";
@@ -24,10 +24,10 @@ namespace IDAL
                 result += $"Weight category is: {Weight}, \n";
                 result += $"Priority is: {priority}, \n";
                 result += $"ID skimmer operation is: {IDSkimmerOperation}, \n";
-                result += $"Package creation time is: {IDSkimmerOperation.Substring(0, 2) + ':' + IDSkimmerOperation.Substring(2)}, \n";
-                result += $"Time to assign the package to the glider is: {TimeAssignGlider.Substring(0, 2) + ':' + TimeAssignGlider.Substring(2)}, \n";
-                result += $"Package collection time from the sender is: {PackageCollectionTime.Substring(0, 2) + ':' + PackageCollectionTime.Substring(2)}, \n";
-                result += $"Time of arrival of the package to the recipient is: {TimeArrivalRecipient.Substring(0, 2) + ':' + TimeArrivalRecipient.Substring(2)}, \n";
+                result += $"Package creation time is: {IDSkimmerOperation}, \n";
+                result += $"Time to assign the package to the glider is: {TimeAssignGlider}, \n";
+                result += $"Package collection time from the sender is: {PackageCollectionTime}, \n";
+                result += $"Time of arrival of the package to the recipient is: {TimeArrivalRecipient}, \n";
                 return result;
             }
         }

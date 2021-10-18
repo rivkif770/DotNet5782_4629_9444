@@ -7,9 +7,9 @@ namespace IDAL
         {
             public int IDNumber { get; set; }
             public String SkimmerModel { get; set; }
-            public String Weight { get; set; }
-            public int Battery { get; set; }
-            public string SkimmerMode { get; set; }
+            public WeightCategories Weight { get; set; }
+            public double Battery { get; set; }
+            public DronStatuses SkimmerMode { get; set; }
 
             public override string ToString()
             {
