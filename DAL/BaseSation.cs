@@ -6,7 +6,7 @@ namespace IDAL
         public struct BaseStation
         {
             public int UniqueID { get; set; }
-            public String StationName { get; set; }
+            public string StationName { get; set; }
             public int SeveralPositionsArgument { get; set; }
             public double Latitude { get; set; }
             public double Longitude { get; set; }
