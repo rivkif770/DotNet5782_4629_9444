@@ -54,7 +54,6 @@ namespace ConsoleUI
                                 longitude = double.Parse(Console.ReadLine());
                                 Console.WriteLine("Enter Latitude:");
                                 Latitude = double.Parse(Console.ReadLine());
-                                //DalObject.DataSource.BaseStationArry[ DataSource.B](id, name, num, longitude, Latitude);
                                 break;
                             case InseitOption.AddSkimmer:
                                 Console.WriteLine("Enter unique ID number:");
