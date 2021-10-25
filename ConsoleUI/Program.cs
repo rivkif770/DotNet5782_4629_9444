@@ -11,8 +11,8 @@ namespace ConsoleUI
         enum Options { Exit, Add, Update, Display, ViewTheLists }
         enum InseitOption { Exit, AddBaseStation, AddSkimmer, AddClient,AddPackage }
         enum UpdateOption { Exit, Affiliation, Collection, Supply, SendLoading, ReleaseCharging }
-        enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewClient, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
         enum DisplayOptions { Exit, DisplayBaseStation, DisplaySkimmer, DisplayClient, DisplayPackage }
+        enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewClient, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
         private static void Menu()
         {
             Options options;
@@ -154,8 +154,30 @@ namespace ConsoleUI
                             " 2- Skimmer display\n" +
                             "3- Customer view\n " +
                             " 4-Package view\n");
-                        optionsListView = (OptionsListView)int.Parse(Console.ReadLine());
-                        switch (optionsListView) 
+                        displayOptions = (DisplayOptions)int.Parse(Console.ReadLine());
+                        switch (displayOptions)
+                        {
+                            case DisplayOptions.Exit:
+                                break;
+                            case DisplayOptions.DisplayBaseStation:
+                                break;
+                            case DisplayOptions.DisplaySkimmer:
+                                break;
+                            case DisplayOptions.DisplayClient:
+                                break;
+                            case DisplayOptions.DisplayPackage:
+                                break;
+                        }
+                        break;
+                    case Options.ViewTheLists:
+                        Console.WriteLine("adding option:\n 0-Exit\n; 1- Displays a list of base stations\n" +
+                            " 2- Displays the list of skimmers\n" +
+                            "3- View customer list\n " +
+                            " 4-Displays the list of packages\n" +
+                            "5-Displays a list of packages not yet associated with the glider\n" +
+                            "6-Display of base stations with available charging stations");
+                optionsListView = (OptionsListView)int.Parse(Console.ReadLine());
+                switch (optionsListView)
                         {
                             case OptionsListView.Exit:
                                 break;
@@ -170,28 +192,6 @@ namespace ConsoleUI
                             case OptionsListView.ViewUnassignedPackages:
                                 break;
                             case OptionsListView.ViewFreeBaseStation:
-                                break;
-                        }
-                        break;
-                    case Options.ViewTheLists:
-                        Console.WriteLine("adding option:\n 0-Exit\n; 1- Displays a list of base stations\n" +
-                            " 2- Displays the list of skimmers\n" +
-                            "3- View customer list\n " +
-                            " 4-Displays the list of packages\n" +
-                            "5-Displays a list of packages not yet associated with the glider\n" +
-                            "6-Display of base stations with available charging stations");
-                        displayOptions = (DisplayOptions)int.Parse(Console.ReadLine());
-                        switch(displayOptions)
-                        {
-                            case DisplayOptions.Exit:
-                                break;
-                            case DisplayOptions.DisplayBaseStation:
-                                break;
-                            case DisplayOptions.DisplaySkimmer:
-                                break;
-                            case DisplayOptions.DisplayClient:
-                                break;
-                            case DisplayOptions.DisplayPackage:
                                 break;
                         }
                         break;
