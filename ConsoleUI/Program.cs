@@ -1,4 +1,5 @@
-﻿using System;
+﻿//efrat hilel 213089444 rivki fraiman 325194629
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,13 +25,6 @@ namespace ConsoleUI
             {
                 Console.WriteLine("welcome!" + "option:\n 0-Exit\n 1-Add\n 2-Update\n 3-List View\n 4-Display\n");
                 options = (Options)int.Parse(Console.ReadLine());
-                //int id, num, status, CustomerSending, CustomerReceiving, SkimmerOperation;
-                //string name, Phone;
-                //double longitude, Latitude;
-                //DronStatuses mode;
-                //WeightCategories Weight;
-                //Priorities priority;
-                //DateTime TimeDelivery, TimeGlider, collectionTime, TimeRecipient;
                 switch (options)
                 {
                     case Options.Add:
@@ -140,13 +134,13 @@ namespace ConsoleUI
                                 int idp,idq;
                                 Console.WriteLine("enter ID of Package:");
                                 idp = int.Parse(Console.ReadLine());
-                                Console.WriteLine("enter ID of Package:");
+                                Console.WriteLine("enter ID of skimmers:");
                                 idq = int.Parse(Console.ReadLine());
                                 DalObject.dalObject.AssignPackageSkimmer(idp, idq);
                                 break;
                             case UpdateOption.Collection:
                                 Console.WriteLine("enter ID of Package:");
-                                id = int.Parse(Console.ReadLine());
+                                int id = int.Parse(Console.ReadLine());
                                 DalObject.dalObject.CollectionPackage(id);
                                 break;
                             case UpdateOption.Supply:
