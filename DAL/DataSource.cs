@@ -6,173 +6,88 @@ using System.Threading.Tasks;
 using IDAL.DO;
 namespace DalObject
 {
-    internal class DataSource
+    public class DataSource
     {
-        Quadocopter[] QuadocopterArry = new Quadocopter[10];
-        BaseStation[] BaseStationArry = new BaseStation[5];
-        Package[] PackageArry = new Package[1000];
-        Client[] ClientArry = new Client[100];
+        internal static List<Quadocopter> ListQuadocopter = new List<Quadocopter>();
+        internal static List<BaseStation> ListBaseStation = new List<BaseStation>();
+        internal static List<Package> ListPackage = new List<Package>();
+        internal static List<Client> ListClient = new List<Client>();
         internal class Config
         {
-            internal static int Q = 0;//pointer to Quadocopter
-            internal static int B = 0;//pointer to BaseStation
-            internal static int P = 0;//pointer to Package
-            internal static int C = 0;//pointer to Client
+            public static int IDPackage = 1000;
         }
         public static void Initialize(DataSource DJ)
         {
             Random r = new Random();
             int num = r.Next();
-            for (int i = Config.B; i < 2; i++)
+            for(int i = 0; i < 2; i++)
             {
-                DJ.BaseStationArry[i].UniqueID = r.Next(999, 10000);
-                DJ.BaseStationArry[i].SeveralPositionsArgument = r.Next(5);
-                DJ.BaseStationArry[i].Latitude = r.Next(-100, 100);
-                DJ.BaseStationArry[i].Longitude = r.Next(-100, 100);
+                BaseStation newB = new BaseStation();
+                newB.UniqueID = r.Next(999, 10000);
+                newB.StationName = $"tamar{i}";
+                newB.SeveralPositionsArgument = r.Next(5);
+                newB.Longitude = r.Next(-100, 100);
+                newB.Latitude = r.Next(-100, 100);
+                ListBaseStation.Add(newB);
             }
-            DJ.BaseStationArry[0].StationName = "Tamar";
-            DJ.BaseStationArry[1].StationName = "Rimon";
-            for (int i = Config.Q; i < 5; i++)
+            
+            for(int i = 0; i < 5; i++)
             {
-                DJ.QuadocopterArry[i].IDNumber = r.Next(99, 1000);
-                DJ.QuadocopterArry[i].Battery = r.Next(101);
-                DJ.QuadocopterArry[i].Weight = (WeightCategories)r.Next(3);
-                DJ.QuadocopterArry[i].SkimmerMode = (DronStatuses)r.Next(3);
+                Quadocopter newQ = new Quadocopter();
+                newQ.IDNumber = r.Next(99, 1000);
+                newQ.SkimmerModel = $"A2{i}";
+                newQ.Battery = r.Next(101);
+                newQ.Weight = (WeightCategories)r.Next(3);
+                newQ.SkimmerMode = (DronStatuses)r.Next(3);
+                ListQuadocopter.Add(newQ);
+            }
+            
+            for (int i = 0; i < 10; i++)
+            {
+                Client newC = new Client();
+                newC.Latitude = r.Next(-100, 100);
+                newC.Longitude = r.Next(-100, 100);
+                newC.ID = r.Next(999999999, 1000000000);
+                newC.Telephone = $"0{r.Next(50, 59)}-{r.Next(1000000, 10000000)}";
+                newC.Name = $"David{i}";
+                ListClient.Add(newC);
             }
 
-            DJ.QuadocopterArry[0].SkimmerModel = "A20";
-            DJ.QuadocopterArry[1].SkimmerModel = "A21";
-            DJ.QuadocopterArry[2].SkimmerModel = "A22";
-            DJ.QuadocopterArry[3].SkimmerModel = "A23";
-            DJ.QuadocopterArry[4].SkimmerModel = "A24";
-
-            for (int i = Config.C; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
-                DJ.ClientArry[i].Latitude = r.Next(-100, 100);
-                DJ.ClientArry[i].Longitude = r.Next(-100, 100);
-                DJ.ClientArry[i].ID = r.Next(999999999, 1000000000);
-                DJ.ClientArry[i].Telephone = $"0{r.Next(50, 59)}-{r.Next(1000000, 10000000)}";
-            }
-            DJ.ClientArry[0].Name = "David";
-            DJ.ClientArry[1].Name = "Sara";
-            DJ.ClientArry[2].Name = "Chaim";
-            DJ.ClientArry[3].Name = "Moshe";
-            DJ.ClientArry[4].Name = "Jon";
-            DJ.ClientArry[5].Name = "Rivki";
-            DJ.ClientArry[6].Name = "Efrat";
-            DJ.ClientArry[7].Name = "Chani";
-            DJ.ClientArry[8].Name = "Goldi";
-            DJ.ClientArry[9].Name = "Pazit";
-
-            for (int i = Config.P; i < 10; i++)
-            {
-                DJ.PackageArry[i].ID = r.Next(99999, 100000);
-                DJ.PackageArry[i].IDSender = DJ.ClientArry[r.Next(6)].ID;
-                DJ.PackageArry[i].IDgets = DJ.ClientArry[r.Next(6)].ID;
-                DJ.PackageArry[i].Weight = (WeightCategories)r.Next(3);
-                DJ.PackageArry[i].priority = (Priorities)r.Next(3);
-                DJ.PackageArry[i].PackageCreationTime = new DateTime(2021, r.Next(1, 13), r.Next(1, 30), r.Next(1, 24), r.Next(1, 61), r.Next(1, 61));
-                DJ.PackageArry[i].TimeAssignGlider = new DateTime(2021, r.Next(1, 13), r.Next(1, 30), r.Next(1, 24), r.Next(1, 61), r.Next(1, 61));
-                DJ.PackageArry[i].PackageCollectionTime = new DateTime(2021, r.Next(1, 13), r.Next(1, 30), r.Next(1, 24), r.Next(1, 61), r.Next(1, 61));
-                DJ.PackageArry[i].TimeArrivalRecipient = new DateTime(2021, r.Next(1, 13), r.Next(1, 30), r.Next(1, 24), r.Next(1, 61), r.Next(1, 61));
+                Package newP = new Package();
+                newP.ID = DalObject.DataSource.Config.IDPackage++;
+                newP.IDSender = ListClient[r.Next(6)].ID;
+                newP.IDgets = ListClient[r.Next(6)].ID;
+                newP.IDSkimmerOperation = ListQuadocopter[r.Next(6)].IDNumber;
+                newP.Weight = (WeightCategories)r.Next(3);
+                newP.priority = (Priorities)r.Next(3);
+                newP.PackageCreationTime = new DateTime(2021, r.Next(1, 13), r.Next(1, 30), r.Next(1, 24), r.Next(1, 61), r.Next(1, 61));
+                newP.TimeAssignGlider = new DateTime(2021, r.Next(1, 13), r.Next(1, 30), r.Next(1, 24), r.Next(1, 61), r.Next(1, 61));
+                newP.PackageCollectionTime = new DateTime(2021, r.Next(1, 13), r.Next(1, 30), r.Next(1, 24), r.Next(1, 61), r.Next(1, 61));
+                newP.TimeArrivalRecipient = new DateTime(2021, r.Next(1, 13), r.Next(1, 30), r.Next(1, 24), r.Next(1, 61), r.Next(1, 61));
+                ListPackage.Add(newP);
             }
         }
     }
-    internal class dalObject
+    public class dalObject
     {
-        public void AddBaseStation()
+        public static void AddBaseStation(BaseStation b)
         {
-            BaseStation newBaseStation = new BaseStation();
-
-            Console.WriteLine("Enter unique ID number:");
-            newBaseStation.UniqueID = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Enter The station name:");
-            newBaseStation.StationName = (Console.ReadLine());
-
-            Console.WriteLine("Enter Several positions of charging:");
-            newBaseStation.SeveralPositionsArgument = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Enter longitude:");
-            newBaseStation.Longitude = double.Parse(Console.ReadLine());
-
-            Console.WriteLine("Enter Latitude:");
-            newBaseStation.Latitude = double.Parse(Console.ReadLine());
-
-            DalObject.DataSource.BaseStationArry[DalObject.DataSource.Config.B] = newBaseStation;
+            DataSource.ListBaseStation.Add(b);
         }
-        public void AddSkimmer()
+        public static void AddSkimmer(Quadocopter q)
         {
-            Quadocopter newQuadocopter = new Quadocopter();
-
-            int id;
-            Console.WriteLine("Enter unique ID number:");
-            id = int.Parse(Console.ReadLine());
-            newQuadocopter.IDNumber = id;
-
-            Console.WriteLine("Enter Skimmer model:");
-            newQuadocopter.SkimmerModel = Console.ReadLine();
-
-            Console.WriteLine("Enter Weight category 0-low,1-middle,2-heavy:");
-            newQuadocopter.Weight = (WeightCategories)int.Parse(Console.ReadLine());
-
-            newQuadocopter.Battery = 100;
-            newQuadocopter.SkimmerMode = (DronStatuses)0;
-
-            QuadocopterArry[Config.Q] = newQuadocopter;
+            DataSource.ListQuadocopter.Add(q);
         }
-        public void AddClient()
+        public static void AddClient(Client c)
         {
-            Client newClient = new Client();
-
-            Console.WriteLine("Enter unique ID number:");
-            newClient.ID = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Enter the customer's name:");
-            newClient.Name = (Console.ReadLine());
-
-            Console.WriteLine("Enter Phone Number:");
-            newClient.Telephone = (Console.ReadLine());
-
-            Console.WriteLine("Enter longitude:");
-            newClient.Longitude = double.Parse(Console.ReadLine());
-
-            Console.WriteLine("Enter Latitude:");
-            newClient.Latitude = double.Parse(Console.ReadLine());
-
-            ClientArry[Config.C] = newClient;
+            DataSource.ListClient.Add(c);
         }
-        public void AddPackage()
+        public static void AddPackage(Package p)
         {
-            Package newPackage = new Package();
-
-            Console.WriteLine("Enter unique ID number:");
-            id = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Enter Sending customer ID:");
-            newPackage.IDSender = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Receiving customer ID:");
-            newPackage.IDgets = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Enter Weight category 0-low,1-middle,2-heavy:");
-            newPackage.Weight = (WeightCategories)int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Enter priority:");
-            newPackage.priority = (Priorities)int.Parse(Console.ReadLine());
-
-            newPackage.IDSkimmerOperation = 0;
-
-            Console.WriteLine("Enter Time to create a package for delivery:");
-            TimeDelivery = DateTime.Parse(Console.ReadLine());
-            Console.WriteLine("Enter Time to assign the package to the glider:");
-            TimeGlider = DateTime.Parse(Console.ReadLine());
-            Console.WriteLine("Enter Package collection time from the sender:");
-            collectionTime = DateTime.Parse(Console.ReadLine());
-            Console.WriteLine("Enter Time of arrival of the package to the recipient:");
-            TimeRecipient = DateTime.Parse(Console.ReadLine());
-
-            PackageArry[Config.P] = newPackage;
+            p.ID = DalObject.DataSource.Config.IDPackage++;
+            DataSource.ListPackage.Add(p);
         }
     }
 

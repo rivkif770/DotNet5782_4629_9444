@@ -24,13 +24,13 @@ namespace ConsoleUI
             {
                 Console.WriteLine("welcome!" + "option:\n 0-Exit\n 1-Add\n 2-Update\n 3-List View\n 4-Display\n");
                 options = (Options)int.Parse(Console.ReadLine());
-                int id, num, status, CustomerSending, CustomerReceiving, SkimmerOperation;
-                string name, Phone;
-                double longitude, Latitude;
-                DronStatuses mode;
-                WeightCategories Weight;
-                Priorities priority;
-                DateTime TimeDelivery, TimeGlider, collectionTime, TimeRecipient;
+                //int id, num, status, CustomerSending, CustomerReceiving, SkimmerOperation;
+                //string name, Phone;
+                //double longitude, Latitude;
+                //DronStatuses mode;
+                //WeightCategories Weight;
+                //Priorities priority;
+                //DateTime TimeDelivery, TimeGlider, collectionTime, TimeRecipient;
                 switch (options)
                 {
                     case Options.Add:
@@ -44,16 +44,83 @@ namespace ConsoleUI
                             case InseitOption.Exit:
                                 break;
                             case InseitOption.AddBaseStation:
-                                //DalObject.dalObject.AddBaseStation();
+                                BaseStation newBaseStation = new BaseStation();
+
+                                Console.WriteLine("Enter unique ID number:");
+                                newBaseStation.UniqueID = int.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Enter The station name:");
+                                newBaseStation.StationName = (Console.ReadLine());
+
+                                Console.WriteLine("Enter Several positions of charging:");
+                                newBaseStation.SeveralPositionsArgument = int.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Enter longitude:");
+                                newBaseStation.Longitude = double.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Enter Latitude:");
+                                newBaseStation.Latitude = double.Parse(Console.ReadLine());
+
+                                DalObject.dalObject.AddBaseStation(newBaseStation);
                                 break;
                             case InseitOption.AddSkimmer:
-                                //AddSkimmer();
+                                Quadocopter newQuadocopter = new Quadocopter();
+
+                                Console.WriteLine("Enter unique ID number:");
+                                newQuadocopter.IDNumber = int.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Enter Skimmer model:");
+                                newQuadocopter.SkimmerModel = Console.ReadLine();
+
+                                Console.WriteLine("Enter Weight category 0-low,1-middle,2-heavy:");
+                                newQuadocopter.Weight = (WeightCategories)int.Parse(Console.ReadLine());
+
+                                newQuadocopter.Battery = 100;
+                                newQuadocopter.SkimmerMode = (DronStatuses)0;
+
+                                DalObject.dalObject.AddSkimmer(newQuadocopter);
                                 break;
                             case InseitOption.AddClient:
-                                //AddClient();
+                                Client newClient = new Client();
+
+                                Console.WriteLine("Enter unique ID number:");
+                                newClient.ID = int.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Enter the customer's name:");
+                                newClient.Name = (Console.ReadLine());
+
+                                Console.WriteLine("Enter Phone Number:");
+                                newClient.Telephone = (Console.ReadLine());
+
+                                Console.WriteLine("Enter longitude:");
+                                newClient.Longitude = double.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Enter Latitude:");
+                                newClient.Latitude = double.Parse(Console.ReadLine());
+
+                                DalObject.dalObject.AddClient(newClient);
                                 break;
                             case InseitOption.AddPackage:
-                                //AddPackage;
+                                Package newPackage = new Package();
+
+                                newPackage.ID = 0;
+
+                                Console.WriteLine("Enter Sending customer ID:");
+                                newPackage.IDSender = int.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Receiving customer ID:");
+                                newPackage.IDgets = int.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Enter Weight category 0-low,1-middle,2-heavy:");
+                                newPackage.Weight = (WeightCategories)int.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Enter priority:");
+                                newPackage.priority = (Priorities)int.Parse(Console.ReadLine());
+
+                                newPackage.IDSkimmerOperation = 0;
+                                newPackage.PackageCreationTime = DateTime.Now;
+
+                                DalObject.dalObject.AddPackage(newPackage);
                                 break;
                         }
                         break;
