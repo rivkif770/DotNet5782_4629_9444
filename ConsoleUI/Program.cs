@@ -137,14 +137,35 @@ namespace ConsoleUI
                             case UpdateOption.Exit:
                                 break;
                             case UpdateOption.Affiliation:
+                                int idp,idq;
+                                Console.WriteLine("enter ID of Package:");
+                                idp = int.Parse(Console.ReadLine());
+                                Console.WriteLine("enter ID of Package:");
+                                idq = int.Parse(Console.ReadLine());
+                                DalObject.dalObject.AssignPackageSkimmer(idp, idq);
                                 break;
                             case UpdateOption.Collection:
+                                Console.WriteLine("enter ID of Package:");
+                                id = int.Parse(Console.ReadLine());
+                                DalObject.dalObject.CollectionPackage(id);
                                 break;
                             case UpdateOption.Supply:
+                                Console.WriteLine("enter ID of Package:");
+                                id = int.Parse(Console.ReadLine());
+                                DalObject.dalObject.PackageDelivery(id);
                                 break;
                             case UpdateOption.SendLoading:
+                                Console.WriteLine("enter ID of skimmers:");
+                                id = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Select a base station from the displayed stations and enter its ID number:");
+                                DalObject.dalObject.printBaseStationFreeCharging();
+                                int idBS = int.Parse(Console.ReadLine());
+                                DalObject.dalObject.SendingSkimmerForCharging(id, idBS);
                                 break;
                             case UpdateOption.ReleaseCharging:
+                                Console.WriteLine("enter ID of skimmers:");
+                                id = int.Parse(Console.ReadLine());
+                                DalObject.dalObject.SkimmerRelease(id);
                                 break;
 
                         }
