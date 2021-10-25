@@ -54,6 +54,7 @@ namespace ConsoleUI
                                 longitude = double.Parse(Console.ReadLine());
                                 Console.WriteLine("Enter Latitude:");
                                 Latitude = double.Parse(Console.ReadLine());
+                                // .BaseStationArry[ IDAL.DO.DronStatuses..B](id, name, num, longitude, Latitude);
                                 break;
                             case InseitOption.AddSkimmer:
                                 Console.WriteLine("Enter unique ID number:");
@@ -118,6 +119,63 @@ namespace ConsoleUI
                         {
                             case UpdateOption.Exit:
                                 break;
+                            case UpdateOption.Affiliation:
+                                break;
+                            case UpdateOption.Collection:
+                                break;
+                            case UpdateOption.Supply:
+                                break;
+                            case UpdateOption.SendLoading:
+                                break;
+                            case UpdateOption.ReleaseCharging:
+                                break;
+
+                        }
+                        break;
+                    case Options.Display:
+                        Console.WriteLine("adding option:\n 0-Exit\n; 1- Base Station View\n" +
+                            " 2- Skimmer display\n" +
+                            "3- Customer view\n " +
+                            " 4-Package view\n");
+                        optionsListView = (OptionsListView)int.Parse(Console.ReadLine());
+                        switch (optionsListView) 
+                        {
+                            case OptionsListView.Exit:
+                                break;
+                            case OptionsListView.ViewBaseStation:
+                                break;
+                            case OptionsListView.ViewSkimmer:
+                                break;
+                            case OptionsListView.ViewClient:
+                                break;
+                            case OptionsListView.ViewPackage:
+                                break;
+                            case OptionsListView.ViewUnassignedPackages:
+                                break;
+                            case OptionsListView.ViewFreeBaseStation:
+                                break;
+                        }
+                        break;
+                    case Options.ViewTheLists:
+                        Console.WriteLine("adding option:\n 0-Exit\n; 1- Displays a list of base stations\n" +
+                            " 2- Displays the list of skimmers\n" +
+                            "3- View customer list\n " +
+                            " 4-Displays the list of packages\n" +
+                            "5-Displays a list of packages not yet associated with the glider\n" +
+                            "6-Display of base stations with available charging stations");
+                        displayOptions = (DisplayOptions)int.Parse(Console.ReadLine());
+                        switch(displayOptions)
+                        {
+                            case DisplayOptions.Exit:
+                                break;
+                            case DisplayOptions.DisplayBaseStation:
+                                break;
+                            case DisplayOptions.DisplaySkimmer:
+                                break;
+                            case DisplayOptions.DisplayClient:
+                                break;
+                            case DisplayOptions.DisplayPackage:
+                                break;
                         }
                         break;
                 }
@@ -127,40 +185,41 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
-            Console.WriteLine( "Choose one of the following:\n" +
-                "add: Insert options\n" +
-                "update: Update options\n" +
-                "display: Display options\n" +
-                "ViewTheLists: List view options\n" +
-                "exit: Output\n");
-            string ans = "";
-            ans = Console.ReadLine();
-            switch (ans)
-            {
+            Menu();
+            //Console.WriteLine( "Choose one of the following:\n" +
+            //    "add: Insert options\n" +
+            //    "update: Update options\n" +
+            //    "display: Display options\n" +
+            //    "ViewTheLists: List view options\n" +
+            //    "exit: Output\n");
+            //string ans = "";
+            //ans = Console.ReadLine();
+            //switch (ans)
+            //{
                 
                     
-            }
-            Stam();
-            Console.WriteLine("Pr" +
-                "ess any key to continue...");
-            Console.ReadKey();
+            //}
+            //Stam();
+            //Console.WriteLine("Pr" +
+            //    "ess any key to continue...");
+            //Console.ReadKey();
         }
-        public void AddStation()
-        {
+        //public void AddStation()
+        //{
 
-        }
+        //}
 
-        private static void Stam()
-        {
-            IDAL.DO.Client client = new IDAL.DO.Client
-            {
-                Name = "kuku",
-                Latitude = -36.123456,
-                Longitude = 29.654321,
-                Telephone = "052534111",
-                ID = 123
-            };
-            Console.WriteLine(client);
-        }
+        //private static void Stam()
+        //{
+        //    IDAL.DO.Client client = new IDAL.DO.Client
+        //    {
+        //        Name = "kuku",
+        //        Latitude = -36.123456,
+        //        Longitude = 29.654321,
+        //        Telephone = "052534111",
+        //        ID = 123
+        //    };
+        //    Console.WriteLine(client);
+        //}
     }
 }
