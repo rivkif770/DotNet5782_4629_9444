@@ -139,5 +139,49 @@ namespace DalObject
                 }
             }
         }
+        public static void DisplayBaseStation(int IDb)
+        {
+            int size = DataSource.ListBaseStation.Count;
+            for (int i = 0; i < size; i++)
+            {
+                if (DataSource.ListBaseStation[i].UniqueID == IDb)
+                {
+                    DataSource.ListBaseStation[i].ToString();
+                }
+            }
+        }
+        public static void DisplayClient(int IDc)
+        {
+            int size = DataSource.ListClient.Count;
+            for (int i = 0; i < size; i++)
+            {
+                if (DataSource.ListClient[i].ID == IDc)
+                {
+                    DataSource.ListClient[i].ToString();
+                }
+            }
+        }
+        public static void DisplaySkimmer(int iDq)
+        {
+            int size = DataSource.ListQuadocopter.Count;
+            for (int i = 0; i < size; i++)
+            {
+                if (DataSource.ListQuadocopter[i].IDNumber == iDq)
+                {
+                    DataSource.ListQuadocopter[i].ToString();
+                }
+            }
+        }
+        public static void DisplayPackage(int iDp)
+        {
+            int size = DataSource.ListPackage.Count;
+            for (int i = 0; i < size; i++)
+            {
+                if (DataSource.ListPackage[i].ID == iDp)
+                {
+                    DataSource.ListPackage[i].ToString();
+                }
+            }
+        }
     }
 }

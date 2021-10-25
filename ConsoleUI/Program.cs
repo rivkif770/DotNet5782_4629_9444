@@ -160,12 +160,28 @@ namespace ConsoleUI
                             case DisplayOptions.Exit:
                                 break;
                             case DisplayOptions.DisplayBaseStation:
+                                Console.WriteLine("enter ID of BaseStation:");
+                                int IDb;
+                                IDb = int.Parse(Console.ReadLine());
+                                DalObject.dalObject.DisplayBaseStation(IDb);
                                 break;
                             case DisplayOptions.DisplaySkimmer:
+                                Console.WriteLine("enter ID of Skimmer:");
+                                int IDq;
+                                IDq = int.Parse(Console.ReadLine());
+                                DalObject.dalObject.DisplaySkimmer(IDq);
                                 break;
                             case DisplayOptions.DisplayClient:
+                                Console.WriteLine("enter ID of Client:");
+                                int IDc;
+                                IDc = int.Parse(Console.ReadLine());
+                                DalObject.dalObject.DisplayClient(IDc);
                                 break;
                             case DisplayOptions.DisplayPackage:
+                                Console.WriteLine("enter ID of Package:");
+                                int IDp;
+                                IDp = int.Parse(Console.ReadLine());
+                                DalObject.dalObject.DisplayPackage(IDp);
                                 break;
                         }
                         break;
