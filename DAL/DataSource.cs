@@ -89,7 +89,55 @@ namespace DalObject
             p.ID = DalObject.DataSource.Config.IDPackage++;
             DataSource.ListPackage.Add(p);
         }
+
+
+        public static void printBaseStation()
+        {
+            for(int i = 0;i < DataSource.ListBaseStation.Count; i++)
+            {
+                DataSource.ListBaseStation[i].ToString();
+            }
+        }
+        public static void printSkimmer()
+        {
+            for (int i = 0; i < DataSource.ListQuadocopter.Count; i++)
+            {
+                DataSource.ListQuadocopter[i].ToString();
+            }
+        }
+        public static void printClient()
+        {
+            for (int i = 0; i < DataSource.ListClient.Count; i++)
+            {
+                DataSource.ListClient[i].ToString();
+            }
+        }
+        public static void printPackage()
+        {
+            for (int i = 0; i < DataSource.ListPackage.Count; i++)
+            {
+                DataSource.ListPackage[i].ToString();
+            }
+        }
+        public static void printPackageWithoutSkimmer()
+        {
+            for (int i = 0; i < DataSource.ListPackage.Count; i++)
+            {
+                if(DataSource.ListPackage[i].IDSkimmerOperation == 0)
+                {
+                    DataSource.ListPackage[i].ToString();
+                }
+            }
+        }
+        public static void printBaseStationFreeCharging()
+        {
+            for (int i = 0; i < DataSource.ListBaseStation.Count; i++)
+            {
+                if(DataSource.ListBaseStation[i].SeveralPositionsArgument != 0)
+                {
+                    DataSource.ListBaseStation[i].ToString();
+                }
+            }
+        }
     }
-
-
 }

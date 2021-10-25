@@ -9,7 +9,7 @@ namespace ConsoleUI
     class Program
     {
         enum Options { Exit, Add, Update, Display, ViewTheLists }
-        enum InseitOption { Exit, AddBaseStation, AddSkimmer, AddClient,AddPackage }
+        enum InseitOption { Exit, AddBaseStation, AddSkimmer, AddClient, AddPackage }
         enum UpdateOption { Exit, Affiliation, Collection, Supply, SendLoading, ReleaseCharging }
         enum DisplayOptions { Exit, DisplayBaseStation, DisplaySkimmer, DisplayClient, DisplayPackage }
         enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewClient, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
@@ -176,22 +176,28 @@ namespace ConsoleUI
                             " 4-Displays the list of packages\n" +
                             "5-Displays a list of packages not yet associated with the glider\n" +
                             "6-Display of base stations with available charging stations");
-                optionsListView = (OptionsListView)int.Parse(Console.ReadLine());
-                switch (optionsListView)
+                        optionsListView = (OptionsListView)int.Parse(Console.ReadLine());
+                        switch (optionsListView)
                         {
                             case OptionsListView.Exit:
                                 break;
                             case OptionsListView.ViewBaseStation:
+                                DalObject.dalObject.printBaseStation();
                                 break;
                             case OptionsListView.ViewSkimmer:
+                                DalObject.dalObject.printSkimmer();
                                 break;
                             case OptionsListView.ViewClient:
+                                DalObject.dalObject.printClient();
                                 break;
                             case OptionsListView.ViewPackage:
+                                DalObject.dalObject.printPackage();
                                 break;
                             case OptionsListView.ViewUnassignedPackages:
+                                DalObject.dalObject.printPackageWithoutSkimmer();
                                 break;
                             case OptionsListView.ViewFreeBaseStation:
+                                DalObject.dalObject.printBaseStationFreeCharging();
                                 break;
                         }
                         break;
@@ -203,40 +209,6 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             Menu();
-            //Console.WriteLine( "Choose one of the following:\n" +
-            //    "add: Insert options\n" +
-            //    "update: Update options\n" +
-            //    "display: Display options\n" +
-            //    "ViewTheLists: List view options\n" +
-            //    "exit: Output\n");
-            //string ans = "";
-            //ans = Console.ReadLine();
-            //switch (ans)
-            //{
-                
-                    
-            //}
-            //Stam();
-            //Console.WriteLine("Pr" +
-            //    "ess any key to continue...");
-            //Console.ReadKey();
         }
-        //public void AddStation()
-        //{
-
-        //}
-
-        //private static void Stam()
-        //{
-        //    IDAL.DO.Client client = new IDAL.DO.Client
-        //    {
-        //        Name = "kuku",
-        //        Latitude = -36.123456,
-        //        Longitude = 29.654321,
-        //        Telephone = "052534111",
-        //        ID = 123
-        //    };
-        //    Console.WriteLine(client);
-        //}
     }
 }
