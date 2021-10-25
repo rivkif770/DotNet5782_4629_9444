@@ -44,66 +44,16 @@ namespace ConsoleUI
                             case InseitOption.Exit:
                                 break;
                             case InseitOption.AddBaseStation:
-                                Console.WriteLine("Enter unique ID number:");
-                                id = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter The station name:");
-                                name = (Console.ReadLine());
-                                Console.WriteLine("Enter Several positions of charging:");
-                                num = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter longitude:");
-                                longitude = double.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Latitude:");
-                                Latitude = double.Parse(Console.ReadLine());
-                                // .BaseStationArry[ IDAL.DO.DronStatuses..B](id, name, num, longitude, Latitude);
+                                //DalObject.dalObject.AddBaseStation();
                                 break;
                             case InseitOption.AddSkimmer:
-                                Console.WriteLine("Enter unique ID number:");
-                                id = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Skimmer model:");
-                                name = (Console.ReadLine());
-                                Console.WriteLine("Enter Weight category 1-low,2-middle,3-heavy:");
-                                Weight = (WeightCategories)int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Battery status:");
-                                status = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Skimmer mode:");
-                                mode = (DronStatuses)int.Parse(Console.ReadLine());
-                                //DalObject.DataSource.BaseStationArry[ DataSource.B](id, name, num, longitude, Latitude);
+                                //AddSkimmer();
                                 break;
                             case InseitOption.AddClient:
-                                Console.WriteLine("Enter unique ID number:");
-                                id = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter the customer's name:");
-                                name = (Console.ReadLine());
-                                Console.WriteLine("Enter Phone Number:");
-                                Phone = (Console.ReadLine());
-                                Console.WriteLine("Enter longitude:");
-                                longitude = double.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Latitude:");
-                                Latitude = double.Parse(Console.ReadLine());
-                                //DalObject.DataSource.BaseStationArry[ DataSource.B](id, name, num, longitude, Latitude);
+                                //AddClient();
                                 break;
                             case InseitOption.AddPackage:
-                                Console.WriteLine("Enter unique ID number:");
-                                id = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Sending customer ID:");
-                                CustomerSending = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Receiving customer ID:");
-                                CustomerReceiving = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Weight category 1-low,2-middle,3-heavy:");
-                                Weight = (WeightCategories)int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter priority:");
-                                priority = (Priorities)int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Operator skimmer ID:");
-                                SkimmerOperation = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Time to create a package for delivery:");
-                                TimeDelivery = DateTime.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Time to assign the package to the glider:");
-                                TimeGlider = DateTime.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Package collection time from the sender:");
-                                collectionTime = DateTime.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Time of arrival of the package to the recipient:");
-                                TimeRecipient = DateTime.Parse(Console.ReadLine());
-                                //DalObject.DataSource.BaseStationArry[ DataSource.B](id, name, num, longitude, Latitude);
+                                //AddPackage;
                                 break;
                         }
                         break;
