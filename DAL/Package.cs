@@ -29,10 +29,11 @@ namespace IDAL
                 result += $"Weight category is: {Weight}, \n";
                 result += $"Priority is: {priority}, \n";
                 result += $"ID skimmer operation is: {IDSkimmerOperation}, \n";
-                result += $"Package creation time is: {IDSkimmerOperation}, \n";
+                result += $"Package creation time is: {PackageCreationTime}, \n";
                 result += $"Time to assign the package to the glider is: {TimeAssignGlider}, \n";
                 result += $"Package collection time from the sender is: {PackageCollectionTime}, \n";
                 result += $"Time of arrival of the package to the recipient is: {TimeArrivalRecipient}, \n";
+                Console.WriteLine(result);
                 return result;
             }
         }

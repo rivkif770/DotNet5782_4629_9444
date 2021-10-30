@@ -18,7 +18,7 @@ namespace DalObject
         {
             public static int IDPackage = 1000;
         }
-        public static void Initialize(DataSource DJ)
+        public static void Initialize( )
         {
             Random r = new Random();
             int num = r.Next();
@@ -49,7 +49,7 @@ namespace DalObject
                 Client newC = new Client();
                 newC.Latitude = r.Next(-100, 100);
                 newC.Longitude = r.Next(-100, 100);
-                newC.ID = r.Next(999999999, 1000000000);
+                newC.ID = r.Next(99999999, 1000000000);
                 newC.Telephone = $"0{r.Next(50, 59)}-{r.Next(1000000, 10000000)}";
                 newC.Name = $"David{i}";
                 ListClient.Add(newC);
@@ -61,7 +61,7 @@ namespace DalObject
                 newP.ID = DalObject.DataSource.Config.IDPackage++;
                 newP.IDSender = ListClient[r.Next(6)].ID;
                 newP.IDgets = ListClient[r.Next(6)].ID;
-                newP.IDSkimmerOperation = ListQuadocopter[r.Next(6)].IDNumber;
+                newP.IDSkimmerOperation = ListQuadocopter[r.Next(5)].IDNumber;
                 newP.Weight = (WeightCategories)r.Next(3);
                 newP.priority = (Priorities)r.Next(3);
                 newP.PackageCreationTime = DateTime.Now;

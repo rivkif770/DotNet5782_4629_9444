@@ -23,20 +23,22 @@ namespace ConsoleUI
             DisplayOptions displayOptions;
             do
             {
-                Console.WriteLine("welcome!" + "option:\n 0-Exit\n 1-Add\n 2-Update\n 3-List View\n 4-Display\n");
+                Console.WriteLine("welcome!" + "option:\n 0-Exit\n 1-Add\n 2-Update\n 3-Display\n 4-List View\n");
                 options = (Options)int.Parse(Console.ReadLine());
                 switch (options)
                 {
                     case Options.Add:
-                        Console.WriteLine("adding option:\n 0-Exit\n; 1- Add a base station to the list of stations\n" +
+                        Console.WriteLine("adding option:\n"+
+                            " 0-Exit\n" +
+                            " 1- Add a base station to the list of stations\n" +
                             " 2- Add a skimmer to the list of existing skimmers\n" +
-                            "3- Admission of a new customer to the customer list\n " +
+                            " 3- Admission of a new customer to the customer list\n" +
                             " 4-Receipt of package for shipment\n");
                         inseitOption = (InseitOption)int.Parse(Console.ReadLine());
                         switch (inseitOption)
                         {
                             case InseitOption.Exit:
-                                break;
+                                return;
                             case InseitOption.AddBaseStation:
                                 BaseStation newBaseStation = new BaseStation();
 
@@ -108,7 +110,7 @@ namespace ConsoleUI
                                 Console.WriteLine("Enter Weight category 0-low,1-middle,2-heavy:");
                                 newPackage.Weight = (WeightCategories)int.Parse(Console.ReadLine());
 
-                                Console.WriteLine("Enter priority:");
+                                Console.WriteLine("Enter priority 0-regular,1-fast,2-emergency:");
                                 newPackage.priority = (Priorities)int.Parse(Console.ReadLine());
 
                                 newPackage.IDSkimmerOperation = 0;
@@ -120,16 +122,18 @@ namespace ConsoleUI
                         break;
 
                     case Options.Update:
-                        Console.WriteLine("adding option:\n 0-Exit\n; 1- Assign a package to a skimmer\n" +
-                            " 2- Package collection by skimmer\n" +
-                            "3- ADelivery package to customer\n " +
+                        Console.WriteLine("adding option:\n" +
+                            " 0-Exit\n" +
+                            " 1-Assign a package to a skimmer\n" +
+                            " 2-Package collection by skimmer\n" +
+                            " 3-ADelivery package to customer\n" +
                             " 4-Sending a skimmer for charging at a base station\n" +
-                            "5-Release skimmer from charging at base station");
+                            " 5-Release skimmer from charging at base station");
                         updateOption = (UpdateOption)int.Parse(Console.ReadLine());
                         switch (updateOption)
                         {
                             case UpdateOption.Exit:
-                                break;
+                                return;
                             case UpdateOption.Affiliation:
                                 int idp,idq;
                                 Console.WriteLine("enter ID of Package:");
@@ -165,15 +169,17 @@ namespace ConsoleUI
                         }
                         break;
                     case Options.Display:
-                        Console.WriteLine("adding option:\n 0-Exit\n; 1- Base Station View\n" +
-                            " 2- Skimmer display\n" +
-                            "3- Customer view\n " +
+                        Console.WriteLine("adding option:\n" +
+                            " 0-Exit\n" +
+                            " 1-Base Station View\n" +
+                            " 2-Skimmer display\n" +
+                            " 3-Customer view\n" +
                             " 4-Package view\n");
                         displayOptions = (DisplayOptions)int.Parse(Console.ReadLine());
                         switch (displayOptions)
                         {
                             case DisplayOptions.Exit:
-                                break;
+                                return;
                             case DisplayOptions.DisplayBaseStation:
                                 Console.WriteLine("enter ID of BaseStation:");
                                 int IDb;
@@ -201,17 +207,19 @@ namespace ConsoleUI
                         }
                         break;
                     case Options.ViewTheLists:
-                        Console.WriteLine("adding option:\n 0-Exit\n; 1- Displays a list of base stations\n" +
-                            " 2- Displays the list of skimmers\n" +
-                            "3- View customer list\n " +
+                        Console.WriteLine("adding option:\n" +
+                            " 0-Exit\n" +
+                            " 1-Displays a list of base stations\n" +
+                            " 2-Displays the list of skimmers\n" +
+                            " 3-View customer list\n" +
                             " 4-Displays the list of packages\n" +
-                            "5-Displays a list of packages not yet associated with the glider\n" +
-                            "6-Display of base stations with available charging stations");
+                            " 5-Displays a list of packages not yet associated with the glider\n" +
+                            " 6-Display of base stations with available charging stations");
                         optionsListView = (OptionsListView)int.Parse(Console.ReadLine());
                         switch (optionsListView)
                         {
                             case OptionsListView.Exit:
-                                break;
+                                return;
                             case OptionsListView.ViewBaseStation:
                                 DalObject.dalObject.printBaseStation();
                                 break;
@@ -234,12 +242,14 @@ namespace ConsoleUI
                         break;
                 }
             }
-            while (true);
+            while (options != 0);
         }
 
         static void Main(string[] args)
         {
+            DalObject.DataSource.Initialize(); 
             Menu();
+
         }
     }
 }

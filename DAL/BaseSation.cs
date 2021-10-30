@@ -24,6 +24,7 @@ namespace IDAL
                 result += $"Several positions of argument is: {SeveralPositionsArgument}, \n";
                 result += $"Latitude is: {Latitude}, \n";
                 result += $"Longitude is: {Longitude}, \n";
+                Console.WriteLine(result);
                 return result;
             }
         }
