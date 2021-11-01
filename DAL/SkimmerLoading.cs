@@ -18,7 +18,6 @@ namespace IDAL
                 String result = "";
                 result += $"Base station ID is: {StationID}, \n";
                 result += $"Skimmer ID is: {SkimmerID}, \n";
-                Console.WriteLine(result);
                 return result;
             }
         }

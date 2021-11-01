@@ -33,7 +33,6 @@ namespace IDAL
                 result += $"Time to assign the package to the glider is: {TimeAssignGlider}, \n";
                 result += $"Package collection time from the sender is: {PackageCollectionTime}, \n";
                 result += $"Time of arrival of the package to the recipient is: {TimeArrivalRecipient}, \n";
-                Console.WriteLine(result);
                 return result;
             }
         }

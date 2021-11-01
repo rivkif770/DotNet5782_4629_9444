@@ -14,6 +14,9 @@ namespace ConsoleUI
         enum UpdateOption { Exit, Affiliation, Collection, Supply, SendLoading, ReleaseCharging }
         enum DisplayOptions { Exit, DisplayBaseStation, DisplaySkimmer, DisplayClient, DisplayPackage }
         enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewClient, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
+
+        static DalObject.DalObject mydal = new DalObject.DalObject();
+
         private static void Menu()
         {
             Options options;
@@ -21,6 +24,7 @@ namespace ConsoleUI
             UpdateOption updateOption;
             OptionsListView optionsListView;
             DisplayOptions displayOptions;
+            bool success;
             do
             {
                 Console.WriteLine("welcome!" + "option:\n 0-Exit\n 1-Add\n 2-Update\n 3-Display\n 4-List View\n");
@@ -57,7 +61,7 @@ namespace ConsoleUI
                                 Console.WriteLine("Enter Latitude:");
                                 newBaseStation.Latitude = double.Parse(Console.ReadLine());
 
-                                DalObject.dalObject.AddBaseStation(newBaseStation);
+                                mydal.AddBaseStation(newBaseStation);
                                 break;
                             case InseitOption.AddSkimmer:
                                 Quadocopter newQuadocopter = new Quadocopter();
@@ -74,7 +78,7 @@ namespace ConsoleUI
                                 newQuadocopter.Battery = 100;
                                 newQuadocopter.SkimmerMode = (DronStatuses)0;
 
-                                DalObject.dalObject.AddSkimmer(newQuadocopter);
+                                mydal.AddSkimmer(newQuadocopter);
                                 break;
                             case InseitOption.AddClient:
                                 Client newClient = new Client();
@@ -94,7 +98,7 @@ namespace ConsoleUI
                                 Console.WriteLine("Enter Latitude:");
                                 newClient.Latitude = double.Parse(Console.ReadLine());
 
-                                DalObject.dalObject.AddClient(newClient);
+                                mydal.AddClient(newClient);
                                 break;
                             case InseitOption.AddPackage:
                                 Package newPackage = new Package();
@@ -116,7 +120,7 @@ namespace ConsoleUI
                                 newPackage.IDSkimmerOperation = 0;
                                 newPackage.PackageCreationTime = DateTime.Now;
 
-                                DalObject.dalObject.AddPackage(newPackage);
+                                mydal.AddPackage(newPackage);
                                 break;
                         }
                         break;
@@ -140,30 +144,35 @@ namespace ConsoleUI
                                 idp = int.Parse(Console.ReadLine());
                                 Console.WriteLine("enter ID of skimmers:");
                                 idq = int.Parse(Console.ReadLine());
-                                DalObject.dalObject.AssignPackageSkimmer(idp, idq);
+                                mydal.AssignPackageSkimmer(idp, idq);
                                 break;
                             case UpdateOption.Collection:
                                 Console.WriteLine("enter ID of Package:");
                                 int id = int.Parse(Console.ReadLine());
-                                DalObject.dalObject.CollectionPackage(id);
+                                mydal.CollectionPackage(id);
                                 break;
                             case UpdateOption.Supply:
                                 Console.WriteLine("enter ID of Package:");
                                 id = int.Parse(Console.ReadLine());
-                                DalObject.dalObject.PackageDelivery(id);
+                                mydal.PackageDelivery(id);
                                 break;
                             case UpdateOption.SendLoading:
                                 Console.WriteLine("enter ID of skimmers:");
                                 id = int.Parse(Console.ReadLine());
                                 Console.WriteLine("Select a base station from the displayed stations and enter its ID number:");
-                                DalObject.dalObject.printBaseStationFreeCharging();
+                                foreach (var item in mydal.BaseStationFreeCharging())
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 int idBS = int.Parse(Console.ReadLine());
-                                DalObject.dalObject.SendingSkimmerForCharging(id, idBS);
+                                mydal.SendingSkimmerForCharging(id, idBS);
                                 break;
                             case UpdateOption.ReleaseCharging:
                                 Console.WriteLine("enter ID of skimmers:");
                                 id = int.Parse(Console.ReadLine());
-                                DalObject.dalObject.SkimmerRelease(id);
+                                Console.WriteLine("enter ID of Base Station:");
+                                idq = int.Parse(Console.ReadLine());
+                               mydal.SkimmerRelease(id,idq);
                                 break;
 
                         }
@@ -181,28 +190,42 @@ namespace ConsoleUI
                             case DisplayOptions.Exit:
                                 return;
                             case DisplayOptions.DisplayBaseStation:
-                                Console.WriteLine("enter ID of BaseStation:");
                                 int IDb;
-                                IDb = int.Parse(Console.ReadLine());
-                                DalObject.dalObject.DisplayBaseStation(IDb);
+                                do
+                                {
+                                    Console.WriteLine("enter ID of BaseStation:");
+                                    success = int.TryParse(Console.ReadLine(), out IDb);
+
+                                } while (success == false);
+                                
+                                Console.WriteLine(mydal.GetBaseStation(IDb));
                                 break;
                             case DisplayOptions.DisplaySkimmer:
-                                Console.WriteLine("enter ID of Skimmer:");
                                 int IDq;
-                                IDq = int.Parse(Console.ReadLine());
-                                DalObject.dalObject.DisplaySkimmer(IDq);
+                                do
+                                {
+                                    Console.WriteLine("enter ID of Skimmer:");
+                                    success = int.TryParse(Console.ReadLine(), out IDq);
+                                } while (success == false);
+                                Console.WriteLine(mydal.GetQuadrocopter(IDq));
                                 break;
                             case DisplayOptions.DisplayClient:
-                                Console.WriteLine("enter ID of Client:");
                                 int IDc;
-                                IDc = int.Parse(Console.ReadLine());
-                                DalObject.dalObject.DisplayClient(IDc);
+                                do
+                                {
+                                    Console.WriteLine("enter ID of Client:");
+                                    success = int.TryParse(Console.ReadLine(), out IDc);
+                                } while (success == false);
+                                Console.WriteLine(mydal.GetClient(IDc));
                                 break;
                             case DisplayOptions.DisplayPackage:
-                                Console.WriteLine("enter ID of Package:");
                                 int IDp;
-                                IDp = int.Parse(Console.ReadLine());
-                                DalObject.dalObject.DisplayPackage(IDp);
+                                do
+                                {
+                                    Console.WriteLine("enter ID of Package:");
+                                    success = int.TryParse(Console.ReadLine(), out IDp);
+                                } while (success == false);
+                                Console.WriteLine(mydal.GetPackage(IDp));
                                 break;
                         }
                         break;
@@ -221,22 +244,40 @@ namespace ConsoleUI
                             case OptionsListView.Exit:
                                 return;
                             case OptionsListView.ViewBaseStation:
-                                DalObject.dalObject.printBaseStation();
+                                foreach (BaseStation item in mydal.GetBaseStationList())
+                                {
+                                    Console.WriteLine(item);
+                                } 
                                 break;
                             case OptionsListView.ViewSkimmer:
-                                DalObject.dalObject.printSkimmer();
+                                foreach (Quadocopter item in mydal.GetQuadocopterList())
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                             case OptionsListView.ViewClient:
-                                DalObject.dalObject.printClient();
+                                foreach (Client item in mydal.GetClientList())
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                             case OptionsListView.ViewPackage:
-                                DalObject.dalObject.printPackage();
+                                foreach (Package item in mydal.GetPackageList())
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                             case OptionsListView.ViewUnassignedPackages:
-                                DalObject.dalObject.printPackageWithoutSkimmer();
+                                foreach (var item in mydal.PackagesWithoutSkimmer())
+                                {
+                                    Console.WriteLine(item);
+                                } 
                                 break;
                             case OptionsListView.ViewFreeBaseStation:
-                                DalObject.dalObject.printBaseStationFreeCharging();
+                                foreach (var item in mydal.BaseStationFreeCharging())
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                         }
                         break;
@@ -247,9 +288,7 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
-            DalObject.DataSource.Initialize(); 
             Menu();
-
         }
     }
 }
