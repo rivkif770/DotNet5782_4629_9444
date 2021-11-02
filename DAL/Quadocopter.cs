@@ -22,7 +22,7 @@ namespace IDAL
                 result += $"Unique ID number: {IDNumber}, \n";
                 result += $"The skimmer model: {SkimmerModel}, \n";
                 result += $"Weight category: {Weight}, \n";
-                result += $"Battery status: {Battery} + '%', \n";
+                result += $"Battery status: {Battery}%, \n";
                 result += $"Skimmer mode: {SkimmerMode}, \n";
                 return result;
             }
