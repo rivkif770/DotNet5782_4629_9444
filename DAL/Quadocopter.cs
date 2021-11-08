@@ -13,8 +13,8 @@ namespace IDAL
             public int IDNumber { get; set; }
             public String SkimmerModel { get; set; }
             public WeightCategories Weight { get; set; }
-            public double Battery { get; set; }
-            public DronStatuses SkimmerMode { get; set; }
+            //public double Battery { get; set; }
+            //public DronStatuses SkimmerMode { get; set; }
 
             public override string ToString()
             {
@@ -22,8 +22,8 @@ namespace IDAL
                 result += $"Unique ID number: {IDNumber}, \n";
                 result += $"The skimmer model: {SkimmerModel}, \n";
                 result += $"Weight category: {Weight}, \n";
-                result += $"Battery status: {Battery}%, \n";
-                result += $"Skimmer mode: {SkimmerMode}, \n";
+                //result += $"Battery status: {Battery}%, \n";
+                //result += $"Skimmer mode: {SkimmerMode}, \n";
                 return result;
             }
         }

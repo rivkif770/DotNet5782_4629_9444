@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DalObject
 {
-    public class DalObject
+    public class DalObject : IDal
     {
         public DalObject()
         {
@@ -35,7 +35,7 @@ namespace DalObject
         public void AssignPackageSkimmer(int idp, int idq)//Assign a package to a skimmer
         {
             Quadocopter temp_q = this.GetQuadrocopter(idq);
-            temp_q.SkimmerMode = (DronStatuses)2;//Change the glider position to catch
+            //temp_q.SkimmerMode = (DronStatuses)2;//Change the glider position to catch
 
             DataSource.ListQuadocopter.RemoveAll(quad => quad.IDNumber == idq);//Deleting the old skimmer object
             DataSource.ListQuadocopter.Add(temp_q);//Deleting the new skimmer object includes the change
@@ -66,8 +66,8 @@ namespace DalObject
         public void SendingSkimmerForCharging(int idq, int idBS)//Sending a skimmer for charging at a base station
         {
             Quadocopter temp_q = this.GetQuadrocopter(idq);
-            temp_q.Battery = 0;//Update the battery to 0 percent
-            temp_q.SkimmerMode = (DronStatuses)1;//Skimmer status update for maintenance
+            //temp_q.Battery = 0;//Update the battery to 0 percent
+            //temp_q.SkimmerMode = (DronStatuses)1;//Skimmer status update for maintenance
 
             DataSource.ListQuadocopter.RemoveAll(quad => quad.IDNumber == idq);//Deleting the old skimmer object
             DataSource.ListQuadocopter.Add(temp_q);//Deleting the new skimmer object includes the change
@@ -81,8 +81,8 @@ namespace DalObject
         public void SkimmerRelease(int idq, int IdBS)//Release skimmer from base charge
         {
             Quadocopter temp_q = this.GetQuadrocopter(idq);
-            temp_q.Battery = 100;//Update the battery to 100 percent
-            temp_q.SkimmerMode = (DronStatuses)0;//Skimmer status update available
+            //temp_q.Battery = 100;//Update the battery to 100 percent
+            //temp_q.SkimmerMode = (DronStatuses)0;//Skimmer status update available
 
             DataSource.ListQuadocopter.RemoveAll(quad => quad.IDNumber == idq);//Deleting the old skimmer object
             DataSource.ListQuadocopter.Add(temp_q);//Deleting the new skimmer object includes the change
@@ -102,6 +102,10 @@ namespace DalObject
         }
         public Client GetClient(int IDc)//Client view by appropriate ID
         {
+            if (!DataSource.ListClient.Exists(item => item.ID == IDc))
+            {
+                throw new ClientException($"id : {IDc} does not exist!!", Severity.Mild);
+            }
             return DataSource.ListClient.FirstOrDefault(c => c.ID == IDc);
             //int result = DataSource.ListClient.FindIndex(x => x.ID == IDc);
             //DataSource.ListClient[result].ToString();
@@ -115,23 +119,27 @@ namespace DalObject
             return DataSource.ListPackage.FirstOrDefault(p => p.ID == idp);
         }
         //////////////////////////////////////////////////////////
-        public List<BaseStation>  GetBaseStationList()//return a list of base stations
+        public IEnumerable<BaseStation> GetBaseStationList()//return a list of base stations
         {
-           return  DataSource.ListBaseStation.ToList();
+            return DataSource.ListBaseStation.Take(DataSource.ListBaseStation.Count).ToList();
+            //return IEnumerable< DataSource.ListBaseStation.ToList();
         }
-        public List<Quadocopter> GetQuadocopterList()//Displays a list of Skimmer
+        public IEnumerable<Quadocopter> GetQuadocopterList()//Displays a list of Skimmer
         {
-            return DataSource.ListQuadocopter.ToList();
+            //return DataSource.ListQuadocopter.ToList();
+            return DataSource.ListQuadocopter.Take(DataSource.ListQuadocopter.Count).ToList();
         }
-        public List<Client> GetClientList()//Displays a list of Client
+        public IEnumerable<Client> GetClientList()//Displays a list of Client
         {
-            return DataSource.ListClient.ToList();
+            //return DataSource.ListClient.ToList();
+            return DataSource.ListClient.Take(DataSource.ListClient.Count).ToList();
         }
-        public List<Package> GetPackageList()//Displays a list of Package
+        public IEnumerable<Package> GetPackageList()//Displays a list of Package
         {
-            return DataSource.ListPackage.ToList();
+            //return DataSource.ListPackage.ToList();
+            return DataSource.ListPackage.Take(DataSource.ListPackage.Count).ToList();
         }
-        public List<Package>  PackagesWithoutSkimmer()//Displays a list of Packages not yet associated with the glider
+        public List<Package> PackagesWithoutSkimmer()//Displays a list of Packages not yet associated with the glider
         {
             List<Package> result = new List<Package>();
             for (int i = 0; i < DataSource.ListPackage.Count; i++)

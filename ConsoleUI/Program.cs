@@ -75,8 +75,8 @@ namespace ConsoleUI
                                 Console.WriteLine("Enter Weight category 0-low,1-middle,2-heavy:");
                                 newQuadocopter.Weight = (WeightCategories)int.Parse(Console.ReadLine());
 
-                                newQuadocopter.Battery = 100;
-                                newQuadocopter.SkimmerMode = (DronStatuses)0;
+                                //newQuadocopter.Battery = 100;
+                                //newQuadocopter.SkimmerMode = (DronStatuses)0;
 
                                 mydal.AddSkimmer(newQuadocopter);
                                 break;

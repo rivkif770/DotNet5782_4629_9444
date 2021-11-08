@@ -41,9 +41,9 @@ namespace DalObject
                 Quadocopter newQ = new Quadocopter();
                 newQ.IDNumber = r.Next(99, 1000);
                 newQ.SkimmerModel = $"A2{i}";
-                newQ.Battery = r.Next(101);
+                //newQ.Battery = r.Next(101);
                 newQ.Weight = (WeightCategories)r.Next(3);
-                newQ.SkimmerMode = (DronStatuses)r.Next(3);
+                //newQ.SkimmerMode = (DronStatuses)r.Next(3);
                 ListQuadocopter.Add(newQ);
             }
 
