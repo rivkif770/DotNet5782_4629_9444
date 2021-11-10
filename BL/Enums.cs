@@ -2,7 +2,7 @@
 {
     public enum Weight
     {
-        Heavy,Medium,Light
+        Heavy, Medium, Light
     }
     public enum Priority
     {
@@ -13,6 +13,7 @@
         Created, Assigned, Picked, Delivered
     }
     public enum SkimmerStatuses
-    { 
-        free, maintenance, shipping };
+    {
+        free, maintenance, shipping
     }
+}
