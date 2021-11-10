@@ -12,4 +12,7 @@
     {
         Created, Assigned, Picked, Delivered
     }
-}
+    public enum SkimmerStatuses
+    { 
+        free, maintenance, shipping };
+    }
