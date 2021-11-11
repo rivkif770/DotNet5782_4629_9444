@@ -16,12 +16,9 @@ namespace DalObject
         //////////////////////////////////////////////////////////
         public void AddBaseStation(BaseStation b)//Adding a station
         {
-            if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
-            {
-                throw new BaseStationException($"Person {b.UniqueID} Save to system", Severity.Mild);
-            }
-            DataSource.ListBaseStation.Add(b);
+            DalObjectBaseStation.AddBaseStation_private(b);
         }
+
         public void AddSkimmer(Quadocopter q)//added a skimmer
         {
             if (DataSource.ListQuadocopter.Exists(item => item.IDNumber == q.IDNumber))//If finds an existing Skimmer throws an error.
@@ -32,11 +29,7 @@ namespace DalObject
         }
         public void AddClient(Client c)//Adding a customer
         {
-            if (DataSource.ListClient.Exists(item => item.ID == c.ID))//If finds an existing Customer throws an error.
-            {
-                throw new BaseStationException($"Customer {c.ID} Save to system", Severity.Mild);
-            }
-            DataSource.ListClient.Add(c);
+            DalObjectClient.AddClient_private(c);
         }
         public void AddPackage(Package p)//Add a package
         {
@@ -112,23 +105,11 @@ namespace DalObject
         //////////////////////////////////////////////////////////
         public BaseStation GetBaseStation(int IDb)//Base station view by appropriate ID
         {
-            if (!DataSource.ListBaseStation.Exists(item => item.UniqueID == IDb))
-            {
-                throw new BaseStationException($"id : {IDb} does not exist!!", Severity.Mild);
-            }
-            return DataSource.ListBaseStation.FirstOrDefault(b => b.UniqueID == IDb);
-            // int result = DataSource.ListBaseStation.FindIndex(x => x.UniqueID == IDb);
-            //return DataSource.ListBaseStation[result];
+            return DalObjectBaseStation.GetBaseStation_private(IDb);            
         }
         public Client GetClient(int IDc)//Client view by appropriate ID
         {
-            if (!DataSource.ListClient.Exists(item => item.ID == IDc))
-            {
-                throw new ClientException($"id : {IDc} does not exist!!", Severity.Mild);
-            }
-            return DataSource.ListClient.FirstOrDefault(c => c.ID == IDc);
-            //int result = DataSource.ListClient.FindIndex(x => x.ID == IDc);
-            //DataSource.ListClient[result].ToString();
+            return DalObjectClient.GetClient_private(IDc);
         }
         public Quadocopter GetQuadrocopter(int IDq)//Quadrocopter view by appropriate ID
         {
@@ -149,8 +130,7 @@ namespace DalObject
         //////////////////////////////////////////////////////////
         public IEnumerable<BaseStation> GetBaseStationList()//return a list of base stations
         {
-            return DataSource.ListBaseStation.Take(DataSource.ListBaseStation.Count).ToList();
-            //return IEnumerable< DataSource.ListBaseStation.ToList();
+            return DalObjectBaseStation.GetBaseStationList_private();
         }
         public IEnumerable<Quadocopter> GetQuadocopterList()//Displays a list of Skimmer
         {
@@ -159,8 +139,7 @@ namespace DalObject
         }
         public IEnumerable<Client> GetClientList()//Displays a list of Client
         {
-            //return DataSource.ListClient.ToList();
-            return DataSource.ListClient.Take(DataSource.ListClient.Count).ToList();
+            return DalObjectClient.GetClientList_private();
         }
         public IEnumerable<Package> GetPackageList()//Displays a list of Package
         {
