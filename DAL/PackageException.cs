@@ -1,27 +1,19 @@
-﻿using IDAL.DO;
-using System;
+﻿using System;
 using System.Runtime.Serialization;
 
-namespace DalObject
+namespace IDAL.DO
 {
     [Serializable]
-    internal class PackageException : Exception
+    public class PackageException : Exception
     {
-        private string v;
-        private Severity mild;
-
+        Severity severity;
         public PackageException()
         {
         }
 
-        public PackageException(string message) : base(message)
+        public PackageException(string message, Severity severity) : base(message)
         {
-        }
-
-        public PackageException(string v, Severity mild)
-        {
-            this.v = v;
-            this.mild = mild;
+            this.severity = severity;
         }
 
         public PackageException(string message, Exception innerException) : base(message, innerException)

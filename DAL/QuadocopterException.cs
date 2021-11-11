@@ -1,27 +1,19 @@
-﻿using IDAL.DO;
-using System;
+﻿using System;
 using System.Runtime.Serialization;
 
-namespace DalObject
+namespace IDAL.DO
 {
     [Serializable]
-    internal class QuadocopterException : Exception
+    public class QuadocopterException : Exception
     {
-        private string v;
-        private Severity mild;
-
+        Severity severity;
         public QuadocopterException()
         {
         }
 
-        public QuadocopterException(string message) : base(message)
+        public QuadocopterException(string message, Severity severity) : base(message)
         {
-        }
-
-        public QuadocopterException(string v, Severity mild)
-        {
-            this.v = v;
-            this.mild = mild;
+            this.severity = severity;
         }
 
         public QuadocopterException(string message, Exception innerException) : base(message, innerException)

@@ -85,8 +85,16 @@ namespace ConsoleUI
 
                                 //newQuadocopter.Battery = 100;
                                 //newQuadocopter.SkimmerMode = (DronStatuses)0;
-
-                                mydal.AddSkimmer(newQuadocopter);
+                                try
+                                {
+                                    mydal.AddSkimmer(newQuadocopter);
+                                }
+                                catch (QuadocopterException exception)
+                                {
+                                    Console.WriteLine(exception);
+                                    throw;
+                                }
+                                
                                 break;
                             case InseitOption.AddClient:
                                 Client newClient = new Client();
@@ -106,7 +114,16 @@ namespace ConsoleUI
                                 Console.WriteLine("Enter Latitude:");
                                 newClient.Latitude = double.Parse(Console.ReadLine());
 
-                                mydal.AddClient(newClient);
+                                try
+                                {
+                                    mydal.AddClient(newClient);
+                                }
+                                catch (ClientException exception)
+                                {
+                                    Console.WriteLine(exception);
+                                    throw;
+                                }
+                               
                                 break;
                             case InseitOption.AddPackage:
                                 Package newPackage = new Package();
@@ -128,7 +145,16 @@ namespace ConsoleUI
                                 newPackage.IDSkimmerOperation = 0;
                                 newPackage.PackageCreationTime = DateTime.Now;
 
-                                mydal.AddPackage(newPackage);
+                                try
+                                {
+                                    mydal.AddPackage(newPackage);
+                                }
+                                catch (ClientException exception)
+                                {
+                                    Console.WriteLine(exception);
+                                    throw;
+                                }
+                                
                                 break;
                         }
                         break;
@@ -205,8 +231,16 @@ namespace ConsoleUI
                                     success = int.TryParse(Console.ReadLine(), out IDb);
 
                                 } while (success == false);
+                                try
+                                {
+                                    Console.WriteLine(mydal.GetBaseStation(IDb));
+                                }
+                                catch (BaseStationException Exception)
+                                {
+                                    Console.WriteLine(Exception);
+                                    throw;
+                                }
                                 
-                                Console.WriteLine(mydal.GetBaseStation(IDb));
                                 break;
                             case DisplayOptions.DisplaySkimmer:
                                 int IDq;
@@ -215,7 +249,16 @@ namespace ConsoleUI
                                     Console.WriteLine("enter ID of Skimmer:");
                                     success = int.TryParse(Console.ReadLine(), out IDq);
                                 } while (success == false);
-                                Console.WriteLine(mydal.GetQuadrocopter(IDq));
+                                try
+                                {
+                                    Console.WriteLine(mydal.GetQuadrocopter(IDq));
+                                }
+                                catch (QuadocopterException Exception)
+                                {
+                                    Console.WriteLine(Exception);
+                                    throw;
+                                }
+                                
                                 break;
                             case DisplayOptions.DisplayClient:
                                 int IDc;
@@ -224,7 +267,16 @@ namespace ConsoleUI
                                     Console.WriteLine("enter ID of Client:");
                                     success = int.TryParse(Console.ReadLine(), out IDc);
                                 } while (success == false);
-                                Console.WriteLine(mydal.GetClient(IDc));
+                                try
+                                {
+                                    Console.WriteLine(mydal.GetClient(IDc));
+                                }
+                                catch (ClientException Exception)
+                                {
+                                    Console.WriteLine(Exception);
+                                    throw;
+                                }
+                                
                                 break;
                             case DisplayOptions.DisplayPackage:
                                 int IDp;
@@ -233,7 +285,16 @@ namespace ConsoleUI
                                     Console.WriteLine("enter ID of Package:");
                                     success = int.TryParse(Console.ReadLine(), out IDp);
                                 } while (success == false);
-                                Console.WriteLine(mydal.GetPackage(IDp));
+                                try
+                                {
+                                    Console.WriteLine(mydal.GetPackage(IDp));
+                                }
+                                catch (PackageException Exception)
+                                {
+                                    Console.WriteLine(Exception);
+                                    throw;
+                                }
+                                
                                 break;
                         }
                         break;

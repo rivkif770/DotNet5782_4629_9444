@@ -16,22 +16,34 @@ namespace DalObject
         //////////////////////////////////////////////////////////
         public void AddBaseStation(BaseStation b)//Adding a station
         {
-            if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))
+            if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
             {
-                throw new BaseStationException($"person {b.UniqueID} Save to system", Severity.Mild);
+                throw new BaseStationException($"Person {b.UniqueID} Save to system", Severity.Mild);
             }
             DataSource.ListBaseStation.Add(b);
         }
         public void AddSkimmer(Quadocopter q)//added a skimmer
         {
+            if (DataSource.ListQuadocopter.Exists(item => item.IDNumber == q.IDNumber))//If finds an existing Skimmer throws an error.
+            {
+                throw new BaseStationException($"Skimmer {q.IDNumber} Save to system", Severity.Mild);
+            }
             DataSource.ListQuadocopter.Add(q);
         }
         public void AddClient(Client c)//Adding a customer
         {
+            if (DataSource.ListClient.Exists(item => item.ID == c.ID))//If finds an existing Customer throws an error.
+            {
+                throw new BaseStationException($"Customer {c.ID} Save to system", Severity.Mild);
+            }
             DataSource.ListClient.Add(c);
         }
         public void AddPackage(Package p)//Add a package
         {
+            if (DataSource.ListPackage.Exists(item => item.ID == p.ID))//If finds an existing Package throws an error.
+            {
+                throw new BaseStationException($"Package {p.ID} Save to system", Severity.Mild);
+            }
             p.ID = global::DalObject.DataSource.Config.IDPackage++;
             DataSource.ListPackage.Add(p);
         }
