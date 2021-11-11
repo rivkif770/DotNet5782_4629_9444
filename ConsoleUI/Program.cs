@@ -60,8 +60,16 @@ namespace ConsoleUI
 
                                 Console.WriteLine("Enter Latitude:");
                                 newBaseStation.Latitude = double.Parse(Console.ReadLine());
-
-                                mydal.AddBaseStation(newBaseStation);
+                                try
+                                {
+                                    mydal.AddBaseStation(newBaseStation);
+                                }
+                                catch (BaseStationException exception)
+                                {
+                                    Console.WriteLine(exception);
+                                    throw;
+                                }
+                                
                                 break;
                             case InseitOption.AddSkimmer:
                                 Quadocopter newQuadocopter = new Quadocopter();

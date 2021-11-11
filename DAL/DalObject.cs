@@ -16,6 +16,10 @@ namespace DalObject
         //////////////////////////////////////////////////////////
         public void AddBaseStation(BaseStation b)//Adding a station
         {
+            if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))
+            {
+                throw new BaseStationException($"person {b.UniqueID} Save to system", Severity.Mild);
+            }
             DataSource.ListBaseStation.Add(b);
         }
         public void AddSkimmer(Quadocopter q)//added a skimmer
@@ -96,6 +100,10 @@ namespace DalObject
         //////////////////////////////////////////////////////////
         public BaseStation GetBaseStation(int IDb)//Base station view by appropriate ID
         {
+            if (!DataSource.ListBaseStation.Exists(item => item.UniqueID == IDb))
+            {
+                throw new BaseStationException($"id : {IDb} does not exist!!", Severity.Mild);
+            }
             return DataSource.ListBaseStation.FirstOrDefault(b => b.UniqueID == IDb);
             // int result = DataSource.ListBaseStation.FindIndex(x => x.UniqueID == IDb);
             //return DataSource.ListBaseStation[result];
@@ -112,10 +120,18 @@ namespace DalObject
         }
         public Quadocopter GetQuadrocopter(int IDq)//Quadrocopter view by appropriate ID
         {
+            if (!DataSource.ListQuadocopter.Exists(item => item.IDNumber == IDq))
+            {
+                throw new QuadocopterException($"id : {IDq} does not exist!!", Severity.Mild);
+            }
             return DataSource.ListQuadocopter.FirstOrDefault(q => q.IDNumber == IDq);
         }
         public Package GetPackage(int idp)//Package view by appropriate ID
         {
+            if (!DataSource.ListPackage.Exists(item => item.ID == idp))
+            {
+                throw new PackageException($"id : {idp} does not exist!!", Severity.Mild);
+            }
             return DataSource.ListPackage.FirstOrDefault(p => p.ID == idp);
         }
         //////////////////////////////////////////////////////////
