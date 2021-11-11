@@ -3,13 +3,19 @@ using System;
 
 namespace BL
 {
-    public class BlObject : IBl
+    public class BlObject : IBL.BO.IBL
     {
         IDAL.DO.IDal dal;
+
         public BlObject()
         {
             dal = new DalObject.DalObject();
         }
+
+        //public BaseStation AddBaseStation(BaseStation b)
+        //{
+
+        //}
         public Customer GetCustomer(int id)
         {
             IDAL.DO.Client somoeone;
