@@ -9,10 +9,16 @@ namespace BL
         internal static List<SkimmerToList> listSkimmer= new List<SkimmerToList>();
 
         IDAL.DO.IDal dal;
+
         public BlObject()
         {
             dal = new DalObject.DalObject();
         }
+
+        //public BaseStation AddBaseStation(BaseStation b)
+        //{
+
+        //}
         public Customer GetCustomer(int id)
         {
             IDAL.DO.Client somoeone;
