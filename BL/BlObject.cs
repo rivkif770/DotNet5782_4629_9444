@@ -1,10 +1,13 @@
 ﻿using IBL.BO;
 using System;
+using System.Collections.Generic;
 
 namespace BL
 {
-    public class BlObject : IBl
+    public class BlObject : IBL.BO.IBL
     {
+        internal static List<SkimmerToList> listSkimmer= new List<SkimmerToList>();
+
         IDAL.DO.IDal dal;
         public BlObject()
         {

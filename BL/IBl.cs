@@ -2,7 +2,7 @@
 
 namespace IBL.BO
 {
-    public interface IBl
+    public interface IBL
     {
         Customer GetCustomer(int id);
     }
