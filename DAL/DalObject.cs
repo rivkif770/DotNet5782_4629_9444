@@ -24,12 +24,9 @@ namespace DalObject
         }
         public void AddSkimmer(Quadocopter q)//added a skimmer
         {
-            if (DataSource.ListQuadocopter.Exists(item => item.IDNumber == q.IDNumber))//If finds an existing Skimmer throws an error.
-            {
-                throw new BaseStationException($"Skimmer {q.IDNumber} Save to system", Severity.Mild);
-            }
-            DataSource.ListQuadocopter.Add(q);
+             DalObjectSkimmer.AddSkimmer_privet(q);
         }
+        
         public void AddClient(Client c)//Adding a customer
         {
             if (DataSource.ListClient.Exists(item => item.ID == c.ID))//If finds an existing Customer throws an error.
@@ -40,12 +37,7 @@ namespace DalObject
         }
         public void AddPackage(Package p)//Add a package
         {
-            if (DataSource.ListPackage.Exists(item => item.ID == p.ID))//If finds an existing Package throws an error.
-            {
-                throw new BaseStationException($"Package {p.ID} Save to system", Severity.Mild);
-            }
-            p.ID = global::DalObject.DataSource.Config.IDPackage++;
-            DataSource.ListPackage.Add(p);
+            DalObjectPackage.AddPackage_privet(p);
         }
         //////////////////////////////////////////////////////////
         public void AssignPackageSkimmer(int idp, int idq)//Assign a package to a skimmer
@@ -132,19 +124,11 @@ namespace DalObject
         }
         public Quadocopter GetQuadrocopter(int IDq)//Quadrocopter view by appropriate ID
         {
-            if (!DataSource.ListQuadocopter.Exists(item => item.IDNumber == IDq))
-            {
-                throw new QuadocopterException($"id : {IDq} does not exist!!", Severity.Mild);
-            }
-            return DataSource.ListQuadocopter.FirstOrDefault(q => q.IDNumber == IDq);
-        }
+           return DalObjectSkimmer.GetQuadrocopter_privet(IDq);
+        }     
         public Package GetPackage(int idp)//Package view by appropriate ID
         {
-            if (!DataSource.ListPackage.Exists(item => item.ID == idp))
-            {
-                throw new PackageException($"id : {idp} does not exist!!", Severity.Mild);
-            }
-            return DataSource.ListPackage.FirstOrDefault(p => p.ID == idp);
+            return DalObjectPackage.GetPackage_privet(idp);
         }
         //////////////////////////////////////////////////////////
         public IEnumerable<BaseStation> GetBaseStationList()//return a list of base stations
@@ -154,8 +138,7 @@ namespace DalObject
         }
         public IEnumerable<Quadocopter> GetQuadocopterList()//Displays a list of Skimmer
         {
-            //return DataSource.ListQuadocopter.ToList();
-            return DataSource.ListQuadocopter.Take(DataSource.ListQuadocopter.Count).ToList();
+            return DalObjectSkimmer.GetQuadocopterList_privet();
         }
         public IEnumerable<Client> GetClientList()//Displays a list of Client
         {
@@ -164,20 +147,11 @@ namespace DalObject
         }
         public IEnumerable<Package> GetPackageList()//Displays a list of Package
         {
-            //return DataSource.ListPackage.ToList();
-            return DataSource.ListPackage.Take(DataSource.ListPackage.Count).ToList();
+            return DalObjectPackage.GetPackageList_privet();
         }
         public List<Package> PackagesWithoutSkimmer()//Displays a list of Packages not yet associated with the glider
         {
-            List<Package> result = new List<Package>();
-            for (int i = 0; i < DataSource.ListPackage.Count; i++)
-            {
-                if (DataSource.ListPackage[i].IDSkimmerOperation == 0)
-                {
-                    result.Add(DataSource.ListPackage[i]);
-                }
-            }
-            return result;
+            return DalObjectPackage.PackagesWithoutSkimmer_privet();
         }
         public List<BaseStation> BaseStationFreeCharging()//Displays a list of Base stations with available charging stations
         {
