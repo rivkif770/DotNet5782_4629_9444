@@ -172,24 +172,52 @@ namespace ConsoleUI
                         {
                             case UpdateOption.Exit:
                                 return;
+                            //Assign a package to a skimmer
                             case UpdateOption.Affiliation:
                                 int idp,idq;
                                 Console.WriteLine("enter ID of Package:");
                                 idp = int.Parse(Console.ReadLine());
                                 Console.WriteLine("enter ID of skimmers:");
                                 idq = int.Parse(Console.ReadLine());
-                                mydal.AssignPackageSkimmer(idp, idq);
+                                try
+                                {
+                                    mydal.AssignPackageSkimmer(idp, idq);
+                                }
+                                catch (Exception exception)
+                                {
+                                    Console.WriteLine(exception);
+                                    throw;
+                                }
                                 break;
+                            //Package collection by skimmer
                             case UpdateOption.Collection:
                                 Console.WriteLine("enter ID of Package:");
-                                int id = int.Parse(Console.ReadLine());
-                                mydal.CollectionPackage(id);
+                                int id = int.Parse(Console.ReadLine());                               
+                                try
+                                {
+                                    mydal.CollectionPackage(id);
+                                }
+                                catch (Exception exception)
+                                {
+                                    Console.WriteLine(exception);
+                                    throw;
+                                }
                                 break;
+                            //Delivery package to customer
                             case UpdateOption.Supply:
                                 Console.WriteLine("enter ID of Package:");
                                 id = int.Parse(Console.ReadLine());
-                                mydal.PackageDelivery(id);
+                                try
+                                {
+                                    mydal.PackageDelivery(id);
+                                }
+                                catch (Exception exception)
+                                {
+                                    Console.WriteLine(exception);
+                                    throw;
+                                }
                                 break;
+                            // Sending a skimmer for charging at a base station
                             case UpdateOption.SendLoading:
                                 Console.WriteLine("enter ID of skimmers:");
                                 id = int.Parse(Console.ReadLine());
@@ -199,14 +227,31 @@ namespace ConsoleUI
                                     Console.WriteLine(item);
                                 }
                                 int idBS = int.Parse(Console.ReadLine());
-                                mydal.SendingSkimmerForCharging(id, idBS);
+                                try
+                                {
+                                    mydal.SendingSkimmerForCharging(id, idBS);
+                                }
+                                catch (Exception exception)
+                                {
+                                    Console.WriteLine(exception);
+                                    throw;
+                                }
                                 break;
+                            //Release skimmer from charging at base station
                             case UpdateOption.ReleaseCharging:
                                 Console.WriteLine("enter ID of skimmers:");
                                 id = int.Parse(Console.ReadLine());
                                 Console.WriteLine("enter ID of Base Station:");
-                                idq = int.Parse(Console.ReadLine());
-                               mydal.SkimmerRelease(id,idq);
+                                idq = int.Parse(Console.ReadLine());                            
+                                try
+                                {
+                                    mydal.SkimmerRelease(id, idq);
+                                }
+                                catch (Exception exception)
+                                {
+                                    Console.WriteLine(exception);
+                                    throw;
+                                }
                                 break;
 
                         }
