@@ -9,7 +9,7 @@ namespace IBL.BO
     public class SkimmerInPackage
     {
         public int Id { get; set; }
-        public int BatteryStatus { get; set; }
+        public double BatteryStatus { get; set; }
         public Location Location { get; set; }
     }
 }

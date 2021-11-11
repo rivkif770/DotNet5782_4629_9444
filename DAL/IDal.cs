@@ -24,5 +24,6 @@ namespace IDAL.DO
         List<Package> PackagesWithoutSkimmer();
         void SendingSkimmerForCharging(int idq, int idBS);
         void SkimmerRelease(int idq, int IdBS);
+        double[] PowerConsumptionRequest(); 
     }
 }

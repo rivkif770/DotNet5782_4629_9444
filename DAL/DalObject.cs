@@ -13,6 +13,16 @@ namespace DalObject
         {
             DataSource.Initialize();
         }
+        public double[] PowerConsumptionRequest()
+        {
+            double[] arr = new double[] {
+                DataSource.Config.free,
+                DataSource.Config.LightWeightCarrier,
+                DataSource.Config.MediumWeightBearing,
+                DataSource.Config.CarryingHeavyWeight,
+                DataSource.Config.SkimmerLoadingRate};
+            return arr;
+        }
         //////////////////////////////////////////////////////////
         public void AddBaseStation(BaseStation b)//Adding a station
         {
@@ -22,6 +32,12 @@ namespace DalObject
         {
              DalObjectSkimmer.AddSkimmer_privet(q);
         }
+
+        public static double[] Package()
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddClient(Client c)//Adding a customer
         {
             DalObjectClient.AddClient_private(c);

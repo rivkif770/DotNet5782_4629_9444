@@ -11,7 +11,7 @@ namespace IBL.BO
         public int Id { get; set; }
         public int SkimmerModel { get; set; }
         public Weight WeightCategory { get; set; }
-        public int BatteryStatus { get; set; }
+        public double BatteryStatus { get; set; }
         public SkimmerStatuses SkimmerStatus { get; set; }
         public Package PackageInTransfer { get; set; }
         public Location Location { get; set; }   

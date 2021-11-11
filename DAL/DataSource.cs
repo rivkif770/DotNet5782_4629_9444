@@ -13,12 +13,18 @@ namespace DalObject
         internal static List<Package> ListPackage = new List<Package>();
         internal static List<Client> ListClient = new List<Client>();
         internal static List<SkimmerLoading> ListSkimmerLoading = new List<SkimmerLoading>();
+
         
         internal static Random r = new Random();
         
         internal class Config
         {
             public static int IDPackage = 1000;
+            public static double free=5;
+            public static double  LightWeightCarrier = 10;
+            public static double  MediumWeightBearing = 20;
+            public static double CarryingHeavyWeight = 25;
+            public static double SkimmerLoadingRate = 50;
         }
 
         public static void Initialize()

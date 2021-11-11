@@ -10,7 +10,7 @@ namespace IDAL.DO
         {
         }
 
-        public BaseStationException(string message) : base(message)
+        public BaseStationException(string message, Severity mild) : base(message)
         {
         }
 

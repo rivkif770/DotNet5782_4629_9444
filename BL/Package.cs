@@ -9,8 +9,8 @@ namespace IBL.BO
     public class Package
     {
         public int Id { get; set; }
-        public Customer SendPackage { get; set; }
-        public Customer ReceivesPackage { get; set; }
+        public CustomerInParcel SendPackage { get; set; }
+        public CustomerInParcel ReceivesPackage { get; set; }
         public Weight WeightCategory { get; set; }
         public Priority priority { get; set; }
         public SkimmerInPackage SkimmerInPackage { get; set; }

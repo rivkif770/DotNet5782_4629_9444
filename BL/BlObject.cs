@@ -1,34 +1,27 @@
-﻿using IBL.BO;
+﻿//using IBL.BO;
 using System;
-using System.Collections.Generic;
-
+using IBL.BO;
+//using System.Collections.Generic;
+using IDAL.DO;
 namespace BL
 {
-    public class BlObject : IBL.BO.IBL
+    public class BlObject /*: IBL.BO.IBL*/
     {
-        internal static List<SkimmerToList> listSkimmer= new List<SkimmerToList>();
-
-        IDAL.DO.IDal dal;
-
+        IDAL.DO.IDal mayDal;
         public BlObject()
         {
-            dal = new DalObject.DalObject();
+            mayDal = new DalObject.DalObject();
         }
-
-        //public BaseStation AddBaseStation(BaseStation b)
-        //{
-
-        //}
-        public Customer GetCustomer(int id)
+        public  Customer GetCustomer(int id)
         {
             IDAL.DO.Client somoeone;
             try
             {
-                somoeone = dal.GetClient(id);
+                somoeone = mayDal.GetClient(id);
             }
             catch (IDAL.DO.ClientException cex)
             {
-                //TO DO
+                Console.WriteLine(cex);
                 throw;
             }
             return new Customer
@@ -38,6 +31,16 @@ namespace BL
                 Phone = somoeone.Telephone,
                 Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude }
             };
+        }
+
+        public void AddBaseStation(IBL.BO.BaseStation newBaseStation)
+        {
+            if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
+            {
+                throw new BaseStationException($"Person {b.UniqueID} Save to system", Severity.Mild);
+            }
+            DataSource.ListBaseStation.Add(b);
+            throw new NotImplementedException();
         }
     }
 }

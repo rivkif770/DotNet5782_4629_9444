@@ -11,7 +11,7 @@ namespace ConsoleUI_BL
         enum DisplayOptions { Exit, DisplayBaseStation, DisplaySkimmer, DisplayClient, DisplayPackage }
         enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewClient, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
 
-        static IBL.BO.IBL mydal = new BL.BlObject();
+        //static IBL.BO.IBL mydal = new BL.BlObject();
 
         private static void Menu()
         {
@@ -65,7 +65,7 @@ namespace ConsoleUI_BL
 
                                 try
                                 {
-                                    mydal //AddBaseStation(newBaseStation);
+                                    mydal.AddBaseStation(newBaseStation);
                                 }
                                 catch (BaseStationException exception)
                                 {
