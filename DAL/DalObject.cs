@@ -18,12 +18,10 @@ namespace DalObject
         {
             DalObjectBaseStation.AddBaseStation_private(b);
         }
-
         public void AddSkimmer(Quadocopter q)//added a skimmer
         {
              DalObjectSkimmer.AddSkimmer_privet(q);
         }
-        
         public void AddClient(Client c)//Adding a customer
         {
             DalObjectClient.AddClient_private(c);
@@ -134,15 +132,7 @@ namespace DalObject
         }
         public List<BaseStation> BaseStationFreeCharging()//Displays a list of Base stations with available charging stations
         {
-            List<BaseStation> result = new List<BaseStation>();
-            for (int i = 0; i < DataSource.ListBaseStation.Count; i++)
-            {
-                if (DataSource.ListBaseStation[i].SeveralPositionsArgument != 0)
-                {
-                    result.Add(DataSource.ListBaseStation[i]);
-                }
-            }
-            return result;
+            return DalObjectBaseStation.BaseStationFreeCharging_privet();
         }
     }
 }

@@ -30,5 +30,17 @@ namespace DalObject
             return DataSource.ListBaseStation.Take(DataSource.ListBaseStation.Count).ToList();
             //return IEnumerable< DataSource.ListBaseStation.ToList();
         }
+        public static List<BaseStation> BaseStationFreeCharging_privet()//Displays a list of Base stations with available charging stations
+        {
+            List<BaseStation> result = new List<BaseStation>();
+            for (int i = 0; i < DataSource.ListBaseStation.Count; i++)
+            {
+                if (DataSource.ListBaseStation[i].SeveralPositionsArgument != 0)
+                {
+                    result.Add(DataSource.ListBaseStation[i]);
+                }
+            }
+            return result;
+        }
     }
 }
