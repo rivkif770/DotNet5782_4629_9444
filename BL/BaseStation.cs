@@ -13,5 +13,6 @@ namespace IBL.BO
         public Location location { get; set; }
         public int SeveralClaimPositionsVacant { get; set; }
         public List<SkimmerInCharging> ListOfSkimmersCharge { get; set; }
+        public object SkimmerModel { get; internal set; }
     }
 }
