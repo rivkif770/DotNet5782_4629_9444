@@ -1,16 +1,36 @@
 ﻿//using IBL.BO;
 using System;
 using IBL.BO;
-//using System.Collections.Generic;
+using System.Collections.Generic;
 using IDAL.DO;
 namespace BL
 {
     public class BlObject /*: IBL.BO.IBL*/
     {
-        IDAL.DO.IDal mayDal;
+        private IDal mayDal;
+        private List<IBL.BO.Skimmer> Skimmers;
         public BlObject()
         {
+            Skimmers = new List<IBL.BO.Skimmer>();
             mayDal = new DalObject.DalObject();
+        }
+        public void AddCustomer(IDAL.DO.Client newCustomer)
+        {
+            try
+            {
+                mayDal.AddClient(newCustomer);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            //if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
+            //{
+            //    throw new BaseStationException($"Person {b.UniqueID} Save to system", Severity.Mild);
+            //}
+            //DataSource.ListBaseStation.Add(b);
+            //throw new NotImplementedException();
         }
         public  Customer GetCustomer(int id)
         {
@@ -21,8 +41,7 @@ namespace BL
             }
             catch (IDAL.DO.ClientException cex)
             {
-                Console.WriteLine(cex);
-                throw;
+                throw new BLClientException(cex.Message + " from dal");
             }
             return new Customer
             {
@@ -32,15 +51,25 @@ namespace BL
                 Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude }
             };
         }
-
-        public void AddBaseStation(IBL.BO.BaseStation newBaseStation)
+        public Customer GetPackage(int id)
         {
-            if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
+            IDAL.DO.Package somoePackage;
+            try
             {
-                throw new BaseStationException($"Person {b.UniqueID} Save to system", Severity.Mild);
+                somoePackage = mayDal.GetPackage(id);
             }
-            DataSource.ListBaseStation.Add(b);
-            throw new NotImplementedException();
+            catch (IDAL.DO.PackageException cex)
+            {
+                throw new BLPackageException(cex.Message + " from dal");
+            }
+            return new Package
+            {
+                Id = somoePackage.ID,
+                SendPackage = somoePackage.sen,
+                Phone = somoePackage.Telephone,
+                Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude }
+            };
         }
+
     }
 }
