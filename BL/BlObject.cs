@@ -2,15 +2,17 @@
 using System;
 using DalObject;
 using IBL.BO;
-//using System.Collections.Generic;
+using System.Collections.Generic;
 using IDAL.DO;
 namespace BL
 {
     public class BlObject /*: IBL.BO.IBL*/
     {
-        IDAL.DO.IDal mayDal;
+        private IDal mayDal;
+        private List<IBL.BO.Skimmer> Skimmers;
         public BlObject()
         {
+            Skimmers = new List<IBL.BO.Skimmer>();
             mayDal = new DalObject.DalObject();
         }
         public void AddBaseStation(IBL.BO.BaseStation newBaseStation)
@@ -31,6 +33,24 @@ namespace BL
             DataSource.ListBaseStation.Add(b);
             throw new NotImplementedException();
         }
+        public void AddCustomer(IDAL.DO.Client newCustomer)
+        {
+            try
+            {
+                mayDal.AddClient(newCustomer);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            //if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
+            //{
+            //    throw new BaseStationException($"Person {b.UniqueID} Save to system", Severity.Mild);
+            //}
+            //DataSource.ListBaseStation.Add(b);
+            //throw new NotImplementedException();
+        }
         public  Customer GetCustomer(int id)
         {
             IDAL.DO.Client somoeone;
@@ -40,8 +60,7 @@ namespace BL
             }
             catch (IDAL.DO.ClientException cex)
             {
-                Console.WriteLine(cex);
-                throw;
+                throw new BLClientException(cex.Message + " from dal");
             }
             return new Customer
             {
@@ -79,8 +98,17 @@ namespace BL
                 somoeSkimmer = mayDal.GetSkimmer(id);
             }
             catch (IDAL.DO.QuadocopterException cex)
+        public Customer GetPackage(int id)
+        {
+            IDAL.DO.Package somoePackage;
+            try
+            {
+                somoePackage = mayDal.GetPackage(id);
+            }
+            catch (IDAL.DO.PackageException cex)
             {
                 throw new BLSkimmerException(cex.Message + " from dal"); ;
+                throw new BLPackageException(cex.Message + " from dal");
             }
             return new IBL.BO.BaseStation
             {
@@ -90,6 +118,14 @@ namespace BL
                 SeveralClaimPositionsVacant = somoeSkimmer.SeveralPositionsArgument,
                 ListOfSkimmersCharge = somoeSkimmer.
             };
+            return new Package
+            {
+                Id = somoePackage.ID,
+                SendPackage = somoePackage.sen,
+                Phone = somoePackage.Telephone,
+                Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude }
+            };
         }
+
     }
 }
