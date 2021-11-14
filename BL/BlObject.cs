@@ -90,7 +90,7 @@ namespace BL
                 ListOfSkimmersCharge = somoeBaseStation.
             };
         }
-        public IBL.BO.BaseStation GetSkimmer(int id)
+        public IBL.BO.Skimmer GetSkimmer(int id)
         {
             IDAL.DO.BaseStation somoeSkimmer;
             try
@@ -98,7 +98,19 @@ namespace BL
                 somoeSkimmer = mayDal.GetSkimmer(id);
             }
             catch (IDAL.DO.QuadocopterException cex)
-        public Customer GetPackage(int id)
+            {
+                throw new BLSkimmerException(cex.Message + " from dal"); ;
+            }
+            return new IBL.BO.Skimmer
+            {
+                Id = somoeSkimmer.UniqueID,
+                SkimmerModel = somoeSkimmer.SkimmerModel,
+                location = new Location { Latitude = somoeSkimmer.Latitude, Longitude = somoeSkimmer.Longitude },
+                SeveralClaimPositionsVacant = somoeSkimmer.SeveralPositionsArgument,
+                ListOfSkimmersCharge = somoeSkimmer.
+            };
+        }
+            public Customer GetPackage(int id)
         {
             IDAL.DO.Package somoePackage;
             try
@@ -107,18 +119,10 @@ namespace BL
             }
             catch (IDAL.DO.PackageException cex)
             {
-                throw new BLSkimmerException(cex.Message + " from dal"); ;
                 throw new BLPackageException(cex.Message + " from dal");
             }
-            return new IBL.BO.BaseStation
-            {
-                Id = somoeSkimmer.UniqueID,
-                SkimmerModel = somoeSkimmer.SkimmerModel,
-                location = new Location { Latitude = somoeSkimmer.Latitude, Longitude = somoeSkimmer.Longitude },
-                SeveralClaimPositionsVacant = somoeSkimmer.SeveralPositionsArgument,
-                ListOfSkimmersCharge = somoeSkimmer.
-            };
-            return new Package
+           
+            return new IBL.BO.Package
             {
                 Id = somoePackage.ID,
                 SendPackage = somoePackage.sen,
