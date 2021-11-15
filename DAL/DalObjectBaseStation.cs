@@ -13,7 +13,7 @@ namespace DalObject
         {
             if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
             {
-                throw new BaseStationException($"Person {b.UniqueID} Save to system", Severity.Mild);
+                throw new ExistsInSystemException($"Person {b.UniqueID} Save to system", Severity.Mild);
             }
             DataSource.ListBaseStation.Add(b);
         }
@@ -21,7 +21,7 @@ namespace DalObject
         {
             if (!DataSource.ListBaseStation.Exists(item => item.UniqueID == IDb))
             {
-                throw new BaseStationException($"id : {IDb} does not exist!!", Severity.Mild);
+                throw new IdDoesNotExistException($"id : {IDb} does not exist!!", Severity.Mild);
             }
             return DataSource.ListBaseStation.FirstOrDefault(b => b.UniqueID == IDb);
         }
