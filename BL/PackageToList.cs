@@ -14,5 +14,16 @@ namespace IBL.BO
         public Weight WeightCategory{ get; set; }
         public Priority priority { get; set; }
         public ParcelStatus PackageMode { get; set; }
+        public override string ToString()
+        {
+            String result = "";
+            result += $"Unique ID number is: {Id}, \n";
+            result += $"Customer Name Sends is: {CustomerNameSends}, \n";
+            result += $"Customer Name Gets is: {CustomerNameGets}, \n";
+            result += $"Weight category is: {WeightCategory}, \n";
+            result += $"Priority is: {priority}, \n";
+            result += $"Package mode is: {PackageMode}, \n";
+            return result;
+        }
     }
 }
