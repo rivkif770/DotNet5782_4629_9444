@@ -12,7 +12,27 @@ namespace IBL.BO
         public string Name { get; set; }
         public string Phone { get; set; }
         public Location Location { get; set; }
-        public List<ParcelCustomer> SentParcels { get; set; }
-        public List<ParcelCustomer> ReceiveParcels { get; set; }
+        public List<CustomerInParcel> SentParcels { get; set; }
+        public List<CustomerInParcel> ReceiveParcels { get; set; }
+
+        public override string ToString()
+        {
+            String result = "";
+            result += $"ID is: {Id}, \n";
+            result += $"Name is: {Name}, \n";
+            result += $"Telephone is: {Phone.Substring(0, 3)}-{Phone.Substring(3)}, \n";
+            result += Location;
+            result += $"Delivery list Packages at customer - from customer: ";
+            foreach (CustomerInParcel item in SentParcels)
+            {
+                result += $"{item} ";
+            }
+            result += $"Delivery list of packages at the customer - to the customer: ";
+            foreach (CustomerInParcel item in ReceiveParcels)
+            {
+                result += $"{item} ";
+            }
+            return result;
+        }
     }
 }
