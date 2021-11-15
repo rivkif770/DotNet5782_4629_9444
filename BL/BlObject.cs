@@ -8,7 +8,7 @@ using IBL.BO;
 using DalObject;
 namespace IBL
 {
-    public class BlObject : IBL
+    public class BlObject : IBL.IBL
     {
         private IDal mayDal;
         //static DalObject.DalObject mydal = new DalObject.DalObject();
@@ -24,8 +24,8 @@ namespace IBL
         {
             try
             {
-                mayDal.AddBaseStation(newBaseStation)
-                }
+                mayDal.AddBaseStation(newBaseStation);
+            }
             catch (Exception)
             {
 

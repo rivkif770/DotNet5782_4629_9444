@@ -64,7 +64,7 @@ namespace ConsoleUI
                                 {
                                     mydal.AddBaseStation(newBaseStation);
                                 }
-                                catch (BaseStationException exception)
+                                catch (ExistsInSystemException exception)
                                 {
                                     Console.WriteLine(exception);
                                     throw;
@@ -89,7 +89,7 @@ namespace ConsoleUI
                                 {
                                     mydal.AddSkimmer(newQuadocopter);
                                 }
-                                catch (QuadocopterException exception)
+                                catch (ExistsInSystemException exception)
                                 {
                                     Console.WriteLine(exception);
                                     throw;
@@ -118,7 +118,7 @@ namespace ConsoleUI
                                 {
                                     mydal.AddClient(newClient);
                                 }
-                                catch (ClientException exception)
+                                catch (ExistsInSystemException exception)
                                 {
                                     Console.WriteLine(exception);
                                     throw;
@@ -149,7 +149,7 @@ namespace ConsoleUI
                                 {
                                     mydal.AddPackage(newPackage);
                                 }
-                                catch (ClientException exception)
+                                catch (ExistsInSystemException exception)
                                 {
                                     Console.WriteLine(exception);
                                     throw;
@@ -183,7 +183,7 @@ namespace ConsoleUI
                                 {
                                     mydal.AssignPackageSkimmer(idp, idq);
                                 }
-                                catch (Exception exception)
+                                catch (IdDoesNotExistException exception)
                                 {
                                     Console.WriteLine(exception);
                                     throw;

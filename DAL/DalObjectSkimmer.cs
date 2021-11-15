@@ -13,7 +13,7 @@ namespace DalObject
         {
             if (DataSource.ListQuadocopter.Exists(item => item.IDNumber == q.IDNumber))//If finds an existing Skimmer throws an error.
             {
-                throw new BaseStationException($"Skimmer {q.IDNumber} Save to system", Severity.Mild);
+                throw new ExistsInSystemException($"Skimmer {q.IDNumber} Save to system", Severity.Mild);
             }
             DataSource.ListQuadocopter.Add(q);
         }
@@ -21,7 +21,7 @@ namespace DalObject
         {
             if (!DataSource.ListQuadocopter.Exists(item => item.IDNumber == IDq))
             {
-                throw new QuadocopterException($"id : {IDq} does not exist!!", Severity.Mild);
+                throw new IdDoesNotExistException($"id : {IDq} does not exist!!", Severity.Mild);
             }
             return DataSource.ListQuadocopter.FirstOrDefault(q => q.IDNumber == IDq);
         }
