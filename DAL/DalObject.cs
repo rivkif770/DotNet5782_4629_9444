@@ -150,5 +150,10 @@ namespace DalObject
         {
             return DalObjectBaseStation.BaseStationFreeCharging_privet();
         }
+
+        public BaseStation GetSkimmer(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

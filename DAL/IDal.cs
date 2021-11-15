@@ -13,8 +13,6 @@ namespace IDAL.DO
         List<BaseStation> BaseStationFreeCharging();
         void CollectionPackage(int idp);
         BaseStation GetBaseStation(int IDb);
-        void AddBaseStation(global::IBL.BO.BaseStation newBaseStation);
-        void AddBaseStation(global::IBL.BO.BaseStation newBaseStation);
         IEnumerable<BaseStation> GetBaseStationList();
         Client GetClient(int IDc);
         IEnumerable<Client> GetClientList();

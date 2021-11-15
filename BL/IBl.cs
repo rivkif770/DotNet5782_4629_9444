@@ -1,4 +1,5 @@
 ﻿using IBL.BO;
+using System.Collections.Generic;
 
 namespace IBL.BO
 {

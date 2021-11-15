@@ -1,26 +1,31 @@
-﻿//using IBL.BO;
+﻿using IDAL.DO;
 using System;
-using DalObject;
-using IBL.BO;
 using System.Collections.Generic;
-using IDAL.DO;
-namespace BL
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using IBL.BO;
+using DalObject;
+namespace IBL
 {
-    public class BlObject /*: IBL.BO.IBL*/
+    public class BlObject : IBL
     {
         private IDal mayDal;
+        //static DalObject.DalObject mydal = new DalObject.DalObject();
         private List<IBL.BO.Skimmer> Skimmers;
         public BlObject()
         {
             Skimmers = new List<IBL.BO.Skimmer>();
             mayDal = new DalObject.DalObject();
         }
+
+
         public void AddBaseStation(IBL.BO.BaseStation newBaseStation)
         {
             try
             {
                 mayDal.AddBaseStation(newBaseStation)
-            }
+                }
             catch (Exception)
             {
 
@@ -51,7 +56,7 @@ namespace BL
             //DataSource.ListBaseStation.Add(b);
             //throw new NotImplementedException();
         }
-        public  Customer GetCustomer(int id)
+        public Customer GetCustomer(int id)
         {
             IDAL.DO.Client somoeone;
             try
@@ -79,7 +84,7 @@ namespace BL
             }
             catch (IDAL.DO.BaseStationException cex)
             {
-                throw new BLBaseStationException(cex.Message+" from dal");
+                throw new BLBaseStationException(cex.Message + " from dal");
             }
             return new IBL.BO.BaseStation
             {
@@ -88,7 +93,7 @@ namespace BL
                 location = new Location { Latitude = somoeBaseStation.Latitude, Longitude = somoeBaseStation.Longitude },
                 SeveralClaimPositionsVacant = somoeBaseStation.SeveralPositionsArgument,
                 ListOfSkimmersCharge = somoeBaseStation.
-            };
+                };
         }
         public IBL.BO.Skimmer GetSkimmer(int id)
         {
@@ -108,9 +113,9 @@ namespace BL
                 location = new Location { Latitude = somoeSkimmer.Latitude, Longitude = somoeSkimmer.Longitude },
                 SeveralClaimPositionsVacant = somoeSkimmer.SeveralPositionsArgument,
                 ListOfSkimmersCharge = somoeSkimmer.
-            };
+                };
         }
-            public Customer GetPackage(int id)
+        public Customer GetPackage(int id)
         {
             IDAL.DO.Package somoePackage;
             try
@@ -121,7 +126,7 @@ namespace BL
             {
                 throw new BLPackageException(cex.Message + " from dal");
             }
-           
+
             return new IBL.BO.Package
             {
                 Id = somoePackage.ID,

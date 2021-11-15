@@ -14,7 +14,7 @@ namespace BL
             IDAL.DO.Client somoeone;
             try
             {
-                somoeone =  mayDal.GetClient(id);
+                //somoeone =  mayDal.GetClient(id);
             }
             catch (IDAL.DO.ClientException cex)
             {
@@ -22,10 +22,10 @@ namespace BL
             }
             return new Customer
             {
-                Id = somoeone.ID,
-                Name = somoeone.Name,
-                Phone = somoeone.Telephone,
-                Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude }
+                //Id = somoeone.ID,
+                //Name = somoeone.Name,
+                //Phone = somoeone.Telephone,
+                //Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude }
             };
         }
     }
