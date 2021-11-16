@@ -13,7 +13,7 @@ namespace DalObject
         {
             if (DataSource.ListClient.Exists(item => item.ID == c.ID))//If finds an existing Customer throws an error.
             {
-                throw new BaseStationException($"Customer {c.ID} Save to system", Severity.Mild);
+                throw new ExistsInSystemException($"Customer {c.ID} Save to system", Severity.Mild);
             }
             DataSource.ListClient.Add(c);
         }
@@ -21,7 +21,7 @@ namespace DalObject
         {
             if (!DataSource.ListClient.Exists(item => item.ID == IDc))
             {
-                throw new ClientException($"id : {IDc} does not exist!!", Severity.Mild);
+                throw new IdDoesNotExistException($"id : {IDc} does not exist!!", Severity.Mild);
             }
             return DataSource.ListClient.FirstOrDefault(c => c.ID == IDc);
         }

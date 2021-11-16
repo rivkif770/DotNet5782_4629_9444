@@ -49,11 +49,11 @@ namespace DalObject
         //////////////////////////////////////////////////////////
         public void AssignPackageSkimmer(int idp, int idq)//Assign a package to a skimmer
         {
-            Quadocopter temp_q = this.GetQuadrocopter(idq);
-            //temp_q.SkimmerMode = (DronStatuses)2;//Change the glider position to catch
+            //Quadocopter temp_q = this.GetQuadrocopter(idq);
+            ////temp_q.SkimmerMode = (DronStatuses)2;//Change the glider position to catch
 
-            DataSource.ListQuadocopter.RemoveAll(quad => quad.IDNumber == idq);//Deleting the old skimmer object
-            DataSource.ListQuadocopter.Add(temp_q);//Deleting the new skimmer object includes the change
+            //DataSource.ListQuadocopter.RemoveAll(quad => quad.IDNumber == idq);//Deleting the old skimmer object
+            //DataSource.ListQuadocopter.Add(temp_q);//Deleting the new skimmer object includes the change
 
             Package temp_p = this.GetPackage(idp);
             temp_p.IDSkimmerOperation = idq;//Change the skimmer ID of the package to the associated skimmer ID
@@ -80,12 +80,12 @@ namespace DalObject
         }
         public void SendingSkimmerForCharging(int idq, int idBS)//Sending a skimmer for charging at a base station
         {
-            Quadocopter temp_q = this.GetQuadrocopter(idq);
-            //temp_q.Battery = 0;//Update the battery to 0 percent
-            //temp_q.SkimmerMode = (DronStatuses)1;//Skimmer status update for maintenance
+            //Quadocopter temp_q = this.GetQuadrocopter(idq);
+            ////temp_q.Battery = 0;//Update the battery to 0 percent
+            ////temp_q.SkimmerMode = (DronStatuses)1;//Skimmer status update for maintenance
 
-            DataSource.ListQuadocopter.RemoveAll(quad => quad.IDNumber == idq);//Deleting the old skimmer object
-            DataSource.ListQuadocopter.Add(temp_q);//Deleting the new skimmer object includes the change
+            //DataSource.ListQuadocopter.RemoveAll(quad => quad.IDNumber == idq);//Deleting the old skimmer object
+            //DataSource.ListQuadocopter.Add(temp_q);//Deleting the new skimmer object includes the change
 
             BaseStation temp_BS = this.GetBaseStation(idBS);
             temp_BS.SeveralPositionsArgument = temp_BS.SeveralPositionsArgument - 1;//Update the number of stations available for charging at least 1
@@ -95,12 +95,12 @@ namespace DalObject
         }
         public void SkimmerRelease(int idq, int IdBS)//Release skimmer from base charge
         {
-            Quadocopter temp_q = this.GetQuadrocopter(idq);
-            //temp_q.Battery = 100;//Update the battery to 100 percent
-            //temp_q.SkimmerMode = (DronStatuses)0;//Skimmer status update available
+            //Quadocopter temp_q = this.GetQuadrocopter(idq);
+            ////temp_q.Battery = 100;//Update the battery to 100 percent
+            ////temp_q.SkimmerMode = (DronStatuses)0;//Skimmer status update available
 
-            DataSource.ListQuadocopter.RemoveAll(quad => quad.IDNumber == idq);//Deleting the old skimmer object
-            DataSource.ListQuadocopter.Add(temp_q);//Deleting the new skimmer object includes the change
+            //DataSource.ListQuadocopter.RemoveAll(quad => quad.IDNumber == idq);//Deleting the old skimmer object
+            //DataSource.ListQuadocopter.Add(temp_q);//Deleting the new skimmer object includes the change
 
             BaseStation temp_BS = this.GetBaseStation(IdBS);
             temp_BS.SeveralPositionsArgument = temp_BS.SeveralPositionsArgument + 1;//Update the number of stations available for charging at more 1
@@ -142,11 +142,11 @@ namespace DalObject
         {
             return DalObjectPackage.GetPackageList_privet();
         }
-        public List<Package> PackagesWithoutSkimmer()//Displays a list of Packages not yet associated with the glider
+        public IEnumerable<Package> PackagesWithoutSkimmer()//Displays a list of Packages not yet associated with the glider
         {
             return DalObjectPackage.PackagesWithoutSkimmer_privet();
         }
-        public List<BaseStation> BaseStationFreeCharging()//Displays a list of Base stations with available charging stations
+        public IEnumerable<BaseStation> BaseStationFreeCharging()//Displays a list of Base stations with available charging stations
         {
             return DalObjectBaseStation.BaseStationFreeCharging_privet();
         }
