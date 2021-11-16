@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
 using DalObject;
-namespace IBL
+namespace BlObject
 {
-    public class BlObject : IBL
+    public class BlObject   
     {
         private IDal mayDal;
         //static DalObject.DalObject mydal = new DalObject.DalObject();
@@ -20,42 +20,42 @@ namespace IBL
         }
 
 
-        public void AddBaseStation(IBL.BO.BaseStation newBaseStation)
-        {
-            try
-            {
-                mayDal.AddBaseStation(newBaseStation)
-                }
-            catch (Exception)
-            {
+        //public void AddBaseStation(IBL.BO.BaseStation newBaseStation)
+        //{
+        //    try
+        //    {
+        //        mayDal.AddBaseStation(newBaseStation)
+        //        }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-            if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
-            {
-                throw new BaseStationException($"Person {b.UniqueID} Save to system", Severity.Mild);
-            }
-            DataSource.ListBaseStation.Add(b);
-            throw new NotImplementedException();
-        }
-        public void AddCustomer(IDAL.DO.Client newCustomer)
-        {
-            try
-            {
-                mayDal.AddClient(newCustomer);
-            }
-            catch (Exception)
-            {
+        //        throw;
+        //    }
+        //    if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
+        //    {
+        //        throw new BaseStationException($"Person {b.UniqueID} Save to system", Severity.Mild);
+        //    }
+        //    DataSource.ListBaseStation.Add(b);
+        //    throw new NotImplementedException();
+        //}
+        //public void AddCustomer(IDAL.DO.Client newCustomer)
+        //{
+        //    try
+        //    {
+        //        mayDal.AddClient(newCustomer);
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-            //if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
-            //{
-            //    throw new BaseStationException($"Person {b.UniqueID} Save to system", Severity.Mild);
-            //}
-            //DataSource.ListBaseStation.Add(b);
-            //throw new NotImplementedException();
-        }
+        //        throw;
+        //    }
+        //    //if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
+        //    //{
+        //    //    throw new BaseStationException($"Person {b.UniqueID} Save to system", Severity.Mild);
+        //    //}
+        //    //DataSource.ListBaseStation.Add(b);
+        //    //throw new NotImplementedException();
+        //}
         public Customer GetCustomer(int id)
         {
             IDAL.DO.Client somoeone;
