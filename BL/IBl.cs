@@ -1,7 +1,7 @@
 ﻿using IBL.BO;
 using System.Collections.Generic;
 
-namespace IBL.BO
+namespace IBL
 {
     public interface IBL
     {
