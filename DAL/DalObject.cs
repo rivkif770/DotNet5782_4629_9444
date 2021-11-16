@@ -13,7 +13,7 @@ namespace DalObject
         {
             DataSource.Initialize();
         }
-        public double[] PowerConsumptionRequest()
+        public static double[] PowerConsumptionRequest()
         {
             double[] arr = new double[] {
                 DataSource.Config.free,
@@ -32,12 +32,6 @@ namespace DalObject
         {
              DalObjectSkimmer.AddSkimmer_privet(q);
         }
-
-        public static double[] Package()
-        {
-            throw new NotImplementedException();
-        }
-
         public void AddClient(Client c)//Adding a customer
         {
             DalObjectClient.AddClient_private(c);
@@ -151,7 +145,19 @@ namespace DalObject
             return DalObjectBaseStation.BaseStationFreeCharging_privet();
         }
 
+        public static double[] Package()
+        {
+            throw new NotImplementedException();
+        }
         public BaseStation GetSkimmer(int id)
+        {
+            throw new NotImplementedException();
+        }
+        List<BaseStation> IDal.BaseStationFreeCharging()
+        {
+            throw new NotImplementedException();
+        }
+        List<Package> IDal.PackagesWithoutSkimmer()
         {
             throw new NotImplementedException();
         }

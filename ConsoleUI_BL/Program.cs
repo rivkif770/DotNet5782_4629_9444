@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using IBL.BO;
 namespace ConsoleUI_BL
 {
@@ -11,7 +12,7 @@ namespace ConsoleUI_BL
         enum DisplayOptions { Exit, DisplayBaseStation, DisplaySkimmer, DisplayClient, DisplayPackage }
         enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewClient, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
 
-        //static IBL.BO.IBL mydal = new BL.BlObject();
+        static BlObject.BlObject mydal = new BlObject.BlObject();
 
         private static void Menu()
         {
@@ -21,59 +22,50 @@ namespace ConsoleUI_BL
             OptionsListView optionsListView;
             DisplayOptions displayOptions;
             bool success;
-            //    do
-            //    {
-            //        Console.WriteLine("welcome!" + "option:\n 0-Exit\n 1-Add\n 2-Update\n 3-Display\n 4-List View\n");
-            //        options = (Options)int.Parse(Console.ReadLine());
-            //        switch (options)
-            //        {
-            //            case Options.Add:
-            //                Console.WriteLine("adding option:\n" +
-            //                    " 0-Exit\n" +
-            //                    " 1- Add a base station to the list of stations\n" +
-            //                    " 2- Add a skimmer to the list of existing skimmers\n" +
-            //                    " 3- Admission of a new customer to the customer list\n" +
-            //                    " 4-Receipt of package for shipment\n");
-            //                inseitOption = (InseitOption)int.Parse(Console.ReadLine());
-            //                switch (inseitOption)
-            //                {
-            //                    case InseitOption.Exit:
-            //                        return;
-            //                    case InseitOption.AddBaseStation:
+            do
+            {
+                Console.WriteLine("welcome!" + "option:\n 0-Exit\n 1-Add\n 2-Update\n 3-Display\n 4-List View\n");
+                options = (Options)int.Parse(Console.ReadLine());
+                switch (options)
+                {
+                    case Options.Add:
+                        Console.WriteLine("adding option:\n" +
+                            " 0-Exit\n" +
+                            " 1- Add a base station to the list of stations\n" +
+                            " 2- Add a skimmer to the list of existing skimmers\n" +
+                            " 3- Admission of a new customer to the customer list\n" +
+                            " 4-Receipt of package for shipment\n");
+                        inseitOption = (InseitOption)int.Parse(Console.ReadLine());
+                        switch (inseitOption)
+                        {
+                            case InseitOption.Exit:
+                                return;
+                            case InseitOption.AddBaseStation:
 
-            //                        int IDb;
-            //                        Console.WriteLine("Enter unique ID number:");
-            //                        int.TryParse(Console.ReadLine(), out IDb);
+                                int IDb;
+                                Console.WriteLine("Station number:");
+                                int.TryParse(Console.ReadLine(), out IDb);
 
-            //                        string name;
-            //                        Console.WriteLine("Enter The station name:");
-            //                        name = (Console.ReadLine());
+                                string name;
+                                Console.WriteLine("Station name:");
+                                name = (Console.ReadLine());
 
-            //                        double longitude, latitude;
-            //                        Console.WriteLine("Enter longitude:");
-            //                        double.TryParse(Console.ReadLine(), out longitude);
+                                double longitude, latitude;
+                                Console.WriteLine("Enter longitude:");
+                                double.TryParse(Console.ReadLine(), out longitude);
 
-            //                        Console.WriteLine("Enter Latitude:");
-            //                        double.TryParse(Console.ReadLine(), out latitude);
-            //                        BaseStation newBaseStation = new BaseStation
-            //                        {
-            //                            Id = IDb,
-            //                            Name = name,
-            //                            SeveralClaimPositionsVacant = 0,
-            //                            location = new Location { Latitude = latitude, Longitude = longitude }
-            //                        };
-
-            //                        try
-            //                        {
-            //                            mydal.AddBaseStation(newBaseStation);
-            //                        }
-            //                        catch (BaseStationException exception)
-            //                        {
-            //                            Console.WriteLine(exception);
-            //                            throw;
-            //                        }
-
-            //                        break;
+                                Console.WriteLine("Enter Latitude:");
+                                double.TryParse(Console.ReadLine(), out latitude);
+                                BaseStation newBaseStation = new BaseStation
+                                {
+                                    Id = IDb,
+                                    Name = name,
+                                    location = new Location { Latitude = latitude, Longitude = longitude },
+                                    SeveralClaimPositionsVacant = 0,
+                                    ListOfSkimmersCharge = new List<SkimmerInCharging>()
+                                };
+                                mydal.AddBaseStation(newBaseStation);
+                                break;
             //                    case InseitOption.AddSkimmer:
             //                        Quadocopter newQuadocopter = new Quadocopter();
 

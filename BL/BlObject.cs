@@ -10,6 +10,7 @@ namespace BlObject
 {
     public class BlObject   
     {
+
         private IDal mayDal;
         //static DalObject.DalObject mydal = new DalObject.DalObject();
         private List<IBL.BO.Skimmer> Skimmers;
@@ -17,27 +18,30 @@ namespace BlObject
         {
             Skimmers = new List<IBL.BO.Skimmer>();
             mayDal = new DalObject.DalObject();
+            SkimmerUpdate.SkimmerUpdates();
         }
 
 
-        //public void AddBaseStation(IBL.BO.BaseStation newBaseStation)
-        //{
-        //    try
-        //    {
-        //        mayDal.AddBaseStation(newBaseStation)
-        //        }
-        //    catch (Exception)
-        //    {
+        public void AddBaseStation(IBL.BO.BaseStation newBaseStation)
+        {
+            BaseStation temp_BS = new BaseStation
+            {
+                UniqueID = newBaseStation.Id,
+                StationName = newBaseStation.Name,
+                SeveralPositionsArgument = newBaseStation.SeveralClaimPositionsVacant,
+                Latitude = newBaseStation.location.Latitude,
+                Longitude = newBaseStation.location.Longitude
+            };
 
-        //        throw;
-        //    }
-        //    if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
-        //    {
-        //        throw new BaseStationException($"Person {b.UniqueID} Save to system", Severity.Mild);
-        //    }
-        //    DataSource.ListBaseStation.Add(b);
-        //    throw new NotImplementedException();
-        //}
+            try
+            {
+                mayDal.AddBaseStation(temp_BS);
+            }
+            catch (ExistsInSystemException_BL exception)
+            {
+                throw new ExistsInSystemException_BL($"Person {temp_BS.UniqueID} Save to system", Severity.Mild);
+            }
+        }
         //public void AddCustomer(IDAL.DO.Client newCustomer)
         //{
         //    try
@@ -56,85 +60,85 @@ namespace BlObject
         //    //DataSource.ListBaseStation.Add(b);
         //    //throw new NotImplementedException();
         //}
-        public Customer GetCustomer(int id)
-        {
-            IDAL.DO.Client somoeone;
-            try
-            {
-                somoeone = mayDal.GetClient(id);
-            }
-            catch (IDAL.DO.ClientException cex)
-            {
-                throw new BLClientException(cex.Message + " from dal");
-            }
-            return new Customer
-            {
-                Id = somoeone.ID,
-                Name = somoeone.Name,
-                Phone = somoeone.Telephone,
-                Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude }
-            };
-        }
-        public IBL.BO.BaseStation GetBeseStation(int id)
-        {
-            IDAL.DO.BaseStation somoeBaseStation;
-            try
-            {
-                somoeBaseStation = mayDal.GetBaseStation(id);
-            }
-            catch (IDAL.DO.BaseStationException cex)
-            {
-                throw new BLBaseStationException(cex.Message + " from dal");
-            }
-            return new IBL.BO.BaseStation
-            {
-                Id = somoeBaseStation.UniqueID,
-                Name = somoeBaseStation.StationName,
-                location = new Location { Latitude = somoeBaseStation.Latitude, Longitude = somoeBaseStation.Longitude },
-                SeveralClaimPositionsVacant = somoeBaseStation.SeveralPositionsArgument,
-                ListOfSkimmersCharge = somoeBaseStation.
-                };
-        }
-        public IBL.BO.Skimmer GetSkimmer(int id)
-        {
-            IDAL.DO.BaseStation somoeSkimmer;
-            try
-            {
-                somoeSkimmer = mayDal.GetSkimmer(id);
-            }
-            catch (IDAL.DO.QuadocopterException cex)
-            {
-                throw new BLSkimmerException(cex.Message + " from dal"); ;
-            }
-            return new IBL.BO.Skimmer
-            {
-                Id = somoeSkimmer.UniqueID,
-                SkimmerModel = somoeSkimmer.SkimmerModel,
-                location = new Location { Latitude = somoeSkimmer.Latitude, Longitude = somoeSkimmer.Longitude },
-                SeveralClaimPositionsVacant = somoeSkimmer.SeveralPositionsArgument,
-                ListOfSkimmersCharge = somoeSkimmer.
-                };
-        }
-        public Customer GetPackage(int id)
-        {
-            IDAL.DO.Package somoePackage;
-            try
-            {
-                somoePackage = mayDal.GetPackage(id);
-            }
-            catch (IDAL.DO.PackageException cex)
-            {
-                throw new BLPackageException(cex.Message + " from dal");
-            }
+        //public Customer GetCustomer(int id)
+        //{
+        //    IDAL.DO.Client somoeone;
+        //    try
+        //    {
+        //        somoeone = mayDal.GetClient(id);
+        //    }
+        //    catch (IDAL.DO.ClientException cex)
+        //    {
+        //        throw new BLClientException(cex.Message + " from dal");
+        //    }
+        //    return new Customer
+        //    {
+        //        Id = somoeone.ID,
+        //        Name = somoeone.Name,
+        //        Phone = somoeone.Telephone,
+        //        Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude }
+        //    };
+        //}
+        //public IBL.BO.BaseStation GetBeseStation(int id)
+        //{
+        //    IDAL.DO.BaseStation somoeBaseStation;
+        //    try
+        //    {
+        //        somoeBaseStation = mayDal.GetBaseStation(id);
+        //    }
+        //    catch (IDAL.DO.BaseStationException cex)
+        //    {
+        //        throw new BLBaseStationException(cex.Message + " from dal");
+        //    }
+        //    return new IBL.BO.BaseStation
+        //    {
+        //        Id = somoeBaseStation.UniqueID,
+        //        Name = somoeBaseStation.StationName,
+        //        location = new Location { Latitude = somoeBaseStation.Latitude, Longitude = somoeBaseStation.Longitude },
+        //        SeveralClaimPositionsVacant = somoeBaseStation.SeveralPositionsArgument,
+        //        ListOfSkimmersCharge = somoeBaseStation.
+        //        };
+        //}
+        //public IBL.BO.Skimmer GetSkimmer(int id)
+        //{
+        //    IDAL.DO.BaseStation somoeSkimmer;
+        //    try
+        //    {
+        //        somoeSkimmer = mayDal.GetSkimmer(id);
+        //    }
+        //    catch (IDAL.DO.QuadocopterException cex)
+        //    {
+        //        throw new BLSkimmerException(cex.Message + " from dal"); ;
+        //    }
+        //    return new IBL.BO.Skimmer
+        //    {
+        //        Id = somoeSkimmer.UniqueID,
+        //        SkimmerModel = somoeSkimmer.SkimmerModel,
+        //        location = new Location { Latitude = somoeSkimmer.Latitude, Longitude = somoeSkimmer.Longitude },
+        //        SeveralClaimPositionsVacant = somoeSkimmer.SeveralPositionsArgument,
+        //        ListOfSkimmersCharge = somoeSkimmer.
+        //        };
+        //}
+        //public Customer GetPackage(int id)
+        //{
+        //    IDAL.DO.Package somoePackage;
+        //    try
+        //    {
+        //        somoePackage = mayDal.GetPackage(id);
+        //    }
+        //    catch (IDAL.DO.PackageException cex)
+        //    {
+        //        throw new BLPackageException(cex.Message + " from dal");
+        //    }
 
-            return new IBL.BO.Package
-            {
-                Id = somoePackage.ID,
-                SendPackage = somoePackage.sen,
-                Phone = somoePackage.Telephone,
-                Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude }
-            };
-        }
+        //    return new IBL.BO.Package
+        //    {
+        //        Id = somoePackage.ID,
+        //        SendPackage = somoePackage.sen,
+        //        Phone = somoePackage.Telephone,
+        //        Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude }
+        //    };
+        //}
 
     }
 }
