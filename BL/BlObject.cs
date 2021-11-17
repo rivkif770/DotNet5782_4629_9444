@@ -42,6 +42,30 @@ namespace BlObject
                 throw new ExistsInSystemException_BL($"Person {temp_BS.UniqueID} Save to system", Severity.Mild);
             }
         }
+
+        public void AddSkimmer(IBL.BO.Skimmer newSkimmer, int station)
+        {
+            newSkimmer.BatteryStatus = r.Next(20, 41);
+            newSkimmer.SkimmerStatus = IBL.BO.SkimmerStatuses.maintenance;
+            IBL.BO.BaseStation temp_BaseStation = GetBeseStation(station);
+            newSkimmer.Location = temp_BaseStation.location;
+            Quadocopter temp_S = new Quadocopter
+            {
+                IDNumber = newSkimmer.Id,
+                SkimmerModel = newSkimmer.SkimmerModel,
+                Weight = (WeightCategories)newSkimmer.WeightCategory
+            };
+
+            try
+            {
+                mayDal.AddSkimmer(temp_S);
+            }
+            catch (ExistsInSystemException_BL exception)
+            {
+                throw new ExistsInSystemException_BL($"Person {temp_S.IDNumber} Save to system", Severity.Mild);
+            }
+        }
+
         public void AddCustomer(IBL.BO.Customer newCustomer)
         {
             Client temp_c = new Client
@@ -66,8 +90,8 @@ namespace BlObject
         {
             Package temp_p = new Package
             {
-                IDSender = newPackage.SendPackage,
-                IDgets = newPackage.ReceivesPackage,
+                IDSender = newPackage.SendPackage.Id,
+                IDgets = newPackage.ReceivesPackage.Id,
                 Weight =(WeightCategories) newPackage.WeightCategory,
                 priority = (Priorities)newPackage.priority,
                 PackageCreationTime = DateTime.Now,
@@ -85,28 +109,7 @@ namespace BlObject
                 throw new ExistsInSystemException_BL($"Person {temp_p.ID} Save to system", Severity.Mild);
             }
         }
-        public void AddSkimmer(IBL.BO.Skimmer newSkimmer, int station)
-        {
-            newSkimmer.BatteryStatus = r.Next(20, 41);
-            newSkimmer.SkimmerStatus = IBL.BO.SkimmerStatuses.maintenance;
-            IBL.BO.BaseStation temp_BaseStation = GetBeseStation(station);
-            newSkimmer.Location = temp_BaseStation.location;
-            Quadocopter temp_S = new Quadocopter
-            {
-                IDNumber = newSkimmer.Id,
-                SkimmerModel = newSkimmer.SkimmerModel,
-                Weight = (WeightCategories)newSkimmer.WeightCategory
-            };
-
-            try
-            {
-                mayDal.AddSkimmer(temp_S);
-            }
-            catch (ExistsInSystemException_BL exception)
-            {
-                throw new ExistsInSystemException_BL($"Person {temp_S.IDNumber} Save to system", Severity.Mild);
-            }
-        }
+        
         //public void AddCustomer(IDAL.DO.Client newCustomer)
         //{
         //    try
