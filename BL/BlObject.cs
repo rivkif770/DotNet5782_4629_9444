@@ -42,6 +42,40 @@ namespace BlObject
                 throw new ExistsInSystemException_BL($"Person {temp_BS.UniqueID} Save to system", Severity.Mild);
             }
         }
+        public void AddCustomer(IBL.BO.Customer newCustomer)
+        {
+            Client temp_c = new Client
+            {
+                ID = newCustomer.Id,
+                Name = newCustomer.Name,
+                Telephone = newCustomer.Phone,
+                Latitude = newCustomer.Location.Latitude,
+                Longitude = newCustomer.Location.Longitude
+            };
+
+            try
+            {
+                mayDal.AddClient(temp_c);
+            }
+            catch (ExistsInSystemException_BL exception)
+            {
+                throw new ExistsInSystemException_BL($"Person {temp_c.ID} Save to system", Severity.Mild);
+            }
+        }
+        public void AddPackage(IBL.BO.Package newPackage)
+        {
+            Package temp_p = new Package
+            {
+                IDSender = newPackage.SendPackage,
+                IDgets = newPackage.ReceivesPackage,
+                Weight =(WeightCategories) newPackage.WeightCategory,
+                priority = (Priorities)newPackage.priority,
+                PackageCreationTime = DateTime.Now,
+                TimeAssignGlider = new DateTime( 0, 0, 0),
+                PackageCollectionTime = new DateTime(0, 0, 0),
+                TimeArrivalRecipient = new DateTime(0, 0, 0),
+                IDSkimmerOperation = nullptr,
+            };
         public void AddSkimmer(IBL.BO.Skimmer newSkimmer, int station)
         {
             newSkimmer.BatteryStatus = r.Next(20, 41);
@@ -73,15 +107,15 @@ namespace BlObject
         //    catch (Exception)
         //    {
 
-        //        throw;
-        //    }
-        //    //if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
-        //    //{
-        //    //    throw new BaseStationException($"Person {b.UniqueID} Save to system", Severity.Mild);
-        //    //}
-        //    //DataSource.ListBaseStation.Add(b);
-        //    //throw new NotImplementedException();
-        //}
+            try
+            {
+                mayDal.AddPackage(temp_p);
+            }
+            catch (ExistsInSystemException_BL exception)
+            {
+                throw new ExistsInSystemException_BL($"Person {temp_p.ID} Save to system", Severity.Mild);
+            }
+        }
         //public Customer GetCustomer(int id)
         //{
         //    IDAL.DO.Client somoeone;
