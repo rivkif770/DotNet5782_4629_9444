@@ -7,10 +7,10 @@ namespace ConsoleUI_BL
     {
 
         enum Options { Exit, Add, Update, Display, ViewTheLists }
-        enum InseitOption { Exit, AddBaseStation, AddSkimmer, AddClient, AddPackage }
+        enum InseitOption { Exit, AddBaseStation, AddSkimmer, AddCustomer, AddPackage }
         enum UpdateOption { Exit, Affiliation, Collection, Supply, SendLoading, ReleaseCharging }
-        enum DisplayOptions { Exit, DisplayBaseStation, DisplaySkimmer, DisplayClient, DisplayPackage }
-        enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewClient, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
+        enum DisplayOptions { Exit, DisplayBaseStation, DisplaySkimmer, DisplayCustomer, DisplayPackage }
+        enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewCustomer, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
 
         static BlObject.BlObject mydal = new BlObject.BlObject();
 
@@ -86,9 +86,7 @@ namespace ConsoleUI_BL
                                 int station;
                                 Console.WriteLine("Station number Put the skimmer in it for initial charging");
                                 int.TryParse(Console.ReadLine(), out station);
-
-                                //newQuadocopter.Battery = 100;
-                                //newQuadocopter.SkimmerMode = (DronStatuses)0;
+                                
                                 Skimmer newSkimmer = new Skimmer
                                 {
                                     Id = IDs,
@@ -110,7 +108,7 @@ namespace ConsoleUI_BL
                             //                        }
 
                             //                        break;
-                            case InseitOption.AddClient:
+                            case InseitOption.AddCustomer:
 
                                 int Idc;
                                 Console.WriteLine("Enter unique ID number:");
@@ -171,16 +169,22 @@ namespace ConsoleUI_BL
                         Package newPackage = new Package
                         {
 
-                            SendPackage = Idsc,
-                            ReceivesPackage = Idgc,
+                            SendPackage = new CustomerInParcel
+                            {
+                                Id = Idsc
+                            },
+                            ReceivesPackage = new CustomerInParcel
+                            {
+                                Id = Idgc
+                            },
                             WeightCategory = (Weight)Weight,
                             priority = (Priority)Priorities,
                         };
                         mydal.AddPackage(newPackage);
                         break;
 
-            //                        newPackage.IDSkimmerOperation = 0;
-            //                        newPackage.PackageCreationTime = DateTime.Now;
+                        //newPackage.IDSkimmerOperation = 0;
+                        //newPackage.PackageCreationTime = DateTime.Now;
 
                         //try
                         //{
@@ -340,7 +344,7 @@ namespace ConsoleUI_BL
                 //                        }
 
                 //                        break;
-                //                    case DisplayOptions.DisplayClient:
+                //                    case DisplayOptions.DisplayCustomer:
                 //                        int IDc;
                 //                        do
                 //                        {
@@ -404,7 +408,7 @@ namespace ConsoleUI_BL
                 //                            Console.WriteLine(item);
                 //                        }
                 //                        break;
-                //                    case OptionsListView.ViewClient:
+                //                    case OptionsListView.ViewCustomer:
                 //                        foreach (Client item in mydal.GetClientList())
                 //                        {
                 //                            Console.WriteLine(item);
