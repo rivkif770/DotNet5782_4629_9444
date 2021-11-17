@@ -25,5 +25,6 @@ namespace IDAL.DO
         void SendingSkimmerForCharging(int idq, int idBS);
         void SkimmerRelease(int idq, int IdBS);
         BaseStation GetSkimmer(int id);
+        public double[] PowerConsumptionRequest();
     }
 }

@@ -13,13 +13,13 @@ namespace DalObject
         {
             DataSource.Initialize();
         }
-        public static double[] PowerConsumptionRequest()
+        public double[] PowerConsumptionRequest()
         {
             double[] arr = new double[] {
-                DataSource.Config.free,
+                DataSource.Config.Free,
                 DataSource.Config.LightWeightCarrier,
-                DataSource.Config.MediumWeightBearing,
-                DataSource.Config.CarryingHeavyWeight,
+                DataSource.Config.MediumWeightCarrier,
+                DataSource.Config.HeavyWeightCarrier,
                 DataSource.Config.SkimmerLoadingRate};
             return arr;
         }
