@@ -42,7 +42,6 @@ namespace BlObject
                 throw new ExistsInSystemException_BL($"Person {temp_BS.UniqueID} Save to system", Severity.Mild);
             }
         }
-
         public void AddSkimmer(IBL.BO.Skimmer newSkimmer, int station)
         {
             newSkimmer.BatteryStatus = r.Next(20, 41);
@@ -65,7 +64,6 @@ namespace BlObject
                 throw new ExistsInSystemException_BL($"Person {temp_S.IDNumber} Save to system", Severity.Mild);
             }
         }
-
         public void AddCustomer(IBL.BO.Customer newCustomer)
         {
             Client temp_c = new Client
@@ -109,7 +107,6 @@ namespace BlObject
                 throw new ExistsInSystemException_BL($"Person {temp_p.ID} Save to system", Severity.Mild);
             }
         }
-        
         //public void AddCustomer(IDAL.DO.Client newCustomer)
         //{
         //    try
@@ -139,6 +136,9 @@ namespace BlObject
         //        Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude }
         //    };
         //}
+        
+        /// /////////////////////////////////////////////////////////////////////////////////
+        
         public IBL.BO.BaseStation GetBeseStation(int id)
         {
             IDAL.DO.BaseStation somoeBaseStation;
