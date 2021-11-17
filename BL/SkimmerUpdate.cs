@@ -9,7 +9,6 @@ namespace BlObject
     public class SkimmerUpdate
     {
         double[] vs = DalObject.DalObject.PowerConsumptionRequest();
-        arr = vs;
         public double free = vs[0];
         public double LightWeightCarrier;
         public double MediumWeightBearing;

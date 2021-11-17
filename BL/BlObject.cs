@@ -186,17 +186,23 @@ namespace BlObject
             {
                 somoePackage = mayDal.GetPackage(id);
             }
-            catch (IDAL.DO.PackageException cex)
+            catch (IDAL.DO.IdDoesNotExistException cex)
             {
-                throw new BLPackageException(cex.Message + " from dal");
+                throw new IdDoesNotExistException_BL(cex.Message + " from dal");
             }
 
             return new IBL.BO.Package
             {
                 Id = somoePackage.ID,
-                SendPackage = somoePackage.sen,
-                Phone = somoePackage.Telephone,
-                Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude }
+                SendPackage=somoePackage.IDSender,
+                ReceivesPackage=somoePackage.IDgets,
+                WeightCategory=(Weight)somoePackage.Weight,
+                priority=(Priority)somoePackage.priority,
+                SkimmerInPackage=somoePackage.,
+                PackageCreationTime=somoePackage.PackageCreationTime,
+                AssignmentTime=somoePackage.TimeAssignGlider,
+                CollectionTime=somoePackage.PackageCollectionTime,
+                SupplyTime=somoePackage.TimeArrivalRecipient
             };
         }
 
