@@ -382,62 +382,62 @@ namespace ConsoleUI_BL
                 //                        break;
                 //                }
                 //                break;
-                //            case Options.ViewTheLists:
-                //                Console.WriteLine("adding option:\n" +
-                //                    " 0-Exit\n" +
-                //                    " 1-Displays a list of base stations\n" +
-                //                    " 2-Displays the list of skimmers\n" +
-                //                    " 3-View customer list\n" +
-                //                    " 4-Displays the list of packages\n" +
-                //                    " 5-Displays a list of packages not yet associated with the glider\n" +
-                //                    " 6-Display of base stations with available charging stations");
-                //                optionsListView = (OptionsListView)int.Parse(Console.ReadLine());
-                //                switch (optionsListView)
-                //                {
-                //                    case OptionsListView.Exit:
-                //                        return;
-                //                    case OptionsListView.ViewBaseStation:
-                //                        foreach (BaseStation item in mydal.GetBaseStationList())
-                //                        {
-                //                            Console.WriteLine(item);
-                //                        }
-                //                        break;
-                //                    case OptionsListView.ViewSkimmer:
-                //                        foreach (Quadocopter item in mydal.GetQuadocopterList())
-                //                        {
-                //                            Console.WriteLine(item);
-                //                        }
-                //                        break;
-                //                    case OptionsListView.ViewCustomer:
-                //                        foreach (Client item in mydal.GetClientList())
-                //                        {
-                //                            Console.WriteLine(item);
-                //                        }
-                //                        break;
-                //                    case OptionsListView.ViewPackage:
-                //                        foreach (Package item in mydal.GetPackageList())
-                //                        {
-                //                            Console.WriteLine(item);
-                //                        }
-                //                        break;
-                //                    case OptionsListView.ViewUnassignedPackages:
-                //                        foreach (var item in mydal.PackagesWithoutSkimmer())
-                //                        {
-                //                            Console.WriteLine(item);
-                //                        }
-                //                        break;
-                //                    case OptionsListView.ViewFreeBaseStation:
-                //                        foreach (var item in mydal.BaseStationFreeCharging())
-                //                        {
-                //                            Console.WriteLine(item);
-                //                        }
-                //                        break;
-                //                }
-                //                break;
-                //        }
-                //    }
-                //    while (options != 0);
-                //}
+                            case Options.ViewTheLists:
+                                Console.WriteLine("adding option:\n" +
+                                    " 0-Exit\n" +
+                                    " 1-Displays a list of base stations\n" +
+                                    " 2-Displays the list of skimmers\n" +
+                                    " 3-View customer list\n" +
+                                    " 4-Displays the list of packages\n" +
+                                    " 5-Displays a list of packages not yet associated with the glider\n" +
+                                    " 6-Display of base stations with available charging stations");
+                optionsListView = (OptionsListView)int.Parse(Console.ReadLine());
+                switch (optionsListView)
+                {
+                    case OptionsListView.Exit:
+                        return;
+                    case OptionsListView.ViewBaseStation:
+                        foreach (BaseStation item in mydal.GetBaseStationList())
+                        {
+                            Console.WriteLine(item);
+                        }
+                        break;
+                        //                    case OptionsListView.ViewSkimmer:
+                        //                        foreach (Quadocopter item in mydal.GetQuadocopterList())
+                        //                        {
+                        //                            Console.WriteLine(item);
+                        //                        }
+                        //                        break;
+                        //                    case OptionsListView.ViewCustomer:
+                        //                        foreach (Client item in mydal.GetClientList())
+                        //                        {
+                        //                            Console.WriteLine(item);
+                        //                        }
+                        //                        break;
+                        //                    case OptionsListView.ViewPackage:
+                        //                        foreach (Package item in mydal.GetPackageList())
+                        //                        {
+                        //                            Console.WriteLine(item);
+                        //                        }
+                        //                        break;
+                        //                    case OptionsListView.ViewUnassignedPackages:
+                        //                        foreach (var item in mydal.PackagesWithoutSkimmer())
+                        //                        {
+                        //                            Console.WriteLine(item);
+                        //                        }
+                        //                        break;
+                        //                    case OptionsListView.ViewFreeBaseStation:
+                        //                        foreach (var item in mydal.BaseStationFreeCharging())
+                        //                        {
+                        //                            Console.WriteLine(item);
+                        //                        }
+                        //                        break;
+                        //                }
+                        //                break;
+                        //        }
+                        //    }
+                        //    while (options != 0);
+                        //}
 
 
 
@@ -456,27 +456,27 @@ namespace ConsoleUI_BL
 
 
 
-                //static BL.BlObject mydal = new BL.BlObject();
+                        //static BL.BlObject mydal = new BL.BlObject();
 
-                //static IBL.BO.IBL bl = new BL.BlObject();
-                //static void Main(string[] args)
-                //{
-                //    Console.WriteLine("Hell O World!");
+                        //static IBL.BO.IBL bl = new BL.BlObject();
+                        //static void Main(string[] args)
+                        //{
+                        //    Console.WriteLine("Hell O World!");
 
 
-                //    Customer customer;
-                //    Console.WriteLine("give me  customer id");
-                //    int id = Int32.Parse(Console.ReadLine());
-                //    try
-                //    {
-                //        customer = bl.GetCustomer(id);
-                //    }
-                //    catch (CustomerException exception)
-                //    {
-                //        Console.WriteLine(exception.Message);
-                //    }
-                //    Console.WriteLine();
-                //}
-            }
-    }
+                        //    Customer customer;
+                        //    Console.WriteLine("give me  customer id");
+                        //    int id = Int32.Parse(Console.ReadLine());
+                        //    try
+                        //    {
+                        //        customer = bl.GetCustomer(id);
+                        //    }
+                        //    catch (CustomerException exception)
+                        //    {
+                        //        Console.WriteLine(exception.Message);
+                        //    }
+                        //    Console.WriteLine();
+                        //}
+                        // }
+                }
 }

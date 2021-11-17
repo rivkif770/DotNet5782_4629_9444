@@ -27,7 +27,6 @@ namespace IBL.BO
                 result +=$"{Item} ";
                 result += Item;
             }
-            result += $"Skimmer Model is: {SkimmerModel}, \n";
             return result;
         }
     }
