@@ -76,6 +76,15 @@ namespace BlObject
                 TimeArrivalRecipient = new DateTime(0, 0, 0),
                 IDSkimmerOperation = nullptr,
             };
+            try
+            {
+                mayDal.AddPackage(temp_p);
+            }
+            catch (ExistsInSystemException_BL exception)
+            {
+                throw new ExistsInSystemException_BL($"Person {temp_p.ID} Save to system", Severity.Mild);
+            }
+        }
         public void AddSkimmer(IBL.BO.Skimmer newSkimmer, int station)
         {
             newSkimmer.BatteryStatus = r.Next(20, 41);
@@ -107,15 +116,7 @@ namespace BlObject
         //    catch (Exception)
         //    {
 
-            try
-            {
-                mayDal.AddPackage(temp_p);
-            }
-            catch (ExistsInSystemException_BL exception)
-            {
-                throw new ExistsInSystemException_BL($"Person {temp_p.ID} Save to system", Severity.Mild);
-            }
-        }
+            
         //public Customer GetCustomer(int id)
         //{
         //    IDAL.DO.Client somoeone;
