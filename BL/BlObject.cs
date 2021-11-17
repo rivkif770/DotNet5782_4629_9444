@@ -10,7 +10,7 @@ namespace BlObject
 {
     public class BlObject   
     {
-
+        internal static Random r = new Random();
         private IDal mayDal;
         //static DalObject.DalObject mydal = new DalObject.DalObject();
         private List<IBL.BO.Skimmer> Skimmers;
@@ -40,6 +40,28 @@ namespace BlObject
             catch (ExistsInSystemException_BL exception)
             {
                 throw new ExistsInSystemException_BL($"Person {temp_BS.UniqueID} Save to system", Severity.Mild);
+            }
+        }
+        public void AddSkimmer(IBL.BO.Skimmer newSkimmer, int station)
+        {
+            newSkimmer.BatteryStatus = r.Next(20, 41);
+            newSkimmer.SkimmerStatus = IBL.BO.SkimmerStatuses.maintenance;
+            IBL.BO.BaseStation temp_BaseStation = GetBeseStation(station);
+            newSkimmer.Location = temp_BaseStation.location;
+            Quadocopter temp_S = new Quadocopter
+            {
+                IDNumber = newSkimmer.Id,
+                SkimmerModel = newSkimmer.SkimmerModel,
+                Weight = (WeightCategories)newSkimmer.WeightCategory
+            };
+
+            try
+            {
+                mayDal.AddSkimmer(temp_S);
+            }
+            catch (ExistsInSystemException_BL exception)
+            {
+                throw new ExistsInSystemException_BL($"Person {temp_S.IDNumber} Save to system", Severity.Mild);
             }
         }
         //public void AddCustomer(IDAL.DO.Client newCustomer)
@@ -79,26 +101,26 @@ namespace BlObject
         //        Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude }
         //    };
         //}
-        //public IBL.BO.BaseStation GetBeseStation(int id)
-        //{
-        //    IDAL.DO.BaseStation somoeBaseStation;
-        //    try
-        //    {
-        //        somoeBaseStation = mayDal.GetBaseStation(id);
-        //    }
-        //    catch (IDAL.DO.BaseStationException cex)
-        //    {
-        //        throw new BLBaseStationException(cex.Message + " from dal");
-        //    }
-        //    return new IBL.BO.BaseStation
-        //    {
-        //        Id = somoeBaseStation.UniqueID,
-        //        Name = somoeBaseStation.StationName,
-        //        location = new Location { Latitude = somoeBaseStation.Latitude, Longitude = somoeBaseStation.Longitude },
-        //        SeveralClaimPositionsVacant = somoeBaseStation.SeveralPositionsArgument,
-        //        ListOfSkimmersCharge = somoeBaseStation.
-        //        };
-        //}
+        public IBL.BO.BaseStation GetBeseStation(int id)
+        {
+            IDAL.DO.BaseStation somoeBaseStation;
+            try
+            {
+                somoeBaseStation = mayDal.GetBaseStation(id);
+            }
+            catch (IDAL.DO.BaseStationException cex)
+            {
+                throw new BLBaseStationException(cex.Message + " from dal");
+            }
+            return new IBL.BO.BaseStation
+            {
+                Id = somoeBaseStation.UniqueID,
+                Name = somoeBaseStation.StationName,
+                location = new Location { Latitude = somoeBaseStation.Latitude, Longitude = somoeBaseStation.Longitude },
+                SeveralClaimPositionsVacant = somoeBaseStation.SeveralPositionsArgument,
+                ListOfSkimmersCharge = somoeBaseStation.
+                };
+        }
         //public IBL.BO.Skimmer GetSkimmer(int id)
         //{
         //    IDAL.DO.BaseStation somoeSkimmer;
