@@ -74,7 +74,7 @@ namespace BlObject
                 TimeAssignGlider = new DateTime( 0, 0, 0),
                 PackageCollectionTime = new DateTime(0, 0, 0),
                 TimeArrivalRecipient = new DateTime(0, 0, 0),
-                IDSkimmerOperation = nullptr,
+                IDSkimmerOperation = 0,
             };
             try
             {

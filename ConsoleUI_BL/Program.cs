@@ -68,6 +68,7 @@ namespace ConsoleUI_BL
                                 mydal.AddBaseStation(newBaseStation);
                                 break;
                             case InseitOption.AddSkimmer:
+
                                 //Quadocopter newQuadocopter = new Quadocopter();
 
                                 int IDs;
