@@ -12,7 +12,7 @@ namespace ConsoleUI_BL
         enum DisplayOptions { Exit, DisplayBaseStation, DisplaySkimmer, DisplayCustomer, DisplayPackage }
         enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewCustomer, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
 
-        static BlObject.BlObject mydal = new BlObject.BlObject();
+        static BlObject.BlObjectSkimmer mydal = new BlObject.BlObjectSkimmer();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1806:Do not ignore method results", Justification = "<Pending>")]
         private static void Menu()

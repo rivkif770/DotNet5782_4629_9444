@@ -20,10 +20,10 @@ namespace DalObject
         internal class Config
         {
             public static int IDPackage = 1000;
-            public static double free=5;
-            public static double  LightWeightCarrier = 10;
-            public static double  MediumWeightBearing = 20;
-            public static double CarryingHeavyWeight = 25;
+            public static double Free = 5;
+            public static double LightWeightCarrier = 10;
+            public static double MediumWeightCarrier = 20;
+            public static double HeavyWeightCarrier = 25;
             public static double SkimmerLoadingRate = 50;
         }
 
