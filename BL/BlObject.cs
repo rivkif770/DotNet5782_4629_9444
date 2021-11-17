@@ -24,7 +24,7 @@ namespace BlObject
 
         public void AddBaseStation(IBL.BO.BaseStation newBaseStation)
         {
-            BaseStation temp_BS = new BaseStation
+            IDAL.DO.BaseStation temp_BS = new IDAL.DO.BaseStation()
             {
                 UniqueID = newBaseStation.Id,
                 StationName = newBaseStation.Name,
@@ -43,7 +43,7 @@ namespace BlObject
             }
         }
         public void AddSkimmer(IBL.BO.Skimmer newSkimmer, int station)
-        {
+        { 
             newSkimmer.BatteryStatus = r.Next(20, 41);
             newSkimmer.SkimmerStatus = IBL.BO.SkimmerStatuses.maintenance;
             IBL.BO.BaseStation temp_BaseStation = GetBeseStation(station);

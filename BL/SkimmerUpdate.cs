@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BlObject
 {
-    public class SkimmerUpdate
+    public partial class SkimmerUpdate
     {
         double[] vs = DalObject.DalObject.PowerConsumptionRequest();
         public double free = vs[0];
-        public double LightWeightCarrier;
+        public double LightWeightCarrier=vs[1];
         public double MediumWeightBearing;
         public double CarryingHeavyWeight;
         public double SkimmerLoadingRate;
@@ -18,12 +18,16 @@ namespace BlObject
         {
             double[] arr = new double[5];
             double[] vs = DalObject.DalObject.PowerConsumptionRequest();
-            arr = vs;
-        public double free = vs[0];
-        public double LightWeightCarrier;
-        public double MediumWeightBearing;
-        public double CarryingHeavyWeight;
-        public double SkimmerLoadingRate;
+            //    arr = vs;
+            //public double free = vs[0];
+            //public double LightWeightCarrier;
+            //public double MediumWeightBearing;
+            //public double CarryingHeavyWeight;
+            //public double SkimmerLoadingRate;
+            double distanceToDestination = DistanceToDestination();
+            int minBattertSkimmer = 0;
+            int weight=(int)
+        }
+        
     }
-}
 }
