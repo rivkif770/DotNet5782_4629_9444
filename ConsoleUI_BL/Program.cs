@@ -67,18 +67,34 @@ namespace ConsoleUI_BL
                                 };
                                 mydal.AddBaseStation(newBaseStation);
                                 break;
+                            case InseitOption.AddSkimmer:
+                                //Quadocopter newQuadocopter = new Quadocopter();
 
-                            //                    case InseitOption.AddSkimmer:
-                            //                        Quadocopter newQuadocopter = new Quadocopter();
+                                int IDs;
+                                Console.WriteLine("Serial number of the manufacturer:");
+                                int.TryParse(Console.ReadLine(), out IDs);
 
-                            //                        Console.WriteLine("Enter unique ID number:");
-                            //                        newQuadocopter.IDNumber = int.Parse(Console.ReadLine());
+                                string model;
+                                Console.WriteLine("Skimmer model:");
+                                model = (Console.ReadLine());
 
-                            //                        Console.WriteLine("Enter Skimmer model:");
-                            //                        newQuadocopter.SkimmerModel = Console.ReadLine();
+                                int weight;
+                                Console.WriteLine("Maximum weight: 0-low,1-middle,2-heavy:");
+                                int.TryParse(Console.ReadLine(), out weight);
 
-                            //                        Console.WriteLine("Enter Weight category 0-low,1-middle,2-heavy:");
-                            //                        newQuadocopter.Weight = (WeightCategories)int.Parse(Console.ReadLine());
+                                int station;
+                                Console.WriteLine("Station number Put the skimmer in it for initial charging");
+                                int.TryParse(Console.ReadLine(), out station);
+
+                                //newQuadocopter.Battery = 100;
+                                //newQuadocopter.SkimmerMode = (DronStatuses)0;
+                                Skimmer newSkimmer = new Skimmer
+                                {
+                                    Id = IDs,
+                                    SkimmerModel = model,
+                                    WeightCategory = (Weight)weight,
+                                };
+                                mydal.AddSkimmer(newSkimmer, station);
 
                             //                        //newQuadocopter.Battery = 100;
                             //                        //newQuadocopter.SkimmerMode = (DronStatuses)0;
@@ -162,6 +178,8 @@ namespace ConsoleUI_BL
                         mydal.AddPackage(newPackage);
                         break;
 
+            //                        newPackage.IDSkimmerOperation = 0;
+            //                        newPackage.PackageCreationTime = DateTime.Now;
 
                         //try
                         //{
