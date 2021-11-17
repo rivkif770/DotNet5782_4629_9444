@@ -172,8 +172,6 @@ namespace ConsoleUI_BL
                         //    Console.WriteLine(exception);
                         //    throw;
                         //}
-
-                        break;
                 }
                 break;
 
