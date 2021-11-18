@@ -43,14 +43,14 @@ namespace DalObject
             }
             return result.Take(result.Count).ToList();
         }
-        public void DeletePackage(Package p)//Add a package
+        public void DeletePackage(int IDp)//Add a package
         {
-            if (!DataSource.ListPackage.Exists(item => item.ID == p.ID))//If finds an existing Package throws an error.
+            if (!DataSource.ListPackage.Exists(item => item.ID == IDp))//If finds an existing Package throws an error.
             {
-                throw new IdDoesNotExistException($"Package {p.ID} dont Save to system", Severity.Mild);
+                throw new IdDoesNotExistException($"Package {IDp} dont Save to system", Severity.Mild);
             }
-            p.ID = global::DalObject.DataSource.Config.IDPackage--;
-            DataSource.ListPackage.Remove(p);
+            IDp = global::DalObject.DataSource.Config.IDPackage--;
+            DataSource.ListPackage.RemoveAll(item => item.ID == IDp);
         }
     }
 }

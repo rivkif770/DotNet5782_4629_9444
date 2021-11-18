@@ -19,6 +19,7 @@ namespace IDAL.DO
         Package GetPackage(int idp);
         IEnumerable<Package> GetPackageList();
         IEnumerable<Quadocopter> GetQuadocopterList();
+        IEnumerable<Quadocopter> GetSkimmerLoading();
         Quadocopter GetQuadrocopter(int IDq);
         void PackageDelivery(int idp);
         List<Package> PackagesWithoutSkimmer();
@@ -26,5 +27,7 @@ namespace IDAL.DO
         void SkimmerRelease(int idq, int IdBS);
         BaseStation GetSkimmer(int id);
         public double[] PowerConsumptionRequest();
+        public void DeletePackage(int id);
+        public void DeleteClient(int id);
     }
 }

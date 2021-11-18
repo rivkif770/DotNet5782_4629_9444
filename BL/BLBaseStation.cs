@@ -71,7 +71,7 @@ namespace BL
             if (countOfChargingStations != "")
             {
                 help = int.Parse(countOfChargingStations);
-                GetBeseStation(id). = name;
+                GetBeseStation(id).Name = name;
             }
         }
     }

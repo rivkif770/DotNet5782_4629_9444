@@ -161,5 +161,30 @@ namespace DalObject
         {
             throw new NotImplementedException();
         }
+
+        public void AssignPackageSkimmer(int idp, int idq)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CollectionPackage(int idp)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PackageDelivery(int idp)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendingSkimmerForCharging(int idq, int idBS)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SkimmerRelease(int idq, int IdBS)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

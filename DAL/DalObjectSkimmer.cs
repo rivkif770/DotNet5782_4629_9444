@@ -27,8 +27,12 @@ namespace DalObject
         }
         public IEnumerable<Quadocopter> GetQuadocopterList()//Displays a list of Skimmer
         {
-            //return DataSource.ListQuadocopter.ToList();
             return DataSource.ListQuadocopter.Take(DataSource.ListQuadocopter.Count).ToList();
+        }
+        public IEnumerable<Quadocopter> GetSkimmerLoading()//Displays a list of Skimmer
+        {
+            return DataSource.ListSkimmerLoading.Take(DataSource.ListSkimmerLoading.Count).ToList();
+            //return (IEnumerable<Quadocopter>)DataSource.ListSkimmerLoading.Take(DataSource.ListSkimmerLoading.Count).ToList();
         }
         public void DeleteSkimmer(Quadocopter q)//added a skimmer
         {
