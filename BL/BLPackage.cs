@@ -59,5 +59,67 @@ namespace BL
                 SupplyTime = somoePackage.TimeArrivalRecipient
             };
         }
+        public void AssigningPackageToSkimmer(int id)
+        {
+            Skimmer skimmer = GetSkimmer(id);
+            if (skimmer.SkimmerStatus == SkimmerStatuses.maintenance)
+            {
+                foreach (IDAL.DO.Package item in mayDal.GetPackageList())
+                {
+                    if (item.priority == Priorities.emergency)
+                    {
+
+                    }
+                }
+            }
+        }
+        public void DeliveryOfPackageBySkimmer(int id)
+        {
+            Skimmer skimmer = GetSkimmer(id);
+            DateTime ResetTime = new DateTime(0, 0, 0);
+            IDAL.DO.Package package;
+            foreach (IDAL.DO.Package item in mayDal.GetPackageList())//Looking for a package that the glider is associated with
+            {
+                if (item.IDSkimmerOperation == id)
+                {
+                    package = new IDAL.DO.Package
+                    {
+                        ID = item.ID,
+                        IDSender = item.IDSender,
+                        IDgets = item.IDgets,
+                        Weight = item.Weight,
+                        priority = item.priority,
+                        IDSkimmerOperation = item.IDSkimmerOperation,
+                        PackageCreationTime = item.PackageCreationTime,
+                        TimeAssignGlider = item.TimeAssignGlider,
+                        PackageCollectionTime = item.PackageCollectionTime,
+                        TimeArrivalRecipient = item.TimeArrivalRecipient
+                    };
+                }
+            }
+            if (package.PackageCollectionTime == ResetTime && package.TimeArrivalRecipient != ResetTime)
+            {
+                Customer customer = GetClint(package.IDgets);
+                
+                IDAL.DO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
+                Location locationBaseStation = new Location
+                {
+                    Longitude = baseStation.Longitude,
+                    Latitude = baseStation.Latitude
+                };
+                double battery = BatteryCalculation(skimmer.Location, customer.Location, package.Weight) + BatteryCalculation(customer.Location, locationBaseStation, package.Weight);
+                if (battery <= skimmer.BatteryStatus)
+                {
+                    skimmer.BatteryStatus = skimmer.BatteryStatus - battery;
+                    skimmer.Location = customer.Location;
+                    skimmer.SkimmerStatus = SkimmerStatuses.free;
+                    mayDal.DeleteSkimmer(skimmer.Id);
+                    AddSkimmer(skimmer);
+                    package.TimeArrivalRecipient = DateTime.Now;
+                    mayDal.DeletePackage(package.ID);
+                    mayDal.AddPackage(package);
+                }
+            }
+        }
     }
 }
