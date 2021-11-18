@@ -110,6 +110,8 @@ namespace BL
             }
             IDAL.DO.Quadocopter quadocopter = mayDal.GetQuadrocopter(s.Id);
             IBL.BO.BaseStation. SkimmerInCyStatus=0,
+            IDAL.DO.Quadocopter quadocopter = mayDal.GetQuadrocopter(s.Id);
+            IBL.BO.SkimmerInChargings.BatteryStatus =0,
             IBL.BO.SkimmerInCharging.id = 0;
             ddSkimmer(s);
             mayDal.DeleteClient(s.Id);
@@ -186,9 +188,7 @@ namespace BL
                 PackageInTransfer = somoeSkimmer.,
                 Location = new Location { Latitude = somoeSkimmer.Latitude, Longitude = somoeSkimmer.Longitude },
             };
-        }  
-        
-
+        }         
         public void UpdateSkimmerName(int ids, string name)
         {
             Skimmer skimmer = GetSkimmer(ids);
@@ -221,6 +221,7 @@ namespace BL
                     }
                     else
                     {
+                        //throw new ExistsInSystemException($"Skimmer {SL.SkimmerID} Save to system of SkimmerLoading", Severity.Mild);
                         throw new Exception "אין מספיק בטריה"
                     }
                 }
@@ -244,6 +245,18 @@ namespace BL
                 }
             }
             return minDistance;
+        }
+        public double BatteryCalculation(Location location1,Location location2, WeightCategories weight)
+        {
+            double distance = DistanceToDestination.Calculation(location1.Longitude, location1.Latitude, location2.Longitude, location2.Latitude);
+            double Battery;
+            if (weight == WeightCategories.heavy)
+                Battery = HeavyWeightCarrier * distance;
+            if (weight == WeightCategories.middle)
+                Battery = MediumWeightCarrier * distance;
+            if (weight == WeightCategories.low)
+                Battery = LightWeightCarrier * distance;
+            return Battery;
         }
     }
 }

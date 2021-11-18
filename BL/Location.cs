@@ -19,9 +19,5 @@ namespace IBL.BO
             return result;
         }
 
-        internal double Latitude()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
