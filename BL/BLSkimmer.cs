@@ -109,9 +109,8 @@ namespace BL
                 }
             }
             IDAL.DO.Quadocopter quadocopter = mayDal.GetQuadrocopter(s.Id);
-            IBL.BO.BaseStation. SkimmerInCyStatus=0,
-            IDAL.DO.Quadocopter quadocopter = mayDal.GetQuadrocopter(s.Id);
-            IBL.BO.SkimmerInChargings.BatteryStatus =0,
+            IBL.BO.BaseStation.SkimmerInCyStatus = 0;
+            IBL.BO.SkimmerInChargings.BatteryStatus = 0;
             IBL.BO.SkimmerInCharging.id = 0;
             ddSkimmer(s);
             mayDal.DeleteClient(s.Id);
