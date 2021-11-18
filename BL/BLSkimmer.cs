@@ -34,8 +34,6 @@ namespace BL
         }
         public void SkimmerUpdates()
         {
-
-           
             foreach (Quadocopter item in mayDal.GetQuadocopterList())
             {
                 DateTime help = new DateTime(0, 0, 0);
@@ -150,5 +148,10 @@ namespace BL
                 Location = new Location { Latitude = somoeSkimmer.Latitude, Longitude = somoeSkimmer.Longitude },
             };
         }        
+
+        public void UpdateSkimmerName(int ids, string name)
+        {
+            GetSkimmer(ids).SkimmerModel = name;
+        }
     }
 }

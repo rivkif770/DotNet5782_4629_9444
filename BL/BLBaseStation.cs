@@ -61,6 +61,19 @@ namespace BL
         {
             throw new NotImplementedException();
         }
+
+        public void UpdateBaseStation(int id, string name, string countOfChargingStations)
+        {
+            int help;
+            GetBeseStation(id).Id = id;
+            if (name != "")
+                GetBeseStation(id).Name = name;
+            if (countOfChargingStations != "")
+            {
+                help = int.Parse(countOfChargingStations);
+                GetBeseStation(id). = name;
+            }
+        }
     }
 }
 
