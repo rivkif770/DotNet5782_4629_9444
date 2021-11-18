@@ -24,7 +24,7 @@ namespace DAL
         {
             BaseStation NotFoundCase = new BaseStation();
             NotFoundCase.UniqueID = 0;
-            IEnumerator<BaseStation> iter = (IEnumerator<BaseStation>)DalObject.DalObjectBaseStation.GetBaseStationList_private(); 
+            IEnumerator<BaseStation> iter = (IEnumerator<BaseStation>)DalObject.DataSource.ListBaseStation; 
             while(iter.MoveNext())
             {
                 if (id == iter.Current.UniqueID)

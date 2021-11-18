@@ -9,7 +9,7 @@ namespace IBL.BO
     public class SkimmerToList
     {
         public int Id { get; set; }
-        public int SkimmerModel { get; set; }
+        public string SkimmerModel { get; set; }
         public Weight WeightCategory { get; set; }
         public double BatteryStatus { get; set; }
         public SkimmerStatuses SkimmerStatus { get; set; }

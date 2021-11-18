@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DalObject
 {
-    public class DalObjectSkimmer
+    public partial class DalObject: IDal
     {
-        public static void AddSkimmer_privet(Quadocopter q)//added a skimmer
+        public void AddSkimmer(Quadocopter q)//added a skimmer
         {
             if (DataSource.ListQuadocopter.Exists(item => item.IDNumber == q.IDNumber))//If finds an existing Skimmer throws an error.
             {
@@ -17,7 +17,7 @@ namespace DalObject
             }
             DataSource.ListQuadocopter.Add(q);
         }
-        public static Quadocopter GetQuadrocopter_privet(int IDq)//Quadrocopter view by appropriate ID
+        public Quadocopter GetQuadrocopter(int IDq)//Quadrocopter view by appropriate ID
         {
             if (!DataSource.ListQuadocopter.Exists(item => item.IDNumber == IDq))
             {
@@ -25,10 +25,18 @@ namespace DalObject
             }
             return DataSource.ListQuadocopter.FirstOrDefault(q => q.IDNumber == IDq);
         }
-        public static IEnumerable<Quadocopter> GetQuadocopterList_privet()//Displays a list of Skimmer
+        public IEnumerable<Quadocopter> GetQuadocopterList()//Displays a list of Skimmer
         {
             //return DataSource.ListQuadocopter.ToList();
             return DataSource.ListQuadocopter.Take(DataSource.ListQuadocopter.Count).ToList();
+        }
+        public void DeleteSkimmer(Quadocopter q)//added a skimmer
+        {
+            if (!DataSource.ListQuadocopter.Exists(item => item.IDNumber == q.IDNumber))//If finds an existing Skimmer throws an error.
+            {
+                throw new IdDoesNotExistException($"Skimmer {q.IDNumber} dont Save to system", Severity.Mild);
+            }
+            DataSource.ListQuadocopter.Remove(q);
         }
     }
     

@@ -18,5 +18,10 @@ namespace IBL.BO
             result += $"Longitude is: {Longitude}, \n";
             return result;
         }
+
+        internal double Latitude()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

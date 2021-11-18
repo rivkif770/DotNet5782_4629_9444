@@ -12,9 +12,6 @@ namespace IDAL
         public enum WeightCategories { low, middle, heavy};
         //public enum DronStatuses { free, maintenance, shipping};
         public enum Priorities { regular, fast, emergency};
-        public enum Severity
-        {
-           Mild, Severe, Terrible
-        }
+        public enum Severity { Mild, Severe, Terrible };
     }
 }

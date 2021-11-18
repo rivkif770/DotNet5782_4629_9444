@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DalObject
 {
-    class DalObjectClient
+    public partial class DalObject: IDal
     {
-        public static void AddClient_private(Client c)//Adding a customer
+        public void AddClient(Client c)//Adding a customer
         {
             if (DataSource.ListClient.Exists(item => item.ID == c.ID))//If finds an existing Customer throws an error.
             {
@@ -17,7 +17,7 @@ namespace DalObject
             }
             DataSource.ListClient.Add(c);
         }
-        public static Client GetClient_private(int IDc)//Client view by appropriate ID
+        public Client GetClient(int IDc)//Client view by appropriate ID
         {
             if (!DataSource.ListClient.Exists(item => item.ID == IDc))
             {
@@ -25,10 +25,18 @@ namespace DalObject
             }
             return DataSource.ListClient.FirstOrDefault(c => c.ID == IDc);
         }
-        public static IEnumerable<Client> GetClientList_private()//Displays a list of Client
+        public IEnumerable<Client> GetClientList()//Displays a list of Client
         {
             //return DataSource.ListClient.ToList();
             return DataSource.ListClient.Take(DataSource.ListClient.Count).ToList();
+        }
+        public void DeleteClient(Client c)//Adding a customer
+        {
+            if (!DataSource.ListClient.Exists(item => item.ID == c.ID))//If finds an existing Customer throws an error.
+            {
+                throw new IdDoesNotExistException($"Customer {c.ID} dont Save to system", Severity.Mild);
+            }
+            DataSource.ListClient.Remove(c);
         }
     }
 }

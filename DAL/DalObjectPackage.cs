@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DalObject
 {
-    public class DalObjectPackage
+    public partial class DalObject: IDal
     {
-        public static void AddPackage_privet(Package p)//Add a package
+        public void AddPackage(Package p)//Add a package
         {
             if (DataSource.ListPackage.Exists(item => item.ID == p.ID))//If finds an existing Package throws an error.
             {
@@ -18,7 +18,7 @@ namespace DalObject
             p.ID = global::DalObject.DataSource.Config.IDPackage++;
             DataSource.ListPackage.Add(p);
         }
-        public static Package GetPackage_privet(int idp)//Package view by appropriate ID
+        public Package GetPackage(int idp)//Package view by appropriate ID
         {
             if (!DataSource.ListPackage.Exists(item => item.ID == idp))
             {
@@ -26,12 +26,12 @@ namespace DalObject
             }
             return DataSource.ListPackage.FirstOrDefault(p => p.ID == idp);
         }
-        public static IEnumerable<Package> GetPackageList_privet()//Displays a list of Package
+        public IEnumerable<Package> GetPackageList()//Displays a list of Package
         {
             //return DataSource.ListPackage.ToList();
             return DataSource.ListPackage.Take(DataSource.ListPackage.Count).ToList();
         }
-        public static IEnumerable<Package> PackagesWithoutSkimmer_privet()//Displays a list of Packages not yet associated with the glider
+        public IEnumerable<Package> PackagesWithoutSkimmer()//Displays a list of Packages not yet associated with the glider
         {
             List<Package> result = new List<Package>();
             for (int i = 0; i < DataSource.ListPackage.Count; i++)
@@ -42,6 +42,15 @@ namespace DalObject
                 }
             }
             return result.Take(result.Count).ToList();
+        }
+        public void DeletePackage(Package p)//Add a package
+        {
+            if (!DataSource.ListPackage.Exists(item => item.ID == p.ID))//If finds an existing Package throws an error.
+            {
+                throw new IdDoesNotExistException($"Package {p.ID} dont Save to system", Severity.Mild);
+            }
+            p.ID = global::DalObject.DataSource.Config.IDPackage--;
+            DataSource.ListPackage.Remove(p);
         }
     }
 }

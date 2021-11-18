@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace DalObject
 {
-    public class DalObjectBaseStation
+    public partial class DalObject :IDal
     {
-        public static void AddBaseStation_private(BaseStation b)//Adding a station
+        public void AddBaseStation(BaseStation b)//Adding a station
         {
             if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
             {
-                throw new ExistsInSystemException($"Person {b.UniqueID} Save to system", Severity.Mild);
+                throw new ExistsInSystemException($"BaseStation {b.UniqueID} Save to system", Severity.Mild);
             }
             DataSource.ListBaseStation.Add(b);
         }
-        public static BaseStation GetBaseStation_private(int IDb)//Base station view by appropriate ID
+        public BaseStation GetBaseStation(int IDb)//Base station view by appropriate ID
         {
             if (!DataSource.ListBaseStation.Exists(item => item.UniqueID == IDb))
             {
@@ -25,12 +25,12 @@ namespace DalObject
             }
             return DataSource.ListBaseStation.FirstOrDefault(b => b.UniqueID == IDb);
         }
-        public static IEnumerable<BaseStation> GetBaseStationList_private()//return a list of base stations
+        public IEnumerable<BaseStation> GetBaseStationList()//return a list of base stations
         {
             return DataSource.ListBaseStation.Take(DataSource.ListBaseStation.Count).ToList();
             //return IEnumerable< DataSource.ListBaseStation.ToList();
         }
-        public static IEnumerable<BaseStation> BaseStationFreeCharging_privet()//Displays a list of Base stations with available charging stations
+        public IEnumerable<BaseStation> BaseStationFreeCharging()//Displays a list of Base stations with available charging stations
         {
             List<BaseStation> result = new List<BaseStation>();
             for (int i = 0; i < DataSource.ListBaseStation.Count; i++)
@@ -41,6 +41,14 @@ namespace DalObject
                 }
             }
             return result.Take(result.Count).ToList(); 
+        }
+        public void DeleteBaseStation(BaseStation b)//Adding a station
+        {
+            if (!DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
+            {
+                throw new IdDoesNotExistException($"BaseStation {b.UniqueID} dont Save to system", Severity.Mild);
+            }
+            DataSource.ListBaseStation.Remove(b);
         }
     }
 }

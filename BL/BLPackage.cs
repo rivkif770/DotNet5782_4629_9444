@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlObject
+namespace BL
 {
-    public partial class BlObject : IBL.IBL
+    public partial class BL : IBL.IBL
     {
         public void AddPackage(IBL.BO.Package newPackage)
         {
