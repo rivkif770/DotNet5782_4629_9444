@@ -42,13 +42,13 @@ namespace DalObject
             }
             return result.Take(result.Count).ToList(); 
         }
-        public void DeleteBaseStation(BaseStation b)//Adding a station
+        public void DeleteBaseStation(int idb)//Adding a station
         {
-            if (!DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
+            if (!DataSource.ListBaseStation.Exists(item => item.UniqueID == idb))//If finds an existing base station throws an error.
             {
-                throw new IdDoesNotExistException($"BaseStation {b.UniqueID} dont Save to system", Severity.Mild);
+                throw new IdDoesNotExistException($"BaseStation {idb} dont Save to system", Severity.Mild);
             }
-            DataSource.ListBaseStation.Remove(b);
+            DataSource.ListBaseStation.RemoveAll(item => item.UniqueID == idb);
         }
     }
 }

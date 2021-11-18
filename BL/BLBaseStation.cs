@@ -64,15 +64,19 @@ namespace BL
 
         public void UpdateBaseStation(int id, string name, string countOfChargingStations)
         {
-            int help;
-            GetBeseStation(id).Id = id;
+            IBL.BO.BaseStation baseStation = GetBeseStation(id);
+            mayDal.DeleteBaseStation(id);
+            int TotalChargeAmount ,NumberOfSkimmersInCharge;
+            baseStation.Id = id;
             if (name != "")
-                GetBeseStation(id).Name = name;
+                baseStation.Name = name;
             if (countOfChargingStations != "")
             {
-                help = int.Parse(countOfChargingStations);
-                GetBeseStation(id). = name;
+                TotalChargeAmount = int.Parse(countOfChargingStations);
+                NumberOfSkimmersInCharge = baseStation.ListOfSkimmersCharge.Count();
+                baseStation.SeveralClaimPositionsVacant = TotalChargeAmount - NumberOfSkimmersInCharge;
             }
+            AddBaseStation(baseStation);
         }
     }
 }

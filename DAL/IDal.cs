@@ -26,5 +26,9 @@ namespace IDAL.DO
         void SkimmerRelease(int idq, int IdBS);
         BaseStation GetSkimmer(int id);
         public double[] PowerConsumptionRequest();
+        public void DeleteSkimmer(int idq);
+        public void DeleteBaseStation(int idb);
+        public void AddSkimmerLoading(SkimmerLoading SL);
+        public void DeleteSkimmerLoading(int idsl);
     }
 }

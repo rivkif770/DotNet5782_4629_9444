@@ -151,7 +151,59 @@ namespace BL
 
         public void UpdateSkimmerName(int ids, string name)
         {
-            GetSkimmer(ids).SkimmerModel = name;
+            Skimmer skimmer = GetSkimmer(ids);
+            mayDal.DeleteBaseStation(ids);
+            skimmer.SkimmerModel = name;
+            AddSkimmer(skimmer);
+        }
+        public void SendingSkimmerForCharging(int id)
+        {
+            IBL.BO.Skimmer skimmer = GetSkimmer(id);
+            double battery = 0;           
+            if (skimmer.SkimmerStatus == SkimmerStatuses.free)
+            {
+                IDAL.DO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
+                if (baseStation.SeveralPositionsArgument != 0)
+                {
+                    if (skimmer.BatteryStatus >= battery)
+                    {
+                        skimmer.BatteryStatus =;
+                        skimmer.SkimmerStatus = SkimmerStatuses.maintenance;
+                        mayDal.DeleteSkimmer(skimmer.Id);
+                        AddSkimmer(skimmer, baseStation.UniqueID);
+                        baseStation.SeveralPositionsArgument--;
+                        mayDal.DeleteBaseStation(baseStation.UniqueID);
+                        mayDal.AddBaseStation(baseStation);
+                        IDAL.DO.SkimmerLoading skimmerLoading = new SkimmerLoading();
+                        skimmerLoading.SkimmerID = skimmer.Id;
+                        skimmerLoading.StationID = baseStation.UniqueID;
+                        mayDal.AddSkimmerLoading(skimmerLoading);
+                    }
+                    else
+                    {
+                        throw new Exception "אין מספיק בטריה"
+                    }
+                }
+                else
+                {
+                    throw new Exception "אין עמדות טעינה פנויות"
+                }
+            }
+        }
+        public IDAL.DO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(Skimmer s)
+        {
+            IDAL.DO.BaseStation minDistance;
+            int distance1, distance2 = 100000;
+            foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
+            {
+                distance1 = DistanceToDestination.Calculation(s.Location.Longitude, s.Location.Latitude, item.Longitude, item.Latitude);
+                if (distance1 < distance2)
+                {
+                    minDistance = item;
+                    distance2 = distance1;
+                }
+            }
+            return minDistance;
         }
     }
 }
