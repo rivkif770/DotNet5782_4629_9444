@@ -8,8 +8,7 @@ namespace ConsoleUI_BL
 
         enum Options { Exit, Add, Update, Display, ViewTheLists }
         enum InseitOption { Exit, AddBaseStation, AddSkimmer, AddCustomer, AddPackage }
-        enum UpdateOption { Exit, UpdateSkimmerName, UpdateBaseStation, UpdateCustomerData, SendLoading, ReleaseSkimmerFromCharging }
-        enum UpdateOption { Exit, UpdateSkimmerName, UpdateBaseStation, Supply, SendingSkimmerForCharging, ReleaseCharging }
+        enum UpdateOption { Exit, UpdateSkimmerName, UpdateBaseStation, UpdateCustomerData, SendingSkimmerForCharging, ReleaseCharging }
         enum DisplayOptions { Exit, DisplayBaseStation, DisplaySkimmer, DisplayCustomer, DisplayPackage }
         enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewCustomer, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
 
@@ -202,9 +201,7 @@ namespace ConsoleUI_BL
                             " 0-Exit\n" +
                             " 1-Updated skimmer name\n" +
                             " 2-Update station data\n" +
-                            " 3-ADelivery package to customer\n" +
-                            " 2-Package collection by skimmer\n" +
-                            " 3- Update customer data\n" +
+                            " 3-Update customer data\n" +
                             " 4-Sending a skimmer for charging at a base station\n" +
                             " 5-Release skimmer from charging");
                         updateOption = (UpdateOption)int.Parse(Console.ReadLine());
