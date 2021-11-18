@@ -59,5 +59,34 @@ namespace BL
                 SupplyTime = somoePackage.TimeArrivalRecipient
             };
         }
+        public void CollectingPackageBySkimmer(int id)
+        {
+            Skimmer s = GetSkimmer(id);
+            IBL.BO.Package package;;
+            DateTime date = new DateTime(0, 0, 0);
+            package = s.PackageInTransfer;
+            int idc = package.SendPackage.Id;
+            Location locationsend = GetCustomer(idc).Location;
+            if (s.SkimmerStatus == SkimmerStatuses.shipping && package.AssignmentTime != date && package.CollectionTime == date)
+            {
+                double distance = DalObject.DistanceToDestination.Calculation(s.Location.Longitude, s.Location.Latitude, locationsend.Longitude, locationsend.Latitude);
+                s.BatteryStatus = (s.BatteryStatus) - (distance * Free);
+                s.Location = locationsend;
+                package.CollectionTime = DateTime.Now;
+
+            }
+            else
+                throw new SkimmerExistsInSystemException_BL($"Skimmer {id}does not ship a package that has been associated with it or has already been collected", Severity.Mild);
+        }
     }
 }
+//int idc = package.SendPackage.Id;
+//Location locationsend = GetCustomer(idc).Location;
+//double distance = DalObject.DistanceToDestination.Calculation(s.Location.Longitude, s.Location.Latitude, locationsend.Longitude, locationsend.Latitude);
+//double weight;
+//if (package.WeightCategory == Weight.Heavy)
+//    weight = HeavyWeightCarrier;
+//if (package.WeightCategory == Weight.Medium)
+//    weight = MediumWeightCarrier;
+//if (package.WeightCategory == Weight.Light)
+//    weight = LightWeightCarrier;

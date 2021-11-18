@@ -101,14 +101,15 @@ namespace BL
             {
                 if(item.UniqueID==b)
                 {
-                    IDAL.DO.BaseStation baseStation = GetBeseStation(item.UniqueID);
+                    IDAL.DO.BaseStation baseStation = mayDal.GetBeseStation(b);
                     baseStation.SeveralPositionsArgument--;
-                    mayDal.DeleteBaseStation(baseStation);
+                    mayDal.DeleteBaseStation(baseStation.UniqueID);
                     mayDal.AddBaseStation(baseStation);
+                    break;
                 }
             }
-            IDAL.DO.Quadocopter quadocopter = GetSkimmer(s.Id);
-            IBL.BO.SkimmerInChargings.BatteryStatus =0,
+            IDAL.DO.Quadocopter quadocopter = mayDal.GetQuadrocopter(s.Id);
+            IBL.BO.BaseStation. SkimmerInCyStatus=0,
             IBL.BO.SkimmerInCharging.id = 0;
             ddSkimmer(s);
             mayDal.DeleteClient(s.Id);

@@ -8,7 +8,7 @@ namespace ConsoleUI_BL
 
         enum Options { Exit, Add, Update, Display, ViewTheLists }
         enum InseitOption { Exit, AddBaseStation, AddSkimmer, AddCustomer, AddPackage }
-        enum UpdateOption { Exit, UpdateSkimmerName, UpdateBaseStation, UpdateCustomerData, SendingSkimmerForCharging, ReleaseCharging }
+        enum UpdateOption { Exit, UpdateSkimmerName, UpdateBaseStation, UpdateCustomerData, SendingSkimmerForCharging, ReleaseCharging, CollectingPackageBySkimmer }
         enum DisplayOptions { Exit, DisplayBaseStation, DisplaySkimmer, DisplayCustomer, DisplayPackage }
         enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewCustomer, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
 
@@ -203,7 +203,8 @@ namespace ConsoleUI_BL
                             " 2-Update station data\n" +
                             " 3-Update customer data\n" +
                             " 4-Sending a skimmer for charging at a base station\n" +
-                            " 5-Release skimmer from charging");
+                            " 5-Release skimmer from charging\n" +
+                            " 6-○ Collecting a package by skimmer\n");
                         updateOption = (UpdateOption)int.Parse(Console.ReadLine());
                         switch (updateOption)
                         {
@@ -287,6 +288,19 @@ namespace ConsoleUI_BL
                                 try
                                 {
                                     mydal.SendingSkimmerForCharging(ids);
+                                }
+                                catch (Exception exception)
+                                {
+                                    Console.WriteLine(exception);
+                                    throw;
+                                }
+                                break;
+                            case UpdateOption.CollectingPackageBySkimmer:
+                                Console.WriteLine("enter ID of skimmers:");
+                                ids = int.Parse(Console.ReadLine());
+                                try
+                                {
+                                    mydal.CollectingPackageBySkimmer(ids);
                                 }
                                 catch (Exception exception)
                                 {

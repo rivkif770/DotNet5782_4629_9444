@@ -33,5 +33,7 @@ namespace IDAL.DO
         public void DeleteSkimmerLoading(int idsl);
         public void DeletePackage(int id);
         public void DeleteClient(int id);
+        void DeleteBaseStation(BaseStation baseStation);
+        BaseStation GetBeseStation(int b);
     }
 }
