@@ -51,5 +51,18 @@ namespace BL
                 ReceiveParcels = somoeone.,
             };
         }
+        public void UpdateCustomerData(int id, string name, string phone)
+        {
+            IBL.BO.Customer customer = GetCustomer(id); 
+            customer.Id = id;
+            if (name != "")
+                customer.Name = name;
+            if (phone != "")
+            {
+                customer.Phone= phone;
+            }
+            AddCustomer(customer);
+            mayDal.DeleteClient(id);
+        }
     }
 }

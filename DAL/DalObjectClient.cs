@@ -30,13 +30,13 @@ namespace DalObject
             //return DataSource.ListClient.ToList();
             return DataSource.ListClient.Take(DataSource.ListClient.Count).ToList();
         }
-        public void DeleteClient(Client c)//Adding a customer
+        public void DeleteClient(int IDc)//Adding a customer
         {
-            if (!DataSource.ListClient.Exists(item => item.ID == c.ID))//If finds an existing Customer throws an error.
+            if (!DataSource.ListClient.Exists(item => item.ID == IDc))//If finds an existing Customer throws an error.
             {
-                throw new IdDoesNotExistException($"Customer {c.ID} dont Save to system", Severity.Mild);
+                throw new IdDoesNotExistException($"Customer {IDc} dont Save to system", Severity.Mild);
             }
-            DataSource.ListClient.Remove(c);
+            DataSource.ListClient.RemoveAll(item => item.ID == IDc);
         }
     }
 }

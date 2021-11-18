@@ -19,6 +19,7 @@ namespace IDAL.DO
         Package GetPackage(int idp);
         IEnumerable<Package> GetPackageList();
         IEnumerable<Quadocopter> GetQuadocopterList();
+        IEnumerable<Quadocopter> GetSkimmerLoading();
         Quadocopter GetQuadrocopter(int IDq);
         void PackageDelivery(int idp);
         List<Package> PackagesWithoutSkimmer();
@@ -30,5 +31,7 @@ namespace IDAL.DO
         public void DeleteBaseStation(int idb);
         public void AddSkimmerLoading(SkimmerLoading SL);
         public void DeleteSkimmerLoading(int idsl);
+        public void DeletePackage(int id);
+        public void DeleteClient(int id);
     }
 }

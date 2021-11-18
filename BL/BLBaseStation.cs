@@ -75,6 +75,8 @@ namespace BL
                 TotalChargeAmount = int.Parse(countOfChargingStations);
                 NumberOfSkimmersInCharge = baseStation.ListOfSkimmersCharge.Count();
                 baseStation.SeveralClaimPositionsVacant = TotalChargeAmount - NumberOfSkimmersInCharge;
+                help = int.Parse(countOfChargingStations);
+                GetBeseStation(id).Name = name;
             }
             AddBaseStation(baseStation);
         }

@@ -8,6 +8,7 @@ namespace ConsoleUI_BL
 
         enum Options { Exit, Add, Update, Display, ViewTheLists }
         enum InseitOption { Exit, AddBaseStation, AddSkimmer, AddCustomer, AddPackage }
+        enum UpdateOption { Exit, UpdateSkimmerName, UpdateBaseStation, UpdateCustomerData, SendLoading, ReleaseSkimmerFromCharging }
         enum UpdateOption { Exit, UpdateSkimmerName, UpdateBaseStation, Supply, SendingSkimmerForCharging, ReleaseCharging }
         enum DisplayOptions { Exit, DisplayBaseStation, DisplaySkimmer, DisplayCustomer, DisplayPackage }
         enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewCustomer, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
@@ -202,8 +203,10 @@ namespace ConsoleUI_BL
                             " 1-Updated skimmer name\n" +
                             " 2-Update station data\n" +
                             " 3-ADelivery package to customer\n" +
+                            " 2-Package collection by skimmer\n" +
+                            " 3- Update customer data\n" +
                             " 4-Sending a skimmer for charging at a base station\n" +
-                            " 5-Release skimmer from charging at base station");
+                            " 5-Release skimmer from charging");
                         updateOption = (UpdateOption)int.Parse(Console.ReadLine());
                         switch (updateOption)
                         {
@@ -246,20 +249,40 @@ namespace ConsoleUI_BL
                                     throw;
                                 }
                                 break;
-                            //                    //Delivery package to customer
-                            //                    case UpdateOption.Supply:
-                            //                        Console.WriteLine("enter ID of Package:");
-                            //                        id = int.Parse(Console.ReadLine());
-                            //                        try
-                            //                        {
-                            //                            mydal.PackageDelivery(id);
-                            //                        }
-                            //                        catch (Exception exception)
-                            //                        {
-                            //                            Console.WriteLine(exception);
-                            //                            throw;
-                            //                        }
-                            //                        break;
+                            case UpdateOption UpdateCustomerData:
+                                string name_c, phone_c;
+                                Console.WriteLine("enter ID of Customer:");
+                                int idc = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Customer name:");
+                                name_c = Console.ReadLine();
+                                Console.WriteLine("New phone number:");
+                                phone_c = Console.ReadLine();
+                                try
+                                {
+                                    mydal.UpdateCustomerData(idc, name_c, phone_c);
+                                }
+                                catch (IdDoesNotExistException_BL exception)
+                                {
+                                    Console.WriteLine(exception);
+                                    throw;
+                                }
+                                break;
+                            case UpdateOption ReleaseSkimmerFromCharging:
+                                double ChargingTime;
+                                Console.WriteLine("enter ID of Skimmer:");
+                                ids = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Charging time:");
+                                ChargingTime = double.Parse(Console.ReadLine());
+                                try
+                                {
+                                    mydal.ReleaseSkimmerFromCharging(ids, ChargingTime);
+                                }
+                                catch (IdDoesNotExistException_BL exception)
+                                {
+                                    Console.WriteLine(exception);
+                                    throw;
+                                }
+                                break;
                             //                    // Sending a skimmer for charging at a base station
                             case UpdateOption.SendingSkimmerForCharging:
                                 Console.WriteLine("enter ID of skimmers:");

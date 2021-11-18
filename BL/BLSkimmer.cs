@@ -75,7 +75,45 @@ namespace BL
                 }
 
             }
+
         }
+
+        public void ReleaseSkimmerFromCharging(int id, double ChargingTime)
+        {
+            Skimmer s= GetSkimmer(id);
+            if(s.SkimmerStatus!= SkimmerStatuses.maintenance)
+            {
+                throw new maintenanceExistsInSystemException_BL($"Skimmer {id} Not in maintenance", Severity.Mild);
+            }
+            s.BatteryStatus = ChargingTime * SkimmerLoadingRate;
+            s.SkimmerStatus = SkimmerStatuses.free;
+            mayDal.BaseStationFreeCharging();
+            int b;
+            foreach (SkimmerLoading item in mayDal.GetSkimmerLoading())
+            {
+                if(item.SkimmerID==s.Id)
+                {
+                    b=item.StationID;
+                    break;
+                }
+            }
+            foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
+            {
+                if(item.UniqueID==b)
+                {
+                    IDAL.DO.BaseStation baseStation = GetBeseStation(item.UniqueID);
+                    baseStation.SeveralPositionsArgument--;
+                    mayDal.DeleteBaseStation(baseStation);
+                    mayDal.AddBaseStation(baseStation);
+                }
+            }
+            IDAL.DO.Quadocopter quadocopter = GetSkimmer(s.Id);
+            IBL.BO.SkimmerInChargings.BatteryStatus =0,
+            IBL.BO.SkimmerInCharging.id = 0;
+            ddSkimmer(s);
+            mayDal.DeleteClient(s.Id);
+        }
+
         //public double AmountOfElectricity(Skimmer skimmer , Weight weight)
         //{
         //    int weight1=(int)cu
@@ -147,7 +185,8 @@ namespace BL
                 PackageInTransfer = somoeSkimmer.,
                 Location = new Location { Latitude = somoeSkimmer.Latitude, Longitude = somoeSkimmer.Longitude },
             };
-        }        
+        }  
+        
 
         public void UpdateSkimmerName(int ids, string name)
         {

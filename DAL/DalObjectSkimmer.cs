@@ -27,7 +27,6 @@ namespace DalObject
         }
         public IEnumerable<Quadocopter> GetQuadocopterList()//Displays a list of Skimmer
         {
-            //return DataSource.ListQuadocopter.ToList();
             return DataSource.ListQuadocopter.Take(DataSource.ListQuadocopter.Count).ToList();
         }
         public void DeleteSkimmer(int idq)//added a skimmer
@@ -47,6 +46,12 @@ namespace DalObject
             DataSource.ListSkimmerLoading.Add(SL);
         }
         public void DeleteSkimmerLoading(int idsl)//added a skimmer
+        public IEnumerable<Quadocopter> GetSkimmerLoading()//Displays a list of Skimmer
+        {
+            return DataSource.ListSkimmerLoading.Take(DataSource.ListSkimmerLoading.Count).ToList();
+            //return (IEnumerable<Quadocopter>)DataSource.ListSkimmerLoading.Take(DataSource.ListSkimmerLoading.Count).ToList();
+        }
+        public void DeleteSkimmer(Quadocopter q)//added a skimmer
         {
             if (!DataSource.ListSkimmerLoading.Exists(item => item.SkimmerID == idsl))//If finds an existing Skimmer throws an error.
             {
