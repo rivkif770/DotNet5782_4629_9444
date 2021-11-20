@@ -1,7 +1,9 @@
 ﻿using IDAL.DO;
 using System;
 using System.Runtime.Serialization;
-
+/// <summary>
+/// Anomalies if the object already exists
+/// </summary>
 namespace BlObject
 {
     [Serializable]

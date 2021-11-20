@@ -10,6 +10,10 @@ namespace BL
 {
     public partial class BL : IBL.IBL
     {
+        /// <summary>
+        /// Adding a package, all times initialized to zero time except for a creation date that will be initialized to DateTime.Now, the glider will be initialized to null
+        /// </summary>
+        /// <param name="newPackage"></param>
         public void AddPackage(IBL.BO.Package newPackage)
         {
             IDAL.DO.Package temp_p = new IDAL.DO.Package
@@ -59,6 +63,10 @@ namespace BL
                 SupplyTime = somoePackage.TimeArrivalRecipient
             };
         }
+        /// <summary>
+        /// Collecting a package by skimmer
+        /// </summary>
+        /// <param name="id"></param>
         public void CollectingPackageBySkimmer(int id)
         {
             Skimmer s = GetSkimmer(id);
@@ -67,22 +75,32 @@ namespace BL
             package = s.PackageInTransfer;
             int idc = package.SendPackage.Id;
             Location locationsend = GetCustomer(idc).Location;
+            //Only a skimmer that delivers a package that has been associated with it but has not yet been collected will be able to pick it up
             if (s.SkimmerStatus == SkimmerStatuses.shipping && package.AssignmentTime != date && package.CollectionTime == date)
             {
+                //Update battery status according to the distance between the original location and the sender location
                 double distance = DalObject.DistanceToDestination.Calculation(s.Location.Longitude, s.Location.Latitude, locationsend.Longitude, locationsend.Latitude);
                 s.BatteryStatus = (s.BatteryStatus) - (distance * Free);
+                //Update location to sender location
                 s.Location = locationsend;
+                //Update package pickup time
                 package.CollectionTime = DateTime.Now;
 
             }
             else
                 throw new SkimmerExistsInSystemException_BL($"Skimmer {id}does not ship a package that has been associated with it or has already been collected", Severity.Mild);
         }
+        /// <summary>
+        /// AssigningPackageToSkimmer
+        /// </summary>
+        /// <param name="id"></param>
         public void AssigningPackageToSkimmer(int id)
         {
             Skimmer skimmer = GetSkimmer(id);
+            //Check that the glider is in maintenance
             if (skimmer.SkimmerStatus == SkimmerStatuses.maintenance)
             {
+                //Go through the entire list of packages
                 foreach (IDAL.DO.Package item in mayDal.GetPackageList())
                 {
                     if (item.priority == Priorities.emergency)
@@ -92,6 +110,10 @@ namespace BL
                 }
             }
         }
+        /// <summary>
+        /// Delivery of a package by skimmer
+        /// </summary>
+        /// <param name="id"></param>
         public void DeliveryOfPackageBySkimmer(int id)
         {
             Skimmer skimmer = GetSkimmer(id);
@@ -116,16 +138,20 @@ namespace BL
                     };
                 }
             }
+            //Only a skimmer that has collected but has not yet delivered the package will be able to deliver it
             if (package.PackageCollectionTime == ResetTime && package.TimeArrivalRecipient != ResetTime)
             {
                 Customer customer = GetClint(package.IDgets);
-                
+                //ChecksSmall Distance Between Skimmer And BaseStation
                 IDAL.DO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
+                //Update location to the location of the shipping destination
                 Location locationBaseStation = new Location
                 {
                     Longitude = baseStation.Longitude,
                     Latitude = baseStation.Latitude
                 };
+                //Update battery status according to the distance between the original location and the location of the shipping destination
+                //,Change skimmer status to available, Update delivery time
                 double battery = BatteryCalculation(skimmer.Location, customer.Location, package.Weight) + BatteryCalculation(customer.Location, locationBaseStation, package.Weight);
                 if (battery <= skimmer.BatteryStatus)
                 {

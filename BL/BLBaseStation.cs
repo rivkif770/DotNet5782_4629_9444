@@ -10,6 +10,10 @@ namespace BL
 {
     public partial class BL : IBL.IBL
     {
+        /// <summary>
+        /// Adding a skimmer
+        /// </summary>
+        /// <param name="newBaseStation"></param>
         public void AddBaseStation(IBL.BO.BaseStation newBaseStation)
         {
             IDAL.DO.BaseStation temp_BS = new IDAL.DO.BaseStation
@@ -29,11 +33,6 @@ namespace BL
             {
                 throw new ExistsInSystemException_BL($"Person {temp_BS.UniqueID} Save to system", Severity.Mild);
             }
-        }
-
-        public void AddCustomer(Customer newCustomer)
-        {
-            throw new NotImplementedException();
         }
 
         public IBL.BO.BaseStation GetBeseStation(int id)
@@ -56,20 +55,22 @@ namespace BL
                 ListOfSkimmersCharge =
                 };
         }
-
-        public Customer GetCustomer(int id)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Update station data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="countOfChargingStations"></param>
         public void UpdateBaseStation(int id, string name, string countOfChargingStations)
         {
             IBL.BO.BaseStation baseStation = GetBeseStation(id);
             mayDal.DeleteBaseStation(id);
             int TotalChargeAmount ,NumberOfSkimmersInCharge;
             baseStation.Id = id;
+            //If the input in the "Name" field is not blank, update the name field
             if (name != "")
                 baseStation.Name = name;
+            //If the input in the "Total amount of charging stations" field is not empty, update the charging stations field by calculating the number of skimmers in charging and the number of available charging stations
             if (countOfChargingStations != "")
             {
                 TotalChargeAmount = int.Parse(countOfChargingStations);
@@ -79,6 +80,15 @@ namespace BL
                 GetBeseStation(id).Name = name;
             }
             AddBaseStation(baseStation);
+        }
+        public void AddCustomer(Customer newCustomer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Customer GetCustomer(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
