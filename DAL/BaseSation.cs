@@ -29,6 +29,16 @@ namespace IDAL
                 result += $"Longitude is: {Longitude}, \n";
                 return result;
             }
+
+            public object Longitude()
+            {
+                throw new NotImplementedException();
+            }
+
+            public object Latitude()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

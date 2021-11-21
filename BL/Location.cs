@@ -19,5 +19,9 @@ namespace IBL.BO
             return result;
         }
 
+        internal object Longitude()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

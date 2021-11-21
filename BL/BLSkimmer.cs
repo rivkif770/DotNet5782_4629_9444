@@ -58,7 +58,7 @@ namespace BL
                     if (PackageAssociatedWithSkimmer.PackageCollectionTime == help)
                     {
                         //Location will be at the station closest to the sender
-                        UpdatedSkimmer.CurrentLocation =
+                        UpdatedSkimmer.CurrentLocation =ד
                     }
                     //The position of the skimmer will be at the position of the sender
                     else
@@ -77,8 +77,8 @@ namespace BL
                 {
                     int counts = mayDal.GetBaseStationList().Count()+1;
                     List<IDAL.DO.BaseStation> B= (List<IDAL.DO.BaseStation>)mayDal.GetBaseStationList();
-                    UpdatedSkimmer.CurrentLocation.Latitude() = B[r.Next(counts)].Latitude();
-                    UpdatedSkimmer.CurrentLocation.Longitude() = B[r.Next(counts)].Longitude();
+                    UpdatedSkimmer.CurrentLocation.Latitude = B[r.Next(counts)].Latitude;
+                    UpdatedSkimmer.CurrentLocation.Longitude = B[r.Next(counts)].Longitude;
                     UpdatedSkimmer.BatteryStatus = r.Next(21);
                 }
                 // If the skimmer is available
