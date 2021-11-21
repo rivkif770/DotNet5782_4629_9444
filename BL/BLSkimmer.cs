@@ -58,15 +58,23 @@ namespace BL
                     if (PackageAssociatedWithSkimmer.PackageCollectionTime == help)
                     {
                         //Location will be at the station closest to the sender
-                        UpdatedSkimmer.CurrentLocation =
+                        Location location = new Location
+                        {
+                            //Updates skimmer location to the station closest to the sender.
+                            Latitude = ChecksSmallDistanceBetweenCustomerAndBaseStation(FindingClientSender(PackageAssociatedWithSkimmer)).Latitude,
+                            Longitude = ChecksSmallDistanceBetweenCustomerAndBaseStation(FindingClientSender(PackageAssociatedWithSkimmer)).Longitude
+                        };
+                        UpdatedSkimmer.CurrentLocation = location;
                     }
                     //The position of the skimmer will be at the position of the sender
                     else
                     {
+                        //Updates skimmer location to package shipper location.
                         UpdatedSkimmer.CurrentLocation.Latitude = FindingClientSender(PackageAssociatedWithSkimmer).Latitude;
                         UpdatedSkimmer.CurrentLocation.Longitude = FindingClientSender(PackageAssociatedWithSkimmer).Longitude;
                     }
                 }
+
                 //If the glider does not ship, its condition will be raffled off between maintenance and disposal
                 if (PackageAssociatedWithSkimmer.ID != item.IDNumber)
                 {
@@ -77,8 +85,8 @@ namespace BL
                 {
                     int counts = mayDal.GetBaseStationList().Count()+1;
                     List<IDAL.DO.BaseStation> B= (List<IDAL.DO.BaseStation>)mayDal.GetBaseStationList();
-                    UpdatedSkimmer.CurrentLocation.Latitude() = B[r.Next(counts)].Latitude();
-                    UpdatedSkimmer.CurrentLocation.Longitude() = B[r.Next(counts)].Longitude();
+                    UpdatedSkimmer.CurrentLocation.Latitude = B[r.Next(counts)].Latitude;
+                    UpdatedSkimmer.CurrentLocation.Longitude = B[r.Next(counts)].Longitude;
                     UpdatedSkimmer.BatteryStatus = r.Next(21);
                 }
                 // If the skimmer is available
@@ -285,6 +293,26 @@ namespace BL
             foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
             {
                 distance1 = DistanceToDestination.Calculation(s.Location.Longitude, s.Location.Latitude, item.Longitude, item.Latitude);
+                if (distance1 < distance2)
+                {
+                    minDistance = item;
+                    distance2 = distance1;
+                }
+            }
+            return minDistance;
+        }
+        /// <summary>
+        /// Checks a small distance between Customer and base station
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public IDAL.DO.BaseStation ChecksSmallDistanceBetweenCustomerAndBaseStation(Client c)
+        {
+            IDAL.DO.BaseStation minDistance;
+            int distance1, distance2 = 100000;
+            foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
+            {
+                distance1 = DistanceToDestination.Calculation(c.Longitude, c.Latitude, item.Longitude, item.Latitude);
                 if (distance1 < distance2)
                 {
                     minDistance = item;
