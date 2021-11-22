@@ -14,10 +14,10 @@ namespace IBL.BO
         public Weight WeightCategory { get; set; }
         public Priority priority { get; set; }
         public SkimmerInPackage SkimmerInPackage { get; set; }
-        public DateTime PackageCreationTime { get; set; }
-        public DateTime AssignmentTime { get; set; }
-        public DateTime CollectionTime { get; set; }
-        public DateTime SupplyTime { get; set; }
+        public DateTime? PackageCreationTime { get; set; }
+        public DateTime? AssignmentTime { get; set; }
+        public DateTime? CollectionTime { get; set; }
+        public DateTime? SupplyTime { get; set; }
         public override string ToString()
         {
             String result = "";

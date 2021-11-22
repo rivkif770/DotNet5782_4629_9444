@@ -37,7 +37,7 @@ namespace BL
                 throw new ExistsInSystemException_BL($"Person {temp_p.ID} Save to system", Severity.Mild);
             }
         }
-        public IBL.BO.Customer GetPackage(int id)
+        public IBL.BO.Package GetPackage(int id)
         {
             IDAL.DO.Package somoePackage;
             try
@@ -48,15 +48,30 @@ namespace BL
             {
                 throw new IdDoesNotExistException_BL(cex.Message + " from dal");
             }
-
+            CustomerInParcel customerSender = new CustomerInParcel
+            {
+                Id = somoePackage.IDSender,
+                Name = GetPackage(somoePackage.ID).Name
+            };
+            CustomerInParcel customergets = new CustomerInParcel
+            {
+                Id = somoePackage.IDgets,
+                Name = GetPackage(somoePackage.ID).Name
+            };
+            SkimmerInPackage skimmerPackage = new SkimmerInPackage
+            {
+                Id = somoePackage.IDSkimmerOperation,
+                BatteryStatus = GetSkimmer(somoePackage.IDSkimmerOperation).BatteryStatus,
+                Location = GetSkimmer(somoePackage.IDSkimmerOperation).CurrentLocation
+            };
             return new IBL.BO.Package
             {
                 Id = somoePackage.ID,
-                SendPackage = somoePackage.IDSender,
-                ReceivesPackage = somoePackage.IDgets,
+                SendPackage = customerSender,
+                ReceivesPackage = customergets,
                 WeightCategory = (Weight)somoePackage.Weight,
                 priority = (Priority)somoePackage.priority,
-                SkimmerInPackage = somoePackage.,
+                SkimmerInPackage = skimmerPackage,
                 PackageCreationTime = somoePackage.PackageCreationTime,
                 AssignmentTime = somoePackage.TimeAssignGlider,
                 CollectionTime = somoePackage.PackageCollectionTime,
@@ -79,7 +94,7 @@ namespace BL
             if (s.SkimmerStatus == SkimmerStatuses.shipping && package.AssignmentTime != date && package.CollectionTime == date)
             {
                 //Update battery status according to the distance between the original location and the sender location
-                double distance = DalObject.DistanceToDestination.Calculation(s.Location.Longitude, s.Location.Latitude, locationsend.Longitude, locationsend.Latitude);
+                double distance = Tools.Utils.GetDistance(s.Location.Longitude, s.Location.Latitude, locationsend.Longitude, locationsend.Latitude);
                 s.BatteryStatus = (s.BatteryStatus) - (distance * Free);
                 //Update location to sender location
                 s.Location = locationsend;
@@ -168,13 +183,4 @@ namespace BL
         }
     }
 }
-//int idc = package.SendPackage.Id;
-//Location locationsend = GetCustomer(idc).Location;
-//double distance = DalObject.DistanceToDestination.Calculation(s.Location.Longitude, s.Location.Latitude, locationsend.Longitude, locationsend.Latitude);
-//double weight;
-//if (package.WeightCategory == Weight.Heavy)
-//    weight = HeavyWeightCarrier;
-//if (package.WeightCategory == Weight.Medium)
-//    weight = MediumWeightCarrier;
-//if (package.WeightCategory == Weight.Light)
-//    weight = LightWeightCarrier;
+
