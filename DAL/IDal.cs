@@ -19,7 +19,8 @@ namespace IDAL.DO
         Package GetPackage(int idp);
         IEnumerable<Package> GetPackageList();
         IEnumerable<Quadocopter> GetQuadocopterList();
-        IEnumerable<Quadocopter> GetSkimmerLoading();
+        IEnumerable<SkimmerLoading> GetSkimmerLoading();
+        public IEnumerable<SkimmerLoading> GetSkimmerLoadingList();
         Quadocopter GetQuadrocopter(int IDq);
         void PackageDelivery(int idp);
         List<Package> PackagesWithoutSkimmer();

@@ -100,7 +100,6 @@ namespace BL
             }
 
         }
-
         private int MinimalChargeToGetToTheNearestStation(SkimmerToList updatedSkimmer)
         {
               Skimmer skimmer = new Skimmer
@@ -113,9 +112,7 @@ namespace BL
             double distance =Tools.Utils.GetDistance(baseStation.Longitude, baseStation.Latitude, updatedSkimmer.CurrentLocation.Longitude, updatedSkimmer.CurrentLocation.Latitude);
             int minimalCharge = (int)(distance * Free);
             return minimalCharge;
-        }
-        
-
+        }        
         /// <summary>
         /// ○ Release skimmer from charging
         /// </summary>
@@ -164,7 +161,6 @@ namespace BL
             ddSkimmer(s);
             mayDal.DeleteClient(s.Id);
         }
-
         //public double AmountOfElectricity(Skimmer skimmer , Weight weight)
         //{
         //    int weight1=(int)cu
@@ -174,12 +170,12 @@ namespace BL
         //    }
         //}
         //Finding a sending customer
-        public Client FindingClientSender(IDAL.DO.Package p)
+        private Client FindingClientSender(IDAL.DO.Package p)
         {
             return mayDal.GetClient(p.IDSender);
         }
         //Finding a glider-related package
-        public IDAL.DO.Package FindingPackageAssociatedWithGlider(Quadocopter q)
+        private IDAL.DO.Package FindingPackageAssociatedWithGlider(Quadocopter q)
         {
             IDAL.DO.Package X = new IDAL.DO.Package
             {
@@ -221,7 +217,7 @@ namespace BL
                 throw new ExistsInSystemException_BL($"Person {temp_S.IDNumber} Save to system", Severity.Mild);
             }
         }
-        public IBL.BO.SkimmerToList GetSkimmer(int id)
+        public SkimmerToList GetSkimmer(int id)
         {
             return skimmersList.FirstOrDefault(x => x.Id == id);
         }
@@ -297,7 +293,7 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public IDAL.DO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(Skimmer s)
+        private IDAL.DO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(Skimmer s)
         {
             IDAL.DO.BaseStation minDistance;
             int distance1, distance2 = 100000;
@@ -317,7 +313,7 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public IBL.BO.BaseStation ChecksSmallDistanceBetweenCustomerAndBaseStation(Customer c)
+        private IBL.BO.BaseStation ChecksSmallDistanceBetweenCustomerAndBaseStation(Customer c)
         {
             IDAL.DO.BaseStation station = default;
             double smallDistance = Double.MaxValue;
@@ -345,10 +341,10 @@ namespace BL
         /// <param name="location2"></param>
         /// <param name="weight"></param>
         /// <returns></returns>
-        public double BatteryCalculation(Location location1,Location location2, WeightCategories weight)
+        private double BatteryCalculation(Location location1,Location location2, WeightCategories weight)
         {
             //distance calculation
-            double distance = DistanceToDestination.Calculation(location1.Longitude, location1.Latitude, location2.Longitude, location2.Latitude);
+            double distance = Tools.Utils(location1.Longitude, location1.Latitude, location2.Longitude, location2.Latitude);
             double Battery;
             if (weight == WeightCategories.heavy)
                 Battery = HeavyWeightCarrier * distance;
@@ -362,7 +358,7 @@ namespace BL
         /// ○ Available skimmer location will be raffled between customers who have packages provided to them
         /// </summary>
         /// <returns></returns>
-        public Location SkimmerLocationAvailable()
+        private Location SkimmerLocationAvailable()
         {
             List<Client> CustomersWhoReceivedPackages;
             Client clientRandom;

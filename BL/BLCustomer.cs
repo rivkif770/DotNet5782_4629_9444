@@ -45,14 +45,54 @@ namespace BL
             {
                 throw new IdDoesNotExistException_BL(cex.Message + " from dal");
             }
+            List<PackageAtCustomer> sentParcels = new List<PackageAtCustomer>();
+            foreach (IDAL.DO.Package item in mayDal.GetPackageList())
+            {
+                if (item.IDgets == somoeone.ID)
+                {
+                    PackageAtCustomer packageAtCustomer = new PackageAtCustomer
+                    {
+                        Id = item.ID,
+                        WeightCategory = (Weight)WeightConversion(item),
+                        priority = (Priority)PriorityConversion(item),
+                        PackageMode = (ParcelStatus)ReturnsSkimmerMode(item),
+                        customerInParcel = new CustomerInParcel
+                        {
+                            Id = item.IDgets,
+                            Name = GetCustomer(item.IDgets).Name
+                        }
+                    };
+                    sentParcels.Add(packageAtCustomer);
+                }
+            }
+            List<PackageAtCustomer> ReceiveParcels = new List<PackageAtCustomer>();
+            foreach (IDAL.DO.Package item in mayDal.GetPackageList())
+            {
+                if (item.IDgets == somoeone.ID)
+                {
+                    PackageAtCustomer packageAtCustomer = new PackageAtCustomer
+                    {
+                        Id = item.ID,
+                        WeightCategory = (Weight)WeightConversion(item),
+                        priority = (Priority)PriorityConversion(item),
+                        PackageMode = (ParcelStatus)ReturnsSkimmerMode(item),
+                        customerInParcel = new CustomerInParcel
+                        {
+                            Id = item.IDSender,
+                            Name = GetCustomer(item.IDgets).Name
+                        }
+                    };
+                    ReceiveParcels.Add(packageAtCustomer);
+                }
+            }
             return new Customer
             {
                 Id = somoeone.ID,
                 Name = somoeone.Name,
                 Phone = somoeone.Telephone,
                 Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude },
-                SentParcels = somoeone.,
-                ReceiveParcels = somoeone.,
+                SentParcels = sentParcels,
+                ReceiveParcels = ReceiveParcels,
             };
         }
         /// <summary>
@@ -76,6 +116,53 @@ namespace BL
             //Adding a new customer with the new data and deleting the old customer with the out-of-date data
             AddCustomer(customer);
             mayDal.DeleteClient(id);
+        }
+        /// <summary>
+        /// Returns skimmer mode
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        private int ReturnsSkimmerMode (IDAL.DO.Package p)
+        {
+            if (p.TimeArrivalRecipient != null)
+                return 3;
+            if (p.PackageCollectionTime != null)
+                return 2;
+            if (p.TimeAssignGlider != null)
+                return 1;
+            if (p.PackageCreationTime != null)
+                return 0;
+            return -1;
+        }
+        /// <summary>
+        /// Weight conversion
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        private int WeightConversion(IDAL.DO.Package p)
+        {
+            if (p.Weight == WeightCategories.low)
+                return 2;
+            if (p.Weight == WeightCategories.middle)
+                return 1;
+            if (p.Weight == WeightCategories.heavy)
+                return 0;
+            return -1;
+        }
+        /// <summary>
+        /// Priority conversion
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        private int PriorityConversion(IDAL.DO.Package p)
+        {
+            if (p.priority == Priorities.regular)
+                return 0;
+            if (p.priority == Priorities.fast)
+                return 1;
+            if (p.priority == Priorities.emergency)
+                return 2;
+            return -1;
         }
     }
 }

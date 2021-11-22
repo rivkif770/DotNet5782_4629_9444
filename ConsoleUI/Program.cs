@@ -72,7 +72,7 @@ namespace ConsoleUI
                                 
                                 break;
                             case InseitOption.AddSkimmer:
-                                Quadocopter newQuadocopter = new Quadocopter();
+                                ListSkimmerLoading newQuadocopter = new ListSkimmerLoading();
 
                                 Console.WriteLine("Enter unique ID number:");
                                 newQuadocopter.IDNumber = int.Parse(Console.ReadLine());
@@ -364,7 +364,7 @@ namespace ConsoleUI
                                 } 
                                 break;
                             case OptionsListView.ViewSkimmer:
-                                foreach (Quadocopter item in mydal.GetQuadocopterList())
+                                foreach (ListSkimmerLoading item in mydal.GetQuadocopterList())
                                 {
                                     Console.WriteLine(item);
                                 }

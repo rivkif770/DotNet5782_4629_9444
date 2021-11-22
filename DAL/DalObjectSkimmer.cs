@@ -28,6 +28,14 @@ namespace DalObject
             }
             DataSource.ListQuadocopter.Add(q);
         }
+        public void DeleteSkimmer(int idq)//added a skimmer
+        {
+            if (!DataSource.ListQuadocopter.Exists(item => item.IDNumber == idq))//If finds an existing Skimmer throws an error.
+            {
+                throw new IdDoesNotExistException($"Skimmer {idq} dont Save to system", Severity.Mild);
+            }
+            DataSource.ListQuadocopter.RemoveAll(item => item.IDNumber == idq);
+        }
         public Quadocopter GetQuadrocopter(int IDq)//Quadrocopter view by appropriate ID
         {
             if (!DataSource.ListQuadocopter.Exists(item => item.IDNumber == IDq))
@@ -40,14 +48,8 @@ namespace DalObject
         {
             return DataSource.ListQuadocopter.Take(DataSource.ListQuadocopter.Count).ToList();
         }
-        public void DeleteSkimmer(int idq)//added a skimmer
-        {
-            if (!DataSource.ListQuadocopter.Exists(item => item.IDNumber == idq))//If finds an existing Skimmer throws an error.
-            {
-                throw new IdDoesNotExistException($"Skimmer {idq} dont Save to system", Severity.Mild);
-            }
-            DataSource.ListQuadocopter.RemoveAll(item => item.IDNumber == idq);
-        }
+        
+        
         public void AddSkimmerLoading(SkimmerLoading SL)//added a skimmer
         {
             if (DataSource.ListSkimmerLoading.Exists(item => item.SkimmerID == SL.SkimmerID))//If finds an existing Skimmer throws an error.
@@ -57,18 +59,21 @@ namespace DalObject
             DataSource.ListSkimmerLoading.Add(SL);
         }
         public void DeleteSkimmerLoading(int idsl)//added a skimmer
-        public IEnumerable<Quadocopter> GetSkimmerLoading()//Displays a list of Skimmer
-        {
-            return DataSource.ListSkimmerLoading.Take(DataSource.ListSkimmerLoading.Count).ToList();
-            //return (IEnumerable<Quadocopter>)DataSource.ListSkimmerLoading.Take(DataSource.ListSkimmerLoading.Count).ToList();
-        }
-        public void DeleteSkimmer(Quadocopter q)//added a skimmer
         {
             if (!DataSource.ListSkimmerLoading.Exists(item => item.SkimmerID == idsl))//If finds an existing Skimmer throws an error.
             {
                 throw new IdDoesNotExistException($"Skimmer {idsl} dont Save to system of SkimmerLoading", Severity.Mild);
             }
             DataSource.ListSkimmerLoading.RemoveAll(item => item.SkimmerID == idsl);
+        }
+        public IEnumerable<SkimmerLoading> GetSkimmerLoading()//Displays a list of Skimmer
+        {
+            return DataSource.ListSkimmerLoading.Take(DataSource.ListSkimmerLoading.Count).ToList();
+            //return (IEnumerable<Quadocopter>)DataSource.ListSkimmerLoading.Take(DataSource.ListSkimmerLoading.Count).ToList();
+        }
+        public IEnumerable<SkimmerLoading> GetSkimmerLoadingList()//Displays a list of SkimmerLoading
+        {
+            return DataSource.ListSkimmerLoading.Take(DataSource.ListSkimmerLoading.Count).ToList();
         }
     }
 }

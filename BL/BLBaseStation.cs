@@ -46,14 +46,28 @@ namespace BL
             {
                 throw new IdDoesNotExistException_BL(cex.Message + " from dal");
             }
+            //List of skimmers charged at this station
+            List<SkimmerInCharging> skimmerInCharging = new List<SkimmerInCharging>();
+            foreach (IDAL.DO.SkimmerLoading item in mayDal.GetSkimmerLoadingList())
+            {
+                if(item.StationID== somoeBaseStation.UniqueID)
+                {
+                    SkimmerInCharging skimmerInCharging1 = new SkimmerInCharging
+                    {
+                        Id = item.SkimmerID,
+                        BatteryStatus = GetSkimmer(item.SkimmerID).BatteryStatus
+                    };
+                    skimmerInCharging.Add(skimmerInCharging1);
+                }
+            }
             return new IBL.BO.BaseStation
             {
                 Id = somoeBaseStation.UniqueID,
                 Name = somoeBaseStation.StationName,
                 Location = new Location { Latitude = somoeBaseStation.Latitude, Longitude = somoeBaseStation.Longitude },
                 SeveralClaimPositionsVacant = somoeBaseStation.SeveralPositionsArgument,
-                ListOfSkimmersCharge =
-                };
+                ListOfSkimmersCharge = skimmerInCharging
+            };
         }
         /// <summary>
         /// Update station data
