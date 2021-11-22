@@ -55,7 +55,7 @@ namespace BL
                     //Update skimmer status to shipping status
                     updatedSkimmer.SkimmerStatus = SkimmerStatuses.shipping;
                     //If the package was associated but not collected
-                    if (PackageAssociatedWithSkimmer.PackageCollectionTime == help)
+                    if (PackageAssociatedWithSkimmer.PackageCollectionTime == null)
                     {
                         //Location will be at the station closest to the sender
                         Location location = new Location
@@ -73,6 +73,8 @@ namespace BL
                         updatedSkimmer.CurrentLocation.Latitude = FindingClientSender(PackageAssociatedWithSkimmer).Latitude;
                         updatedSkimmer.CurrentLocation.Longitude = FindingClientSender(PackageAssociatedWithSkimmer).Longitude;
                     }
+                    double minBattery = MinimalLoadingPerformTheShipmentAndArriveForLoading(updatedSkimmer);
+                    updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
                 }
 
                 //If the glider does not ship, its condition will be raffled off between maintenance and disposal
@@ -92,16 +94,20 @@ namespace BL
                 // If the skimmer is available
                 if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.free)
                 {
-                    int minBattery = MinimalChargeToGetToTheNearestStation(updatedSkimmer);
-                    updatedSkimmer.BatteryStatus = (double)r.Next(minBattery, 100) / 100;
+                    double minBattery = MinimalChargeToGetToTheNearestStation(updatedSkimmer);
+                    updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
                     updatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
                 }
                 lst.Add(updatedSkimmer);
             }
 
         }
-
-        private int MinimalChargeToGetToTheNearestStation(SkimmerToList updatedSkimmer)
+        /// <summary>
+        /// Calculate a minimum charge that will allow him to reach the nearest station
+        /// </summary>
+        /// <param name="updatedSkimmer"></param>
+        /// <returns></returns>
+        private double MinimalChargeToGetToTheNearestStation(SkimmerToList updatedSkimmer)
         {
               Skimmer skimmer = new Skimmer
               {
@@ -111,10 +117,39 @@ namespace BL
               };
             IDAL.DO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
             double distance =Tools.Utils.GetDistance(baseStation.Longitude, baseStation.Latitude, updatedSkimmer.CurrentLocation.Longitude, updatedSkimmer.CurrentLocation.Latitude);
-            int minimalCharge = (int)(distance * Free);
+            double minimalCharge = (distance * Free);
             return minimalCharge;
         }
-        
+        /// <summary>
+        /// Calculation of the minimum charge that will allow the glider to make the shipment and arrive at the station closest to the destination of the shipment
+        /// </summary>
+        /// <param name="updatedSkimmer"></param>
+        /// <returns></returns>
+        private double MinimalLoadingPerformTheShipmentAndArriveForLoading (SkimmerToList updatedSkimmer)
+        {
+            Skimmer skimmer = new Skimmer
+            {
+                Id = updatedSkimmer.Id,
+                SkimmerModel = updatedSkimmer.SkimmerModel,
+                WeightCategory = updatedSkimmer.WeightCategory,
+            };
+            Customer customerSend = GetCustomer(skimmer.PackageInTransfer.SendPackage.Id);
+            Location locationSend = customerSend.Location;
+            double distance = Tools.Utils.GetDistance(locationSend.Longitude, locationSend.Latitude, updatedSkimmer.CurrentLocation.Longitude, updatedSkimmer.CurrentLocation.Latitude);
+            double Battery = 0;
+            if (skimmer.WeightCategory == Weight.Heavy)
+                Battery = distance * HeavyWeightCarrier;
+            if (skimmer.WeightCategory == Weight.Medium)
+                Battery = distance * MediumWeightCarrier;
+            if (skimmer.WeightCategory == Weight.Light)
+                Battery = distance * LightWeightCarrier;
+            IDAL.DO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
+            double distance1 = Tools.Utils.GetDistance(baseStation.Longitude, baseStation.Latitude, locationSend.Longitude, locationSend.Latitude);
+            double minimalCharge = (distance * Free)+ Battery;
+            return minimalCharge;
+
+        }
+
 
         /// <summary>
         /// ○ Release skimmer from charging
