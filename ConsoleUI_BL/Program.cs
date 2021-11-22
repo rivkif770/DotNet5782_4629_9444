@@ -211,17 +211,17 @@ namespace ConsoleUI_BL
                         {
                             case UpdateOption.Exit:
                                 return;
-                            //Assign a package to a skimmer
+                            //Update skimmer name
                             case UpdateOption.UpdateSkimmerName:
                                 int ids;
-                                string name_s;
+                                string nameS;
                                 Console.WriteLine("enter ID of skimmer:");
                                 ids = int.Parse(Console.ReadLine());
                                 Console.WriteLine("Enter a new name:");
-                                name_s = Console.ReadLine();
+                                nameS = Console.ReadLine();
                                 try
                                 {
-                                    myBL.UpdateSkimmerName(ids, name_s);
+                                    myBL.UpdateSkimmerName(ids, nameS);
                                 }
                                 catch (IdDoesNotExistException_BL exception)
                                 {
@@ -229,18 +229,18 @@ namespace ConsoleUI_BL
                                     throw;
                                 }
                                 break;
-                            //Package collection by skimmer
+                            //Update station data
                             case UpdateOption.UpdateBaseStation:
-                                string name_b, NumberOfChargingStations;
+                                string nameB, NumberOfChargingStations;
                                 Console.WriteLine("enter ID of BaseStation:");
                                 int idb = int.Parse(Console.ReadLine());
                                 Console.WriteLine("Station name:");
-                                name_b = Console.ReadLine();
+                                nameB = Console.ReadLine();
                                 Console.WriteLine("Total amount of charging stations:");
                                 NumberOfChargingStations = Console.ReadLine();
                                 try
                                 {
-                                    myBL.UpdateBaseStation(idb, name_b, NumberOfChargingStations);
+                                    myBL.UpdateBaseStation(idb, nameB, NumberOfChargingStations);
                                 }
                                 catch (IdDoesNotExistException_BL exception)
                                 {
@@ -248,17 +248,18 @@ namespace ConsoleUI_BL
                                     throw;
                                 }
                                 break;
+                            //Update customer data
                             case UpdateOption UpdateCustomerData:
-                                string name_c, phone_c;
+                                string nameC, phoneC;
                                 Console.WriteLine("enter ID of Customer:");
                                 int idc = int.Parse(Console.ReadLine());
                                 Console.WriteLine("Customer name:");
-                                name_c = Console.ReadLine();
+                                nameC = Console.ReadLine();
                                 Console.WriteLine("New phone number:");
-                                phone_c = Console.ReadLine();
+                                phoneC = Console.ReadLine();
                                 try
                                 {
-                                    myBL.UpdateCustomerData(idc, name_c, phone_c);
+                                    myBL.UpdateCustomerData(idc, nameC, phoneC);
                                 }
                                 catch (IdDoesNotExistException_BL exception)
                                 {

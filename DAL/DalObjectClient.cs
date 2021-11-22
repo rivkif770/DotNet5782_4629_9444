@@ -9,6 +9,17 @@ namespace DalObject
 {
     public partial class DalObject: IDal
     {
+        public void UpadteC(Client c)
+        {
+            for (int i = 0; i < DataSource.ListClient.Count; i++)
+            {
+                if (DataSource.ListClient[i].ID == c.ID)
+                {
+                    DataSource.ListClient[i] = c;
+                    break;
+                }
+            }
+        }
         public void AddClient(Client c)//Adding a customer
         {
             if (DataSource.ListClient.Exists(item => item.ID == c.ID))//If finds an existing Customer throws an error.

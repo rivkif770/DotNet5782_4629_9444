@@ -30,14 +30,14 @@ namespace IDAL.DO
         BaseStation GetSkimmer(int id);
         public void AddSkimmerLoading(SkimmerLoading SL);
         public void DeleteSkimmer(int idq);
-        void Update(Quadocopter qc);
+        void UpdateQ(Quadocopter qc);
         public void DeleteSkimmerLoading(int idsl);
         void SendingSkimmerForCharging(int idq, int idBS);
         void SkimmerRelease(int idq, int IdBS);
         void AssignPackageSkimmer(int idp, int idq);
         List<BaseStation> BaseStationFreeCharging();
-       
+        public void UpadteB(BaseStation b);
         public double[] PowerConsumptionRequest();
-     
+        public void UpadteC(Client c);
     }
 }

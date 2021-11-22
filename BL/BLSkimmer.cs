@@ -259,12 +259,7 @@ namespace BL
         ///Update skimmer name
         public void UpdateSkimmerName(int ids, string name)
         {
-            //Skimmer skimmer = GetSkimmer(ids);
-            ////Deleting the skimmer with the old data and adding a new skimmer with the updated data
-            //mayDal.DeleteSkimmer(ids);
-            //skimmer.SkimmerModel = name;
-            //AddSkimmer(skimmer);
-            SkimmerToList? toUpdate = skimmersList.Find(item => item.Id == ids);
+            SkimmerToList toUpdate = skimmersList.Find(item => item.Id == ids);
             if (toUpdate== null)
             {
                 throw new IdDoesNotExistException_BL("cannot update name");
@@ -274,7 +269,7 @@ namespace BL
             //update dal
             IDAL.DO.Quadocopter quadocopter = mayDal.GetQuadrocopter(ids);
             quadocopter.SkimmerModel = name;
-            mayDal.Update(quadocopter);
+            mayDal.UpdateQ(quadocopter);
         }
         /// <summary>
         /// Sends skimmer for charging

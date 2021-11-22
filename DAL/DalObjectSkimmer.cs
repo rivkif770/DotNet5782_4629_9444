@@ -9,7 +9,7 @@ namespace DalObject
 {
     public partial class DalObject: IDal
     {
-        public void Upadte(Quadocopter qc)
+        public void UpadteQ(Quadocopter qc)
         {
             for (int i = 0; i < DataSource.ListQuadocopter.Count; i++)
             {

@@ -78,7 +78,6 @@ namespace BL
         public void UpdateBaseStation(int id, string name, string countOfChargingStations)
         {
             IBL.BO.BaseStation baseStation = GetBeseStation(id);
-            mayDal.DeleteBaseStation(id);
             int TotalChargeAmount ,NumberOfSkimmersInCharge;
             baseStation.Id = id;
             //If the input in the "Name" field is not blank, update the name field
@@ -90,10 +89,14 @@ namespace BL
                 TotalChargeAmount = int.Parse(countOfChargingStations);
                 NumberOfSkimmersInCharge = baseStation.ListOfSkimmersCharge.Count();
                 baseStation.SeveralClaimPositionsVacant = TotalChargeAmount - NumberOfSkimmersInCharge;
-                int help = int.Parse(countOfChargingStations);
-                GetBeseStation(id).Name = name;
             }
-            AddBaseStation(baseStation);
+            IDAL.DO.BaseStation baseStation1 = new IDAL.DO.BaseStation
+            {
+                UniqueID = baseStation.Id,
+                StationName = baseStation.Name,
+                SeveralPositionsArgument = baseStation.SeveralClaimPositionsVacant,
+            };
+            mayDal.UpadteB(baseStation1);
         }
     }
 }

@@ -9,6 +9,17 @@ namespace DalObject
 {
     public partial class DalObject :IDal
     {
+        public void UpadteB(BaseStation b)
+        {
+            for (int i = 0; i < DataSource.ListBaseStation.Count; i++)
+            {
+                if (DataSource.ListBaseStation[i].UniqueID == b.UniqueID)
+                {
+                    DataSource.ListBaseStation[i] = b;
+                    break;
+                }
+            }
+        }
         public void AddBaseStation(BaseStation b)//Adding a station
         {
             if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.

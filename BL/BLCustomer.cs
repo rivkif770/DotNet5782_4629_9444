@@ -110,12 +110,15 @@ namespace BL
                 customer.Name = name;
             //If the "Phone" field is not blank, update the phone field
             if (phone != "")
-            {
-                customer.Phone= phone;
-            }
+                customer.Phone = phone;
             //Adding a new customer with the new data and deleting the old customer with the out-of-date data
-            AddCustomer(customer);
-            mayDal.DeleteClient(id);
+            Client client = new Client
+            {
+                ID = id,
+                Name = name,
+                Telephone = phone
+            };
+            mayDal.UpadteC(client);
         }
         /// <summary>
         /// Returns skimmer mode
