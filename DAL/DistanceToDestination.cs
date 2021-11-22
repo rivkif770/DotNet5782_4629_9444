@@ -42,5 +42,10 @@ namespace DalObject
         {
             throw new NotImplementedException();
         }
+
+        public static int Calculation(double longitude1, double latitude1, Func<object> longitude2, Func<object> latitude2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

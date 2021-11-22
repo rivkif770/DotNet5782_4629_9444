@@ -18,10 +18,5 @@ namespace IBL.BO
             result += $"Longitude is: {Longitude}, \n";
             return result;
         }
-
-        internal object Longitude()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

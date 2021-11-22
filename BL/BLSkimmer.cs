@@ -95,6 +95,7 @@ namespace BL
                     UpdatedSkimmer.CurrentLocation =;
                     int minBattery = MinimalChargeToGetToTheNearestStation(UpdatedSkimmer);
                     UpdatedSkimmer.BatteryStatus = (double)r.Next(minBattery, 100) / 100;
+                    UpdatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
                 }
 
             }
@@ -403,6 +404,35 @@ namespace BL
             if (weight == WeightCategories.low)
                 Battery = LightWeightCarrier * distance;
             return Battery;
+        }
+        /// <summary>
+        /// ○ Available skimmer location will be raffled between customers who have packages provided to them
+        /// </summary>
+        /// <returns></returns>
+        public Location SkimmerLocationAvailable()
+        {
+            List<Client> CustomersWhoReceivedPackages;
+            Client clientRandom;
+            int count;
+            foreach (Client item in mayDal.GetClientList())
+            {
+                if (GetCustomer(item.ID).ReceiveParcels != null)
+                {
+                    Client client = new Client
+                    {
+                        ID = item.ID
+                    };
+                    CustomersWhoReceivedPackages.Add(client);
+                }
+            }
+            count = CustomersWhoReceivedPackages.Count();
+            clientRandom = CustomersWhoReceivedPackages(r.Next(count));
+            Location location = new Location
+            {
+                Latitude = clientRandom.Latitude,
+                Longitude = clientRandom.Longitude
+            };
+            return location;
         }
     }
 
