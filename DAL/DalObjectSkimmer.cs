@@ -9,6 +9,17 @@ namespace DalObject
 {
     public partial class DalObject: IDal
     {
+        public void Upadte(Quadocopter qc)
+        {
+            for (int i = 0; i < DataSource.ListQuadocopter.Count; i++)
+            {
+                if (DataSource.ListQuadocopter[i].IDNumber== qc.IDNumber)
+                {
+                    DataSource.ListQuadocopter[i] = qc;
+                    break;
+                }
+            }
+        }
         public void AddSkimmer(Quadocopter q)//added a skimmer
         {
             if (DataSource.ListQuadocopter.Exists(item => item.IDNumber == q.IDNumber))//If finds an existing Skimmer throws an error.

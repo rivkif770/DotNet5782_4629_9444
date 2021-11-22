@@ -12,7 +12,7 @@ namespace ConsoleUI_BL
         enum DisplayOptions { Exit, DisplayBaseStation, DisplaySkimmer, DisplayCustomer, DisplayPackage }
         enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewCustomer, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
 
-        static BL.BL mydal = new BL.BL();
+        static BL.BL myBL = new BL.BL();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1806:Do not ignore method results", Justification = "<Pending>")]
         private static void Menu()
@@ -61,11 +61,11 @@ namespace ConsoleUI_BL
                                 {
                                     Id = IDb,
                                     Name = name,
-                                    location = new Location { Latitude = latitude, Longitude = longitude },
+                                    Location = new Location { Latitude = latitude, Longitude = longitude },
                                     SeveralClaimPositionsVacant = 0,
                                     ListOfSkimmersCharge = new List<SkimmerInCharging>()
                                 };
-                                mydal.AddBaseStation(newBaseStation);
+                                myBL.AddBaseStation(newBaseStation);
                                 break;
                             case InseitOption.AddSkimmer:
 
@@ -93,7 +93,7 @@ namespace ConsoleUI_BL
                                     SkimmerModel = model,
                                     WeightCategory = (Weight)weight,
                                 };
-                                mydal.AddSkimmer(newSkimmer, station);
+                                myBL.AddSkimmer(newSkimmer, station);
 
                                 //                        //newQuadocopter.Battery = 100;
                                 //                        //newQuadocopter.SkimmerMode = (DronStatuses)0;
@@ -138,7 +138,7 @@ namespace ConsoleUI_BL
                                     SentParcels = new List<CustomerInParcel>(),
                                     ReceiveParcels = new List<CustomerInParcel>()
                                 };
-                                mydal.AddCustomer(newCustomer);
+                                myBL.AddCustomer(newCustomer);
                                 break;
                             //try
                             //{
@@ -179,7 +179,7 @@ namespace ConsoleUI_BL
                                     WeightCategory = (Weight)Weight,
                                     priority = (Priority)Priorities,
                                 };
-                                mydal.AddPackage(newPackage);
+                                myBL.AddPackage(newPackage);
                                 break;
 
                                 //newPackage.IDSkimmerOperation = 0;
@@ -221,7 +221,7 @@ namespace ConsoleUI_BL
                                 name_s = Console.ReadLine();
                                 try
                                 {
-                                    mydal.UpdateSkimmerName(ids, name_s);
+                                    myBL.UpdateSkimmerName(ids, name_s);
                                 }
                                 catch (IdDoesNotExistException_BL exception)
                                 {
@@ -240,7 +240,7 @@ namespace ConsoleUI_BL
                                 NumberOfChargingStations = Console.ReadLine();
                                 try
                                 {
-                                    mydal.UpdateBaseStation(idb, name_b, NumberOfChargingStations);
+                                    myBL.UpdateBaseStation(idb, name_b, NumberOfChargingStations);
                                 }
                                 catch (IdDoesNotExistException_BL exception)
                                 {
@@ -258,7 +258,7 @@ namespace ConsoleUI_BL
                                 phone_c = Console.ReadLine();
                                 try
                                 {
-                                    mydal.UpdateCustomerData(idc, name_c, phone_c);
+                                    myBL.UpdateCustomerData(idc, name_c, phone_c);
                                 }
                                 catch (IdDoesNotExistException_BL exception)
                                 {
@@ -274,7 +274,7 @@ namespace ConsoleUI_BL
                                 ChargingTime = double.Parse(Console.ReadLine());
                                 try
                                 {
-                                    mydal.ReleaseSkimmerFromCharging(ids, ChargingTime);
+                                    myBL.ReleaseSkimmerFromCharging(ids, ChargingTime);
                                 }
                                 catch (IdDoesNotExistException_BL exception)
                                 {
@@ -288,7 +288,7 @@ namespace ConsoleUI_BL
                                 ids = int.Parse(Console.ReadLine());
                                 try
                                 {
-                                    mydal.SendingSkimmerForCharging(ids);
+                                    myBL.SendingSkimmerForCharging(ids);
                                 }
                                 catch (Exception exception)
                                 {
@@ -302,7 +302,7 @@ namespace ConsoleUI_BL
                                 ids = int.Parse(Console.ReadLine());
                                 try
                                 {
-                                    mydal.AssigningPackageToSkimmer(ids);
+                                    myBL.AssigningPackageToSkimmer(ids);
                                 }
                                 catch (IdDoesNotExistException_BL exception)
                                 {
@@ -315,7 +315,7 @@ namespace ConsoleUI_BL
                                 ids = int.Parse(Console.ReadLine());
                                 try
                                 {
-                                    mydal.CollectingPackageBySkimmer(ids);
+                                    myBL.CollectingPackageBySkimmer(ids);
                                 }
                                 catch (Exception exception)
                                 {
@@ -347,7 +347,7 @@ namespace ConsoleUI_BL
                                 ids = int.Parse(Console.ReadLine());
                                 try
                                 {
-                                    mydal.DeliveryOfPackageBySkimmer(ids);
+                                    myBL.DeliveryOfPackageBySkimmer(ids);
                                 }
                                 catch (IdDoesNotExistException_BL exception)
                                 {
@@ -459,7 +459,7 @@ namespace ConsoleUI_BL
                     case OptionsListView.Exit:
                         return;
                     case OptionsListView.ViewBaseStation:
-                        foreach (BaseStation item in mydal.GetBaseStationList())
+                        foreach (BaseStation item in myBL.GetBaseStationList())
                         {
                             Console.WriteLine(item);
                         }

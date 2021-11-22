@@ -12,15 +12,16 @@ namespace BL
     {
         static Random r = new Random();
         public IDal mayDal;
-        public List<SkimmerToList> SkimmersList;
+        private List<SkimmerToList> skimmersList;
         public double Free;
         public double LightWeightCarrier;
         public double MediumWeightCarrier;
         public double HeavyWeightCarrier;
         public double SkimmerLoadingRate;
+
         public BL()
         {
-            SkimmersList = new List<SkimmerToList>();
+            skimmersList = new List<SkimmerToList>();
             mayDal = new DalObject.DalObject();
             //Array with power consumption data by weight and by charge
             double[] vs = mayDal.PowerConsumptionRequest();
@@ -30,18 +31,17 @@ namespace BL
             HeavyWeightCarrier = vs[3];
             SkimmerLoadingRate = vs[4];
 
-            SkimmerUpdates();
+            SkimmerUpdates(skimmersList);
         }
         /// <summary>
         /// Skimmer Updates
         /// </summary>
-        public void SkimmerUpdates()
+        private void SkimmerUpdates(List<SkimmerToList>  lst)
         {
             //For each skimmer from the skimmer list
             foreach (Quadocopter item in mayDal.GetQuadocopterList())
             {
-                DateTime help = new DateTime(0, 0, 0);
-                SkimmerToList UpdatedSkimmer = new SkimmerToList
+                SkimmerToList updatedSkimmer = new SkimmerToList
                 {
                     Id = item.IDNumber,
                     SkimmerModel=item.SkimmerModel,
@@ -50,10 +50,10 @@ namespace BL
                 //Finding a glider-related package
                 IDAL.DO.Package PackageAssociatedWithSkimmer = FindingPackageAssociatedWithGlider(item);
                 //If there is a package that has not yet been delivered but the skimmer is already associated
-                if (PackageAssociatedWithSkimmer.ID==item.IDNumber && PackageAssociatedWithSkimmer.TimeArrivalRecipient== help)
+                if (PackageAssociatedWithSkimmer.ID==item.IDNumber && PackageAssociatedWithSkimmer.TimeArrivalRecipient== null)
                 {
                     //Update skimmer status to shipping status
-                    UpdatedSkimmer.SkimmerStatus = SkimmerStatuses.shipping;
+                    updatedSkimmer.SkimmerStatus = SkimmerStatuses.shipping;
                     //If the package was associated but not collected
                     if (PackageAssociatedWithSkimmer.PackageCollectionTime == help)
                     {
@@ -64,40 +64,58 @@ namespace BL
                             Latitude = ChecksSmallDistanceBetweenCustomerAndBaseStation(FindingClientSender(PackageAssociatedWithSkimmer)).Latitude,
                             Longitude = ChecksSmallDistanceBetweenCustomerAndBaseStation(FindingClientSender(PackageAssociatedWithSkimmer)).Longitude
                         };
-                        UpdatedSkimmer.CurrentLocation = location;
+                        updatedSkimmer.CurrentLocation = location;
                     }
                     //The position of the skimmer will be at the position of the sender
                     else
                     {
                         //Updates skimmer location to package shipper location.
-                        UpdatedSkimmer.CurrentLocation.Latitude = FindingClientSender(PackageAssociatedWithSkimmer).Latitude;
-                        UpdatedSkimmer.CurrentLocation.Longitude = FindingClientSender(PackageAssociatedWithSkimmer).Longitude;
+                        updatedSkimmer.CurrentLocation.Latitude = FindingClientSender(PackageAssociatedWithSkimmer).Latitude;
+                        updatedSkimmer.CurrentLocation.Longitude = FindingClientSender(PackageAssociatedWithSkimmer).Longitude;
                     }
                 }
 
                 //If the glider does not ship, its condition will be raffled off between maintenance and disposal
                 if (PackageAssociatedWithSkimmer.ID != item.IDNumber)
                 {
-                    UpdatedSkimmer.SkimmerStatus = (SkimmerStatuses)(r.Next(2));
+                    updatedSkimmer.SkimmerStatus = (SkimmerStatuses)(r.Next(2));
                 }
                 //If the skimmer is in maintenance, Its location will be raffled between the existing stations and Battery status will be raffled between 0% and 20%
-                if (UpdatedSkimmer.SkimmerStatus==SkimmerStatuses.maintenance)
+                if (updatedSkimmer.SkimmerStatus==SkimmerStatuses.maintenance)
                 {
                     int counts = mayDal.GetBaseStationList().Count()+1;
                     List<IDAL.DO.BaseStation> B= (List<IDAL.DO.BaseStation>)mayDal.GetBaseStationList();
-                    UpdatedSkimmer.CurrentLocation.Latitude = B[r.Next(counts)].Latitude;
-                    UpdatedSkimmer.CurrentLocation.Longitude = B[r.Next(counts)].Longitude;
-                    UpdatedSkimmer.BatteryStatus = r.Next(21);
+                    updatedSkimmer.CurrentLocation.Latitude = B[r.Next(counts)].Latitude;
+                    updatedSkimmer.CurrentLocation.Longitude = B[r.Next(counts)].Longitude;
+                    updatedSkimmer.BatteryStatus = r.Next(21);
                 }
                 // If the skimmer is available
-                if (UpdatedSkimmer.SkimmerStatus == SkimmerStatuses.free)
+                if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.free)
                 {
-                    UpdatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
+                    int minBattery = MinimalChargeToGetToTheNearestStation(updatedSkimmer);
+                    updatedSkimmer.BatteryStatus = (double)r.Next(minBattery, 100) / 100;
+                    updatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
                 }
-
+                lst.Add(updatedSkimmer);
             }
 
         }
+
+        private int MinimalChargeToGetToTheNearestStation(SkimmerToList updatedSkimmer)
+        {
+              Skimmer skimmer = new Skimmer
+              {
+                   Id = updatedSkimmer.Id,
+                   SkimmerModel= updatedSkimmer.SkimmerModel,
+                   WeightCategory= updatedSkimmer.WeightCategory,
+              };
+            IDAL.DO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
+            double distance =Tools.Utils.GetDistance(baseStation.Longitude, baseStation.Latitude, updatedSkimmer.CurrentLocation.Longitude, updatedSkimmer.CurrentLocation.Latitude);
+            int minimalCharge = (int)(distance * Free);
+            return minimalCharge;
+        }
+        
+
         /// <summary>
         /// ○ Release skimmer from charging
         /// </summary>
@@ -186,7 +204,7 @@ namespace BL
             newSkimmer.SkimmerStatus = IBL.BO.SkimmerStatuses.maintenance;
             IBL.BO.BaseStation temp_BaseStation = GetBeseStation(station);
             // The glider location will be the same as the station location
-            newSkimmer.Location = temp_BaseStation.location;
+            newSkimmer.Location = temp_BaseStation.Location;
             Quadocopter temp_S = new Quadocopter
             {
                 IDNumber = newSkimmer.Id,
@@ -203,36 +221,29 @@ namespace BL
                 throw new ExistsInSystemException_BL($"Person {temp_S.IDNumber} Save to system", Severity.Mild);
             }
         }
-        public IBL.BO.Skimmer GetSkimmer(int id)
+        public IBL.BO.SkimmerToList GetSkimmer(int id)
         {
-            IDAL.DO.Quadocopter somoeSkimmer;
-            try
-            {
-                somoeSkimmer = mayDal.GetQuadrocopter(id);
-            }
-            catch (IDAL.DO.IdDoesNotExistException cex)
-            {
-                throw new IdDoesNotExistException_BL(cex.Message + " from dal"); ;
-            }
-            return new IBL.BO.Skimmer
-            {
-                Id = somoeSkimmer.IDNumber,
-                SkimmerModel = somoeSkimmer.SkimmerModel,
-                WeightCategory = (Weight)somoeSkimmer.Weight,
-                BatteryStatus = somoeSkimmer.,
-                SkimmerStatus = somoeSkimmer.,
-                PackageInTransfer = somoeSkimmer.,
-                Location = new Location { Latitude = somoeSkimmer.Latitude, Longitude = somoeSkimmer.Longitude },
-            };
+            return skimmersList.FirstOrDefault(x => x.Id == id);
         }
         ///Update skimmer name
         public void UpdateSkimmerName(int ids, string name)
         {
-            Skimmer skimmer = GetSkimmer(ids);
-            //Deleting the skimmer with the old data and adding a new skimmer with the updated data
-            mayDal.DeleteSkimmer(ids);
-            skimmer.SkimmerModel = name;
-            AddSkimmer(skimmer);
+            //Skimmer skimmer = GetSkimmer(ids);
+            ////Deleting the skimmer with the old data and adding a new skimmer with the updated data
+            //mayDal.DeleteSkimmer(ids);
+            //skimmer.SkimmerModel = name;
+            //AddSkimmer(skimmer);
+            SkimmerToList? toUpdate = skimmersList.Find(item => item.Id == ids);
+            if (toUpdate== null)
+            {
+                throw new IdDoesNotExistException_BL("cannot update name");
+            }
+            toUpdate.SkimmerModel = name;
+
+            //update dal
+            IDAL.DO.Quadocopter quadocopter = mayDal.GetQuadrocopter(ids);
+            quadocopter.SkimmerModel = name;
+            mayDal.Update(quadocopter);
         }
         /// <summary>
         /// Sends skimmer for charging
@@ -306,20 +317,26 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public IDAL.DO.BaseStation ChecksSmallDistanceBetweenCustomerAndBaseStation(Client c)
+        public IBL.BO.BaseStation ChecksSmallDistanceBetweenCustomerAndBaseStation(Customer c)
         {
-            IDAL.DO.BaseStation minDistance;
-            int distance1, distance2 = 100000;
-            foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
+            IDAL.DO.BaseStation station = default;
+            double smallDistance = Double.MaxValue;
+                       
+            foreach(var bs in  mayDal.GetBaseStationList())
             {
-                distance1 = DistanceToDestination.Calculation(c.Longitude, c.Latitude, item.Longitude, item.Latitude);
-                if (distance1 < distance2)
+                double dist = Tools.Utils.GetDistance(c.Location.Longitude, c.Location.Latitude, bs.Longitude, bs.Latitude);
+                if (dist < smallDistance)
                 {
-                    minDistance = item;
-                    distance2 = distance1;
+                    smallDistance = dist;
+                    station = bs;
                 }
             }
-            return minDistance;
+            return new IBL.BO.BaseStation
+            {
+                Id = station.UniqueID,
+                Name = station.StationName,
+                Location = new Location { Latitude = station.Latitude, Longitude = station.Longitude },
+             };
         }
         /// <summary>
         /// Calculation of battery by distance and weight of package
@@ -371,4 +388,6 @@ namespace BL
             return location;
         }
     }
+
+       
 }

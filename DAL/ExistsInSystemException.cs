@@ -2,10 +2,10 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace DalObject
+namespace IDAL.DO
 {
     [Serializable]
-    internal class ExistsInSystemException : Exception
+    public class ExistsInSystemException : Exception
     {
         private string v;
         private Severity mild;

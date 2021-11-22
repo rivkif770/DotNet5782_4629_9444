@@ -10,7 +10,7 @@ namespace IBL.BO
     {
         public int Id { get; set; }
         public String Name { get; set; }
-        public Location location { get; set; }
+        public Location Location { get; set; }
         public int SeveralClaimPositionsVacant { get; set; }
         public List<SkimmerInCharging> ListOfSkimmersCharge { get; set; }
    
@@ -19,7 +19,7 @@ namespace IBL.BO
             String result = "";
             result += $"Unique ID number is: {Id}, \n";
             result += $"The station name is: {Name}, \n";
-            result += $"The Location is: {location},\n";
+            result += $"The Location is: {Location},\n";
             result += $"Several Claim Positions Vacant is: {SeveralClaimPositionsVacant}, \n";
             result += $"List Of Skimmers Charge is:"; 
             foreach (SkimmerInCharging Item in ListOfSkimmersCharge)

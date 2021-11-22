@@ -4,10 +4,10 @@ using System.Runtime.Serialization;
 /// <summary>
 /// Anomalies if the object already exists
 /// </summary>
-namespace BlObject
+namespace IBL.BO
 {
     [Serializable]
-    internal class ExistsInSystemException_BL : Exception
+    public class ExistsInSystemException_BL : Exception
     {
         private Severity mild;
         private string v;
