@@ -14,7 +14,7 @@ namespace BL
         /// Adding a customer
         /// </summary>
         /// <param name="newCustomer"></param>
-        public void AddClint(IBL.BO.Customer newCustomer)
+        public void AddCustomer(IBL.BO.Customer newCustomer)
         {
             IDAL.DO.Client temp_c = new IDAL.DO.Client
             {
@@ -34,7 +34,7 @@ namespace BL
                 throw new ExistsInSystemException_BL($"Person {temp_c.ID} Save to system", Severity.Mild);
             }
         }
-        public Customer GetClint(int id)
+        public Customer GetCustomer(int id)
         {
             IDAL.DO.Client somoeone;
             try

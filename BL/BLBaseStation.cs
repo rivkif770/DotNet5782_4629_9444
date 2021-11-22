@@ -81,15 +81,6 @@ namespace BL
             }
             AddBaseStation(baseStation);
         }
-        public void AddCustomer(Customer newCustomer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Customer GetCustomer(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 
