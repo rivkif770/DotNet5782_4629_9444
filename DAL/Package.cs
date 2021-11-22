@@ -16,10 +16,10 @@ namespace IDAL
             public WeightCategories Weight { get; set; }
             public Priorities priority { get; set; }
             public int IDSkimmerOperation { get; set; }
-            public DateTime PackageCreationTime { get; set; }
-            public DateTime TimeAssignGlider { get; set; }
-            public DateTime PackageCollectionTime { get; set; }
-            public DateTime TimeArrivalRecipient { get; set; }
+            public DateTime? PackageCreationTime { get; set; }
+            public DateTime? TimeAssignGlider { get; set; }
+            public DateTime? PackageCollectionTime { get; set; }
+            public DateTime? TimeArrivalRecipient { get; set; }
             public override string ToString()
             {
                 String result = "";

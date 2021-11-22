@@ -8,8 +8,8 @@ namespace IBL.BO
 {
     public class Location
     {
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public double Latitude { get; init; }
+        public double Longitude { get; init; }
 
         public override string ToString()
         {

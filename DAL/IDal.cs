@@ -35,5 +35,6 @@ namespace IDAL.DO
         public void DeleteClient(int id);
         void DeleteBaseStation(BaseStation baseStation);
         BaseStation GetBeseStation(int b);
+        void Update(Quadocopter qc);
     }
 }

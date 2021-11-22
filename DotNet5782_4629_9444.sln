@@ -14,9 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{55E7F1CC-CD51-4C83-B2DB-15A928245D38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{55E7F1CC-CD51-4C83-B2DB-15A928245D38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI_BL", "ConsoleUI_BL\ConsoleUI_BL.csproj", "{462CA6CE-9679-400C-8A7E-4E87620F0B7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI_BL", "ConsoleUI_BL\ConsoleUI_BL.csproj", "{462CA6CE-9679-400C-8A7E-4E87620F0B7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "Tools\Tools.csproj", "{7C92F7E3-1A6D-4315-8014-13A0908C49E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{462CA6CE-9679-400C-8A7E-4E87620F0B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{462CA6CE-9679-400C-8A7E-4E87620F0B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{462CA6CE-9679-400C-8A7E-4E87620F0B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C92F7E3-1A6D-4315-8014-13A0908C49E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C92F7E3-1A6D-4315-8014-13A0908C49E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C92F7E3-1A6D-4315-8014-13A0908C49E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C92F7E3-1A6D-4315-8014-13A0908C49E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -21,8 +21,8 @@ namespace BL
                 UniqueID = newBaseStation.Id,
                 StationName = newBaseStation.Name,
                 SeveralPositionsArgument = newBaseStation.SeveralClaimPositionsVacant,
-                Latitude = newBaseStation.location.Latitude,
-                Longitude = newBaseStation.location.Longitude
+                Latitude = newBaseStation.Location.Latitude,
+                Longitude = newBaseStation.Location.Longitude
             };
 
             try
@@ -50,7 +50,7 @@ namespace BL
             {
                 Id = somoeBaseStation.UniqueID,
                 Name = somoeBaseStation.StationName,
-                location = new Location { Latitude = somoeBaseStation.Latitude, Longitude = somoeBaseStation.Longitude },
+                Location = new Location { Latitude = somoeBaseStation.Latitude, Longitude = somoeBaseStation.Longitude },
                 SeveralClaimPositionsVacant = somoeBaseStation.SeveralPositionsArgument,
                 ListOfSkimmersCharge =
                 };
