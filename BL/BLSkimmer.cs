@@ -92,12 +92,75 @@ namespace BL
                 // If the skimmer is available
                 if (UpdatedSkimmer.SkimmerStatus == SkimmerStatuses.free)
                 {
-                    UpdatedSkimmer.CurrentLocation=
+                    UpdatedSkimmer.CurrentLocation =;
+                    int minBattery = MinimalChargeToGetToTheNearestStation(UpdatedSkimmer);
+                    UpdatedSkimmer.BatteryStatus = (double)r.Next(minBattery, 100) / 100;
                 }
 
             }
 
         }
+
+        private int MinimalChargeToGetToTheNearestStation(SkimmerToList UpdatedSkimmer)
+        {
+              Skimmer skimmer = new Skimmer
+              {
+                   Id = UpdatedSkimmer.Id,
+                   SkimmerModel= UpdatedSkimmer.SkimmerModel,
+                   WeightCategory= UpdatedSkimmer.WeightCategory,
+              };
+            IDAL.DO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
+            double distance = DalObject.DistanceToDestination.Calculation(baseStation.Longitude, baseStation.Latitude, UpdatedSkimmer.Location.Longitude, UpdatedSkimmer.Location.Latitude);
+            int minimalCharge = (int)(distance * Free);
+            return minimalCharge;
+        }
+        //private int calcMinBatteryRequired(SkimmerToList skimmer)
+        //{
+        //    //Finding a glider-related package
+        //    IDAL.DO.Package PackageAssociatedWithSkimmer = FindingPackageAssociatedWithGlider(item);
+        //    DateTime help = new DateTime(0, 0, 0);
+        //    if (skimmer.SkimmerStatus == SkimmerStatuses.free)
+        //    {
+        //        Location location = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
+        //        return (int)(myDal.PowerRequest()[(int)BatteryUsage.Available] * calcDistance(skimmer.Location, location));
+        //    }
+
+        //    if (skimmer.SkimmerStatus == SkimmerStatuses.shipping)
+        //    {
+        //        IDAL.DO.Package Package =mayDal.GetPackage (skimmer.PackageNumberTransferred);
+        //        if (PackageAssociatedWithSkimmer.PackageCollectionTime == help )
+        //        {
+        //            int minValue;
+        //            Customer sender = GetCustomer(Package.IDSender);
+        //            Customer target = GetCustomer(Package.IDgets);
+        //            double droneToSender = calcDistance(skimmer.Location, sender.Location);
+        //            minValue = (int)(myDal.PowerRequest()[(int)BatteryUsage.Available] * droneToSender);
+        //            double senderToTarget = calcDistance(sender.Location, target.Location);
+        //            BatteryUsage batteryUsage =
+        //                (BatteryUsage)Enum.Parse(typeof(BatteryUsage), parcel.Longitude.ToString());
+        //            minValue += (int)(myDal.PowerRequest()[(int)batteryUsage] * senderToTarget);
+        //            Location baseStationLocation = findClosetBaseStationLocation(target.Location);
+        //            double targetToCharge = calcDistance(target.Location, baseStationLocation);
+        //            minValue += (int)(myDal.PowerRequest()[(int)DroneStatuses.Free] * targetToCharge);
+        //            return minValue;
+        //        }
+
+        //        if (parcel.Delivered is null)
+        //        {
+        //            int minValue;
+        //            Customer sender = GetCustomer(parcel.SenderId);
+        //            Customer target = GetCustomer(parcel.TargetId);
+        //            double senderToTarget = calcDistance(sender.Location, target.Location);
+        //            BatteryUsage batteryUsage = (BatteryUsage)Enum.Parse(typeof(BatteryUsage), parcel.Longitude.ToString());
+        //            minValue = (int)(myDal.PowerRequest()[(int)batteryUsage] * senderToTarget);
+        //            Location baseStationLocation = findClosetBaseStationLocation(target.Location);
+        //            double targetToCharge = calcDistance(target.Location, baseStationLocation);
+        //            minValue += (int)(myDal.PowerRequest()[(int)BatteryUsage.Available] * targetToCharge);
+        //            return minValue;
+        //        }
+        //    }
+        //    return 90;
+
         /// <summary>
         /// ○ Release skimmer from charging
         /// </summary>
@@ -341,5 +404,14 @@ namespace BL
                 Battery = LightWeightCarrier * distance;
             return Battery;
         }
+    }
+
+        private Location ChecksSmallDistanceBetweenSkimmerAndBaseStation(SkimmerToList skimmer)
+        {
+            throw new NotImplementedException();
+        }
+    private int MinimalChargeToGetToTheNearestStation(SkimmerToList updatedSkimmer)
+    {
+        throw new NotImplementedException();
     }
 }
