@@ -51,12 +51,12 @@ namespace BL
             CustomerInParcel customerSender = new CustomerInParcel
             {
                 Id = somoePackage.IDSender,
-                Name = GetPackage(somoePackage.ID).Name
+                Name = GetCustomer(somoePackage.IDSender).Name
             };
             CustomerInParcel customergets = new CustomerInParcel
             {
                 Id = somoePackage.IDgets,
-                Name = GetPackage(somoePackage.ID).Name
+                Name = GetCustomer(somoePackage.IDgets).Name
             };
             SkimmerInPackage skimmerPackage = new SkimmerInPackage
             {
