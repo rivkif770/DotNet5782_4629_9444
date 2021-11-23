@@ -16,7 +16,7 @@ namespace BL
         /// <param name="newCustomer"></param>
         public void AddCustomer(IBL.BO.Customer newCustomer)
         {
-            IDAL.DO.Client temp_c = new IDAL.DO.Client
+            IDAL.DO.Client tempC = new IDAL.DO.Client
             {
                 ID = newCustomer.Id,
                 Name = newCustomer.Name,
@@ -27,11 +27,11 @@ namespace BL
 
             try
             {
-                mayDal.AddClient(temp_c);
+                mayDal.AddClient(tempC);
             }
             catch (ExistsInSystemException exception)
             {
-                throw new ExistsInSystemException_BL($"Person {temp_c.ID} Save to system", Severity.Mild);
+                throw new ExistsInSystemException_BL($"Person {tempC.ID} Save to system", Severity.Mild);
             }
         }
         public Customer GetCustomer(int id)
@@ -53,13 +53,13 @@ namespace BL
                     PackageAtCustomer packageAtCustomer = new PackageAtCustomer
                     {
                         Id = item.ID,
-                        WeightCategory = (Weight)WeightConversion(item),
-                        priority = (Priority)PriorityConversion(item),
+                        WeightCategory = (Weight)(int)item.Weight,
+                        priority = (Priority)(int)item.priority,
                         PackageMode = (ParcelStatus)ReturnsSkimmerMode(item),
                         customerInParcel = new CustomerInParcel
                         {
-                            Id = item.IDgets,
-                            Name = GetCustomer(item.IDgets).Name
+                            Id = ReturnsCustomerContrary(id,item).Id,
+                            Name = ReturnsCustomerContrary(id, item).Name
                         }
                     };
                     sentParcels.Add(packageAtCustomer);
@@ -73,8 +73,8 @@ namespace BL
                     PackageAtCustomer packageAtCustomer = new PackageAtCustomer
                     {
                         Id = item.ID,
-                        WeightCategory = (Weight)WeightConversion(item),
-                        priority = (Priority)PriorityConversion(item),
+                        WeightCategory = (Weight)(int)item.Weight,
+                        priority = (Priority)(int)item.priority,
                         PackageMode = (ParcelStatus)ReturnsSkimmerMode(item),
                         customerInParcel = new CustomerInParcel
                         {
@@ -94,6 +94,12 @@ namespace BL
                 SentParcels = sentParcels,
                 ReceiveParcels = ReceiveParcels,
             };
+        }
+        private Customer ReturnsCustomerContrary(int id,IDAL.DO.Package package)
+        {
+            if (id == package.IDSender)
+                return GetCustomer(package.IDgets);
+            return GetCustomer(package.IDSender);
         }
         /// <summary>
         /// Update customer data
@@ -125,7 +131,7 @@ namespace BL
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        private int ReturnsSkimmerMode (IDAL.DO.Package p)
+        private int ReturnsSkimmerMode(IDAL.DO.Package p)
         {
             if (p.TimeArrivalRecipient != null)
                 return 3;
@@ -135,36 +141,6 @@ namespace BL
                 return 1;
             if (p.PackageCreationTime != null)
                 return 0;
-            return -1;
-        }
-        /// <summary>
-        /// Weight conversion
-        /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        private int WeightConversion(IDAL.DO.Package p)
-        {
-            if (p.Weight == WeightCategories.low)
-                return 2;
-            if (p.Weight == WeightCategories.middle)
-                return 1;
-            if (p.Weight == WeightCategories.heavy)
-                return 0;
-            return -1;
-        }
-        /// <summary>
-        /// Priority conversion
-        /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        private int PriorityConversion(IDAL.DO.Package p)
-        {
-            if (p.priority == Priorities.regular)
-                return 0;
-            if (p.priority == Priorities.fast)
-                return 1;
-            if (p.priority == Priorities.emergency)
-                return 2;
             return -1;
         }
         public IEnumerable<CustomerToList> GetCustomerList()
