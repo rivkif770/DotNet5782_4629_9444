@@ -34,7 +34,6 @@ namespace BL
                 throw new ExistsInSystemException_BL($"Person {temp_BS.UniqueID} Save to system", Severity.Mild);
             }
         }
-
         public IBL.BO.BaseStation GetBeseStation(int id)
         {
             IDAL.DO.BaseStation somoeBaseStation;
@@ -98,7 +97,7 @@ namespace BL
             };
             mayDal.UpadteB(baseStation1);
         }
-       public IEnumerable<IBL.BO.BaseStationToList> GetBaseStationList()
+        public IEnumerable<IBL.BO.BaseStationToList> GetBaseStationList()
         {
             List<BaseStationToList> baseStationToLists = new List<BaseStationToList>();
             foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
