@@ -8,7 +8,7 @@ namespace ConsoleUI_BL
 
         enum Options { Exit, Add, Update, Display, ViewTheLists }
         enum InseitOption { Exit, AddBaseStation, AddSkimmer, AddCustomer, AddPackage }
-        enum UpdateOption { Exit, UpdateSkimmerName, UpdateBaseStation, UpdateCustomerData, ReleaseSkimmerFromCharging, SendingSkimmerForCharging, AssigningPackageToSkimmer, CollectingPackageBySkimmer, DeliveryOfPackageBySkimmer }
+        enum UpdateOption { Exit, UpdateSkimmerName, UpdateBaseStation, UpdateCustomerData, SendingSkimmerForCharging, ReleaseSkimmerFromCharging, AssigningPackageToSkimmer, CollectingPackageBySkimmer, DeliveryOfPackageBySkimmer }
         enum DisplayOptions { Exit, DisplayBaseStation, DisplaySkimmer, DisplayCustomer, DisplayPackage }
         enum OptionsListView { Exit, ViewBaseStation, ViewSkimmer, ViewCustomer, ViewPackage, ViewUnassignedPackages, ViewFreeBaseStation }
 
@@ -86,7 +86,7 @@ namespace ConsoleUI_BL
                                 int station;
                                 Console.WriteLine("Station number Put the skimmer in it for initial charging");
                                 int.TryParse(Console.ReadLine(), out station);
-                                
+
                                 Skimmer newSkimmer = new Skimmer
                                 {
                                     Id = IDs,
@@ -203,9 +203,10 @@ namespace ConsoleUI_BL
                             " 2-Update station data\n" +
                             " 3-Update customer data\n" +
                             " 4-Sending a skimmer for charging at a base station\n" +
-                            " 5-Assigning a package to a skimmer\n" +
-                            " 6-○ Collecting a package by skimmer\n");
-                            " 7-Delivery of a package by skimmer\n");
+                            " 5-Release skimmer from charging\n" +
+                            " 6-Assigning a package to a skimmer\n" +
+                            " 7-Collecting a package by skimmer\n" +
+                            " 8-Delivery of a package by skimmer\n");
                         updateOption = (UpdateOption)int.Parse(Console.ReadLine());
                         switch (updateOption)
                         {
@@ -249,7 +250,7 @@ namespace ConsoleUI_BL
                                 }
                                 break;
                             //Update customer data
-                            case UpdateOption UpdateCustomerData:
+                            case UpdateOption.UpdateCustomerData:
                                 string nameC, phoneC;
                                 Console.WriteLine("enter ID of Customer:");
                                 int idc = int.Parse(Console.ReadLine());
@@ -267,6 +268,21 @@ namespace ConsoleUI_BL
                                     throw;
                                 }
                                 break;
+                            // Sending a skimmer for charging at a base station
+                            case UpdateOption.SendingSkimmerForCharging:
+                                Console.WriteLine("enter ID of skimmers:");
+                                ids = int.Parse(Console.ReadLine());
+                                try
+                                {
+                                    myBL.SendingSkimmerForCharging(ids);
+                                }
+                                catch (Exception exception)
+                                {
+                                    Console.WriteLine(exception);
+                                    throw;
+                                }
+                                break;
+                            // Release skimmer from charging
                             case UpdateOption.ReleaseSkimmerFromCharging:
                                 double ChargingTime;
                                 Console.WriteLine("enter ID of Skimmer:");
@@ -283,21 +299,8 @@ namespace ConsoleUI_BL
                                     throw;
                                 }
                                 break;
-                            //                    // Sending a skimmer for charging at a base station
-                            case UpdateOption.SendingSkimmerForCharging:
-                                Console.WriteLine("enter ID of skimmers:");
-                                ids = int.Parse(Console.ReadLine());
-                                try
-                                {
-                                    myBL.SendingSkimmerForCharging(ids);
-                                }
-                                catch (Exception exception)
-                                {
-                                    Console.WriteLine(exception);
-                                    throw;
-                                }
-                                break;
-                            //Release skimmer from charging at base station
+
+                            //Assigning a package to a skimmer
                             case UpdateOption.AssigningPackageToSkimmer:
                                 Console.WriteLine("enter ID of skimmers:");
                                 ids = int.Parse(Console.ReadLine());
@@ -311,6 +314,7 @@ namespace ConsoleUI_BL
                                     throw;
                                 }
                                 break;
+                            //Collecting a package by skimmer
                             case UpdateOption.CollectingPackageBySkimmer:
                                 Console.WriteLine("enter ID of skimmers:");
                                 ids = int.Parse(Console.ReadLine());
@@ -324,25 +328,7 @@ namespace ConsoleUI_BL
                                     throw;
                                 }
                                 break;
-                            //                    //Release skimmer from charging at base station
-                            //                    case UpdateOption.ReleaseCharging:
-                            //                        Console.WriteLine("enter ID of skimmers:");
-                            //                        id = int.Parse(Console.ReadLine());
-                            //                        Console.WriteLine("enter ID of Base Station:");
-                            //                        idq = int.Parse(Console.ReadLine());
-                            //                        try
-                            //                        {
-                            //                            mydal.SkimmerRelease(id, idq);
-                            //                        }
-                            //                        catch (Exception exception)
-                            //                        {
-                            //                            Console.WriteLine(exception);
-                            //                            throw;
-                            //                        }
-                            //                        break;
-
-                            //                }
-                            //                break;
+                            //Delivery of a package by skimmer
                             case UpdateOption.DeliveryOfPackageBySkimmer:
                                 Console.WriteLine("enter ID of skimmers:");
                                 ids = int.Parse(Console.ReadLine());
@@ -358,188 +344,172 @@ namespace ConsoleUI_BL
                                 break;
                         }
                         break;
-                            //            case Options.Display:
-                            //                Console.WriteLine("adding option:\n" +
-                            //                    " 0-Exit\n" +
-                            //                    " 1-Base Station View\n" +
-                            //                    " 2-Skimmer display\n" +
-                            //                    " 3-Customer view\n" +
-                            //                    " 4-Package view\n");
-                            //                displayOptions = (DisplayOptions)int.Parse(Console.ReadLine());
-                            //                switch (displayOptions)
-                            //                {
-                            //                    case DisplayOptions.Exit:
-                            //                        return;
-                            //                    case DisplayOptions.DisplayBaseStation:
-                            //                        int IDb;
-                            //                        do
-                            //                        {
-                            //                            Console.WriteLine("enter ID of BaseStation:");
-                            //                            success = int.TryParse(Console.ReadLine(), out IDb);
-
-                            //                        } while (success == false);
-                            //                        try
-                            //                        {
-                            //                            Console.WriteLine(mydal.GetBaseStation(IDb));
-                            //                        }
-                            //                        catch (BaseStationException Exception)
-                            //                        {
-                            //                            Console.WriteLine(Exception);
-                            //                            throw;
-                            //                        }
-
-                            //                        break;
-                            //                    case DisplayOptions.DisplaySkimmer:
-                            //                        int IDq;
-                            //                        do
-                            //                        {
-                            //                            Console.WriteLine("enter ID of Skimmer:");
-                            //                            success = int.TryParse(Console.ReadLine(), out IDq);
-                            //                        } while (success == false);
-                            //                        try
-                            //                        {
-                            //                            Console.WriteLine(mydal.GetQuadrocopter(IDq));
-                            //                        }
-                            //                        catch (QuadocopterException Exception)
-                            //                        {
-                            //                            Console.WriteLine(Exception);
-                            //                            throw;
-                            //                        }
-
-                            //                        break;
-                            //                    case DisplayOptions.DisplayCustomer:
-                            //                        int IDc;
-                            //                        do
-                            //                        {
-                            //                            Console.WriteLine("enter ID of Client:");
-                            //                            success = int.TryParse(Console.ReadLine(), out IDc);
-                            //                        } while (success == false);
-                            //                        try
-                            //                        {
-                            //                            Console.WriteLine(mydal.GetClient(IDc));
-                            //                        }
-                            //                        catch (ClientException Exception)
-                            //                        {
-                            //                            Console.WriteLine(Exception);
-                            //                            throw;
-                            //                        }
-
-                            //                        break;
-                            //                    case DisplayOptions.DisplayPackage:
-                            //                        int IDp;
-                            //                        do
-                            //                        {
-                            //                            Console.WriteLine("enter ID of Package:");
-                            //                            success = int.TryParse(Console.ReadLine(), out IDp);
-                            //                        } while (success == false);
-                            //                        try
-                            //                        {
-                            //                            Console.WriteLine(mydal.GetPackage(IDp));
-                            //                        }
-                            //                        catch (PackageException Exception)
-                            //                        {
-                            //                            Console.WriteLine(Exception);
-                            //                            throw;
-                            //                        }
-
-                            //                        break;
-                            //                }
-                            //                break;
-                            case Options.ViewTheLists:
-                                Console.WriteLine("adding option:\n" +
-                                    " 0-Exit\n" +
-                                    " 1-Displays a list of base stations\n" +
-                                    " 2-Displays the list of skimmers\n" +
-                                    " 3-View customer list\n" +
-                                    " 4-Displays the list of packages\n" +
-                                    " 5-Displays a list of packages not yet associated with the glider\n" +
-                                    " 6-Display of base stations with available charging stations");
-                optionsListView = (OptionsListView)int.Parse(Console.ReadLine());
-                switch (optionsListView)
-                {
-                    case OptionsListView.Exit:
-                        return;
-                    case OptionsListView.ViewBaseStation:
-                        foreach (BaseStation item in myBL.GetBaseStationList())
+                    case Options.Display:
+                        Console.WriteLine("adding option:\n" +
+                            " 0-Exit\n" +
+                            " 1-Base Station View\n" +
+                            " 2-Skimmer display\n" +
+                            " 3-Customer view\n" +
+                            " 4-Package view\n");
+                        displayOptions = (DisplayOptions)int.Parse(Console.ReadLine());
+                        switch (displayOptions)
                         {
-                            Console.WriteLine(item);
+                            case DisplayOptions.Exit:
+                                return;
+                            case DisplayOptions.DisplayBaseStation:
+                                int IDb;
+                                Console.WriteLine("enter ID of BaseStation:");
+                                success = int.TryParse(Console.ReadLine(), out IDb);
+                                try
+                                {
+                                    Console.WriteLine( myBL.GetBeseStation(IDb));
+                                }
+                                catch (BaseStationException Exception)
+                                {
+                                    Console.WriteLine(Exception);
+                                    throw;
+                                }
+                                break;
+                            case DisplayOptions.DisplaySkimmer:
+                                int IDq;
+                                 Console.WriteLine("enter ID of Skimmer:");
+                                 success = int.TryParse(Console.ReadLine(), out IDq);
+                                try
+                                {
+                                    Console.WriteLine(myBL.GetSkimmer(IDq));
+                                }
+                                catch (QuadocopterException Exception)
+                                {
+                                    Console.WriteLine(Exception);
+                                    throw;
+                                }
+                                break;
+                            case DisplayOptions.DisplayCustomer:
+                                int IDc;
+                                Console.WriteLine("enter ID of Client:");
+                                success = int.TryParse(Console.ReadLine(), out IDc);
+                                try
+                                {
+                                    Console.WriteLine(myBL.GetCustomer(IDc));
+                                }
+                                catch (ClientException Exception)
+                                {
+                                    Console.WriteLine(Exception);
+                                    throw;
+                                }
+                                break;
+                            case DisplayOptions.DisplayPackage:
+                                int IDp;
+                                Console.WriteLine("enter ID of Package:");
+                                success = int.TryParse(Console.ReadLine(), out IDp);
+                                try
+                                {
+                                    Console.WriteLine(myBL.GetPackage(IDp));
+                                }
+                                catch (PackageException Exception)
+                                {
+                                    Console.WriteLine(Exception);
+                                    throw;
+                                }
+                                break;
                         }
                         break;
-                        //                    case OptionsListView.ViewSkimmer:
-                        //                        foreach (Quadocopter item in mydal.GetQuadocopterList())
-                        //                        {
-                        //                            Console.WriteLine(item);
-                        //                        }
-                        //                        break;
-                        //                    case OptionsListView.ViewCustomer:
-                        //                        foreach (Client item in mydal.GetClientList())
-                        //                        {
-                        //                            Console.WriteLine(item);
-                        //                        }
-                        //                        break;
-                        //                    case OptionsListView.ViewPackage:
-                        //                        foreach (Package item in mydal.GetPackageList())
-                        //                        {
-                        //                            Console.WriteLine(item);
-                        //                        }
-                        //                        break;
-                        //                    case OptionsListView.ViewUnassignedPackages:
-                        //                        foreach (var item in mydal.PackagesWithoutSkimmer())
-                        //                        {
-                        //                            Console.WriteLine(item);
-                        //                        }
-                        //                        break;
-                        //                    case OptionsListView.ViewFreeBaseStation:
-                        //                        foreach (var item in mydal.BaseStationFreeCharging())
-                        //                        {
-                        //                            Console.WriteLine(item);
-                        //                        }
-                        //                        break;
-                        //                }
-                        //                break;
-                        //        }
-                        //    }
-                        //    while (options != 0);
-                        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        //static BL.BlObject mydal = new BL.BlObject();
-
-                        //static IBL.BO.IBL bl = new BL.BlObject();
-                        //static void Main(string[] args)
-                        //{
-                        //    Console.WriteLine("Hell O World!");
-
-
-                        //    Customer customer;
-                        //    Console.WriteLine("give me  customer id");
-                        //    int id = Int32.Parse(Console.ReadLine());
-                        //    try
-                        //    {
-                        //        customer = bl.GetCustomer(id);
-                        //    }
-                        //    catch (CustomerException exception)
-                        //    {
-                        //        Console.WriteLine(exception.Message);
-                        //    }
-                        //    Console.WriteLine();
-                        //}
-                        // }
+                    case Options.ViewTheLists:
+                        Console.WriteLine("adding option:\n" +
+                            " 0-Exit\n" +
+                            " 1-Displays a list of base stations\n" +
+                            " 2-Displays the list of skimmers\n" +
+                            " 3-View customer list\n" +
+                            " 4-Displays the list of packages\n" +
+                            " 5-Displays a list of packages not yet associated with the glider\n" +
+                            " 6-Display of base stations with available charging stations");
+                        optionsListView = (OptionsListView)int.Parse(Console.ReadLine());
+                        switch (optionsListView)
+                        {
+                            case OptionsListView.Exit:
+                                return;
+                            case OptionsListView.ViewBaseStation:
+                                foreach (BaseStationToList item in myBL.GetBaseStationList())
+                                {
+                                    Console.WriteLine(item);
+                                }
+                                break;
+                            case OptionsListView.ViewSkimmer:
+                                foreach (SkimmerToList item in myBL.GetSkimmerList())
+                                {
+                                    Console.WriteLine(item);
+                                }
+                                break;
+                            case OptionsListView.ViewCustomer:
+                                foreach (CustomerToList item in myBL.GetCustomerList())
+                                {
+                                    Console.WriteLine(item);
+                                }
+                                break;
+                            case OptionsListView.ViewPackage:
+                                foreach (PackageToList item in myBL.GetPackageList())
+                                {
+                                    Console.WriteLine(item);
+                                }
+                                break;
+                            case OptionsListView.ViewUnassignedPackages:
+                                foreach (var item in myBL.GetPackagesWithoutSkimmer())
+                                {
+                                    Console.WriteLine(item);
+                                }
+                                break;
+                            case OptionsListView.ViewFreeBaseStation:
+                                foreach (var item in myBL.GetBaseStationFreeCharging())
+                                {
+                                    Console.WriteLine(item);
+                                }
+                                break;
+                        }
+                        break;
                 }
-}
+            }
+            while (options != 0);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //static BL.BlObject mydal = new BL.BlObject();
+
+        //static IBL.BO.IBL bl = new BL.BlObject();
+        //static void Main(string[] args)
+        //{
+        //    Console.WriteLine("Hell O World!");
+
+
+        //    Customer customer;
+        //    Console.WriteLine("give me  customer id");
+        //    int id = Int32.Parse(Console.ReadLine());
+        //    try
+        //    {
+        //        customer = bl.GetCustomer(id);
+        //    }
+        //    catch (CustomerException exception)
+        //    {
+        //        Console.WriteLine(exception.Message);
+        //    }
+        //    Console.WriteLine();
+        //}
+        // }
+    }
+                }
+            }

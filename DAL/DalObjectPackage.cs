@@ -9,6 +9,17 @@ namespace DalObject
 {
     public partial class DalObject: IDal
     {
+        public void UpadteP(Package p)
+        {
+            for (int i = 0; i < DataSource.ListPackage.Count; i++)
+            {
+                if (DataSource.ListPackage[i].ID == p.ID)
+                {
+                    DataSource.ListPackage[i] = p;
+                    break;
+                }
+            }
+        }
         public void AddPackage(Package p)//Add a package
         {
             if (DataSource.ListPackage.Exists(item => item.ID == p.ID))//If finds an existing Package throws an error.

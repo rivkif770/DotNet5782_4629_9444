@@ -98,6 +98,42 @@ namespace BL
             };
             mayDal.UpadteB(baseStation1);
         }
+       public IEnumerable<IBL.BO.BaseStationToList> GetBaseStationList()
+        {
+            List<BaseStationToList> baseStationToLists = new List<BaseStationToList>();
+            foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
+            {
+                BaseStationToList station = new BaseStationToList
+                {
+                    Id = item.UniqueID,
+                    StationName = item.StationName,
+                    FreeChargingstations = item.SeveralPositionsArgument,
+                    CatchChargingstations = GetBeseStation(item.UniqueID).ListOfSkimmersCharge.Count()
+                };
+                baseStationToLists.Add(station);
+            }
+            return baseStationToLists.Take(baseStationToLists.Count).ToList();
+        }
+        public IEnumerable<IBL.BO.BaseStationToList> GetBaseStationFreeCharging()
+        {
+            List<BaseStationToList> baseStationToLists = new List<BaseStationToList>();
+            foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
+            {
+                IBL.BO.BaseStation station1 = GetBeseStation(item.UniqueID);
+                if(station1.SeveralClaimPositionsVacant!=0)
+                {
+                    BaseStationToList station = new BaseStationToList
+                    {
+                        Id = item.UniqueID,
+                        StationName = item.StationName,
+                        FreeChargingstations = item.SeveralPositionsArgument,
+                        CatchChargingstations = GetBeseStation(item.UniqueID).ListOfSkimmersCharge.Count()
+                    };
+                    baseStationToLists.Add(station);
+                }             
+            }
+            return baseStationToLists.Take(baseStationToLists.Count).ToList();
+        }
     }
 }
 

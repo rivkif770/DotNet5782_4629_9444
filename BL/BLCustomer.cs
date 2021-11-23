@@ -167,5 +167,24 @@ namespace BL
                 return 2;
             return -1;
         }
+        public IEnumerable<CustomerToList> GetCustomerList()
+        {
+            List<CustomerToList> customerToList= new List<CustomerToList>();
+            foreach (IDAL.DO.Client item in mayDal.GetClientList())
+            {
+                CustomerToList customer = new CustomerToList
+                {
+                    Id = item.ID,
+                    Name = item.Name,
+                    Phone = item.Telephone,
+                    ParcelSentAndDelivered =,
+                    ParcelSentAndNotDelivered =,
+                    PackagesHeReceived =GetCustomer(item.ID).ReceiveParcels.Count(),
+                    PackagesOnTheWayToCustomer=,
+                };
+                customerToList.Add(customer);
+            }
+            return customerToList.Take(customerToList.Count).ToList();
+        }
     }
 }

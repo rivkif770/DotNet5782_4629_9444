@@ -16,6 +16,7 @@ namespace IDAL.DO
         public void DeleteClient(int id);
         IEnumerable<Client> GetClientList();
         void AddPackage(Package p);
+        public void UpadteP(Package p);
         Package GetPackage(int idp);
         IEnumerable<Package> GetPackageList();
         public void DeletePackage(int id);

@@ -84,20 +84,19 @@ namespace BL
         /// <param name="id"></param>
         public void CollectingPackageBySkimmer(int id)
         {
-            Skimmer s = GetSkimmer(id);
-            IBL.BO.Package package;;
-            DateTime date = new DateTime(0, 0, 0);
-            package = s.PackageInTransfer;
+            SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
+            IBL.BO.Package package;
+            package = GetPackage(skimmer.PackageNumberTransferred);
             int idc = package.SendPackage.Id;
             Location locationsend = GetCustomer(idc).Location;
             //Only a skimmer that delivers a package that has been associated with it but has not yet been collected will be able to pick it up
-            if (s.SkimmerStatus == SkimmerStatuses.shipping && package.AssignmentTime != date && package.CollectionTime == date)
+            if (skimmer.SkimmerStatus == SkimmerStatuses.shipping && package.AssignmentTime != null && package.CollectionTime == null)
             {
                 //Update battery status according to the distance between the original location and the sender location
-                double distance = Tools.Utils.GetDistance(s.Location.Longitude, s.Location.Latitude, locationsend.Longitude, locationsend.Latitude);
-                s.BatteryStatus = (s.BatteryStatus) - (distance * Free);
+                double distance = Tools.Utils.GetDistance(skimmer.CurrentLocation.Longitude, skimmer.CurrentLocation.Latitude, locationsend.Longitude, locationsend.Latitude);
+                skimmer.BatteryStatus = (skimmer.BatteryStatus) - (distance * Free);
                 //Update location to sender location
-                s.Location = locationsend;
+                skimmer.CurrentLocation = locationsend;
                 //Update package pickup time
                 package.CollectionTime = DateTime.Now;
 
@@ -111,7 +110,7 @@ namespace BL
         /// <param name="id"></param>
         public void AssigningPackageToSkimmer(int id)
         {
-            Skimmer skimmer = GetSkimmer(id);
+            SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
             //Check that the glider is in maintenance
             if (skimmer.SkimmerStatus == SkimmerStatuses.maintenance)
             {
@@ -131,56 +130,78 @@ namespace BL
         /// <param name="id"></param>
         public void DeliveryOfPackageBySkimmer(int id)
         {
-            Skimmer skimmer = GetSkimmer(id);
-            DateTime ResetTime = new DateTime(0, 0, 0);
-            IDAL.DO.Package package;
-            foreach (IDAL.DO.Package item in mayDal.GetPackageList())//Looking for a package that the glider is associated with
-            {
-                if (item.IDSkimmerOperation == id)
-                {
-                    package = new IDAL.DO.Package
-                    {
-                        ID = item.ID,
-                        IDSender = item.IDSender,
-                        IDgets = item.IDgets,
-                        Weight = item.Weight,
-                        priority = item.priority,
-                        IDSkimmerOperation = item.IDSkimmerOperation,
-                        PackageCreationTime = item.PackageCreationTime,
-                        TimeAssignGlider = item.TimeAssignGlider,
-                        PackageCollectionTime = item.PackageCollectionTime,
-                        TimeArrivalRecipient = item.TimeArrivalRecipient
-                    };
-                }
-            }
+            SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
+            IBL.BO.Package package = GetPackage(skimmer.PackageNumberTransferred);
+            Location locationGets = GetCustomer(id).Location;
             //Only a skimmer that has collected but has not yet delivered the package will be able to deliver it
-            if (package.PackageCollectionTime == ResetTime && package.TimeArrivalRecipient != ResetTime)
+            if (package.CollectionTime != null && package.SupplyTime == null)
             {
-                Customer customer = GetClint(package.IDgets);
-                //ChecksSmall Distance Between Skimmer And BaseStation
-                IDAL.DO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
+                double batteryCalculation = BatteryCalculation(skimmer.CurrentLocation, locationGets, package.WeightCategory);
+                skimmer.BatteryStatus = (skimmer.BatteryStatus) - (batteryCalculation);
                 //Update location to the location of the shipping destination
-                Location locationBaseStation = new Location
-                {
-                    Longitude = baseStation.Longitude,
-                    Latitude = baseStation.Latitude
-                };
-                //Update battery status according to the distance between the original location and the location of the shipping destination
-                //,Change skimmer status to available, Update delivery time
-                double battery = BatteryCalculation(skimmer.Location, customer.Location, package.Weight) + BatteryCalculation(customer.Location, locationBaseStation, package.Weight);
-                if (battery <= skimmer.BatteryStatus)
-                {
-                    skimmer.BatteryStatus = skimmer.BatteryStatus - battery;
-                    skimmer.Location = customer.Location;
-                    skimmer.SkimmerStatus = SkimmerStatuses.free;
-                    mayDal.DeleteSkimmer(skimmer.Id);
-                    AddSkimmer(skimmer);
-                    package.TimeArrivalRecipient = DateTime.Now;
-                    mayDal.DeletePackage(package.ID);
-                    mayDal.AddPackage(package);
-                }
+                skimmer.CurrentLocation = locationGets;
+                skimmer.SkimmerStatus = SkimmerStatuses.free;
+                IDAL.DO.Package package1=mayDal.GetPackage(package.Id);
+                package.SupplyTime = DateTime.Now;
+                mayDal.UpadteP(package1);
             }
+            else
+                throw new SkimmerExistsInSystemException_BL($"Skimmer {id}does not ship a package that has been associated with it or has already been collected", Severity.Mild);
+        }
+        public IEnumerable<IBL.BO.PackageToList> GetPackageList()
+        {
+            List<PackageToList> packageToList = new List<PackageToList>();
+            foreach (IDAL.DO.Package item in mayDal.GetPackageList())
+            {
+                IBL.BO.Package package1 = GetPackage(item.ID);
+                PackageToList package = new PackageToList
+                {
+                    Id = item.ID,
+                    CustomerNameSends = package1.SendPackage.Name,
+                    CustomerNameGets = package1.ReceivesPackage.Name,
+                    WeightCategory = package1.WeightCategory,
+                    priority = package1.priority,
+                    PackageMode = (ParcelStatus)PackageMode(package1),
+                };
+                packageToList.Add(package);
+            }
+            return packageToList.Take(packageToList.Count).ToList();
+        }
+        private int PackageMode(IBL.BO.Package p)
+        {
+            if (p.SupplyTime != null)
+                return 3;
+            if (p.CollectionTime != null)
+                return 2;
+            if (p.AssignmentTime != null)
+                return 1;
+            if (p.PackageCreationTime != null)
+                return 0;
+            return -1;
+        }
+        public IEnumerable<PackageToList> GetPackagesWithoutSkimmer()
+        {
+            List<PackageToList> packageToList = new List<PackageToList>();
+            foreach (IDAL.DO.Package item in mayDal.GetPackageList())
+            {
+                IBL.BO.Package package1 = GetPackage(item.ID);
+                if(package1.AssignmentTime==null)
+                {
+                    PackageToList package = new PackageToList
+                    {
+                        Id = item.ID,
+                        CustomerNameSends = package1.SendPackage.Name,
+                        CustomerNameGets = package1.ReceivesPackage.Name,
+                        WeightCategory = package1.WeightCategory,
+                        priority = package1.priority,
+                        PackageMode = (ParcelStatus)PackageMode(package1),
+                    };
+                    packageToList.Add(package);
+                }               
+            }
+            return packageToList.Take(packageToList.Count).ToList();
         }
     }
+
 }
 

@@ -155,46 +155,38 @@ namespace BL
         /// <param name="ChargingTime"></param>
         public void ReleaseSkimmerFromCharging(int id, double ChargingTime)
         {
-            Skimmer s= GetSkimmer(id);
+            SkimmerToList skimmer= skimmersList.Find(item => item.Id == id);
             // Only a skimmer in maintenance will be able to be released from charging
-            if (s.SkimmerStatus!= SkimmerStatuses.maintenance)
+            if (skimmer.SkimmerStatus!= SkimmerStatuses.maintenance)
             {
                 throw new maintenanceExistsInSystemException_BL($"Skimmer {id} Not in maintenance", Severity.Mild);
             }
             //Battery status will be updated according to the time it was charging
-            s.BatteryStatus = ChargingTime * SkimmerLoadingRate;
+            skimmer.BatteryStatus = ChargingTime * SkimmerLoadingRate;
             //The skimmer mode will change to free
-            s.SkimmerStatus = SkimmerStatuses.free;
+            skimmer.SkimmerStatus = SkimmerStatuses.free;
             mayDal.BaseStationFreeCharging();
-            int b;
+            int IDb=0;
             //Search v skimmer by id
             foreach (SkimmerLoading item in mayDal.GetSkimmerLoading())
             {
-                if(item.SkimmerID==s.Id)
+                if(item.SkimmerID== skimmer.Id)
                 {
-                    b=item.StationID;
+                    IDb = item.StationID;
                     break;
                 }
             }
-            //Search for the base station where the skimmer was charging
-            foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
+            IDAL.DO.BaseStation station = mayDal.GetBeseStation(IDb);
+            station.SeveralPositionsArgument++;
+            mayDal.UpadteB(station);
+            foreach(SkimmerLoading item in mayDal.GetSkimmerLoading())
             {
-                if(item.UniqueID==b)
+                if (item.SkimmerID == skimmer.Id)
                 {
-                    IDAL.DO.BaseStation baseStation = mayDal.GetBeseStation(b);
-                    baseStation.SeveralPositionsArgument++;
-                    //Delete the base station with the old data and add a new base station with the new data
-                    mayDal.DeleteBaseStation(baseStation.UniqueID);
-                    mayDal.AddBaseStation(baseStation);
+                    mayDal.DeleteSkimmerLoading(skimmer.Id);
                     break;
                 }
             }
-            IDAL.DO.Quadocopter quadocopter = mayDal.GetQuadrocopter(s.Id);
-            IBL.BO.BaseStation.SkimmerInCyStatus = 0;
-            IBL.BO.SkimmerInChargings.BatteryStatus = 0;
-            IBL.BO.SkimmerInCharging.id = 0;
-            ddSkimmer(s);
-            mayDal.DeleteClient(s.Id);
         }
         //public double AmountOfElectricity(Skimmer skimmer , Weight weight)
         //{
@@ -277,33 +269,30 @@ namespace BL
         /// <param name="id"></param>
         public void SendingSkimmerForCharging(int id)
         {
-            IBL.BO.Skimmer skimmer = GetSkimmer(id);
+            SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
             double battery = 0;
             //Only a free skimmer can be sent for charging
             if (skimmer.SkimmerStatus == SkimmerStatuses.free)
             {
                 //Find a very small distance between a skimmer and a base station
-                IDAL.DO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
+                IBL.BO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
                 //If there are free charging stations
-                if (baseStation.SeveralPositionsArgument != 0)
+                if (baseStation.SeveralClaimPositionsVacant != 0)
                 {
                     //Check if there is enough battery
+                    battery = MinimalChargeToGetToTheNearestStation(skimmer);
                     if (skimmer.BatteryStatus >= battery)
                     {
-                        skimmer.BatteryStatus =;
+                        skimmer.BatteryStatus = skimmer.BatteryStatus-battery;
+                        skimmer.CurrentLocation = baseStation.Location;
                         //The glider condition will be changed for maintenance
                         skimmer.SkimmerStatus = SkimmerStatuses.maintenance;
-                        ////Deleting the skimmer with the old data and adding a new skimmer with the updated data
-                        mayDal.DeleteSkimmer(skimmer.Id);
-                        //Lowering the number of available charging stations by 1
-                        AddSkimmer(skimmer, baseStation.UniqueID);
-                        baseStation.SeveralPositionsArgument--;
-                        ////Deleting the BaseStation with the old data and adding a new BaseStation with the updated data
-                        mayDal.DeleteBaseStation(baseStation.UniqueID);
-                        mayDal.AddBaseStation(baseStation);
+                        IDAL.DO.BaseStation station =mayDal.GetBeseStation(baseStation.Id);
+                        station.SeveralPositionsArgument--;
+                        mayDal.UpadteB(station);
                         IDAL.DO.SkimmerLoading skimmerLoading = new SkimmerLoading();
                         skimmerLoading.SkimmerID = skimmer.Id;
-                        skimmerLoading.StationID = baseStation.UniqueID;
+                        skimmerLoading.StationID = baseStation.Id;
                         mayDal.AddSkimmerLoading(skimmerLoading);
                     }
                     else
@@ -323,20 +312,20 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private IDAL.DO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(Skimmer s)
+        private IBL.BO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(SkimmerToList s)
         {
-            IDAL.DO.BaseStation minDistance;
-            int distance1, distance2 = 100000;
+            IDAL.DO.BaseStation minDistance = new IDAL.DO.BaseStation { UniqueID = 0 };
+            double distance1, distance2 = 100000;
             foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
             {
-                distance1 = DistanceToDestination.Calculation(s.Location.Longitude, s.Location.Latitude, item.Longitude, item.Latitude);
+                distance1 = Tools.Utils.GetDistance(s.CurrentLocation.Longitude, s.CurrentLocation.Latitude, item.Longitude, item.Latitude);
                 if (distance1 < distance2)
                 {
                     minDistance = item;
                     distance2 = distance1;
                 }
-            }
-            return minDistance;
+            }          
+            return GetBeseStation(minDistance.UniqueID);
         }
         /// <summary>
         /// Checks a small distance between Customer and base station
@@ -371,16 +360,16 @@ namespace BL
         /// <param name="location2"></param>
         /// <param name="weight"></param>
         /// <returns></returns>
-        private double BatteryCalculation(Location location1,Location location2, WeightCategories weight)
+        private double BatteryCalculation(Location location1,Location location2, Weight weight)
         {
             //distance calculation
-            double distance = Tools.Utils(location1.Longitude, location1.Latitude, location2.Longitude, location2.Latitude);
-            double Battery;
-            if (weight == WeightCategories.heavy)
+            double distance = Tools.Utils.GetDistance(location1.Longitude, location1.Latitude, location2.Longitude, location2.Latitude);
+            double Battery=0;
+            if (weight == Weight.Heavy)
                 Battery = HeavyWeightCarrier * distance;
-            if (weight == WeightCategories.middle)
+            if (weight == Weight.Medium)
                 Battery = MediumWeightCarrier * distance;
-            if (weight == WeightCategories.low)
+            if (weight == Weight.Light)
                 Battery = LightWeightCarrier * distance;
             return Battery;
         }
@@ -412,6 +401,10 @@ namespace BL
                 Longitude = clientRandom.Longitude
             };
             return location;
+        }
+        public IEnumerable<SkimmerToList> GetSkimmerList()
+        {
+            return skimmersList.Take(skimmersList.Count).ToList();
         }
     }
 
