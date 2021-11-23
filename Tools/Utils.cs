@@ -16,9 +16,9 @@ namespace Tools
         /// <param name="otherLongitude"></param>
         /// <param name="otherLatitude"></param>
         /// <returns></returns>
-        public  static double GetDistance(double longitude, double latitude, double otherLongitude, double otherLatitude)
+        public static double GetDistance(double longitude, double latitude, double otherLongitude, double otherLatitude)
         {
-            var  oneDegree = Math.PI / 180.0;
+            var oneDegree = Math.PI / 180.0;
             var d1 = latitude * oneDegree;
             var num1 = longitude * oneDegree;
             var d2 = otherLatitude * oneDegree;
@@ -27,5 +27,5 @@ namespace Tools
 
             return 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
         }
-
+    }
 }

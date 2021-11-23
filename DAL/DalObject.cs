@@ -23,32 +23,8 @@ namespace DalObject
                 DataSource.Config.SkimmerLoadingRate};
             return arr;
         }
-        //        //////////////////////////////////////////////////////////
-        //        public void AddBaseStation(BaseStation b)//Adding a station
-        //        {
-        //            DalObjectBaseStation.AddBaseStation_private(b);
-        //        }
-        //        public void AddSkimmer(Quadocopter q)//added a skimmer
-        //        {
-        //             DalObjectSkimmer.AddSkimmer_privet(q);
-        //        }
-        //        public void AddClient(Client c)//Adding a customer
-        //        {
-        //            DalObjectClient.AddClient_private(c);
-        //        }
-        //        public void AddPackage(Package p)//Add a package
-        //        {
-        //            DalObjectPackage.AddPackage_privet(p);
-        //        }
-        //        //////////////////////////////////////////////////////////
         public void AssignPackageSkimmer(int idp, int idq)//Assign a package to a skimmer
         {
-            //Quadocopter temp_q = this.GetQuadrocopter(idq);
-            ////temp_q.SkimmerMode = (DronStatuses)2;//Change the glider position to catch
-
-            //DataSource.ListQuadocopter.RemoveAll(quad => quad.IDNumber == idq);//Deleting the old skimmer object
-            //DataSource.ListQuadocopter.Add(temp_q);//Deleting the new skimmer object includes the change
-
             Package temp_p = this.GetPackage(idp);
             temp_p.IDSkimmerOperation = idq;//Change the skimmer ID of the package to the associated skimmer ID
             temp_p.TimeAssignGlider = DateTime.Now;//Update time association
@@ -104,51 +80,6 @@ namespace DalObject
         //    DataSource.ListBaseStation.RemoveAll(Base => Base.UniqueID == IdBS);//Deleting the old BaseStation object
         //    DataSource.ListBaseStation.Add(temp_BS);//Deleting the new BaseStation object includes the change
         //}
-        //        //////////////////////////////////////////////////////////
-        //        public BaseStation GetBaseStation(int IDb)//Base station view by appropriate ID
-        //        {
-        //            return DalObjectBaseStation.GetBaseStation_private(IDb);            
-        //        }
-        //        public Client GetClient(int IDc)//Client view by appropriate ID
-        //        {
-        //            return DalObjectClient.GetClient_private(IDc);
-        //        }
-        //        public Quadocopter GetQuadrocopter(int IDq)//Quadrocopter view by appropriate ID
-        //        {
-        //           return DalObjectSkimmer.GetQuadrocopter_privet(IDq);
-        //        }     
-        //        public Package GetPackage(int idp)//Package view by appropriate ID
-        //        {
-        //            return DalObjectPackage.GetPackage_privet(idp);
-        //        }
-        //        //////////////////////////////////////////////////////////
-        //        public IEnumerable<BaseStation> GetBaseStationList()//return a list of base stations
-        //        {
-        //            return DalObjectBaseStation.GetBaseStationList_private();
-        //        }
-        //        public IEnumerable<Quadocopter> GetQuadocopterList()//Displays a list of Skimmer
-        //        {
-        //            return DalObjectSkimmer.GetQuadocopterList_privet();
-        //        }
-        //        public IEnumerable<Client> GetClientList()//Displays a list of Client
-        //        {
-        //            return DalObjectClient.GetClientList_private();
-        //        }
-        //        public IEnumerable<Package> GetPackageList()//Displays a list of Package
-        //        {
-        //            return DalObjectPackage.GetPackageList_privet();
-        //        }
-        //        public IEnumerable<Package> PackagesWithoutSkimmer()//Displays a list of Packages not yet associated with the glider
-        //        {
-        //            return DalObjectPackage.PackagesWithoutSkimmer_privet();
-        //        }
-        //        public IEnumerable<BaseStation> BaseStationFreeCharging()//Displays a list of Base stations with available charging stations
-        //        {
-        //            return DalObjectBaseStation.BaseStationFreeCharging_privet();
-        //        }
-
-
-
         
     }
 }

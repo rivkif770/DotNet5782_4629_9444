@@ -5,40 +5,43 @@ namespace IDAL.DO
 {
     public interface IDal
     {
+        public double[] PowerConsumptionRequest();
+        void AssignPackageSkimmer(int idp, int idq);
+        void CollectionPackage(int idp);
+        void PackageDelivery(int idp);
+
+        public void UpadteB(BaseStation b);
         void AddBaseStation(BaseStation b);
         BaseStation GetBaseStation(int IDb);
-        BaseStation GetBeseStation(int b);
-        void DeleteBaseStation(BaseStation baseStation);
         IEnumerable<BaseStation> GetBaseStationList();
+        IEnumerable<BaseStation> BaseStationFreeCharging();
         public void DeleteBaseStation(int idb);
+
+        void UpadteC(Client c);
         void AddClient(Client c);
         Client GetClient(int IDc);
-        public void DeleteClient(int id);
         IEnumerable<Client> GetClientList();
+        void DeleteClient(int IDc);
+
+        void UpadteP(Package p);
         void AddPackage(Package p);
-        public void UpadteP(Package p);
         Package GetPackage(int idp);
         IEnumerable<Package> GetPackageList();
+        IEnumerable<Package> PackagesWithoutSkimmer();
         public void DeletePackage(int id);
-        void PackageDelivery(int idp);
-        void CollectionPackage(int idp);
-        List<Package> PackagesWithoutSkimmer();
+
+        void UpadteQ(Quadocopter qc);
         void AddSkimmer(Quadocopter q);
+        public void DeleteSkimmer(int idq);
+        Quadocopter GetQuadrocopter(int IDq);
         IEnumerable<Quadocopter> GetQuadocopterList();
+
+        void AddSkimmerLoading(SkimmerLoading SL);
+        void DeleteSkimmerLoading(int idsl);
         IEnumerable<SkimmerLoading> GetSkimmerLoading();
         public IEnumerable<SkimmerLoading> GetSkimmerLoadingList();
-        Quadocopter GetQuadrocopter(int IDq);
-        BaseStation GetSkimmer(int id);
-        public void AddSkimmerLoading(SkimmerLoading SL);
-        public void DeleteSkimmer(int idq);
-        void UpdateQ(Quadocopter qc);
-        public void DeleteSkimmerLoading(int idsl);
-        void SendingSkimmerForCharging(int idq, int idBS);
-        void SkimmerRelease(int idq, int IdBS);
-        void AssignPackageSkimmer(int idp, int idq);
-        List<BaseStation> BaseStationFreeCharging();
-        public void UpadteB(BaseStation b);
-        public double[] PowerConsumptionRequest();
-        public void UpadteC(Client c);
+          
+        //void SendingSkimmerForCharging(int idq, int idBS);
+        //void SkimmerRelease(int idq, int IdBS);        
     }
 }

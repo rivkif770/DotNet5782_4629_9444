@@ -377,31 +377,31 @@ namespace BL
         /// ○ Available skimmer location will be raffled between customers who have packages provided to them
         /// </summary>
         /// <returns></returns>
-        private Location SkimmerLocationAvailable()
-        {
-            List<Client> CustomersWhoReceivedPackages;
-            Client clientRandom;
-            int count;
-            foreach (Client item in mayDal.GetClientList())
-            {
-                if (GetCustomer(item.ID).ReceiveParcels != null)
-                {
-                    Client client = new Client
-                    {
-                        ID = item.ID
-                    };
-                    CustomersWhoReceivedPackages.Add(client);
-                }
-            }
-            count = CustomersWhoReceivedPackages.Count();
-            clientRandom = CustomersWhoReceivedPackages(r.Next(count));
-            Location location = new Location
-            {
-                Latitude = clientRandom.Latitude,
-                Longitude = clientRandom.Longitude
-            };
-            return location;
-        }
+        //private Location SkimmerLocationAvailable()
+        //{
+        //    List<Client> CustomersWhoReceivedPackages;
+        //    Client clientRandom;
+        //    int count;
+        //    foreach (Client item in mayDal.GetClientList())
+        //    {
+        //        if (GetCustomer(item.ID).ReceiveParcels != null)
+        //        {
+        //            Client client = new Client
+        //            {
+        //                ID = item.ID
+        //            };
+        //            CustomersWhoReceivedPackages.Add(client);
+        //        }
+        //    }
+        //    count = CustomersWhoReceivedPackages.Count();
+        //    clientRandom = CustomersWhoReceivedPackages(r.Next(count));
+        //    Location location = new Location
+        //    {
+        //        Latitude = clientRandom.Latitude,
+        //        Longitude = clientRandom.Longitude
+        //    };
+        //    return location;
+        //}
         public IEnumerable<SkimmerToList> GetSkimmerList()
         {
             return skimmersList.Take(skimmersList.Count).ToList();
