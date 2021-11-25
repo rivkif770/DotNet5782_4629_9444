@@ -31,7 +31,7 @@ namespace BL
             }
             catch (ExistsInSystemException exception)
             {
-                throw new ExistsInSystemException_BL($"Person {tempC.ID} Save to system", Severity.Mild);
+                throw new ExistsInSystemExceptionBL($"Person {tempC.ID} Save to system", Severity.Mild);
             }
         }
         public Customer GetCustomer(int id)
@@ -43,7 +43,7 @@ namespace BL
             }
             catch (IDAL.DO.IdDoesNotExistException cex)
             {
-                throw new IdDoesNotExistException_BL(cex.Message + " from dal");
+                throw new IdDoesNotExistExceptionBL(cex.Message + " from dal");
             }
             List<PackageAtCustomer> sentParcels = new List<PackageAtCustomer>();
             foreach (IDAL.DO.Package item in mayDal.GetPackageList())
@@ -153,10 +153,10 @@ namespace BL
                     Id = item.ID,
                     Name = item.Name,
                     Phone = item.Telephone,
-                    ParcelSentAndDelivered =,
-                    ParcelSentAndNotDelivered =,
-                    PackagesHeReceived =GetCustomer(item.ID).ReceiveParcels.Count(),
-                    PackagesOnTheWayToCustomer=,
+                    ParcelSentAndDelivered = mayDal.GetPackageList().Count(x => x.IDSender == item.ID && x.PackageCreationTime != null && x.TimeAssignGlider != null),
+                    ParcelSentAndNotDelivered = mayDal.GetPackageList().Count(x => x.IDSender == item.ID && x.PackageCreationTime != null && x.TimeAssignGlider == null),
+                    PackagesHeReceived = GetCustomer(item.ID).ReceiveParcels.Count(),
+                    PackagesOnTheWayToCustomer =mayDal.GetPackageList().Count(x => x.IDSender == item.ID && x.PackageCollectionTime != null && x.TimeAssignGlider == null)
                 };
                 customerToList.Add(customer);
             }

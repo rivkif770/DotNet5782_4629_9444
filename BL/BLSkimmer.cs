@@ -226,7 +226,7 @@ namespace BL
             }
             catch (ExistsInSystemException exception)
             {
-                throw new ExistsInSystemException_BL($"Person {temp_S.IDNumber} Save to system", Severity.Mild);
+                throw new ExistsInSystemExceptionBL($"Person {temp_S.IDNumber} Save to system", Severity.Mild);
             }
         }
         public SkimmerToList GetSkimmer(int id)
@@ -239,7 +239,7 @@ namespace BL
             SkimmerToList toUpdate = skimmersList.Find(item => item.Id == ids);
             if (toUpdate== null)
             {
-                throw new IdDoesNotExistException_BL("cannot update name");
+                throw new IdDoesNotExistExceptionBL("cannot update name");
             }
             toUpdate.SkimmerModel = name;
 
@@ -299,15 +299,15 @@ namespace BL
         /// <returns></returns>
         private IBL.BO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(SkimmerToList s)
         {
-            IDAL.DO.BaseStation minDistance = new IDAL.DO.BaseStation { UniqueID = 0 };
-            double distance1, distance2 = 100000;
-            foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
+            IDAL.DO.BaseStation minDistance = default;
+            double smallDistance = Double.MaxValue;
+            foreach (IDAL.DO.BaseStation bs in mayDal.GetBaseStationList())
             {
-                distance1 = Tools.Utils.GetDistance(s.CurrentLocation.Longitude, s.CurrentLocation.Latitude, item.Longitude, item.Latitude);
-                if (distance1 < distance2)
+                double dist = Tools.Utils.GetDistance(s.CurrentLocation.Longitude, s.CurrentLocation.Latitude, bs.Longitude, bs.Latitude);
+                if (dist < smallDistance)
                 {
-                    minDistance = item;
-                    distance2 = distance1;
+                    smallDistance = dist;
+                    minDistance = bs;
                 }
             }          
             return GetBeseStation(minDistance.UniqueID);
@@ -331,12 +331,7 @@ namespace BL
                     station = bs;
                 }
             }
-            return new IBL.BO.BaseStation
-            {
-                Id = station.UniqueID,
-                Name = station.StationName,
-                Location = new Location { Latitude = station.Latitude, Longitude = station.Longitude },
-             };
+            return GetBeseStation(station.UniqueID);
         }
         /// <summary>
         /// Calculation of battery by distance and weight of package

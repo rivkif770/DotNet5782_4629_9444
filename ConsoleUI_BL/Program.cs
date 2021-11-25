@@ -135,8 +135,6 @@ namespace ConsoleUI_BL
                                     Name = Name,
                                     Phone = Phone,
                                     Location = new Location { Latitude = Latitude, Longitude = Longitude },
-                                    SentParcels = new List<CustomerInParcel>(),
-                                    ReceiveParcels = new List<CustomerInParcel>()
                                 };
                                 myBL.AddCustomer(newCustomer);
                                 break;
@@ -224,10 +222,9 @@ namespace ConsoleUI_BL
                                 {
                                     myBL.UpdateSkimmerName(ids, nameS);
                                 }
-                                catch (IdDoesNotExistException_BL exception)
+                                catch (IdDoesNotExistExceptionBL exception)
                                 {
                                     Console.WriteLine(exception);
-                                    throw;
                                 }
                                 break;
                             //Update station data
@@ -243,10 +240,9 @@ namespace ConsoleUI_BL
                                 {
                                     myBL.UpdateBaseStation(idb, nameB, NumberOfChargingStations);
                                 }
-                                catch (IdDoesNotExistException_BL exception)
+                                catch (IdDoesNotExistExceptionBL exception)
                                 {
                                     Console.WriteLine(exception);
-                                    throw;
                                 }
                                 break;
                             //Update customer data
@@ -262,7 +258,7 @@ namespace ConsoleUI_BL
                                 {
                                     myBL.UpdateCustomerData(idc, nameC, phoneC);
                                 }
-                                catch (IdDoesNotExistException_BL exception)
+                                catch (IdDoesNotExistExceptionBL exception)
                                 {
                                     Console.WriteLine(exception);
                                     throw;
@@ -293,7 +289,7 @@ namespace ConsoleUI_BL
                                 {
                                     myBL.ReleaseSkimmerFromCharging(ids, ChargingTime);
                                 }
-                                catch (IdDoesNotExistException_BL exception)
+                                catch (IdDoesNotExistExceptionBL exception)
                                 {
                                     Console.WriteLine(exception);
                                     throw;
@@ -308,7 +304,7 @@ namespace ConsoleUI_BL
                                 {
                                     myBL.AssigningPackageToSkimmer(ids);
                                 }
-                                catch (IdDoesNotExistException_BL exception)
+                                catch (IdDoesNotExistExceptionBL exception)
                                 {
                                     Console.WriteLine(exception);
                                     throw;
@@ -336,7 +332,7 @@ namespace ConsoleUI_BL
                                 {
                                     myBL.DeliveryOfPackageBySkimmer(ids);
                                 }
-                                catch (IdDoesNotExistException_BL exception)
+                                catch (IdDoesNotExistExceptionBL exception)
                                 {
                                     Console.WriteLine(exception);
                                     throw;

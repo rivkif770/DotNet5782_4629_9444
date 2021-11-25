@@ -31,7 +31,7 @@ namespace BL
             }
             catch (ExistsInSystemException exception)
             {
-                throw new ExistsInSystemException_BL($"Person {temp_BS.UniqueID} Save to system", Severity.Mild);
+                throw new ExistsInSystemExceptionBL($"Person {temp_BS.UniqueID} Save to system", Severity.Mild);
             }
         }
         public IBL.BO.BaseStation GetBeseStation(int id)
@@ -43,7 +43,7 @@ namespace BL
             }
             catch (IDAL.DO.IdDoesNotExistException cex)
             {
-                throw new IdDoesNotExistException_BL(cex.Message + " from dal");
+                throw new IdDoesNotExistExceptionBL(cex.Message + " from dal");
             }
             //List of skimmers charged at this station
             List<SkimmerInCharging> skimmerInCharging = new List<SkimmerInCharging>();

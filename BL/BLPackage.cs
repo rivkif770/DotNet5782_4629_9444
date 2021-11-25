@@ -34,7 +34,7 @@ namespace BL
             }
             catch (ExistsInSystemException exception)
             {
-                throw new ExistsInSystemException_BL($"Person {temp_p.ID} Save to system", Severity.Mild);
+                throw new ExistsInSystemExceptionBL($"Person {temp_p.ID} Save to system", Severity.Mild);
             }
         }
         public IBL.BO.Package GetPackage(int id)
@@ -46,7 +46,7 @@ namespace BL
             }
             catch (IDAL.DO.IdDoesNotExistException cex)
             {
-                throw new IdDoesNotExistException_BL(cex.Message + " from dal");
+                throw new IdDoesNotExistExceptionBL(cex.Message + " from dal");
             }
             CustomerInParcel customerSender = new CustomerInParcel
             {
@@ -126,7 +126,7 @@ namespace BL
                         weight = (int)skimmer.WeightCategory;
                         continue;
                     }
-                    else throw new SkimmerExistsInSystemException_BL($"רחפן לא פנוי", Severity.Mild);
+                    else throw new SkimmerExistsInSystemException_BL($"לא נמצאה חבילה לרחפן", Severity.Mild);
                 }
                 filteredPackage = filteredPackage.FindAll(p => p.Weight == (IDAL.DO.WeightCategories)weight);
                 if(filteredPackage.Count()==0)
@@ -144,7 +144,7 @@ namespace BL
                         continue;
                     }
                 }
-                //package=חבילה הכי קרובה לרחפן
+                package = ChecksSmallDistanceBetweenSkimmerAndPackage(skimmer);
                 IDAL.DO.Client senderClient = mayDal.GetClient(package.IDSender);
                 IDAL.DO.Client getClient = mayDal.GetClient(package.IDgets);
                 double minBattery = MinimumPaymentToGetToThePackage(skimmer, senderClient);
@@ -156,8 +156,26 @@ namespace BL
             }
             int index = skimmersList.FindIndex(d => d.Id == skimmer.Id);
             skimmersList[index].SkimmerStatus = SkimmerStatuses.shipping;
-            //	בחבילה יש להוסיף את הרחפן ולעדכן את זמן השיוך
+            package.IDSkimmerOperation = skimmer.Id;
+            package.TimeAssignGlider = DateTime.Now;
+            mayDal.UpadteP(package);
+        }
+        private IDAL.DO.Package ChecksSmallDistanceBetweenSkimmerAndPackage(SkimmerToList skimmer)
+        {
+            IDAL.DO.Package package = default;
+            double smallDistance = Double.MaxValue;
 
+            foreach (var p in mayDal.GetPackageList())
+            {
+                Customer customer = GetCustomer(p.IDSender);
+                double dist = Tools.Utils.GetDistance(skimmer.CurrentLocation.Longitude, skimmer.CurrentLocation.Latitude, customer.Location.Longitude, customer.Location.Latitude);
+                if (dist < smallDistance)
+                {
+                    smallDistance = dist;
+                    package = p;
+                }
+            }
+            return mayDal.GetPackage(package.ID);
         }
         /// <summary>
         /// Delivery of a package by skimmer
