@@ -34,6 +34,11 @@ namespace BL
                 throw new ExistsInSystemExceptionBL($"Person {tempC.ID} Save to system", Severity.Mild);
             }
         }
+        /// <summary>
+        /// Returns a Customer type entity
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Customer GetCustomer(int id)
         {
             IDAL.DO.Client somoeone;
@@ -95,6 +100,12 @@ namespace BL
                 ReceiveParcels = ReceiveParcels,
             };
         }
+        /// <summary>
+        /// Returns to customer in contrast (the other side of the package - the recipient for the sender and the sender for the recipient)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="package"></param>
+        /// <returns></returns>
         private Customer ReturnsCustomerContrary(int id,IDAL.DO.Package package)
         {
             if (id == package.IDSender)
@@ -143,6 +154,10 @@ namespace BL
                 return 0;
             return -1;
         }
+        /// <summary>
+        /// Returns an entity of the Customer list type
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<CustomerToList> GetCustomerList()
         {
             List<CustomerToList> customerToList= new List<CustomerToList>();
