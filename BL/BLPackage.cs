@@ -16,7 +16,7 @@ namespace BL
         /// <param name="newPackage"></param>
         public void AddPackage(IBL.BO.Package newPackage)
         {
-            IDAL.DO.Package temp_p = new IDAL.DO.Package
+            IDAL.DO.Package tempP = new IDAL.DO.Package
             {
                 IDSender = newPackage.SendPackage.Id,
                 IDgets = newPackage.ReceivesPackage.Id,
@@ -30,13 +30,18 @@ namespace BL
             };
             try
             {
-                mayDal.AddPackage(temp_p);
+                mayDal.AddPackage(tempP);
             }
             catch (ExistsInSystemException exception)
             {
-                throw new ExistsInSystemExceptionBL($"Person {temp_p.ID} Save to system", Severity.Mild);
+                throw new ExistsInSystemExceptionBL($"Person {tempP.ID} Save to system", Severity.Mild);
             }
         }
+        /// <summary>
+        /// Returns a package type entity
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IBL.BO.Package GetPackage(int id)
         {
             IDAL.DO.Package somoePackage;
@@ -105,70 +110,93 @@ namespace BL
                 throw new SkimmerExistsInSystemException_BL($"Skimmer {id}does not ship a package that has been associated with it or has already been collected", Severity.Mild);
         }
         /// <summary>
-        /// AssigningPackageToSkimmer
+        /// Assigning package to skimmer
         /// </summary>
         /// <param name="id"></param>
         public void AssigningPackageToSkimmer(int id)
         {
             SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
-            List<IDAL.DO.Package> dalPackages = new List<IDAL.DO.Package>(mayDal.GetPackageList().ToList().FindAll(x => (int)(x.Weight) <= (int)skimmer.WeightCategory && x.TimeAssignGlider == null));
-            IDAL.DO.Package package = new IDAL.DO.Package();
-            int priority = 2, weight = (int)skimmer.WeightCategory;
-            bool flag = true;
-            while(flag)
+            //If the glider is available we will associate it, otherwise an exception will be sent.
+            if (skimmer.SkimmerStatus == SkimmerStatuses.free)
             {
-                List<IDAL.DO.Package> filteredPackage = dalPackages.FindAll(p => p.priority == (IDAL.DO.Priorities)priority);
-                if(filteredPackage.Count()==0)
+                //A list containing packages that are equal to or less than the weight of the skimmer and not associated.
+                List<IDAL.DO.Package> dalPackages = new List<IDAL.DO.Package>(mayDal.GetPackageList().ToList().FindAll(x => (int)(x.Weight) <= (int)skimmer.WeightCategory && x.TimeAssignGlider == null));
+                IDAL.DO.Package package = new IDAL.DO.Package();
+                //Setting the priority to the highest priority and weight to the maximum weight of the skimmer.
+                int priority = 2, weight = (int)skimmer.WeightCategory;
+                bool flag = true;
+                //
+                while (flag)
                 {
-                    if(priority!=0)
+                    //A list that contains a particular priority.
+                    List<IDAL.DO.Package> filteredPackage = dalPackages.FindAll(p => p.priority == (IDAL.DO.Priorities)priority);
+                    //If the list is empty
+                    if (filteredPackage.Count() == 0)
                     {
-                        priority--;
-                        weight = (int)skimmer.WeightCategory;
-                        continue;
-                    }
-                    else throw new SkimmerExistsInSystemException_BL($"לא נמצאה חבילה לרחפן", Severity.Mild);
-                }
-                filteredPackage = filteredPackage.FindAll(p => p.Weight == (IDAL.DO.WeightCategories)weight);
-                if(filteredPackage.Count()==0)
-                {
-                    if(weight!=0)
-                    {
-                        weight--;
-                        continue;
-                    }
-                    else
-                    {
+                        //If there is a possibility to go down in priority we will go down and if no exception is sent
                         if (priority != 0)
+                        {
                             priority--;
-                        weight = (int)skimmer.WeightCategory;
-                        continue;
+                            weight = (int)skimmer.WeightCategory;
+                            continue;
+                        }
+                        else throw new SkimmerExistsInSystemExceptionBL($"לא נמצאה חבילה לרחפן", Severity.Mild);
                     }
+                    //We will mark the list for packages with the maximum weight
+                    filteredPackage = filteredPackage.FindAll(p => p.Weight == (IDAL.DO.WeightCategories)weight);
+                    //If the list is empty
+                    if (filteredPackage.Count() == 0)
+                    {
+                        //If there is a possibility of losing weight we will lose and if we do not try to lose priority
+                        if (weight != 0)
+                        {
+                            weight--;
+                            continue;
+                        }
+                        else
+                        {
+                            if (priority != 0)
+                                priority--;
+                            weight = (int)skimmer.WeightCategory;
+                            continue;
+                        }
+                    }
+                    //We will look for a package with a small hovercraft distance
+                    package = ChecksSmallDistanceBetweenSkimmerAndPackage(skimmer , filteredPackage);
+                    IDAL.DO.Client senderClient = mayDal.GetClient(package.IDSender);
+                    IDAL.DO.Client getClient = mayDal.GetClient(package.IDgets);
+                    double minBattery = MinimumPaymentToGetToThePackage(skimmer, senderClient);
+                    minBattery += MinimalLoadingPerformTheShipmentAndArriveForLoading(skimmer, senderClient);
+                    minBattery = Math.Ceiling(minBattery);
+                    //If sending the package consumes more battery than the glider, then we will delete the package otherwise we will associate the glider with the package.
+                    if (minBattery + 1 > skimmer.BatteryStatus)
+                        dalPackages.Remove(package);
+                    else flag = false;
                 }
-                package = ChecksSmallDistanceBetweenSkimmerAndPackage(skimmer);
-                IDAL.DO.Client senderClient = mayDal.GetClient(package.IDSender);
-                IDAL.DO.Client getClient = mayDal.GetClient(package.IDgets);
-                double minBattery = MinimumPaymentToGetToThePackage(skimmer, senderClient);
-                minBattery += MinimalLoadingPerformTheShipmentAndArriveForLoading(skimmer, senderClient);
-                minBattery = Math.Ceiling(minBattery);
-                if (minBattery + 1 > skimmer.BatteryStatus)
-                    dalPackages.Remove(package);
-                else flag = false;
+                int index = skimmersList.FindIndex(d => d.Id == skimmer.Id);
+                skimmersList[index].SkimmerStatus = SkimmerStatuses.shipping;
+                package.IDSkimmerOperation = skimmer.Id;
+                package.TimeAssignGlider = DateTime.Now;
+                mayDal.UpadteP(package);
             }
-            int index = skimmersList.FindIndex(d => d.Id == skimmer.Id);
-            skimmersList[index].SkimmerStatus = SkimmerStatuses.shipping;
-            package.IDSkimmerOperation = skimmer.Id;
-            package.TimeAssignGlider = DateTime.Now;
-            mayDal.UpadteP(package);
+            else
+                throw new SkimmerExistsInSystemExceptionBL($"הרחפן לא פנוי", Severity.Mild);
         }
-        private IDAL.DO.Package ChecksSmallDistanceBetweenSkimmerAndPackage(SkimmerToList skimmer)
+        /// <summary>
+        /// Checks the smallest distance between the skimmer and the package, and returns the package.
+        /// </summary>
+        /// <param name="skimmer"></param>
+        /// <returns></returns>
+        private IDAL.DO.Package ChecksSmallDistanceBetweenSkimmerAndPackage(SkimmerToList skimmer , List<IDAL.DO.Package> filteredPackage)
         {
             IDAL.DO.Package package = default;
             double smallDistance = Double.MaxValue;
-
-            foreach (var p in mayDal.GetPackageList())
+            foreach (var p in filteredPackage)
             {
                 Customer customer = GetCustomer(p.IDSender);
+                //Checks the distance between a particular package and the glider.
                 double dist = Tools.Utils.GetDistance(skimmer.CurrentLocation.Longitude, skimmer.CurrentLocation.Latitude, customer.Location.Longitude, customer.Location.Latitude);
+                //Updates the package with the small distance.
                 if (dist < smallDistance)
                 {
                     smallDistance = dist;
@@ -201,6 +229,10 @@ namespace BL
             else
                 throw new SkimmerExistsInSystemException_BL($"Skimmer {id}does not ship a package that has been associated with it or has already been collected", Severity.Mild);
         }
+        /// <summary>
+        /// Returns a list of packages.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<IBL.BO.PackageToList> GetPackageList()
         {
             List<PackageToList> packageToList = new List<PackageToList>();
@@ -220,6 +252,11 @@ namespace BL
             }
             return packageToList.Take(packageToList.Count).ToList();
         }
+        /// <summary>
+        /// Returns the skimmer mat.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         private int PackageMode(IBL.BO.Package p)
         {
             if (p.SupplyTime != null)
@@ -232,6 +269,10 @@ namespace BL
                 return 0;
             return -1;
         }
+        /// <summary>
+        /// Returns a package that does not belong to a skimmer.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<PackageToList> GetPackagesWithoutSkimmer()
         {
             List<PackageToList> packageToList = new List<PackageToList>();
@@ -255,6 +296,4 @@ namespace BL
             return packageToList.Take(packageToList.Count).ToList();
         }
     }
-
 }
-
