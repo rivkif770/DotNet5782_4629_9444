@@ -14,7 +14,6 @@ namespace ConsoleUI_BL
 
         static BL.BL myBL = new BL.BL();
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1806:Do not ignore method results", Justification = "<Pending>")]
         private static void Menu()
         {
             Options options;
@@ -66,11 +65,16 @@ namespace ConsoleUI_BL
                                     ListOfSkimmersCharge = new List<SkimmerInCharging>()
                                 };
                                 myBL.AddBaseStation(newBaseStation);
+                                //try
+                                //{
+                                //    myBL.AddBaseStation(newBaseStation);
+                                //}
+                                //catch (ExistsInSystemExceptionBL Exception)
+                                //{
+                                //    Console.WriteLine(Exception.Message);
+                                //}
                                 break;
                             case InseitOption.AddSkimmer:
-
-                                //Quadocopter newQuadocopter = new Quadocopter();
-
                                 int IDs;
                                 Console.WriteLine("Serial number of the manufacturer:");
                                 int.TryParse(Console.ReadLine(), out IDs);
@@ -93,19 +97,15 @@ namespace ConsoleUI_BL
                                     SkimmerModel = model,
                                     WeightCategory = (Weight)weight,
                                 };
-                                myBL.AddSkimmer(newSkimmer, station);
-
-                                //                        //newQuadocopter.Battery = 100;
-                                //                        //newQuadocopter.SkimmerMode = (DronStatuses)0;
-                                //                        try
-                                //                        {
-                                //                            mydal.AddSkimmer(newQuadocopter);
-                                //                        }
-                                //                        catch (QuadocopterException exception)
-                                //                        {
-                                //                            Console.WriteLine(exception);
-                                //                            throw;
-                                //                        }
+                                
+                                try
+                                {
+                                    myBL.AddSkimmer(newSkimmer, station);
+                                }
+                                catch (ExistsInSystemExceptionBL exception)
+                                {
+                                    Console.WriteLine(exception.Message);
+                                }
 
                                 break;
                             case InseitOption.AddCustomer:
@@ -136,16 +136,16 @@ namespace ConsoleUI_BL
                                     Phone = Phone,
                                     Location = new Location { Latitude = Latitude, Longitude = Longitude },
                                 };
-                                myBL.AddCustomer(newCustomer);
+                                                                
+                                try
+                                {
+                                    myBL.AddCustomer(newCustomer);
+                                }
+                                catch (ExistsInSystemExceptionBL exception)
+                                {
+                                    Console.WriteLine(exception);
+                                }
                                 break;
-                            //try
-                            //{
-                            //    mydal.AddClient(newClient);
-                            //}
-                            //catch (ClientException exception)
-                            //{
-                            //    Console.WriteLine(exception);
-                            //    throw;
                             case InseitOption.AddPackage:
 
                                 int Idsc;
@@ -177,21 +177,16 @@ namespace ConsoleUI_BL
                                     WeightCategory = (Weight)Weight,
                                     priority = (Priority)Priorities,
                                 };
-                                myBL.AddPackage(newPackage);
+  
+                                try
+                                {
+                                    myBL.AddPackage(newPackage);
+                                }
+                                catch (ExistsInSystemExceptionBL exception)
+                                {
+                                    Console.WriteLine(exception);
+                                }
                                 break;
-
-                                //newPackage.IDSkimmerOperation = 0;
-                                //newPackage.PackageCreationTime = DateTime.Now;
-
-                                //try
-                                //{
-                                //    mydal.AddPackage(newPackage);
-                                //}
-                                //catch (ClientException exception)
-                                //{
-                                //    Console.WriteLine(exception);
-                                //    throw;
-                                //}
                         }
                         break;
                     case Options.Update:
@@ -272,7 +267,7 @@ namespace ConsoleUI_BL
                                 {
                                     myBL.SendingSkimmerForCharging(ids);
                                 }
-                                catch (Exception exception)
+                                catch (IdDoesNotExistExceptionBL exception)
                                 {
                                     Console.WriteLine(exception);
                                     throw;
@@ -304,7 +299,7 @@ namespace ConsoleUI_BL
                                 {
                                     myBL.AssigningPackageToSkimmer(ids);
                                 }
-                                catch (IdDoesNotExistExceptionBL exception)
+                                catch (Exception exception)
                                 {
                                     Console.WriteLine(exception);
                                     throw;
@@ -332,7 +327,7 @@ namespace ConsoleUI_BL
                                 {
                                     myBL.DeliveryOfPackageBySkimmer(ids);
                                 }
-                                catch (IdDoesNotExistExceptionBL exception)
+                                catch (Exception exception)
                                 {
                                     Console.WriteLine(exception);
                                     throw;
@@ -360,10 +355,9 @@ namespace ConsoleUI_BL
                                 {
                                     Console.WriteLine( myBL.GetBeseStation(IDb));
                                 }
-                                catch (BaseStationException Exception)
+                                catch (IdDoesNotExistExceptionBL Exception)
                                 {
                                     Console.WriteLine(Exception);
-                                    throw;
                                 }
                                 break;
                             case DisplayOptions.DisplaySkimmer:
@@ -374,10 +368,9 @@ namespace ConsoleUI_BL
                                 {
                                     Console.WriteLine(myBL.GetSkimmer(IDq));
                                 }
-                                catch (QuadocopterException Exception)
+                                catch (IdDoesNotExistExceptionBL Exception)
                                 {
                                     Console.WriteLine(Exception);
-                                    throw;
                                 }
                                 break;
                             case DisplayOptions.DisplayCustomer:
@@ -388,10 +381,9 @@ namespace ConsoleUI_BL
                                 {
                                     Console.WriteLine(myBL.GetCustomer(IDc));
                                 }
-                                catch (ClientException Exception)
+                                catch (IdDoesNotExistExceptionBL Exception)
                                 {
                                     Console.WriteLine(Exception);
-                                    throw;
                                 }
                                 break;
                             case DisplayOptions.DisplayPackage:
@@ -402,10 +394,9 @@ namespace ConsoleUI_BL
                                 {
                                     Console.WriteLine(myBL.GetPackage(IDp));
                                 }
-                                catch (PackageException Exception)
+                                catch (IdDoesNotExistExceptionBL Exception)
                                 {
                                     Console.WriteLine(Exception);
-                                    throw;
                                 }
                                 break;
                         }
@@ -466,45 +457,9 @@ namespace ConsoleUI_BL
             }
             while (options != 0);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //static BL.BlObject mydal = new BL.BlObject();
-
-        //static IBL.BO.IBL bl = new BL.BlObject();
-        //static void Main(string[] args)
-        //{
-        //    Console.WriteLine("Hell O World!");
-
-
-        //    Customer customer;
-        //    Console.WriteLine("give me  customer id");
-        //    int id = Int32.Parse(Console.ReadLine());
-        //    try
-        //    {
-        //        customer = bl.GetCustomer(id);
-        //    }
-        //    catch (CustomerException exception)
-        //    {
-        //        Console.WriteLine(exception.Message);
-        //    }
-        //    Console.WriteLine();
-        //}
-        // }
+        static void Main(string[] args)
+        {
+            Menu();
+        }
     }                
 }

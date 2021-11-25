@@ -23,15 +23,11 @@ namespace IBL.BO
             result += $"Telephone is: {Phone.Substring(0, 3)}-{Phone.Substring(3)}, \n";
             result += Location;
             result += $"Delivery list Packages at customer - from customer: ";
-            foreach (CustomerInParcel item in SentParcels)
-            {
-                result += $"{item} ";
-            }
+            for (int i = 0; i < SentParcels.Count(); i++)
+                result += SentParcels[i];
             result += $"Delivery list of packages at the customer - to the customer: ";
-            foreach (CustomerInParcel item in ReceiveParcels)
-            {
-                result += $"{item} ";
-            }
+            for (int i = 0; i < ReceiveParcels.Count(); i++)
+                result += ReceiveParcels[i];
             return result;
         }
     }

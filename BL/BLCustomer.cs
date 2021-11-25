@@ -31,7 +31,7 @@ namespace BL
             }
             catch (ExistsInSystemException exception)
             {
-                throw new ExistsInSystemExceptionBL($"Person {tempC.ID} Save to system", Severity.Mild);
+                throw new ExistsInSystemExceptionBL(exception.Message +" from dal");
             }
         }
         /// <summary>

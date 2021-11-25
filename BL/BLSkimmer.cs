@@ -160,7 +160,7 @@ namespace BL
             // Only a skimmer in maintenance will be able to be released from charging
             if (skimmer.SkimmerStatus!= SkimmerStatuses.maintenance)
             {
-                throw new maintenanceExistsInSystemException_BL($"Skimmer {id} Not in maintenance", Severity.Mild);
+                throw new SkimmerExceptionBL($"Skimmer {id} Not in maintenance", Severity.Mild);
             }
             //Battery status will be updated according to the time it was charging
             skimmer.BatteryStatus = ChargingTime * SkimmerLoadingRate;
@@ -245,7 +245,7 @@ namespace BL
             }
             catch (ExistsInSystemException exception)
             {
-                throw new ExistsInSystemExceptionBL($"Person {temp_S.IDNumber} Save to system", Severity.Mild);
+                throw new ExistsInSystemExceptionBL(exception.Message + " from dal");
             }
         }
         /// <summary>
@@ -257,7 +257,11 @@ namespace BL
         {
             return skimmersList.FirstOrDefault(x => x.Id == id);
         }
-        ///Update skimmer name
+        /// <summary>
+        /// Update skimmer name
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="name"></param>
         public void UpdateSkimmerName(int ids, string name)
         {
             SkimmerToList toUpdate = skimmersList.Find(item => item.Id == ids);
@@ -306,13 +310,12 @@ namespace BL
                     }
                     else
                     {
-                        //throw new ExistsInSystemException($"Skimmer {SL.SkimmerID} Save to system of SkimmerLoading", Severity.Mild);
-                        throw new Exception "אין מספיק בטריה"
+                        throw new SkimmerExceptionBL("There is not enough battery in the glider");
                     }
                 }
                 else
                 {
-                    throw new Exception "אין עמדות טעינה פנויות"
+                    throw new SkimmerExceptionBL("There are no free charging stations");
                 }
             }
         }

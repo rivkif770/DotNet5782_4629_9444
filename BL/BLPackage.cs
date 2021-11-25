@@ -34,7 +34,7 @@ namespace BL
             }
             catch (ExistsInSystemException exception)
             {
-                throw new ExistsInSystemExceptionBL($"Person {tempP.ID} Save to system", Severity.Mild);
+                throw new ExistsInSystemExceptionBL(exception.Message + " from dal");
             }
         }
         /// <summary>
@@ -107,7 +107,7 @@ namespace BL
 
             }
             else
-                throw new SkimmerExistsInSystemException_BL($"Skimmer {id}does not ship a package that has been associated with it or has already been collected", Severity.Mild);
+                throw new SkimmerExceptionBL($"The package was collected or not associated", Severity.Mild);
         }
         /// <summary>
         /// Assigning package to skimmer
@@ -140,7 +140,7 @@ namespace BL
                             weight = (int)skimmer.WeightCategory;
                             continue;
                         }
-                        else throw new SkimmerExistsInSystemExceptionBL($"לא נמצאה חבילה לרחפן", Severity.Mild);
+                        else throw new SkimmerExceptionBL($"No skimmer package found {id}", Severity.Mild);
                     }
                     //We will mark the list for packages with the maximum weight
                     filteredPackage = filteredPackage.FindAll(p => p.Weight == (IDAL.DO.WeightCategories)weight);
@@ -180,7 +180,7 @@ namespace BL
                 mayDal.UpadteP(package);
             }
             else
-                throw new SkimmerExistsInSystemExceptionBL($"הרחפן לא פנוי", Severity.Mild);
+                throw new SkimmerExceptionBL($"The glider {id} is not available", Severity.Mild);
         }
         /// <summary>
         /// Checks the smallest distance between the skimmer and the package, and returns the package.
@@ -227,7 +227,7 @@ namespace BL
                 mayDal.UpadteP(package1);
             }
             else
-                throw new SkimmerExistsInSystemException_BL($"Skimmer {id}does not ship a package that has been associated with it or has already been collected", Severity.Mild);
+                throw new SkimmerExceptionBL($"Skimmer {id}does not ship a package that has been associated with it or has already been collected", Severity.Mild);
         }
         /// <summary>
         /// Returns a list of packages.

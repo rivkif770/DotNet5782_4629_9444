@@ -16,7 +16,7 @@ namespace BL
         /// <param name="newBaseStation"></param>
         public void AddBaseStation(IBL.BO.BaseStation newBaseStation)
         {
-            IDAL.DO.BaseStation temp_BS = new IDAL.DO.BaseStation
+            IDAL.DO.BaseStation tempBS = new IDAL.DO.BaseStation
             {
                 UniqueID = newBaseStation.Id,
                 StationName = newBaseStation.Name,
@@ -27,11 +27,11 @@ namespace BL
 
             try
             {
-                mayDal.AddBaseStation(temp_BS);
+                mayDal.AddBaseStation(tempBS);
             }
             catch (ExistsInSystemException exception)
             {
-                throw new ExistsInSystemExceptionBL($"Person {temp_BS.UniqueID} Save to system", Severity.Mild);
+                throw new ExistsInSystemExceptionBL(exception.Message + " from dal");
             }
         }
         /// <summary>

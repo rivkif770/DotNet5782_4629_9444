@@ -48,38 +48,22 @@ namespace DalObject
             DataSource.ListPackage.RemoveAll(packag => packag.ID == idp);//Deleting the old Package object
             DataSource.ListPackage.Add(temp_p);//Deleting the new Package object includes the change
         }
-        //public void SendingSkimmerForCharging(int idq, int idBS)//Sending a skimmer for charging at a base station
-        //{
-        //    //Quadocopter temp_q = this.GetQuadrocopter(idq);
-        //    ////temp_q.Battery = 0;//Update the battery to 0 percent
-        //    ////temp_q.SkimmerMode = (DronStatuses)1;//Skimmer status update for maintenance
+        public void SendingSkimmerForCharging(int idq, int idBS)//Sending a skimmer for charging at a base station
+        {
+            BaseStation temp_BS = this.GetBaseStation(idBS);
+            temp_BS.SeveralPositionsArgument = temp_BS.SeveralPositionsArgument - 1;//Update the number of stations available for charging at least 1
 
-        //    //DataSource.ListQuadocopter.RemoveAll(quad => quad.IDNumber == idq);//Deleting the old skimmer object
-        //    //DataSource.ListQuadocopter.Add(temp_q);//Deleting the new skimmer object includes the change
+            DataSource.ListBaseStation.RemoveAll(Base => Base.UniqueID == idBS);//Deleting the old BaseStation object
+            DataSource.ListBaseStation.Add(temp_BS);//Deleting the new BaseStation object includes the change
+        }
+        public void SkimmerRelease(int idq, int IdBS)//Release skimmer from base charge
+        {            
+            BaseStation temp_BS = this.GetBaseStation(IdBS);
+            temp_BS.SeveralPositionsArgument = temp_BS.SeveralPositionsArgument + 1;//Update the number of stations available for charging at more 1
 
-        //    BaseStation temp_BS = this.GetBaseStation(idBS);
-        //    temp_BS.SeveralPositionsArgument = temp_BS.SeveralPositionsArgument - 1;//Update the number of stations available for charging at least 1
+            DataSource.ListBaseStation.RemoveAll(Base => Base.UniqueID == IdBS);//Deleting the old BaseStation object
+            DataSource.ListBaseStation.Add(temp_BS);//Deleting the new BaseStation object includes the change
+        }
 
-        //    DataSource.ListBaseStation.RemoveAll(Base => Base.UniqueID == idBS);//Deleting the old BaseStation object
-        //    DataSource.ListBaseStation.Add(temp_BS);//Deleting the new BaseStation object includes the change
-
-
-        //}
-        //public void SkimmerRelease(int idq, int IdBS)//Release skimmer from base charge
-        //{
-        //    //Quadocopter temp_q = this.GetQuadrocopter(idq);
-        //    ////temp_q.Battery = 100;//Update the battery to 100 percent
-        //    ////temp_q.SkimmerMode = (DronStatuses)0;//Skimmer status update available
-
-        //    //DataSource.ListQuadocopter.RemoveAll(quad => quad.IDNumber == idq);//Deleting the old skimmer object
-        //    //DataSource.ListQuadocopter.Add(temp_q);//Deleting the new skimmer object includes the change
-
-        //    BaseStation temp_BS = this.GetBaseStation(IdBS);
-        //    temp_BS.SeveralPositionsArgument = temp_BS.SeveralPositionsArgument + 1;//Update the number of stations available for charging at more 1
-
-        //    DataSource.ListBaseStation.RemoveAll(Base => Base.UniqueID == IdBS);//Deleting the old BaseStation object
-        //    DataSource.ListBaseStation.Add(temp_BS);//Deleting the new BaseStation object includes the change
-        //}
-        
     }
 }

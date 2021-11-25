@@ -72,7 +72,7 @@ namespace ConsoleUI
                                 
                                 break;
                             case InseitOption.AddSkimmer:
-                                ListSkimmerLoading newQuadocopter = new ListSkimmerLoading();
+                                Quadocopter newQuadocopter = new Quadocopter();
 
                                 Console.WriteLine("Enter unique ID number:");
                                 newQuadocopter.IDNumber = int.Parse(Console.ReadLine());
@@ -83,8 +83,6 @@ namespace ConsoleUI
                                 Console.WriteLine("Enter Weight category 0-low,1-middle,2-heavy:");
                                 newQuadocopter.Weight = (WeightCategories)int.Parse(Console.ReadLine());
 
-                                //newQuadocopter.Battery = 100;
-                                //newQuadocopter.SkimmerMode = (DronStatuses)0;
                                 try
                                 {
                                     mydal.AddSkimmer(newQuadocopter);
@@ -280,10 +278,9 @@ namespace ConsoleUI
                                 {
                                     Console.WriteLine(mydal.GetBaseStation(IDb));
                                 }
-                                catch (BaseStationException Exception)
+                                catch (IdDoesNotExistException Exception)
                                 {
                                     Console.WriteLine(Exception);
-                                    throw;
                                 }
                                 
                                 break;
@@ -298,10 +295,9 @@ namespace ConsoleUI
                                 {
                                     Console.WriteLine(mydal.GetQuadrocopter(IDq));
                                 }
-                                catch (QuadocopterException Exception)
+                                catch (IdDoesNotExistException Exception)
                                 {
                                     Console.WriteLine(Exception);
-                                    throw;
                                 }
                                 
                                 break;
@@ -316,10 +312,9 @@ namespace ConsoleUI
                                 {
                                     Console.WriteLine(mydal.GetClient(IDc));
                                 }
-                                catch (ClientException Exception)
+                                catch (IdDoesNotExistException Exception)
                                 {
                                     Console.WriteLine(Exception);
-                                    throw;
                                 }
                                 
                                 break;
@@ -334,10 +329,9 @@ namespace ConsoleUI
                                 {
                                     Console.WriteLine(mydal.GetPackage(IDp));
                                 }
-                                catch (PackageException Exception)
+                                catch (IdDoesNotExistException Exception)
                                 {
                                     Console.WriteLine(Exception);
-                                    throw;
                                 }
                                 
                                 break;
@@ -364,7 +358,7 @@ namespace ConsoleUI
                                 } 
                                 break;
                             case OptionsListView.ViewSkimmer:
-                                foreach (ListSkimmerLoading item in mydal.GetQuadocopterList())
+                                foreach (Quadocopter item in mydal.GetQuadocopterList())
                                 {
                                     Console.WriteLine(item);
                                 }
