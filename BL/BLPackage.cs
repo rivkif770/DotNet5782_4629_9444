@@ -111,18 +111,53 @@ namespace BL
         public void AssigningPackageToSkimmer(int id)
         {
             SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
-            //Check that the glider is in maintenance
-            if (skimmer.SkimmerStatus == SkimmerStatuses.maintenance)
+            List<IDAL.DO.Package> dalPackages = new List<IDAL.DO.Package>(mayDal.GetPackageList().ToList().FindAll(x => (int)(x.Weight) <= (int)skimmer.WeightCategory && x.TimeAssignGlider == null));
+            IDAL.DO.Package package = new IDAL.DO.Package();
+            int priority = 2, weight = (int)skimmer.WeightCategory;
+            bool flag = true;
+            while(flag)
             {
-                //Go through the entire list of packages
-                foreach (IDAL.DO.Package item in mayDal.GetPackageList())
+                List<IDAL.DO.Package> filteredPackage = dalPackages.FindAll(p => p.priority == (IDAL.DO.Priorities)priority);
+                if(filteredPackage.Count()==0)
                 {
-                    if (item.priority == Priorities.emergency)
+                    if(priority!=0)
                     {
-
+                        priority--;
+                        weight = (int)skimmer.WeightCategory;
+                        continue;
+                    }
+                    else throw new SkimmerExistsInSystemException_BL($"רחפן לא פנוי", Severity.Mild);
+                }
+                filteredPackage = filteredPackage.FindAll(p => p.Weight == (IDAL.DO.WeightCategories)weight);
+                if(filteredPackage.Count()==0)
+                {
+                    if(weight!=0)
+                    {
+                        weight--;
+                        continue;
+                    }
+                    else
+                    {
+                        if (priority != 0)
+                            priority--;
+                        weight = (int)skimmer.WeightCategory;
+                        continue;
                     }
                 }
+                //package=חבילה הכי קרובה לרחפן
+                IDAL.DO.Client senderClient = mayDal.GetClient(package.IDSender);
+                IDAL.DO.Client getClient = mayDal.GetClient(package.IDgets);
+                double minBattery = MinimumPaymentToGetToThePackage(skimmer, senderClient);
+                minBattery += MinimalLoadingPerformTheShipmentAndArriveForLoading(skimmer, senderClient);
+                minBattery = Math.Ceiling(minBattery);
+                if (minBattery + 1 > skimmer.BatteryStatus)
+                    dalPackages.Remove(package);
+                else flag = false;
             }
+            int index = skimmersList.FindIndex(d => d.Id == skimmer.Id);
+            skimmersList[index].SkimmerStatus = SkimmerStatuses.shipping;
+            //	בחבילה יש להוסיף את הרחפן ולעדכן את זמן השיוך
+
         }
         /// <summary>
         /// Delivery of a package by skimmer

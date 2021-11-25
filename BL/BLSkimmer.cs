@@ -66,7 +66,16 @@ namespace BL
                         //Updates skimmer location to package shipper location.
                         updatedSkimmer.CurrentLocation = GetCustomer(PackageAssociatedWithSkimmer.IDSender).Location;
                     }
-                    double minBattery = MinimalLoadingPerformTheShipmentAndArriveForLoading(updatedSkimmer);
+                    IBL.BO.Customer sendcustomer= GetCustomer(PackageAssociatedWithSkimmer.IDSender);
+                    IDAL.DO.Client tempC = new IDAL.DO.Client
+                    {
+                        ID = sendcustomer.Id,
+                        Name = sendcustomer.Name,
+                        Telephone = sendcustomer.Phone,
+                        Latitude = sendcustomer.Location.Latitude,
+                        Longitude = sendcustomer.Location.Longitude
+                    };
+                    double minBattery = MinimalLoadingPerformTheShipmentAndArriveForLoading(updatedSkimmer, tempC);
                     updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
                 }
 
@@ -106,16 +115,22 @@ namespace BL
             double minimalCharge = (distance * Free);
             return minimalCharge;
         }
+        private double MinimumPaymentToGetToThePackage(SkimmerToList updatedSkimmer, IDAL.DO.Client senderClient)
+        {
+            double distance = Tools.Utils.GetDistance(senderClient.Longitude, senderClient.Latitude, updatedSkimmer.CurrentLocation.Longitude, updatedSkimmer.CurrentLocation.Latitude);
+            double minimalCharge = (distance * Free);
+            return minimalCharge;
+        }
         /// <summary>
         /// Calculation of the minimum charge that will allow the glider to make the shipment and arrive at the station closest to the destination of the shipment
         /// </summary>
         /// <param name="updatedSkimmer"></param>
         /// <returns></returns>
-        private double MinimalLoadingPerformTheShipmentAndArriveForLoading (SkimmerToList updatedSkimmer)
+        private double MinimalLoadingPerformTheShipmentAndArriveForLoading (SkimmerToList updatedSkimmer, IDAL.DO.Client senderClient)
         {            
-            Customer customerSend = GetCustomer(GetPackage(updatedSkimmer.PackageNumberTransferred).SendPackage.Id);
-            Location locationSend = customerSend.Location;
-            double distance = Tools.Utils.GetDistance(locationSend.Longitude, locationSend.Latitude, updatedSkimmer.CurrentLocation.Longitude, updatedSkimmer.CurrentLocation.Latitude);
+            Customer customerGet = GetCustomer(GetPackage(updatedSkimmer.PackageNumberTransferred).ReceivesPackage.Id);
+            Location locationSend = customerGet.Location;
+            double distance = Tools.Utils.GetDistance(senderClient.Longitude, senderClient.Latitude, customerGet.Location.Longitude, customerGet.Location.Latitude);
             double Battery = 0;
             if (updatedSkimmer.WeightCategory == Weight.Heavy)
                 Battery = distance * HeavyWeightCarrier;
@@ -127,7 +142,7 @@ namespace BL
             double distance1 = Tools.Utils.GetDistance(baseStation.Location.Longitude, baseStation.Location.Latitude, locationSend.Longitude, locationSend.Latitude);
             double minimalCharge = (distance * Free)+ Battery;
             return minimalCharge;
-        }        
+        }
         /// <summary>
         /// ○ Release skimmer from charging
         /// </summary>
@@ -330,7 +345,7 @@ namespace BL
         /// <param name="location2"></param>
         /// <param name="weight"></param>
         /// <returns></returns>
-        private double BatteryCalculation(Location location1,Location location2, Weight weight)
+        private double BatteryCalculation( Location location1,Location location2, Weight weight)
         {
             //distance calculation
             double distance = Tools.Utils.GetDistance(location1.Longitude, location1.Latitude, location2.Longitude, location2.Latitude);
