@@ -34,6 +34,11 @@ namespace BL
                 throw new ExistsInSystemExceptionBL($"Person {temp_BS.UniqueID} Save to system", Severity.Mild);
             }
         }
+        /// <summary>
+        /// Returns a base station type entity
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IBL.BO.BaseStation GetBeseStation(int id)
         {
             IDAL.DO.BaseStation somoeBaseStation;
@@ -97,6 +102,10 @@ namespace BL
             };
             mayDal.UpadteB(baseStation1);
         }
+        /// <summary>
+        /// Returns an entity of the base station list type
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<IBL.BO.BaseStationToList> GetBaseStationList()
         {
             List<BaseStationToList> baseStationToLists = new List<BaseStationToList>();
@@ -113,11 +122,16 @@ namespace BL
             }
             return baseStationToLists.Take(baseStationToLists.Count).ToList();
         }
+        /// <summary>
+        /// Returns a base station-type entity with available charging stations,
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<IBL.BO.BaseStationToList> GetBaseStationFreeCharging()
         {
             List<BaseStationToList> baseStationToLists = new List<BaseStationToList>();
             foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
             {
+                /// Go through the entire list of base stations and put a new list of stations with free charging stations
                 IBL.BO.BaseStation station1 = GetBeseStation(item.UniqueID);
                 if(station1.SeveralClaimPositionsVacant!=0)
                 {

@@ -115,6 +115,12 @@ namespace BL
             double minimalCharge = (distance * Free);
             return minimalCharge;
         }
+        /// <summary>
+        /// Minimum Charge  to get to the package
+        /// </summary>
+        /// <param name="updatedSkimmer"></param>
+        /// <param name="senderClient"></param>
+        /// <returns></returns>
         private double MinimumPaymentToGetToThePackage(SkimmerToList updatedSkimmer, IDAL.DO.Client senderClient)
         {
             double distance = Tools.Utils.GetDistance(senderClient.Longitude, senderClient.Latitude, updatedSkimmer.CurrentLocation.Longitude, updatedSkimmer.CurrentLocation.Latitude);
@@ -144,7 +150,7 @@ namespace BL
             return minimalCharge;
         }
         /// <summary>
-        /// ○ Release skimmer from charging
+        /// Release skimmer from charging
         /// </summary>
         /// <param name="id"></param>
         /// <param name="ChargingTime"></param>
@@ -182,11 +188,20 @@ namespace BL
                 }
             }
         }
+        /// <summary>
+        /// Finding a glider-related package
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         private Client FindingClientSender(IDAL.DO.Package p)
         {
             return mayDal.GetClient(p.IDSender);
         }
-        //Finding a glider-related package
+        /// <summary>
+        /// Finding a glider-related package
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
         private IDAL.DO.Package FindingPackageAssociatedWithGlider(Quadocopter q)
         {
             IDAL.DO.Package X = new IDAL.DO.Package
@@ -203,7 +218,11 @@ namespace BL
             }
             return X;
         }
-        //Add Skimmer
+        /// <summary>
+        /// Add Skimmer
+        /// </summary>
+        /// <param name="newSkimmer"></param>
+        /// <param name="station"></param>
         public void AddSkimmer(IBL.BO.Skimmer newSkimmer, int station)
         {
             // Battery status will be raffled off between 20 % and 40 %
@@ -229,6 +248,11 @@ namespace BL
                 throw new ExistsInSystemExceptionBL($"Person {temp_S.IDNumber} Save to system", Severity.Mild);
             }
         }
+        /// <summary>
+        /// Returns an entity of the Skimmer list type
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public SkimmerToList GetSkimmer(int id)
         {
             return skimmersList.FirstOrDefault(x => x.Id == id);
@@ -354,7 +378,7 @@ namespace BL
             return Battery;
         }
         /// <summary>
-        /// ○ Available skimmer location will be raffled between customers who have packages provided to them
+        ///Available skimmer location will be raffled between customers who have packages provided to them
         /// </summary>
         /// <returns></returns>
         private Location SkimmerLocationAvailable()
@@ -382,6 +406,10 @@ namespace BL
             };
             return location;
         }
+        /// <summary>
+        /// Returns an entity of the Skimmer list type
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<SkimmerToList> GetSkimmerList()
         {
             return skimmersList.Take(skimmersList.Count).ToList();
