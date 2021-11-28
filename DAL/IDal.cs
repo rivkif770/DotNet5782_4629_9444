@@ -1,4 +1,5 @@
 ﻿using IDAL.DO;
+using System;
 using System.Collections.Generic;
 
 namespace IDAL.DO
@@ -13,8 +14,8 @@ namespace IDAL.DO
         public void UpadteB(BaseStation b);
         void AddBaseStation(BaseStation b);
         BaseStation GetBaseStation(int IDb);
-        IEnumerable<BaseStation> GetBaseStationList();
-        IEnumerable<BaseStation> BaseStationFreeCharging();
+        IEnumerable<BaseStation> GetBaseStationList(Func<BaseStation,bool> predicate =  null);
+       // IEnumerable<BaseStation> BaseStationFreeCharging();
         public void DeleteBaseStation(int idb);
 
         void UpadteC(Client c);

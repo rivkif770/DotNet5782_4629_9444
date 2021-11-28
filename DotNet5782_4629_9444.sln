@@ -18,7 +18,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{55E7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI_BL", "ConsoleUI_BL\ConsoleUI_BL.csproj", "{462CA6CE-9679-400C-8A7E-4E87620F0B7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "Tools\Tools.csproj", "{7C92F7E3-1A6D-4315-8014-13A0908C49E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools", "Tools\Tools.csproj", "{7C92F7E3-1A6D-4315-8014-13A0908C49E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{5D9C24CE-5FCE-4547-8634-B87250EDF9B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +52,10 @@ Global
 		{7C92F7E3-1A6D-4315-8014-13A0908C49E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C92F7E3-1A6D-4315-8014-13A0908C49E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C92F7E3-1A6D-4315-8014-13A0908C49E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D9C24CE-5FCE-4547-8634-B87250EDF9B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D9C24CE-5FCE-4547-8634-B87250EDF9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D9C24CE-5FCE-4547-8634-B87250EDF9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D9C24CE-5FCE-4547-8634-B87250EDF9B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

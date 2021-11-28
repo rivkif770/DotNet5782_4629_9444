@@ -1,0 +1,32 @@
+﻿<Window x:Class="PL.DronesListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="DronesListWindow" Height="450" Width="800">
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <Grid Name="UpGrid" Grid.Row ="0" 
+              HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="auto" Height="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+            <ComboBox Name="comboStatusSelector" Grid.Column="1" ToolTip="Choose  a Status"
+                      HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" SelectionChanged="comboStatusSelector_SelectionChanged" />
+            <TextBox x:Name="txtTBD" HorizontalAlignment="Left" Margin="35,10,0,0" Text="TBD" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        </Grid>
+        <ListView Grid.Row="1" x:Name="DronesListView" Margin="0,0,0,20">
+            
+        </ListView>
+
+
+    </Grid>
+</Window>

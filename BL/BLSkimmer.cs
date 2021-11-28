@@ -45,12 +45,12 @@ namespace BL
                 {
                     Id = item.IDNumber,
                     SkimmerModel=item.SkimmerModel,
-                    WeightCategory=(Weight)item.Weight,                 
+                    WeightCategory=(Weight)item.Weight                
                 };
                 //Finding a glider-related package
                 IDAL.DO.Package PackageAssociatedWithSkimmer = FindingPackageAssociatedWithGlider(item);
                 //If there is a package that has not yet been delivered but the skimmer is already associated
-                if (PackageAssociatedWithSkimmer.ID == item.IDNumber && PackageAssociatedWithSkimmer.TimeArrivalRecipient == null)
+                if (PackageAssociatedWithSkimmer.TimeArrivalRecipient == null)
                 {
                     //Update skimmer status to shipping status
                     updatedSkimmer.SkimmerStatus = SkimmerStatuses.shipping;
@@ -61,7 +61,7 @@ namespace BL
                         updatedSkimmer.CurrentLocation = ChecksSmallDistanceBetweenCustomerAndBaseStation(GetCustomer(PackageAssociatedWithSkimmer.IDSender)).Location;
                     }
                     //The position of the skimmer will be at the position of the sender
-                    else
+                    if(PackageAssociatedWithSkimmer.PackageCollectionTime!=null && PackageAssociatedWithSkimmer.TimeArrivalRecipient==null)
                     {
                         //Updates skimmer location to package shipper location.
                         updatedSkimmer.CurrentLocation = GetCustomer(PackageAssociatedWithSkimmer.IDSender).Location;
@@ -80,7 +80,7 @@ namespace BL
                 }
 
                 //If the glider does not ship, its condition will be raffled off between maintenance and disposal
-                if (PackageAssociatedWithSkimmer.ID != item.IDNumber)
+                if (PackageAssociatedWithSkimmer.ID == 0)
                 {
                     updatedSkimmer.SkimmerStatus = (SkimmerStatuses)(r.Next(2));
                 }
@@ -88,16 +88,25 @@ namespace BL
                 if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.maintenance)
                 {
                     int counts = GetBaseStationList().Count();
-                    List<IBL.BO.BaseStation> B = (List<IBL.BO.BaseStation>)GetBaseStationList();
-                    updatedSkimmer.CurrentLocation = B[r.Next(counts)].Location;
+                    List<Location> B = new List<Location>();
+                    foreach (var item1 in mayDal.GetBaseStationList())
+                    {
+                        B.Add(new Location
+                        {
+                               Latitude =item1.Latitude,
+                               Longitude =item1.Longitude     
+                        });
+                    }
+                    updatedSkimmer.CurrentLocation = B[r.Next(counts)];
                     updatedSkimmer.BatteryStatus = r.Next(21);
                 }
                 // If the skimmer is available
                 if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.free)
                 {
+                    updatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
                     double minBattery = MinimalChargeToGetToTheNearestStation(updatedSkimmer);
                     updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
-                    updatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
+                    
                 }
                 lst.Add(updatedSkimmer);
             }
@@ -386,28 +395,24 @@ namespace BL
         /// <returns></returns>
         private Location SkimmerLocationAvailable()
         {
-            List<Client> CustomersWhoReceivedPackages = new List<Client>();
-            Client clientRandom;
+            List<Location> CustomersWhoReceivedPackages = new List<Location>();
+            Location locationRandom;
             int count;
             foreach (Client item in mayDal.GetClientList())
             {
                 if (GetCustomer(item.ID).ReceiveParcels != null)
                 {
-                    Client client = new Client
+                    Location location = new Location
                     {
-                        ID = item.ID
+                        Latitude = item.Latitude,
+                        Longitude=item.Longitude
                     };
-                    CustomersWhoReceivedPackages.Add(client);
+                    CustomersWhoReceivedPackages.Add(location);
                 }
             }
             count = CustomersWhoReceivedPackages.Count();
-            clientRandom = CustomersWhoReceivedPackages[r.Next(count)];
-            Location location = new Location
-            {
-                Latitude = clientRandom.Latitude,
-                Longitude = clientRandom.Longitude
-            };
-            return location;
+            locationRandom = CustomersWhoReceivedPackages[r.Next(count)];
+            return locationRandom;
         }
         /// <summary>
         /// Returns an entity of the Skimmer list type

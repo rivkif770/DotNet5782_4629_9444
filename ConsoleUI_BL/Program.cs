@@ -56,7 +56,7 @@ namespace ConsoleUI_BL
 
                                 Console.WriteLine("Enter Latitude:");
                                 double.TryParse(Console.ReadLine(), out latitude);
-                                BaseStation newBaseStation = new BaseStation
+                                IBL.BO.BaseStation newBaseStation = new IBL.BO.BaseStation
                                 {
                                     Id = IDb,
                                     Name = name,
