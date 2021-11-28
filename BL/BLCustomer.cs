@@ -84,7 +84,7 @@ namespace BL
                         customerInParcel = new CustomerInParcel
                         {
                             Id = item.IDSender,
-                            Name = GetCustomer(item.IDgets).Name
+                            Name = mayDal.GetClient(item.IDgets).Name
                         }
                     };
                     ReceiveParcels.Add(packageAtCustomer);
