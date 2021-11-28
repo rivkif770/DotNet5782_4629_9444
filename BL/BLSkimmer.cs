@@ -54,7 +54,8 @@ namespace BL
                 {
                     //Update skimmer status to shipping status
                     updatedSkimmer.SkimmerStatus = SkimmerStatuses.shipping;
-                    //If the package was associated but not collected
+                    //If the package was associated but not collected 	ConsoleUI_BL.dll!ConsoleUI_BL.Program.Menu() Line 69	C#
+
                     if (PackageAssociatedWithSkimmer.PackageCollectionTime == null)
                     {
                         //Location will be at the station closest to the sender

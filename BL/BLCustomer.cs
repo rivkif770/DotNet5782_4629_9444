@@ -63,7 +63,7 @@ namespace BL
                         PackageMode = (ParcelStatus)ReturnsSkimmerMode(item),
                         customerInParcel = new CustomerInParcel
                         {
-                            Id = ReturnsCustomerContrary(id,item).Id,
+                            Id = ReturnsCustomerContrary(id,item).ID,
                             Name = ReturnsCustomerContrary(id, item).Name
                         }
                     };
@@ -106,11 +106,11 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="package"></param>
         /// <returns></returns>
-        private Customer ReturnsCustomerContrary(int id,IDAL.DO.Package package)
+        private Client ReturnsCustomerContrary(int id,IDAL.DO.Package package)
         {
             if (id == package.IDSender)
-                return GetCustomer(package.IDgets);
-            return GetCustomer(package.IDSender);
+                return mayDal.GetClient(package.IDgets);
+            return mayDal.GetClient(package.IDSender);
         }
         /// <summary>
         /// Update customer data

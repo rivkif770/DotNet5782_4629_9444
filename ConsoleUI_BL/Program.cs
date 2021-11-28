@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using IBL.BO;
 namespace ConsoleUI_BL
 {
@@ -64,15 +67,14 @@ namespace ConsoleUI_BL
                                     SeveralClaimPositionsVacant = 0,
                                     ListOfSkimmersCharge = new List<SkimmerInCharging>()
                                 };
-                                myBL.AddBaseStation(newBaseStation);
-                                //try
-                                //{
-                                //    myBL.AddBaseStation(newBaseStation);
-                                //}
-                                //catch (ExistsInSystemExceptionBL Exception)
-                                //{
-                                //    Console.WriteLine(Exception.Message);
-                                //}
+                                try
+                                {
+                                    myBL.AddBaseStation(newBaseStation);
+                                }
+                                catch (ExistsInSystemExceptionBL Exception)
+                                {
+                                    Console.WriteLine(Exception.Message);
+                                }
                                 break;
                             case InseitOption.AddSkimmer:
                                 int IDs;

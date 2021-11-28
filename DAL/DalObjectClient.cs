@@ -34,7 +34,7 @@ namespace DalObject
             {
                 throw new IdDoesNotExistException($"id : {IDc} does not exist!!", Severity.Mild);
             }
-            return DataSource.ListClient.FirstOrDefault(c => c.ID == IDc);
+            return DataSource.ListClient.Find(c => c.ID == IDc);
         }
         public IEnumerable<Client> GetClientList()//Displays a list of Client
         {

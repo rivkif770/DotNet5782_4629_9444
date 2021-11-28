@@ -15,13 +15,13 @@ namespace DalObject
         }
         public double[] PowerConsumptionRequest()
         {
-            double[] arr = new double[] {
+            return new double[] {
                 DataSource.Config.Free,
                 DataSource.Config.LightWeightCarrier,
                 DataSource.Config.MediumWeightCarrier,
                 DataSource.Config.HeavyWeightCarrier,
                 DataSource.Config.SkimmerLoadingRate};
-            return arr;
+            //return arr;
         }
         public void AssignPackageSkimmer(int idp, int idq)//Assign a package to a skimmer
         {
