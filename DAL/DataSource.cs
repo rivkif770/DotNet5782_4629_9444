@@ -20,11 +20,11 @@ namespace DalObject
         internal class Config
         {
             public static int IDPackage = 1000;
-            public static double Free = 5;
-            public static double LightWeightCarrier = 10;
-            public static double MediumWeightCarrier = 20;
-            public static double HeavyWeightCarrier = 25;
-            public static double SkimmerLoadingRate = 50;
+            public static double Free = 0.001;
+            public static double LightWeightCarrier = 0.003;
+            public static double MediumWeightCarrier = 0.004;
+            public static double HeavyWeightCarrier = 0.006;
+            public static double SkimmerLoadingRate = 20;
         }
 
         public static void Initialize()
@@ -37,8 +37,8 @@ namespace DalObject
                     UniqueID = r.Next(999, 10000),
                     StationName = $"BaseStation{i}",
                     SeveralPositionsArgument = r.Next(5),
-                    Longitude = r.Next(-100, 100),
-                    Latitude = r.Next(-100, 100)
+                    Longitude = r.Next(-50, 50),
+                    Latitude = r.Next(-50, 50)
                 });
             }
 
@@ -47,9 +47,7 @@ namespace DalObject
                 Quadocopter newQ = new Quadocopter();
                 newQ.IDNumber = r.Next(99, 1000);
                 newQ.SkimmerModel = $"A2{i}";
-                //newQ.Battery = r.Next(101);
                 newQ.Weight = (WeightCategories)r.Next(3);
-                //newQ.SkimmerMode = (DronStatuses)r.Next(3);
                 ListQuadocopter.Add(newQ);
             }
 
@@ -57,26 +55,38 @@ namespace DalObject
             {
                 ListClient.Add(new Client()
                 {
-                    Latitude = r.Next(-100, 100),
-                    Longitude = r.Next(-100, 100),
+                    Latitude = r.Next(-50, 50),
+                    Longitude = r.Next(-50, 50),
                     ID = r.Next(99999999, 1000000000),
                     Telephone = $"0{r.Next(50, 59)}{r.Next(1000000, 10000000)}",
                     Name = clientsNames[r.Next(clientsNames.Length)]
                 });
             }
-
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 6; i++)
             {
                 Package newP = new Package();
                 newP.ID = global::DalObject.DataSource.Config.IDPackage++;
-                newP.IDSender = ListClient[r.Next(6)].ID;
-                newP.IDgets = ListClient[r.Next(6)].ID;
+                newP.IDSender = ListClient[(i + 1) % 5].ID;
+                newP.IDgets = ListClient[i % 5].ID;
+                newP.IDSkimmerOperation = 0;
+                newP.Weight = (WeightCategories)r.Next(3);
+                newP.priority = (Priorities)r.Next(3);
+                newP.PackageCreationTime = DateTime.Now;
+                ListPackage.Add(newP);
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                Package newP = new Package();
+                newP.ID = global::DalObject.DataSource.Config.IDPackage++;
+                newP.IDSender = ListClient[(i + 1) % 5].ID;
+                newP.IDgets = ListClient[i % 5].ID;
                 newP.IDSkimmerOperation = ListQuadocopter[r.Next(5)].IDNumber;
                 newP.Weight = (WeightCategories)r.Next(3);
                 newP.priority = (Priorities)r.Next(3);
                 newP.PackageCreationTime = DateTime.Now;
                 ListPackage.Add(newP);
             }
+            
         }
     }
   

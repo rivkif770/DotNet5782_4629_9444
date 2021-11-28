@@ -66,8 +66,8 @@ namespace BL
             SkimmerInPackage skimmerPackage = new SkimmerInPackage
             {
                 Id = somoePackage.IDSkimmerOperation,
-                BatteryStatus = GetSkimmer(somoePackage.IDSkimmerOperation).BatteryStatus,
-                Location = GetSkimmer(somoePackage.IDSkimmerOperation).CurrentLocation
+                //BatteryStatus = GetSkimmer(somoePackage.IDSkimmerOperation).BatteryStatus,
+                //Location = GetSkimmer(somoePackage.IDSkimmerOperation).CurrentLocation
             };
             return new IBL.BO.Package
             {

@@ -50,10 +50,11 @@ namespace BL
                 //Finding a glider-related package
                 IDAL.DO.Package PackageAssociatedWithSkimmer = FindingPackageAssociatedWithGlider(item);
                 //If there is a package that has not yet been delivered but the skimmer is already associated
-                if (PackageAssociatedWithSkimmer.TimeArrivalRecipient == null)
+                if (PackageAssociatedWithSkimmer.TimeArrivalRecipient == null && PackageAssociatedWithSkimmer.ID != 0)
                 {
                     //Update skimmer status to shipping status
                     updatedSkimmer.SkimmerStatus = SkimmerStatuses.shipping;
+                    updatedSkimmer.PackageNumberTransferred = PackageAssociatedWithSkimmer.ID;
                     //If the package was associated but not collected 	ConsoleUI_BL.dll!ConsoleUI_BL.Program.Menu() Line 69	C#
 
                     if (PackageAssociatedWithSkimmer.PackageCollectionTime == null)
@@ -77,7 +78,7 @@ namespace BL
                         Longitude = sendcustomer.Location.Longitude
                     };
                     double minBattery = MinimalLoadingPerformTheShipmentAndArriveForLoading(updatedSkimmer, tempC);
-                    updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
+                    updatedSkimmer.BatteryStatus = (double)r.Next(((int)minBattery)%50, 100);
                 }
 
                 //If the glider does not ship, its condition will be raffled off between maintenance and disposal
@@ -90,12 +91,12 @@ namespace BL
                 {
                     int counts = GetBaseStationList().Count();
                     List<Location> B = new List<Location>();
-                    foreach (var item1 in mayDal.GetBaseStationList())
+                    foreach (IDAL.DO.BaseStation item1 in mayDal.GetBaseStationList())
                     {
                         B.Add(new Location
                         {
-                               Latitude =item1.Latitude,
-                               Longitude =item1.Longitude     
+                            Latitude = item1.Latitude,
+                            Longitude = item1.Longitude
                         });
                     }
                     updatedSkimmer.CurrentLocation = B[r.Next(counts)];
@@ -106,7 +107,7 @@ namespace BL
                 {
                     updatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
                     double minBattery = MinimalChargeToGetToTheNearestStation(updatedSkimmer);
-                    updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
+                    updatedSkimmer.BatteryStatus = (double)r.Next(((int)minBattery)%50, 100);
                     
                 }
                 lst.Add(updatedSkimmer);
@@ -155,7 +156,7 @@ namespace BL
             if (updatedSkimmer.WeightCategory == Weight.Light)
                 Battery = distance * LightWeightCarrier;
             IBL.BO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(updatedSkimmer);
-            double distance1 = Tools.Utils.GetDistance(baseStation.Location.Longitude, baseStation.Location.Latitude, locationSend.Longitude, locationSend.Latitude);
+            double distance1 = Tools.Utils.GetDistance(baseStation.Location.Longitude, baseStation.Location.Latitude, locationSend.Longitude, locationSend.Latitude) / 1000;
             double minimalCharge = (distance * Free)+ Battery;
             return minimalCharge;
         }
@@ -173,7 +174,7 @@ namespace BL
                 throw new SkimmerExceptionBL($"Skimmer {id} Not in maintenance", Severity.Mild);
             }
             //Battery status will be updated according to the time it was charging
-            skimmer.BatteryStatus = ChargingTime * SkimmerLoadingRate;
+            skimmer.BatteryStatus = (ChargingTime * SkimmerLoadingRate) % 100;
             //The skimmer mode will change to free
             skimmer.SkimmerStatus = SkimmerStatuses.free;
             int IDb=0;
@@ -221,7 +222,7 @@ namespace BL
 
             foreach (IDAL.DO.Package item in mayDal.GetPackageList())
             {
-                if(item.IDSkimmerOperation==q.IDNumber)
+                if(item.IDSkimmerOperation == q.IDNumber)
                 {
                     return item;
                 }
