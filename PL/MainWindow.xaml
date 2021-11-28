@@ -1,0 +1,19 @@
+﻿<Window x:Class="PL.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="תרגיל 3" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btnShowListDrones" Content="Show List drones" FontSize="22"
+                HorizontalAlignment="Stretch" Margin="80" VerticalAlignment="Stretch" Click="btnShowListDrones_Click"/>
+        <Button x:Name="btnAddDrone" Content="add" Grid.Column="1" HorizontalAlignment="Left" Margin="122,123,0,0" VerticalAlignment="Top" Height="176" Width="183" Click="btnAddDrone_Click"/>
+
+    </Grid>
+</Window>

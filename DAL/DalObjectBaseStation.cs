@@ -36,23 +36,27 @@ namespace DalObject
             }
             return DataSource.ListBaseStation.FirstOrDefault(b => b.UniqueID == IDb);
         }
-        public IEnumerable<BaseStation> GetBaseStationList()//return a list of base stations
+        public IEnumerable<BaseStation> GetBaseStationList(Func<BaseStation,bool> predicate = null)//return a list of base stations
         {
-            return DataSource.ListBaseStation.Take(DataSource.ListBaseStation.Count).ToList();
+            if(predicate==null)
+                return DataSource.ListBaseStation.Take(DataSource.ListBaseStation.Count).ToList();
             //return IEnumerable< DataSource.ListBaseStation.ToList();
+            return DataSource.ListBaseStation.Where(predicate).ToList();
+
+            //call: dal.GetBaseStationList( x => x.SeveralPositionsArgument != 0);
         }
-        public IEnumerable<BaseStation> BaseStationFreeCharging()//Displays a list of Base stations with available charging stations
-        {
-            List<BaseStation> result = new List<BaseStation>();
-            for (int i = 0; i < DataSource.ListBaseStation.Count; i++)
-            {
-                if (DataSource.ListBaseStation[i].SeveralPositionsArgument != 0)
-                {
-                    result.Add(DataSource.ListBaseStation[i]);
-                }
-            }
-            return result.Take(result.Count).ToList(); 
-        }
+        //public IEnumerable<BaseStation> BaseStationFreeCharging()//Displays a list of Base stations with available charging stations
+        //{
+        //    List<BaseStation> result = new List<BaseStation>();
+        //    for (int i = 0; i < DataSource.ListBaseStation.Count; i++)
+        //    {
+        //        if (DataSource.ListBaseStation[i].SeveralPositionsArgument != 0)
+        //        {
+        //            result.Add(DataSource.ListBaseStation[i]);
+        //        }
+        //    }
+        //    return result.Take(result.Count).ToList(); 
+        //}
         public void DeleteBaseStation(int idb)//Adding a station
         {
             if (!DataSource.ListBaseStation.Exists(item => item.UniqueID == idb))//If finds an existing base station throws an error.

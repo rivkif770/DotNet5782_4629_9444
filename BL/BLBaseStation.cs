@@ -54,7 +54,7 @@ namespace BL
             List<SkimmerInCharging> skimmerInCharging = new List<SkimmerInCharging>();
             foreach (IDAL.DO.SkimmerLoading item in mayDal.GetSkimmerLoadingList())
             {
-                if(item.StationID== somoeBaseStation.UniqueID)
+                if (item.StationID == somoeBaseStation.UniqueID)
                 {
                     SkimmerInCharging skimmerInCharging1 = new SkimmerInCharging
                     {
@@ -82,7 +82,7 @@ namespace BL
         public void UpdateBaseStation(int id, string name, string countOfChargingStations)
         {
             IBL.BO.BaseStation baseStation = GetBeseStation(id);
-            int TotalChargeAmount ,NumberOfSkimmersInCharge;
+            int TotalChargeAmount, NumberOfSkimmersInCharge;
             baseStation.Id = id;
             //If the input in the "Name" field is not blank, update the name field
             if (name != "")
@@ -128,24 +128,41 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<IBL.BO.BaseStationToList> GetBaseStationFreeCharging()
         {
-            List<BaseStationToList> baseStationToLists = new List<BaseStationToList>();
-            foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
+            IEnumerable<IDAL.DO.BaseStation> dalList = mayDal.GetBaseStationList(x => x.SeveralPositionsArgument != 0);
+            List<IBL.BO.BaseStationToList> result = new List<IBL.BO.BaseStationToList>();
+
+            foreach (var item in dalList)
             {
-                /// Go through the entire list of base stations and put a new list of stations with free charging stations
-                IBL.BO.BaseStation station1 = GetBeseStation(item.UniqueID);
-                if(station1.SeveralClaimPositionsVacant!=0)
+                result.Add(new BaseStationToList
                 {
-                    BaseStationToList station = new BaseStationToList
-                    {
-                        Id = item.UniqueID,
-                        StationName = item.StationName,
-                        FreeChargingstations = item.SeveralPositionsArgument,
-                        CatchChargingstations = GetBeseStation(item.UniqueID).ListOfSkimmersCharge.Count()
-                    };
-                    baseStationToLists.Add(station);
-                }             
+                    Id = item.UniqueID,
+                    StationName = item.StationName,
+                    FreeChargingstations = item.SeveralPositionsArgument,
+                    CatchChargingstations = GetBeseStation(item.UniqueID).ListOfSkimmersCharge.Count()
+                });
+
             }
-            return baseStationToLists.Take(baseStationToLists.Count).ToList();
+
+            return result;
+
+            //List<BaseStationToList> baseStationToLists = new List<BaseStationToList>();
+            //foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
+            //{
+            //    /// Go through the entire list of base stations and put a new list of stations with free charging stations
+            //    IBL.BO.BaseStation station1 = GetBeseStation(item.UniqueID);
+            //    if(station1.SeveralClaimPositionsVacant!=0)
+            //    {
+            //        BaseStationToList station = new BaseStationToList
+            //        {
+            //            Id = item.UniqueID,
+            //            StationName = item.StationName,
+            //            FreeChargingstations = item.SeveralPositionsArgument,
+            //            CatchChargingstations = GetBeseStation(item.UniqueID).ListOfSkimmersCharge.Count()
+            //        };
+            //        baseStationToLists.Add(station);
+            //    }             
+            //}
+            //return baseStationToLists.Take(baseStationToLists.Count).ToList();
         }
     }
 }
