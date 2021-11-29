@@ -15,10 +15,10 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"Unique ID number is: {Id}, \n";
-            result += $"The station name is: {StationName}, \n";;
-            result += $"Free Chargingstations is: {FreeChargingstations}, \n";
-            result += $"Catch Chargingstations is: {CatchChargingstations}, \n";
+            result += $"Unique ID number is: {Id} \n";
+            result += $"The station name is: {StationName} \n";;
+            result += $"Free Chargingstations is: {FreeChargingstations} \n";
+            result += $"Catch Chargingstations is: {CatchChargingstations} \n";
             return result;
         }
     }

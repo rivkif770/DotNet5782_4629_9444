@@ -20,15 +20,15 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"Unique ID number is: {Id}, \n";
-            result += $"Package mode is: {PackageMode}, \n";
-            result += $"Priority is: {priority}, \n";
-            result += $"Weight category is: {WeightCategory}, \n";
-            result += $"Customer Sends is: {CustomerSends}, \n";
-            result += $"Customer Receives is: {CustomerReceives}, \n";
-            result += $"Collection Location is: {CollectionLocation}, \n";
-            result += $"Delivery Destination Location is: {DeliveryDestinationLocation}, \n";
-            result += $"Transport Distance is: {TransportDistance}, \n";
+            result += $"Unique ID number is: {Id} \n";
+            result += $"Package mode is: {PackageMode} \n";
+            result += $"Priority is: {priority} \n";
+            result += $"Weight category is: {WeightCategory} \n";
+            result += $"Customer Sends is: {CustomerSends} \n";
+            result += $"Customer Receives is: {CustomerReceives} \n";
+            result += $"Collection Location is: {CollectionLocation} \n";
+            result += $"Delivery Destination Location is: {DeliveryDestinationLocation} \n";
+            result += $"Transport Distance is: {TransportDistance} \n";
             return result;
         }
     }

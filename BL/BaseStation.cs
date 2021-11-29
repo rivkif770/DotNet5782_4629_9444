@@ -17,10 +17,10 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"Unique ID number is: {Id}, \n";
-            result += $"The station name is: {Name}, \n";
-            result += $"The Location is: {Location},\n";
-            result += $"Several Claim Positions Vacant is: {SeveralClaimPositionsVacant}, \n";
+            result += $"Unique ID number is: {Id} \n";
+            result += $"The station name is: {Name} \n";
+            result += $"The Location is:\n {Location}";
+            result += $"Several Claim Positions Vacant is: {SeveralClaimPositionsVacant} \n";
             result += $"List Of Skimmers Charge is:"; 
             foreach (SkimmerInCharging Item in ListOfSkimmersCharge)
             {

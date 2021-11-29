@@ -78,7 +78,7 @@ namespace BL
                         Longitude = sendcustomer.Location.Longitude
                     };
                     double minBattery = MinimalLoadingPerformTheShipmentAndArriveForLoading(updatedSkimmer, tempC);
-                    updatedSkimmer.BatteryStatus = (double)r.Next(((int)minBattery)%50, 100);
+                    updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
                 }
 
                 //If the glider does not ship, its condition will be raffled off between maintenance and disposal
@@ -107,7 +107,7 @@ namespace BL
                 {
                     updatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
                     double minBattery = MinimalChargeToGetToTheNearestStation(updatedSkimmer);
-                    updatedSkimmer.BatteryStatus = (double)r.Next(((int)minBattery)%50, 100);
+                    updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
                     
                 }
                 lst.Add(updatedSkimmer);
@@ -156,7 +156,7 @@ namespace BL
             if (updatedSkimmer.WeightCategory == Weight.Light)
                 Battery = distance * LightWeightCarrier;
             IBL.BO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(updatedSkimmer);
-            double distance1 = Tools.Utils.GetDistance(baseStation.Location.Longitude, baseStation.Location.Latitude, locationSend.Longitude, locationSend.Latitude) / 1000;
+            double distance1 = Tools.Utils.GetDistance(baseStation.Location.Longitude, baseStation.Location.Latitude, locationSend.Longitude, locationSend.Latitude);
             double minimalCharge = (distance * Free)+ Battery;
             return minimalCharge;
         }

@@ -16,11 +16,11 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"Unique ID number is: {Id}, \n";
-            result += $"Weight category is: {WeightCategory}, \n";
-            result += $"Priority is: {priority}, \n";
-            result += $"Package mode is: {PackageMode}, \n";
-            result += $"customer In Parcel is: {customerInParcel}, \n";
+            result += $"Unique ID number is: {Id} \n";
+            result += $"Weight category is: {WeightCategory} \n";
+            result += $"Priority is: {priority} \n";
+            result += $"Package mode is: {PackageMode} \n";
+            result += $"customer In Parcel is: {customerInParcel} \n";
             return result;
         }
     }

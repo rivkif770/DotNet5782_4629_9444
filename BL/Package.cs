@@ -21,16 +21,16 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"ID is: {Id}, \n";
-            result += $"Sending customer ID is: {SendPackage}, \n";
-            result += $"Receiving customer ID is: {ReceivesPackage}, \n";
-            result += $"Weight category is: {WeightCategory}, \n";
-            result += $"Priority is: {priority}, \n";
-            result += $"Skimmer In Package is: {SkimmerInPackage}, \n";
-            result += $"Package creation time is: {PackageCreationTime}, \n";
-            result += $"Time to assign the package to the glider is: {AssignmentTime}, \n";
-            result += $"Package collection time from the sender is: {CollectionTime}, \n";
-            result += $"Time of arrival of the package to the recipient is: {SupplyTime}, \n";
+            result += $"ID is: {Id} \n";
+            result += $"Sending customer {SendPackage} \n";
+            result += $"Receiving customer {ReceivesPackage} \n";
+            result += $"Weight category is: {WeightCategory} \n";
+            result += $"Priority is: {priority} \n";
+            result += $"Skimmer In Package is: {SkimmerInPackage} \n";
+            result += $"Package creation time is: {PackageCreationTime} \n";
+            result += $"Time to assign the package to the glider is: {AssignmentTime} \n";
+            result += $"Package collection time from the sender is: {CollectionTime} \n";
+            result += $"Time of arrival of the package to the recipient is: {SupplyTime} \n";
             return result;
         }
     }

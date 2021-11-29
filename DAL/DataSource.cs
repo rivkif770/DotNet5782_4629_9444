@@ -36,7 +36,7 @@ namespace DalObject
                 {
                     UniqueID = r.Next(999, 10000),
                     StationName = $"BaseStation{i}",
-                    SeveralPositionsArgument = r.Next(5),
+                    SeveralPositionsArgument = r.Next(3,10),
                     Longitude = r.Next(-50, 50),
                     Latitude = r.Next(-50, 50)
                 });
@@ -83,7 +83,8 @@ namespace DalObject
                 newP.IDSkimmerOperation = ListQuadocopter[r.Next(5)].IDNumber;
                 newP.Weight = (WeightCategories)r.Next(3);
                 newP.priority = (Priorities)r.Next(3);
-                newP.PackageCreationTime = DateTime.Now;
+                newP.PackageCreationTime = DateTime.UtcNow;
+                newP.TimeAssignGlider = DateTime.Now;
                 ListPackage.Add(newP);
             }
             

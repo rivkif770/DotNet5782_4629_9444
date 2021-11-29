@@ -15,8 +15,8 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"ID is: {Id}, \n";
-            result += $"Battery status: {BatteryStatus}, \n";
+            result += $"ID is: {Id} \n";
+            result += $"Battery status: {BatteryStatus} \n";
             result += $"Location current: {Location}";
             return result;
         }

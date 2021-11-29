@@ -18,9 +18,9 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"ID is: {Id}, \n";
-            result += $"Name is: {Name}, \n";
-            result += $"Telephone is: {Phone.Substring(0, 3)}-{Phone.Substring(3)}, \n";
+            result += $"ID is: {Id} \n";
+            result += $"Name is: {Name} \n";
+            result += $"Telephone is: {Phone.Substring(0, 3)}-{Phone.Substring(3)} \n";
             result += Location;
             result += $"Delivery list Packages at customer - from customer: ";
             for (int i = 0; i < SentParcels.Count(); i++)

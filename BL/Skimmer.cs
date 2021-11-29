@@ -19,11 +19,11 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"ID is: {Id}, \n";
-            result += $"Skimmer model: {SkimmerModel}, \n";
-            result += $"Weight category: {WeightCategory}, \n";
-            result += $"Battery status: {BatteryStatus}, \n";
-            result += $"Skimmer mode: {SkimmerStatus}, \n";
+            result += $"ID is: {Id} \n";
+            result += $"Skimmer model: {SkimmerModel} \n";
+            result += $"Weight category: {WeightCategory} \n";
+            result += $"Battery status: {BatteryStatus} \n";
+            result += $"Skimmer mode: {SkimmerStatus} \n";
             result += $"Shipping package in transfer: {PackageInTransfer}";
             result += Location;
             return result;

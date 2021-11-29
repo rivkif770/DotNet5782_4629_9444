@@ -59,12 +59,17 @@ namespace ConsoleUI_BL
 
                                 Console.WriteLine("Enter Latitude:");
                                 double.TryParse(Console.ReadLine(), out latitude);
+
+                                int num;
+                                Console.WriteLine("Number of charging stations:");
+                                int.TryParse(Console.ReadLine(), out num);
                                 IBL.BO.BaseStation newBaseStation = new IBL.BO.BaseStation
                                 {
                                     Id = IDb,
                                     Name = name,
                                     Location = new Location { Latitude = latitude, Longitude = longitude },
-                                    SeveralClaimPositionsVacant = 0,
+                                    SeveralClaimPositionsVacant = num,
+
                                     ListOfSkimmersCharge = new List<SkimmerInCharging>()
                                 };
                                 try
