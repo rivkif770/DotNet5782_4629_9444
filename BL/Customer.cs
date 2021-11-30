@@ -22,10 +22,10 @@ namespace IBL.BO
             result += $"Name is: {Name} \n";
             result += $"Telephone is: {Phone.Substring(0, 3)}-{Phone.Substring(3)} \n";
             result += Location;
-            result += $"Delivery list Packages at customer - from customer: ";
+            result += $"Delivery list Packages at customer - from customer:\n ";
             for (int i = 0; i < SentParcels.Count(); i++)
                 result += SentParcels[i];
-            result += $"Delivery list of packages at the customer - to the customer: ";
+            result += $"Delivery list of packages at the customer - to the customer:\n ";
             for (int i = 0; i < ReceiveParcels.Count(); i++)
                 result += ReceiveParcels[i];
             return result;

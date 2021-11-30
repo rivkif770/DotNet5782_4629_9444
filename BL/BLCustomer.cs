@@ -53,7 +53,7 @@ namespace BL
             List<PackageAtCustomer> sentParcels = new List<PackageAtCustomer>();
             foreach (IDAL.DO.Package item in mayDal.GetPackageList())
             {
-                if (item.IDgets == somoeone.ID)
+                if (item.IDSender == somoeone.ID)
                 {
                     PackageAtCustomer packageAtCustomer = new PackageAtCustomer
                     {
