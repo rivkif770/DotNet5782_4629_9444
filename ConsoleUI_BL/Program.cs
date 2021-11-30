@@ -46,7 +46,7 @@ namespace ConsoleUI_BL
                             switch (inseitOption)
                             {
                                 case InseitOption.Exit:
-                                    return;
+                                    break;
                                 case InseitOption.AddBaseStation:
 
                                     int IDb;
@@ -101,20 +101,30 @@ namespace ConsoleUI_BL
                                     break;
                                 case InseitOption.AddSkimmer:
                                     int IDs;
-                                    Console.WriteLine("Serial number of the manufacturer:");
-                                    int.TryParse(Console.ReadLine(), out IDs);
+                                    do
+                                    {
+                                        Console.WriteLine("Serial number of the manufacturer:");
+                                        success = int.TryParse(Console.ReadLine(), out IDs);
+                                    } while (!success || IDs < 99 || IDs > 1000);
 
                                     string model;
                                     Console.WriteLine("Skimmer model:");
                                     model = (Console.ReadLine());
 
                                     int weight;
-                                    Console.WriteLine("Maximum weight: 0-low,1-middle,2-heavy:");
-                                    int.TryParse(Console.ReadLine(), out weight);
+                                    do
+                                    {
+                                        Console.WriteLine("Maximum weight: 0-low,1-middle,2-heavy:");
+                                        success = int.TryParse(Console.ReadLine(), out weight);
+                                    } while (!success || weight > 2 || weight < 0);
+
 
                                     int station;
-                                    Console.WriteLine("Station number Put the skimmer in it for initial charging");
-                                    int.TryParse(Console.ReadLine(), out station);
+                                    do
+                                    {
+                                        Console.WriteLine("Station number Put the skimmer in it for initial charging");
+                                        success = int.TryParse(Console.ReadLine(), out station);
+                                    } while (!success || station < 999 || station > 10000);
 
                                     Skimmer newSkimmer = new Skimmer
                                     {
@@ -136,30 +146,43 @@ namespace ConsoleUI_BL
                                 case InseitOption.AddCustomer:
 
                                     int Idc;
-                                    Console.WriteLine("Enter unique ID number:");
-                                    int.TryParse(Console.ReadLine(), out Idc);
+                                    do
+                                    {
+                                        Console.WriteLine("Enter unique ID number:");
+                                        success = int.TryParse(Console.ReadLine(), out Idc);
+                                    } while (!success || Idc < 99999999 || Idc > 1000000000);
 
                                     string Name;
                                     Console.WriteLine("Enter the customer's name:");
                                     Name = (Console.ReadLine());
 
                                     string Phone;
-                                    Console.WriteLine("Enter Phone Number:");
-                                    Phone = (Console.ReadLine());
+                                    int num1;
+                                    do
+                                    {
+                                        Console.WriteLine("Enter Phone Number:");
+                                        Phone = (Console.ReadLine());
+                                        num1 = Phone.Count();
+                                    } while (num1 != 10);
 
-                                    double Longitude;
-                                    Console.WriteLine("Enter longitude:");
-                                    double.TryParse(Console.ReadLine(), out Longitude);
+                                    do
+                                    {
+                                        Console.WriteLine("Enter longitude:");
+                                        success = double.TryParse(Console.ReadLine(), out longitude);
+                                    } while (!success || longitude < -50 || longitude > 50);
 
-                                    double Latitude;
-                                    Console.WriteLine("Enter Latitude:");
-                                    double.TryParse(Console.ReadLine(), out Latitude);
+                                    do
+                                    {
+                                        Console.WriteLine("Enter Latitude:");
+                                        success = double.TryParse(Console.ReadLine(), out latitude);
+                                    } while (!success || latitude < -50 || latitude > 50);
+                                   
                                     Customer newCustomer = new Customer
                                     {
                                         Id = Idc,
                                         Name = Name,
                                         Phone = Phone,
-                                        Location = new Location { Latitude = Latitude, Longitude = Longitude },
+                                        Location = new Location { Latitude = latitude, Longitude = longitude },
                                     };
                                     myBL.AddCustomer(newCustomer);
                                     //try
@@ -174,20 +197,33 @@ namespace ConsoleUI_BL
                                 case InseitOption.AddPackage:
 
                                     int Idsc;
-                                    Console.WriteLine("Enter Sending customer ID:");
-                                    int.TryParse(Console.ReadLine(), out Idsc);
+                                    do
+                                    {
+                                        Console.WriteLine("Enter Sending customer ID:");
+                                        success = int.TryParse(Console.ReadLine(), out Idsc);
+                                    } while (!success || Idsc < 99999999 || Idsc > 1000000000);
 
                                     int Idgc;
-                                    Console.WriteLine("Receiving customer ID:");
-                                    int.TryParse(Console.ReadLine(), out Idgc);
+                                    do
+                                    {
+                                        Console.WriteLine("Receiving customer ID:");
+                                        success = int.TryParse(Console.ReadLine(), out Idgc);
+                                    } while (!success || Idsc < 99999999 || Idsc > 1000000000);
 
                                     int Weight;
-                                    Console.WriteLine("Enter Weight category 0-low,1-middle,2-heavy:");
-                                    int.TryParse(Console.ReadLine(), out Weight);
+                                    do
+                                    {
+                                        Console.WriteLine("Enter Weight category 0-low,1-middle,2-heavy:");
+                                        success = int.TryParse(Console.ReadLine(), out Weight);
+                                    } while (!success || Weight < 0 || Weight > 2);
 
                                     int Priorities;
-                                    Console.WriteLine("Enter priority 0-regular,1-fast,2-emergency:");
-                                    int.TryParse(Console.ReadLine(), out Priorities);
+                                    do
+                                    {
+                                        Console.WriteLine("Enter priority 0-regular,1-fast,2-emergency:");
+                                        success = int.TryParse(Console.ReadLine(), out Priorities);
+                                    } while (!success || Priorities < 0 || Priorities > 2);
+
                                     IBL.BO.Package newPackage = new IBL.BO.Package
                                     {
 
@@ -229,7 +265,7 @@ namespace ConsoleUI_BL
                             switch (updateOption)
                             {
                                 case UpdateOption.Exit:
-                                    return;
+                                    break;
                                 //Update skimmer name
                                 case UpdateOption.UpdateSkimmerName:
                                     int ids;
@@ -376,7 +412,7 @@ namespace ConsoleUI_BL
                             switch (displayOptions)
                             {
                                 case DisplayOptions.Exit:
-                                    return;
+                                    break;
                                 case DisplayOptions.DisplayBaseStation:
                                     int IDb;
                                     Console.WriteLine("enter ID of BaseStation:");
@@ -448,7 +484,7 @@ namespace ConsoleUI_BL
                             switch (optionsListView)
                             {
                                 case OptionsListView.Exit:
-                                    return;
+                                    break;
                                 case OptionsListView.ViewBaseStation:
                                     foreach (BaseStationToList item in myBL.GetBaseStationList())
                                     {
