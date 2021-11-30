@@ -152,8 +152,8 @@ namespace BL
         /// <param name="updatedSkimmer"></param>
         /// <returns></returns>
         private double MinimalLoadingPerformTheShipmentAndArriveForLoading (SkimmerToList updatedSkimmer, IDAL.DO.Client senderClient)
-        {            
-            Customer customerGet = GetCustomer(GetPackage(updatedSkimmer.PackageNumberTransferred).ReceivesPackage.Id);
+        {
+            Customer customerGet = GetCustomer(mayDal.GetPackage(updatedSkimmer.PackageNumberTransferred).IDgets);
             Location locationSend = customerGet.Location;
             double distance = Tools.Utils.GetDistance(senderClient.Longitude, senderClient.Latitude, customerGet.Location.Longitude, customerGet.Location.Latitude);
             double Battery = 0;
