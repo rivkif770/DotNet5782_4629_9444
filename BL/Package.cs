@@ -26,7 +26,7 @@ namespace IBL.BO
             result += $"Receiving customer {ReceivesPackage} \n";
             result += $"Weight category is: {WeightCategory} \n";
             result += $"Priority is: {priority} \n";
-            result += $"Skimmer In Package is: {SkimmerInPackage} \n";
+            result += $"Skimmer In Package is: \n{SkimmerInPackage} \n";
             result += $"Package creation time is: {PackageCreationTime} \n";
             result += $"Time to assign the package to the glider is: {AssignmentTime} \n";
             result += $"Package collection time from the sender is: {CollectionTime} \n";

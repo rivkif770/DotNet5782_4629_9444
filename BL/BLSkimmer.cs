@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
-using DalObject;
+
 namespace BL
 {
     public partial class BL : IBL.IBL
@@ -68,16 +68,27 @@ namespace BL
                         //Updates skimmer location to package shipper location.
                         updatedSkimmer.CurrentLocation = GetCustomer(PackageAssociatedWithSkimmer.IDSender).Location;
                     }
-                    IBL.BO.Customer sendcustomer= GetCustomer(PackageAssociatedWithSkimmer.IDSender);
-                    IDAL.DO.Client tempC = new IDAL.DO.Client
+                    //IDAL.DO.Client sendCustomer= mayDal.GetClient(PackageAssociatedWithSkimmer.IDSender);
+                    //IDAL.DO.Client getCustomer = mayDal.GetClient(PackageAssociatedWithSkimmer.IDgets);
+                    IBL.BO.Customer sendCustomer = GetCustomer(PackageAssociatedWithSkimmer.IDSender);
+                    IDAL.DO.Client tempS = new IDAL.DO.Client
                     {
-                        ID = sendcustomer.Id,
-                        Name = sendcustomer.Name,
-                        Telephone = sendcustomer.Phone,
-                        Latitude = sendcustomer.Location.Latitude,
-                        Longitude = sendcustomer.Location.Longitude
+                        ID = sendCustomer.Id,
+                        Name = sendCustomer.Name,
+                        Telephone = sendCustomer.Phone,
+                        Latitude = sendCustomer.Location.Latitude,
+                        Longitude = sendCustomer.Location.Longitude
                     };
-                    double minBattery = MinimalLoadingPerformTheShipmentAndArriveForLoading(updatedSkimmer, tempC);
+                    IBL.BO.Customer getCustomer = GetCustomer(PackageAssociatedWithSkimmer.IDgets);
+                    IDAL.DO.Client tempG = new IDAL.DO.Client
+                    {
+                        ID = getCustomer.Id,
+                        Name = getCustomer.Name,
+                        Telephone = getCustomer.Phone,
+                        Latitude = getCustomer.Location.Latitude,
+                        Longitude = getCustomer.Location.Longitude
+                    };
+                    double minBattery = MinimalLoadingPerformTheShipmentAndArriveForLoading(updatedSkimmer, tempS, tempG);
                     updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
                 }
 
@@ -151,9 +162,9 @@ namespace BL
         /// </summary>
         /// <param name="updatedSkimmer"></param>
         /// <returns></returns>
-        private double MinimalLoadingPerformTheShipmentAndArriveForLoading (SkimmerToList updatedSkimmer, IDAL.DO.Client senderClient)
+        private double MinimalLoadingPerformTheShipmentAndArriveForLoading (SkimmerToList updatedSkimmer, IDAL.DO.Client senderClient, IDAL.DO.Client getClient)
         {
-            Customer customerGet = GetCustomer(mayDal.GetPackage(updatedSkimmer.PackageNumberTransferred).IDgets);
+            Customer customerGet = GetCustomer(getClient.ID);
             Location locationSend = customerGet.Location;
             double distance = Tools.Utils.GetDistance(senderClient.Longitude, senderClient.Latitude, customerGet.Location.Longitude, customerGet.Location.Latitude);
             double Battery = 0;
@@ -257,17 +268,39 @@ namespace BL
                 SkimmerModel = newSkimmer.SkimmerModel,
                 Weight = (WeightCategories)newSkimmer.WeightCategory
             };
-            SkimmerToList skimmerToList = new SkimmerToList
+            SkimmerToList skimmerToList;
+            if (newSkimmer.PackageInTransfer == null)
             {
-                Id = newSkimmer.Id,
-                SkimmerModel = newSkimmer.SkimmerModel,
-                WeightCategory = newSkimmer.WeightCategory,
-                BatteryStatus = newSkimmer.BatteryStatus,
-                SkimmerStatus = newSkimmer.SkimmerStatus,
-                CurrentLocation = newSkimmer.Location,
-                PackageNumberTransferred = newSkimmer.PackageInTransfer.Id
-            };
-
+                skimmerToList = new SkimmerToList
+                {
+                    Id = newSkimmer.Id,
+                    SkimmerModel = newSkimmer.SkimmerModel,
+                    WeightCategory = newSkimmer.WeightCategory,
+                    BatteryStatus = newSkimmer.BatteryStatus,
+                    SkimmerStatus = newSkimmer.SkimmerStatus,
+                    CurrentLocation = newSkimmer.Location,
+                };
+            }
+            else
+            {
+                skimmerToList = new SkimmerToList
+                {
+                    Id = newSkimmer.Id,
+                    SkimmerModel = newSkimmer.SkimmerModel,
+                    WeightCategory = newSkimmer.WeightCategory,
+                    BatteryStatus = newSkimmer.BatteryStatus,
+                    SkimmerStatus = newSkimmer.SkimmerStatus,
+                    CurrentLocation = newSkimmer.Location,
+                    PackageNumberTransferred = newSkimmer.PackageInTransfer.Id
+                };
+            }
+            //Add a skimmer to a list of skimmers in charge
+            IDAL.DO.SkimmerLoading skimmerLoading = new SkimmerLoading { SkimmerID = newSkimmer.Id, StationID = tempBaseStation.Id };
+            mayDal.AddSkimmerLoading(skimmerLoading);
+            //Update base station, lower charging position.
+            IDAL.DO.BaseStation baseStation = mayDal.GetBaseStation(tempBaseStation.Id);
+            baseStation.SeveralPositionsArgument = tempBaseStation.SeveralClaimPositionsVacant--;
+            mayDal.UpadteB(baseStation);
             if (skimmersList.Exists(item => item.Id == skimmerToList.Id))//If finds an existing skimmer throws an error.
             {
                 throw new ExistsInSystemExceptionBL($"skimmer {skimmerToList.Id} Save to system", Severity.Mild);

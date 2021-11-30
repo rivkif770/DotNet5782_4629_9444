@@ -98,6 +98,8 @@ namespace BL
             {
                 UniqueID = baseStation.Id,
                 StationName = baseStation.Name,
+                Latitude = baseStation.Location.Latitude,
+                Longitude = baseStation.Location.Longitude,
                 SeveralPositionsArgument = baseStation.SeveralClaimPositionsVacant,
             };
             mayDal.UpadteB(baseStation1);

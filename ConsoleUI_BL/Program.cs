@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
+using IDAL.DO;
+
 namespace ConsoleUI_BL
 {
     class Program
@@ -170,7 +172,7 @@ namespace ConsoleUI_BL
                                 int Priorities;
                                 Console.WriteLine("Enter priority 0-regular,1-fast,2-emergency:");
                                 int.TryParse(Console.ReadLine(), out Priorities);
-                                Package newPackage = new Package
+                                IBL.BO.Package newPackage = new IBL.BO.Package
                                 {
 
                                     SendPackage = new CustomerInParcel
@@ -294,7 +296,6 @@ namespace ConsoleUI_BL
                                 catch (IdDoesNotExistExceptionBL exception)
                                 {
                                     Console.WriteLine(exception);
-                                    throw;
                                 }
                                 break;
 
@@ -309,7 +310,6 @@ namespace ConsoleUI_BL
                                 catch (Exception exception)
                                 {
                                     Console.WriteLine(exception);
-                                    throw;
                                 }
                                 break;
                             //Collecting a package by skimmer
@@ -337,7 +337,6 @@ namespace ConsoleUI_BL
                                 catch (Exception exception)
                                 {
                                     Console.WriteLine(exception);
-                                    throw;
                                 }
                                 break;
                         }

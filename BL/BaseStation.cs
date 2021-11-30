@@ -19,9 +19,9 @@ namespace IBL.BO
             String result = "";
             result += $"Unique ID number is: {Id} \n";
             result += $"The station name is: {Name} \n";
-            result += $"The Location is:\n {Location}";
+            result += $"The Location is:\n{Location}";
             result += $"Several Claim Positions Vacant is: {SeveralClaimPositionsVacant} \n";
-            result += $"List Of Skimmers Charge is:"; 
+            result += $"List Of Skimmers Charge is:\n"; 
             foreach (SkimmerInCharging Item in ListOfSkimmersCharge)
             {
                 result += Item;

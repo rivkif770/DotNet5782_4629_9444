@@ -62,7 +62,7 @@ namespace DalObject
                     Name = clientsNames[r.Next(clientsNames.Length)]
                 });
             }
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Package newP = new Package();
                 newP.ID = global::DalObject.DataSource.Config.IDPackage++;
@@ -72,6 +72,20 @@ namespace DalObject
                 newP.Weight = (WeightCategories)r.Next(3);
                 newP.priority = (Priorities)r.Next(3);
                 newP.PackageCreationTime = DateTime.Now;
+                ListPackage.Add(newP);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                Package newP = new Package();
+                newP.ID = global::DalObject.DataSource.Config.IDPackage++;
+                newP.IDSender = ListClient[(i + 1) % 5].ID;
+                newP.IDgets = ListClient[i % 5].ID;
+                newP.IDSkimmerOperation = 0;
+                newP.Weight = (WeightCategories)r.Next(3);
+                newP.priority = (Priorities)r.Next(3);
+                newP.PackageCreationTime = DateTime.UtcNow;
+                newP.TimeAssignGlider = DateTime.UtcNow;
+                newP.PackageCollectionTime = DateTime.Now;
                 ListPackage.Add(newP);
             }
             for (int i = 0; i < 4; i++)

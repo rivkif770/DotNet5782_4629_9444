@@ -131,9 +131,11 @@ namespace BL
             //Adding a new customer with the new data and deleting the old customer with the out-of-date data
             Client client = new Client
             {
-                ID = id,
-                Name = name,
-                Telephone = phone
+                ID = customer.Id,
+                Name = customer.Name,
+                Telephone = customer.Phone,
+                Latitude = customer.Location.Latitude,
+                Longitude = customer.Location.Longitude
             };
             mayDal.UpadteC(client);
         }

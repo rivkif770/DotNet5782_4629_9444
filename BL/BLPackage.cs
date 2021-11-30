@@ -1,10 +1,10 @@
-﻿using IBL.BO;
-using IDAL.DO;
+﻿using IDAL.DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IBL.BO;
 
 namespace BL
 {
@@ -60,12 +60,23 @@ namespace BL
                 Id = somoePackage.IDgets,
                 Name = GetCustomer(somoePackage.IDgets).Name
             };
-            SkimmerInPackage skimmerPackage = new SkimmerInPackage
+            SkimmerInPackage skimmerPackage;
+            if (somoePackage.IDSkimmerOperation != 0)
             {
-                Id = somoePackage.IDSkimmerOperation,
-                BatteryStatus = GetSkimmer(somoePackage.IDSkimmerOperation).BatteryStatus,
-                Location = GetSkimmer(somoePackage.IDSkimmerOperation).CurrentLocation
-            };
+                skimmerPackage = new SkimmerInPackage
+                {
+                    Id = somoePackage.IDSkimmerOperation,
+                    BatteryStatus = GetSkimmer(somoePackage.IDSkimmerOperation).BatteryStatus,
+                    Location = GetSkimmer(somoePackage.IDSkimmerOperation).CurrentLocation
+                };
+            }
+            else
+            {
+                skimmerPackage = new SkimmerInPackage
+                {
+                    Id = somoePackage.IDSkimmerOperation,
+                };
+            }            
             return new IBL.BO.Package
             {
                 Id = somoePackage.ID,
@@ -87,24 +98,30 @@ namespace BL
         public void CollectingPackageBySkimmer(int id)
         {
             SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
-            IBL.BO.Package package;
-            package = GetPackage(skimmer.PackageNumberTransferred);
-            int idc = package.SendPackage.Id;
-            Location locationsend = GetCustomer(idc).Location;
-            //Only a skimmer that delivers a package that has been associated with it but has not yet been collected will be able to pick it up
-            if (skimmer.SkimmerStatus == SkimmerStatuses.shipping && package.AssignmentTime != null && package.CollectionTime == null)
+            if (skimmer != null)
             {
-                //Update battery status according to the distance between the original location and the sender location
-                double distance = Tools.Utils.GetDistance(skimmer.CurrentLocation.Longitude, skimmer.CurrentLocation.Latitude, locationsend.Longitude, locationsend.Latitude);
-                skimmer.BatteryStatus = (skimmer.BatteryStatus) - (distance * Free);
-                //Update location to sender location
-                skimmer.CurrentLocation = locationsend;
-                //Update package pickup time
-                package.CollectionTime = DateTime.Now;
-
+                IBL.BO.Package package;
+                package = GetPackage(skimmer.PackageNumberTransferred);
+                int idc = package.SendPackage.Id;
+                Location locationsend = GetCustomer(idc).Location;
+                //Only a skimmer that delivers a package that has been associated with it but has not yet been collected will be able to pick it up
+                if (skimmer.SkimmerStatus == SkimmerStatuses.shipping && package.AssignmentTime != null && package.CollectionTime == null)
+                {
+                    //Update battery status according to the distance between the original location and the sender location
+                    double distance = Tools.Utils.GetDistance(skimmer.CurrentLocation.Longitude, skimmer.CurrentLocation.Latitude, locationsend.Longitude, locationsend.Latitude);
+                    skimmer.BatteryStatus = (skimmer.BatteryStatus) - (distance * Free);
+                    //Update location to sender location
+                    skimmer.CurrentLocation = locationsend;
+                    //Update package pickup time
+                    IDAL.DO.Package package1 = mayDal.GetPackage(package.Id);
+                    package1.PackageCollectionTime = DateTime.Now;
+                    mayDal.UpadteP(package1);
+                }
+                else
+                    throw new SkimmerExceptionBL($"The package was collected or not associated", Severity.Mild);
             }
             else
-                throw new SkimmerExceptionBL($"The package was collected or not associated", Severity.Mild);
+                throw new SkimmerExceptionBL($"The skimmer {id} is not associated with the package", Severity.Mild);
         }
         /// <summary>
         /// Assigning package to skimmer
@@ -163,7 +180,7 @@ namespace BL
                     IDAL.DO.Client senderClient = mayDal.GetClient(package.IDSender);
                     IDAL.DO.Client getClient = mayDal.GetClient(package.IDgets);
                     double minBattery = MinimumPaymentToGetToThePackage(skimmer, senderClient);
-                    minBattery += MinimalLoadingPerformTheShipmentAndArriveForLoading(skimmer, senderClient);
+                    minBattery += MinimalLoadingPerformTheShipmentAndArriveForLoading(skimmer, senderClient, getClient);
                     minBattery = Math.Ceiling(minBattery);
                     //If sending the package consumes more battery than the glider, then we will delete the package otherwise we will associate the glider with the package.
                     if (minBattery + 1 > skimmer.BatteryStatus)
@@ -209,22 +226,27 @@ namespace BL
         public void DeliveryOfPackageBySkimmer(int id)
         {
             SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
-            IBL.BO.Package package = GetPackage(skimmer.PackageNumberTransferred);
-            Location locationGets = GetCustomer(id).Location;
-            //Only a skimmer that has collected but has not yet delivered the package will be able to deliver it
-            if (package.CollectionTime != null && package.SupplyTime == null)
+            if (skimmer != null)
             {
-                double batteryCalculation = BatteryCalculation(skimmer.CurrentLocation, locationGets, package.WeightCategory);
-                skimmer.BatteryStatus = (skimmer.BatteryStatus) - (batteryCalculation);
-                //Update location to the location of the shipping destination
-                skimmer.CurrentLocation = locationGets;
-                skimmer.SkimmerStatus = SkimmerStatuses.free;
-                IDAL.DO.Package package1=mayDal.GetPackage(package.Id);
-                package.SupplyTime = DateTime.Now;
-                mayDal.UpadteP(package1);
+                IBL.BO.Package package = GetPackage(skimmer.PackageNumberTransferred);
+                Location locationGets = GetCustomer(id).Location;
+                //Only a skimmer that has collected but has not yet delivered the package will be able to deliver it
+                if (package.CollectionTime != null && package.SupplyTime == null)
+                {
+                    double batteryCalculation = BatteryCalculation(skimmer.CurrentLocation, locationGets, package.WeightCategory);
+                    skimmer.BatteryStatus = (skimmer.BatteryStatus) - (batteryCalculation);
+                    //Update location to the location of the shipping destination
+                    skimmer.CurrentLocation = locationGets;
+                    skimmer.SkimmerStatus = SkimmerStatuses.free;
+                    IDAL.DO.Package package1 = mayDal.GetPackage(package.Id);
+                    package.SupplyTime = DateTime.Now;
+                    mayDal.UpadteP(package1);
+                }
+                else
+                    throw new SkimmerExceptionBL($"Skimmer {id}does not ship a package that has been associated with it or has already been collected", Severity.Mild);
             }
             else
-                throw new SkimmerExceptionBL($"Skimmer {id}does not ship a package that has been associated with it or has already been collected", Severity.Mild);
+                throw new SkimmerExceptionBL($"The skimmer {id} did not collect the package", Severity.Mild);
         }
         /// <summary>
         /// Returns a list of packages.
