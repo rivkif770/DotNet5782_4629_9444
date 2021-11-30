@@ -257,7 +257,22 @@ namespace BL
                 SkimmerModel = newSkimmer.SkimmerModel,
                 Weight = (WeightCategories)newSkimmer.WeightCategory
             };
+            SkimmerToList skimmerToList = new SkimmerToList
+            {
+                Id = newSkimmer.Id,
+                SkimmerModel = newSkimmer.SkimmerModel,
+                WeightCategory = newSkimmer.WeightCategory,
+                BatteryStatus = newSkimmer.BatteryStatus,
+                SkimmerStatus = newSkimmer.SkimmerStatus,
+                CurrentLocation = newSkimmer.Location,
+                PackageNumberTransferred = newSkimmer.PackageInTransfer.Id
+            };
 
+            if (skimmersList.Exists(item => item.Id == skimmerToList.Id))//If finds an existing skimmer throws an error.
+            {
+                throw new ExistsInSystemExceptionBL($"skimmer {skimmerToList.Id} Save to system", Severity.Mild);
+            }
+            skimmersList.Add(skimmerToList);
             try
             {
                 mayDal.AddSkimmer(tempS);
