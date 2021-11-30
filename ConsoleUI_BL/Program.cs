@@ -270,8 +270,11 @@ namespace ConsoleUI_BL
                                 case UpdateOption.UpdateSkimmerName:
                                     int ids;
                                     string nameS;
-                                    Console.WriteLine("enter ID of skimmer:");
-                                    ids = int.Parse(Console.ReadLine());
+                                    do
+                                    {
+                                        Console.WriteLine("enter ID of skimmers:");
+                                        success = int.TryParse(Console.ReadLine(), out ids);
+                                    } while (!success || ids < 99 || ids > 1000);
                                     Console.WriteLine("Enter a new name:");
                                     nameS = Console.ReadLine();
                                     myBL.UpdateSkimmerName(ids, nameS);
@@ -287,12 +290,25 @@ namespace ConsoleUI_BL
                                 //Update station data
                                 case UpdateOption.UpdateBaseStation:
                                     string nameB, NumberOfChargingStations;
-                                    Console.WriteLine("enter ID of BaseStation:");
-                                    int idb = int.Parse(Console.ReadLine());
+                                    int idb, NumberOfChargingStations1 = 0;
+                                    do
+                                    {
+                                        Console.WriteLine("enter ID of BaseStation:");
+                                        success = int.TryParse(Console.ReadLine(), out idb);
+                                    } while (!success || idb < 999 || idb > 10000);
+                                    
                                     Console.WriteLine("Station name:");
                                     nameB = Console.ReadLine();
-                                    Console.WriteLine("Total amount of charging stations:");
-                                    NumberOfChargingStations = Console.ReadLine();
+
+                                    do
+                                    {
+                                        Console.WriteLine("Total amount of charging stations:");
+                                        NumberOfChargingStations = Console.ReadLine();
+                                        if (NumberOfChargingStations == "")
+                                            success = true;
+                                        else
+                                            success = int.TryParse(Console.ReadLine(), out NumberOfChargingStations1);
+                                    } while (!success || NumberOfChargingStations != "" && NumberOfChargingStations1 <= 0);
                                     myBL.UpdateBaseStation(idb, nameB, NumberOfChargingStations);
                                     //try
                                     //{
@@ -306,12 +322,21 @@ namespace ConsoleUI_BL
                                 //Update customer data
                                 case UpdateOption.UpdateCustomerData:
                                     string nameC, phoneC;
-                                    Console.WriteLine("enter ID of Customer:");
-                                    int idc = int.Parse(Console.ReadLine());
+                                    int idc, numPhoneC;
+                                    do
+                                    {
+                                        Console.WriteLine("enter ID of Customer:");
+                                        success = int.TryParse(Console.ReadLine(), out idc);
+                                    } while (!success || idc < 99999999 || idc > 1000000000);
+                                    
                                     Console.WriteLine("Customer name:");
                                     nameC = Console.ReadLine();
-                                    Console.WriteLine("New phone number:");
-                                    phoneC = Console.ReadLine();
+                                    do
+                                    {
+                                        Console.WriteLine("New phone number:");
+                                        phoneC = Console.ReadLine();
+                                        numPhoneC = phoneC.Count();
+                                    } while (numPhoneC < 10);
                                     myBL.UpdateCustomerData(idc, nameC, phoneC);
                                     //try
                                     //{
@@ -325,8 +350,11 @@ namespace ConsoleUI_BL
                                     break;
                                 // Sending a skimmer for charging at a base station
                                 case UpdateOption.SendingSkimmerForCharging:
-                                    Console.WriteLine("enter ID of skimmers:");
-                                    ids = int.Parse(Console.ReadLine());
+                                    do
+                                    {
+                                        Console.WriteLine("enter ID of skimmers:");
+                                        success = int.TryParse(Console.ReadLine(), out ids);
+                                    } while (!success || ids < 99 || ids > 1000);
                                     myBL.SendingSkimmerForCharging(ids);
                                     //try
                                     //{
@@ -341,10 +369,16 @@ namespace ConsoleUI_BL
                                 // Release skimmer from charging
                                 case UpdateOption.ReleaseSkimmerFromCharging:
                                     double ChargingTime;
-                                    Console.WriteLine("enter ID of Skimmer:");
-                                    ids = int.Parse(Console.ReadLine());
-                                    Console.WriteLine("Charging time:");
-                                    ChargingTime = double.Parse(Console.ReadLine());
+                                    do
+                                    {
+                                        Console.WriteLine("enter ID of skimmers:");
+                                        success = int.TryParse(Console.ReadLine(), out ids);
+                                    } while (!success || ids < 99 || ids > 1000);
+                                    do
+                                    {
+                                        Console.WriteLine("Charging time:");
+                                        success = double.TryParse(Console.ReadLine(), out ChargingTime);
+                                    } while (!success || ChargingTime < 0);
                                     myBL.ReleaseSkimmerFromCharging(ids, ChargingTime);
                                     //try
                                     //{
@@ -358,8 +392,11 @@ namespace ConsoleUI_BL
 
                                 //Assigning a package to a skimmer
                                 case UpdateOption.AssigningPackageToSkimmer:
-                                    Console.WriteLine("enter ID of skimmers:");
-                                    ids = int.Parse(Console.ReadLine());
+                                    do
+                                    {
+                                        Console.WriteLine("enter ID of skimmers:");
+                                        success = int.TryParse(Console.ReadLine(), out ids);
+                                    } while (!success || ids < 99 || ids > 1000);
                                     myBL.AssigningPackageToSkimmer(ids);
                                     //try
                                     //{
@@ -372,8 +409,11 @@ namespace ConsoleUI_BL
                                     break;
                                 //Collecting a package by skimmer
                                 case UpdateOption.CollectingPackageBySkimmer:
-                                    Console.WriteLine("enter ID of skimmers:");
-                                    ids = int.Parse(Console.ReadLine());
+                                    do
+                                    {
+                                        Console.WriteLine("enter ID of skimmers:");
+                                        success = int.TryParse(Console.ReadLine(), out ids);
+                                    } while (!success || ids < 99 || ids > 1000);
                                     myBL.CollectingPackageBySkimmer(ids);
                                     //try
                                     //{
@@ -387,8 +427,11 @@ namespace ConsoleUI_BL
                                     break;
                                 //Delivery of a package by skimmer
                                 case UpdateOption.DeliveryOfPackageBySkimmer:
-                                    Console.WriteLine("enter ID of skimmers:");
-                                    ids = int.Parse(Console.ReadLine());
+                                    do
+                                    {
+                                        Console.WriteLine("enter ID of skimmers:");
+                                        success = int.TryParse(Console.ReadLine(), out ids);
+                                    } while (!success || ids < 99 || ids > 1000);
                                     myBL.DeliveryOfPackageBySkimmer(ids);
                                     //try
                                     //{
@@ -415,8 +458,11 @@ namespace ConsoleUI_BL
                                     break;
                                 case DisplayOptions.DisplayBaseStation:
                                     int IDb;
-                                    Console.WriteLine("enter ID of BaseStation:");
-                                    success = int.TryParse(Console.ReadLine(), out IDb);
+                                    do
+                                    {
+                                        Console.WriteLine("enter ID of BaseStation:");
+                                        success = int.TryParse(Console.ReadLine(), out IDb);
+                                    } while (!success || IDb < 999 || IDb > 10000);
                                     Console.WriteLine(myBL.GetBeseStation(IDb));
                                     //try
                                     //{
@@ -429,8 +475,11 @@ namespace ConsoleUI_BL
                                     break;
                                 case DisplayOptions.DisplaySkimmer:
                                     int IDq;
-                                    Console.WriteLine("enter ID of Skimmer:");
-                                    success = int.TryParse(Console.ReadLine(), out IDq);
+                                    do
+                                    {
+                                        Console.WriteLine("enter ID of Skimmer:");
+                                        success = int.TryParse(Console.ReadLine(), out IDq);
+                                    } while (!success || IDq < 99 || IDq > 1000);
                                     Console.WriteLine(myBL.GetSkimmer(IDq));
                                     //try
                                     //{
@@ -443,8 +492,11 @@ namespace ConsoleUI_BL
                                     break;
                                 case DisplayOptions.DisplayCustomer:
                                     int IDc;
-                                    Console.WriteLine("enter ID of Client:");
-                                    success = int.TryParse(Console.ReadLine(), out IDc);
+                                    do
+                                    {
+                                        Console.WriteLine("enter ID of Client:");
+                                        success = int.TryParse(Console.ReadLine(), out IDc);
+                                    } while (!success || IDc < 99999999 || IDc > 1000000000);
                                     Console.WriteLine(myBL.GetCustomer(IDc));
                                     //try
                                     //{
@@ -457,8 +509,11 @@ namespace ConsoleUI_BL
                                     break;
                                 case DisplayOptions.DisplayPackage:
                                     int IDp;
-                                    Console.WriteLine("enter ID of Package:");
-                                    success = int.TryParse(Console.ReadLine(), out IDp);
+                                    do
+                                    {
+                                        Console.WriteLine("enter ID of Package:");
+                                        success = int.TryParse(Console.ReadLine(), out IDp);
+                                    } while (!success || IDp < 1000);
                                     Console.WriteLine(myBL.GetPackage(IDp));
                                     //try
                                     //{
