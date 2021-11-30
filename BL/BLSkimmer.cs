@@ -248,10 +248,10 @@ namespace BL
              newSkimmer.BatteryStatus = r.Next(20, 41);
             // Joseph as being in maintenance
             newSkimmer.SkimmerStatus = IBL.BO.SkimmerStatuses.maintenance;
-            IBL.BO.BaseStation temp_BaseStation = GetBeseStation(station);
+            IBL.BO.BaseStation tempBaseStation = GetBeseStation(station);
             // The glider location will be the same as the station location
-            newSkimmer.Location = temp_BaseStation.Location;
-            Quadocopter temp_S = new Quadocopter
+            newSkimmer.Location = tempBaseStation.Location;
+            Quadocopter tempS = new Quadocopter
             {
                 IDNumber = newSkimmer.Id,
                 SkimmerModel = newSkimmer.SkimmerModel,
@@ -260,7 +260,7 @@ namespace BL
 
             try
             {
-                mayDal.AddSkimmer(temp_S);
+                mayDal.AddSkimmer(tempS);
             }
             catch (ExistsInSystemException exception)
             {
