@@ -90,16 +90,24 @@ namespace BL
                 if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.maintenance)
                 {
                     int counts = GetBaseStationList().Count();
-                    List<Location> B = new List<Location>();
+                    List<IDAL.DO.BaseStation> B = new List<IDAL.DO.BaseStation>();
                     foreach (IDAL.DO.BaseStation item1 in mayDal.GetBaseStationList())
                     {
-                        B.Add(new Location
+                        B.Add(new IDAL.DO.BaseStation
                         {
+                            UniqueID = item1.UniqueID,
+                            StationName = item1.StationName,
+                            SeveralPositionsArgument = item1.SeveralPositionsArgument,
                             Latitude = item1.Latitude,
                             Longitude = item1.Longitude
                         });
                     }
-                    updatedSkimmer.CurrentLocation = B[r.Next(counts)];
+                    IDAL.DO.BaseStation baseStation = B[r.Next(counts)];
+                    updatedSkimmer.CurrentLocation = new Location { Latitude = baseStation.Latitude, Longitude = baseStation.Longitude };
+                    baseStation.SeveralPositionsArgument = baseStation.SeveralPositionsArgument--;
+                    mayDal.UpadteB(baseStation);
+                    SkimmerLoading skimmerLoading = new SkimmerLoading { SkimmerID = updatedSkimmer.Id, StationID = baseStation.UniqueID };
+                    mayDal.AddSkimmerLoading(skimmerLoading);
                     updatedSkimmer.BatteryStatus = r.Next(21);
                 }
                 // If the skimmer is available

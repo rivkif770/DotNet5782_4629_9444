@@ -24,7 +24,6 @@ namespace IBL.BO
             result += $"List Of Skimmers Charge is:"; 
             foreach (SkimmerInCharging Item in ListOfSkimmersCharge)
             {
-                result +=$"{Item} ";
                 result += Item;
             }
             return result;
