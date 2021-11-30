@@ -90,14 +90,6 @@ namespace ConsoleUI_BL
                                         ListOfSkimmersCharge = new List<SkimmerInCharging>()
                                     };
                                     myBL.AddBaseStation(newBaseStation);
-                                    //try
-                                    //{
-                                    //    myBL.AddBaseStation(newBaseStation);
-                                    //}
-                                    //catch (ExistsInSystemExceptionBL Exception)
-                                    //{
-                                    //    Console.WriteLine(Exception.Message);
-                                    //}
                                     break;
                                 case InseitOption.AddSkimmer:
                                     int IDs;
@@ -133,15 +125,6 @@ namespace ConsoleUI_BL
                                         WeightCategory = (Weight)weight,
                                     };
                                     myBL.AddSkimmer(newSkimmer, station);
-                                    //try
-                                    //{
-                                    //    myBL.AddSkimmer(newSkimmer, station);
-                                    //}
-                                    //catch (ExistsInSystemExceptionBL exception)
-                                    //{
-                                    //    Console.WriteLine(exception.Message);
-                                    //}
-
                                     break;
                                 case InseitOption.AddCustomer:
 
@@ -185,14 +168,6 @@ namespace ConsoleUI_BL
                                         Location = new Location { Latitude = latitude, Longitude = longitude },
                                     };
                                     myBL.AddCustomer(newCustomer);
-                                    //try
-                                    //{
-                                    //    myBL.AddCustomer(newCustomer);
-                                    //}
-                                    //catch (ExistsInSystemExceptionBL exception)
-                                    //{
-                                    //    Console.WriteLine(exception);
-                                    //}
                                     break;
                                 case InseitOption.AddPackage:
 
@@ -239,14 +214,6 @@ namespace ConsoleUI_BL
                                         priority = (Priority)Priorities,
                                     };
                                     myBL.AddPackage(newPackage);
-                                    //try
-                                    //{
-                                    //    myBL.AddPackage(newPackage);
-                                    //}
-                                    //catch (ExistsInSystemExceptionBL exception)
-                                    //{
-                                    //    Console.WriteLine(exception);
-                                    //}
                                     break;
                             }
                             break;
@@ -278,14 +245,6 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Enter a new name:");
                                     nameS = Console.ReadLine();
                                     myBL.UpdateSkimmerName(ids, nameS);
-                                    //try
-                                    //{
-                                    //    myBL.UpdateSkimmerName(ids, nameS);
-                                    //}
-                                    //catch (IdDoesNotExistExceptionBL exception)
-                                    //{
-                                    //    Console.WriteLine(exception);
-                                    //}
                                     break;
                                 //Update station data
                                 case UpdateOption.UpdateBaseStation:
@@ -310,14 +269,6 @@ namespace ConsoleUI_BL
                                             success = int.TryParse(Console.ReadLine(), out NumberOfChargingStations1);
                                     } while (!success || NumberOfChargingStations != "" && NumberOfChargingStations1 <= 0);
                                     myBL.UpdateBaseStation(idb, nameB, NumberOfChargingStations);
-                                    //try
-                                    //{
-                                    //    myBL.UpdateBaseStation(idb, nameB, NumberOfChargingStations);
-                                    //}
-                                    //catch (IdDoesNotExistExceptionBL exception)
-                                    //{
-                                    //    Console.WriteLine(exception);
-                                    //}
                                     break;
                                 //Update customer data
                                 case UpdateOption.UpdateCustomerData:
@@ -338,15 +289,6 @@ namespace ConsoleUI_BL
                                         numPhoneC = phoneC.Count();
                                     } while (numPhoneC < 10);
                                     myBL.UpdateCustomerData(idc, nameC, phoneC);
-                                    //try
-                                    //{
-                                    //    myBL.UpdateCustomerData(idc, nameC, phoneC);
-                                    //}
-                                    //catch (IdDoesNotExistExceptionBL exception)
-                                    //{
-                                    //    Console.WriteLine(exception);
-                                    //    throw;
-                                    //}
                                     break;
                                 // Sending a skimmer for charging at a base station
                                 case UpdateOption.SendingSkimmerForCharging:
@@ -356,15 +298,6 @@ namespace ConsoleUI_BL
                                         success = int.TryParse(Console.ReadLine(), out ids);
                                     } while (!success || ids < 99 || ids > 1000);
                                     myBL.SendingSkimmerForCharging(ids);
-                                    //try
-                                    //{
-                                    //    myBL.SendingSkimmerForCharging(ids);
-                                    //}
-                                    //catch (IdDoesNotExistExceptionBL exception)
-                                    //{
-                                    //    Console.WriteLine(exception);
-                                    //    throw;
-                                    //}
                                     break;
                                 // Release skimmer from charging
                                 case UpdateOption.ReleaseSkimmerFromCharging:
@@ -380,16 +313,7 @@ namespace ConsoleUI_BL
                                         success = double.TryParse(Console.ReadLine(), out ChargingTime);
                                     } while (!success || ChargingTime < 0);
                                     myBL.ReleaseSkimmerFromCharging(ids, ChargingTime);
-                                    //try
-                                    //{
-                                    //    myBL.ReleaseSkimmerFromCharging(ids, ChargingTime);
-                                    //}
-                                    //catch (IdDoesNotExistExceptionBL exception)
-                                    //{
-                                    //    Console.WriteLine(exception);
-                                    //}
                                     break;
-
                                 //Assigning a package to a skimmer
                                 case UpdateOption.AssigningPackageToSkimmer:
                                     do
@@ -398,14 +322,6 @@ namespace ConsoleUI_BL
                                         success = int.TryParse(Console.ReadLine(), out ids);
                                     } while (!success || ids < 99 || ids > 1000);
                                     myBL.AssigningPackageToSkimmer(ids);
-                                    //try
-                                    //{
-                                    //    myBL.AssigningPackageToSkimmer(ids);
-                                    //}
-                                    //catch (Exception exception)
-                                    //{
-                                    //    Console.WriteLine(exception);
-                                    //}
                                     break;
                                 //Collecting a package by skimmer
                                 case UpdateOption.CollectingPackageBySkimmer:
@@ -414,16 +330,7 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("enter ID of skimmers:");
                                         success = int.TryParse(Console.ReadLine(), out ids);
                                     } while (!success || ids < 99 || ids > 1000);
-                                    myBL.CollectingPackageBySkimmer(ids);
-                                    //try
-                                    //{
-                                    //    myBL.CollectingPackageBySkimmer(ids);
-                                    //}
-                                    //catch (Exception exception)
-                                    //{
-                                    //    Console.WriteLine(exception);
-                                    //    throw;
-                                    //}
+                                    myBL.CollectingPackageBySkimmer(ids);                             
                                     break;
                                 //Delivery of a package by skimmer
                                 case UpdateOption.DeliveryOfPackageBySkimmer:
@@ -432,15 +339,7 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("enter ID of skimmers:");
                                         success = int.TryParse(Console.ReadLine(), out ids);
                                     } while (!success || ids < 99 || ids > 1000);
-                                    myBL.DeliveryOfPackageBySkimmer(ids);
-                                    //try
-                                    //{
-                                    //    myBL.DeliveryOfPackageBySkimmer(ids);
-                                    //}
-                                    //catch (Exception exception)
-                                    //{
-                                    //    Console.WriteLine(exception);
-                                    //}
+                                    myBL.DeliveryOfPackageBySkimmer(ids);                               
                                     break;
                             }
                             break;
@@ -464,14 +363,6 @@ namespace ConsoleUI_BL
                                         success = int.TryParse(Console.ReadLine(), out IDb);
                                     } while (!success || IDb < 999 || IDb > 10000);
                                     Console.WriteLine(myBL.GetBeseStation(IDb));
-                                    //try
-                                    //{
-                                    //    Console.WriteLine(myBL.GetBeseStation(IDb));
-                                    //}
-                                    //catch (IdDoesNotExistExceptionBL Exception)
-                                    //{
-                                    //    Console.WriteLine(Exception);
-                                    //}
                                     break;
                                 case DisplayOptions.DisplaySkimmer:
                                     int IDq;
@@ -480,15 +371,7 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("enter ID of Skimmer:");
                                         success = int.TryParse(Console.ReadLine(), out IDq);
                                     } while (!success || IDq < 99 || IDq > 1000);
-                                    Console.WriteLine(myBL.GetSkimmer(IDq));
-                                    //try
-                                    //{
-                                    //    Console.WriteLine(myBL.GetSkimmer(IDq));
-                                    //}
-                                    //catch (IdDoesNotExistExceptionBL Exception)
-                                    //{
-                                    //    Console.WriteLine(Exception);
-                                    //}
+                                    Console.WriteLine(myBL.GetSkimmer(IDq));                             
                                     break;
                                 case DisplayOptions.DisplayCustomer:
                                     int IDc;
@@ -498,14 +381,6 @@ namespace ConsoleUI_BL
                                         success = int.TryParse(Console.ReadLine(), out IDc);
                                     } while (!success || IDc < 99999999 || IDc > 1000000000);
                                     Console.WriteLine(myBL.GetCustomer(IDc));
-                                    //try
-                                    //{
-                                    //    Console.WriteLine(myBL.GetCustomer(IDc));
-                                    //}
-                                    //catch (IdDoesNotExistExceptionBL Exception)
-                                    //{
-                                    //    Console.WriteLine(Exception);
-                                    //}
                                     break;
                                 case DisplayOptions.DisplayPackage:
                                     int IDp;
@@ -515,14 +390,6 @@ namespace ConsoleUI_BL
                                         success = int.TryParse(Console.ReadLine(), out IDp);
                                     } while (!success || IDp < 1000);
                                     Console.WriteLine(myBL.GetPackage(IDp));
-                                    //try
-                                    //{
-                                    //    Console.WriteLine(myBL.GetPackage(IDp));
-                                    //}
-                                    //catch (IdDoesNotExistExceptionBL Exception)
-                                    //{
-                                    //    Console.WriteLine(Exception);
-                                    //}
                                     break;
                             }
                             break;
