@@ -189,6 +189,7 @@ namespace BL
                 }
                 int index = skimmersList.FindIndex(d => d.Id == skimmer.Id);
                 skimmersList[index].SkimmerStatus = SkimmerStatuses.shipping;
+                skimmersList[index].PackageNumberTransferred = package.ID; 
                 package.IDSkimmerOperation = skimmer.Id;
                 package.TimeAssignGlider = DateTime.Now;
                 mayDal.UpadteP(package);
@@ -229,7 +230,7 @@ namespace BL
             if (skimmer != null)
             {
                 IBL.BO.Package package = GetPackage(skimmer.PackageNumberTransferred);
-                Location locationGets = GetCustomer(id).Location;
+                Location locationGets = GetCustomer(package.ReceivesPackage.Id).Location;
                 //Only a skimmer that has collected but has not yet delivered the package will be able to deliver it
                 if (package.CollectionTime != null && package.SupplyTime == null)
                 {
@@ -239,7 +240,7 @@ namespace BL
                     skimmer.CurrentLocation = locationGets;
                     skimmer.SkimmerStatus = SkimmerStatuses.free;
                     IDAL.DO.Package package1 = mayDal.GetPackage(package.Id);
-                    package.SupplyTime = DateTime.Now;
+                    package1.TimeArrivalRecipient = DateTime.Now;
                     mayDal.UpadteP(package1);
                 }
                 else

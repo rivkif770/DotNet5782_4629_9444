@@ -31,435 +31,477 @@ namespace ConsoleUI_BL
             {
                 Console.WriteLine("welcome!" + "option:\n 0-Exit\n 1-Add\n 2-Update\n 3-Display\n 4-List View\n");
                 options = (Options)int.Parse(Console.ReadLine());
-                switch (options)
+                try
                 {
-                    case Options.Add:
-                        Console.WriteLine("adding option:\n" +
-                            " 0-Exit\n" +
-                            " 1- Add a base station to the list of stations\n" +
-                            " 2- Add a skimmer to the list of existing skimmers\n" +
-                            " 3- Admission of a new customer to the customer list\n" +
-                            " 4-Receipt of package for shipment\n");
-                        inseitOption = (InseitOption)int.Parse(Console.ReadLine());
-                        switch (inseitOption)
-                        {
-                            case InseitOption.Exit:
-                                return;
-                            case InseitOption.AddBaseStation:
+                    switch (options)
+                    {
+                        case Options.Add:
+                            Console.WriteLine("adding option:\n" +
+                                " 0-Exit\n" +
+                                " 1- Add a base station to the list of stations\n" +
+                                " 2- Add a skimmer to the list of existing skimmers\n" +
+                                " 3- Admission of a new customer to the customer list\n" +
+                                " 4-Receipt of package for shipment\n");
+                            inseitOption = (InseitOption)int.Parse(Console.ReadLine());
+                            switch (inseitOption)
+                            {
+                                case InseitOption.Exit:
+                                    return;
+                                case InseitOption.AddBaseStation:
 
-                                int IDb;
-                                Console.WriteLine("Station number:");
-                                int.TryParse(Console.ReadLine(), out IDb);
+                                    int IDb;
+                                    do
+                                    {
+                                        Console.WriteLine("Station number:");
+                                        success = int.TryParse(Console.ReadLine(), out IDb);
+                                    } while (!success || IDb < 999 || IDb > 10000);
 
-                                string name;
-                                Console.WriteLine("Station name:");
-                                name = (Console.ReadLine());
+                                    string name;
+                                    Console.WriteLine("Station name:");
+                                    name = (Console.ReadLine());
 
-                                double longitude, latitude;
-                                Console.WriteLine("Enter longitude:");
-                                double.TryParse(Console.ReadLine(), out longitude);
+                                    double longitude, latitude;
+                                    do
+                                    {
+                                        Console.WriteLine("Enter longitude:");
+                                        success = double.TryParse(Console.ReadLine(), out longitude);
+                                    } while (!success || longitude < -50 || longitude > 50);
 
-                                Console.WriteLine("Enter Latitude:");
-                                double.TryParse(Console.ReadLine(), out latitude);
+                                    do
+                                    {
+                                        Console.WriteLine("Enter Latitude:");
+                                        success = double.TryParse(Console.ReadLine(), out latitude);
+                                    } while (!success || latitude < -50 || latitude > 50);
 
-                                int num;
-                                Console.WriteLine("Number of charging stations:");
-                                int.TryParse(Console.ReadLine(), out num);
-                                IBL.BO.BaseStation newBaseStation = new IBL.BO.BaseStation
-                                {
-                                    Id = IDb,
-                                    Name = name,
-                                    Location = new Location { Latitude = latitude, Longitude = longitude },
-                                    SeveralClaimPositionsVacant = num,
+                                    int num;
+                                    do
+                                    {
+                                        Console.WriteLine("Number of charging stations:");
+                                        success = int.TryParse(Console.ReadLine(), out num);
+                                    } while (!success || num > 1000 || num < 0);
+;
+                                    IBL.BO.BaseStation newBaseStation = new IBL.BO.BaseStation
+                                    {
+                                        Id = IDb,
+                                        Name = name,
+                                        Location = new Location { Latitude = latitude, Longitude = longitude },
+                                        SeveralClaimPositionsVacant = num,
 
-                                    ListOfSkimmersCharge = new List<SkimmerInCharging>()
-                                };
-                                try
-                                {
+                                        ListOfSkimmersCharge = new List<SkimmerInCharging>()
+                                    };
                                     myBL.AddBaseStation(newBaseStation);
-                                }
-                                catch (ExistsInSystemExceptionBL Exception)
-                                {
-                                    Console.WriteLine(Exception.Message);
-                                }
-                                break;
-                            case InseitOption.AddSkimmer:
-                                int IDs;
-                                Console.WriteLine("Serial number of the manufacturer:");
-                                int.TryParse(Console.ReadLine(), out IDs);
+                                    //try
+                                    //{
+                                    //    myBL.AddBaseStation(newBaseStation);
+                                    //}
+                                    //catch (ExistsInSystemExceptionBL Exception)
+                                    //{
+                                    //    Console.WriteLine(Exception.Message);
+                                    //}
+                                    break;
+                                case InseitOption.AddSkimmer:
+                                    int IDs;
+                                    Console.WriteLine("Serial number of the manufacturer:");
+                                    int.TryParse(Console.ReadLine(), out IDs);
 
-                                string model;
-                                Console.WriteLine("Skimmer model:");
-                                model = (Console.ReadLine());
+                                    string model;
+                                    Console.WriteLine("Skimmer model:");
+                                    model = (Console.ReadLine());
 
-                                int weight;
-                                Console.WriteLine("Maximum weight: 0-low,1-middle,2-heavy:");
-                                int.TryParse(Console.ReadLine(), out weight);
+                                    int weight;
+                                    Console.WriteLine("Maximum weight: 0-low,1-middle,2-heavy:");
+                                    int.TryParse(Console.ReadLine(), out weight);
 
-                                int station;
-                                Console.WriteLine("Station number Put the skimmer in it for initial charging");
-                                int.TryParse(Console.ReadLine(), out station);
+                                    int station;
+                                    Console.WriteLine("Station number Put the skimmer in it for initial charging");
+                                    int.TryParse(Console.ReadLine(), out station);
 
-                                Skimmer newSkimmer = new Skimmer
-                                {
-                                    Id = IDs,
-                                    SkimmerModel = model,
-                                    WeightCategory = (Weight)weight,
-                                };
-                                
-                                try
-                                {
+                                    Skimmer newSkimmer = new Skimmer
+                                    {
+                                        Id = IDs,
+                                        SkimmerModel = model,
+                                        WeightCategory = (Weight)weight,
+                                    };
                                     myBL.AddSkimmer(newSkimmer, station);
-                                }
-                                catch (ExistsInSystemExceptionBL exception)
-                                {
-                                    Console.WriteLine(exception.Message);
-                                }
+                                    //try
+                                    //{
+                                    //    myBL.AddSkimmer(newSkimmer, station);
+                                    //}
+                                    //catch (ExistsInSystemExceptionBL exception)
+                                    //{
+                                    //    Console.WriteLine(exception.Message);
+                                    //}
 
-                                break;
-                            case InseitOption.AddCustomer:
+                                    break;
+                                case InseitOption.AddCustomer:
 
-                                int Idc;
-                                Console.WriteLine("Enter unique ID number:");
-                                int.TryParse(Console.ReadLine(), out Idc);
+                                    int Idc;
+                                    Console.WriteLine("Enter unique ID number:");
+                                    int.TryParse(Console.ReadLine(), out Idc);
 
-                                string Name;
-                                Console.WriteLine("Enter the customer's name:");
-                                Name = (Console.ReadLine());
+                                    string Name;
+                                    Console.WriteLine("Enter the customer's name:");
+                                    Name = (Console.ReadLine());
 
-                                string Phone;
-                                Console.WriteLine("Enter Phone Number:");
-                                Phone = (Console.ReadLine());
+                                    string Phone;
+                                    Console.WriteLine("Enter Phone Number:");
+                                    Phone = (Console.ReadLine());
 
-                                double Longitude;
-                                Console.WriteLine("Enter longitude:");
-                                double.TryParse(Console.ReadLine(), out Longitude);
+                                    double Longitude;
+                                    Console.WriteLine("Enter longitude:");
+                                    double.TryParse(Console.ReadLine(), out Longitude);
 
-                                double Latitude;
-                                Console.WriteLine("Enter Latitude:");
-                                double.TryParse(Console.ReadLine(), out Latitude);
-                                Customer newCustomer = new Customer
-                                {
-                                    Id = Idc,
-                                    Name = Name,
-                                    Phone = Phone,
-                                    Location = new Location { Latitude = Latitude, Longitude = Longitude },
-                                };
-                                                                
-                                try
-                                {
+                                    double Latitude;
+                                    Console.WriteLine("Enter Latitude:");
+                                    double.TryParse(Console.ReadLine(), out Latitude);
+                                    Customer newCustomer = new Customer
+                                    {
+                                        Id = Idc,
+                                        Name = Name,
+                                        Phone = Phone,
+                                        Location = new Location { Latitude = Latitude, Longitude = Longitude },
+                                    };
                                     myBL.AddCustomer(newCustomer);
-                                }
-                                catch (ExistsInSystemExceptionBL exception)
-                                {
-                                    Console.WriteLine(exception);
-                                }
-                                break;
-                            case InseitOption.AddPackage:
+                                    //try
+                                    //{
+                                    //    myBL.AddCustomer(newCustomer);
+                                    //}
+                                    //catch (ExistsInSystemExceptionBL exception)
+                                    //{
+                                    //    Console.WriteLine(exception);
+                                    //}
+                                    break;
+                                case InseitOption.AddPackage:
 
-                                int Idsc;
-                                Console.WriteLine("Enter Sending customer ID:");
-                                int.TryParse(Console.ReadLine(), out Idsc);
+                                    int Idsc;
+                                    Console.WriteLine("Enter Sending customer ID:");
+                                    int.TryParse(Console.ReadLine(), out Idsc);
 
-                                int Idgc;
-                                Console.WriteLine("Receiving customer ID:");
-                                int.TryParse(Console.ReadLine(), out Idgc);
+                                    int Idgc;
+                                    Console.WriteLine("Receiving customer ID:");
+                                    int.TryParse(Console.ReadLine(), out Idgc);
 
-                                int Weight;
-                                Console.WriteLine("Enter Weight category 0-low,1-middle,2-heavy:");
-                                int.TryParse(Console.ReadLine(), out Weight);
+                                    int Weight;
+                                    Console.WriteLine("Enter Weight category 0-low,1-middle,2-heavy:");
+                                    int.TryParse(Console.ReadLine(), out Weight);
 
-                                int Priorities;
-                                Console.WriteLine("Enter priority 0-regular,1-fast,2-emergency:");
-                                int.TryParse(Console.ReadLine(), out Priorities);
-                                IBL.BO.Package newPackage = new IBL.BO.Package
-                                {
-
-                                    SendPackage = new CustomerInParcel
+                                    int Priorities;
+                                    Console.WriteLine("Enter priority 0-regular,1-fast,2-emergency:");
+                                    int.TryParse(Console.ReadLine(), out Priorities);
+                                    IBL.BO.Package newPackage = new IBL.BO.Package
                                     {
-                                        Id = Idsc
-                                    },
-                                    ReceivesPackage = new CustomerInParcel
-                                    {
-                                        Id = Idgc
-                                    },
-                                    WeightCategory = (Weight)Weight,
-                                    priority = (Priority)Priorities,
-                                };
-  
-                                try
-                                {
+
+                                        SendPackage = new CustomerInParcel
+                                        {
+                                            Id = Idsc
+                                        },
+                                        ReceivesPackage = new CustomerInParcel
+                                        {
+                                            Id = Idgc
+                                        },
+                                        WeightCategory = (Weight)Weight,
+                                        priority = (Priority)Priorities,
+                                    };
                                     myBL.AddPackage(newPackage);
-                                }
-                                catch (ExistsInSystemExceptionBL exception)
-                                {
-                                    Console.WriteLine(exception);
-                                }
-                                break;
-                        }
-                        break;
-                    case Options.Update:
-                        Console.WriteLine("adding option:\n" +
-                            " 0-Exit\n" +
-                            " 1-Updated skimmer name\n" +
-                            " 2-Update station data\n" +
-                            " 3-Update customer data\n" +
-                            " 4-Sending a skimmer for charging at a base station\n" +
-                            " 5-Release skimmer from charging\n" +
-                            " 6-Assigning a package to a skimmer\n" +
-                            " 7-Collecting a package by skimmer\n" +
-                            " 8-Delivery of a package by skimmer\n");
-                        updateOption = (UpdateOption)int.Parse(Console.ReadLine());
-                        switch (updateOption)
-                        {
-                            case UpdateOption.Exit:
-                                return;
-                            //Update skimmer name
-                            case UpdateOption.UpdateSkimmerName:
-                                int ids;
-                                string nameS;
-                                Console.WriteLine("enter ID of skimmer:");
-                                ids = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter a new name:");
-                                nameS = Console.ReadLine();
-                                try
-                                {
+                                    //try
+                                    //{
+                                    //    myBL.AddPackage(newPackage);
+                                    //}
+                                    //catch (ExistsInSystemExceptionBL exception)
+                                    //{
+                                    //    Console.WriteLine(exception);
+                                    //}
+                                    break;
+                            }
+                            break;
+                        case Options.Update:
+                            Console.WriteLine("adding option:\n" +
+                                " 0-Exit\n" +
+                                " 1-Updated skimmer name\n" +
+                                " 2-Update station data\n" +
+                                " 3-Update customer data\n" +
+                                " 4-Sending a skimmer for charging at a base station\n" +
+                                " 5-Release skimmer from charging\n" +
+                                " 6-Assigning a package to a skimmer\n" +
+                                " 7-Collecting a package by skimmer\n" +
+                                " 8-Delivery of a package by skimmer\n");
+                            updateOption = (UpdateOption)int.Parse(Console.ReadLine());
+                            switch (updateOption)
+                            {
+                                case UpdateOption.Exit:
+                                    return;
+                                //Update skimmer name
+                                case UpdateOption.UpdateSkimmerName:
+                                    int ids;
+                                    string nameS;
+                                    Console.WriteLine("enter ID of skimmer:");
+                                    ids = int.Parse(Console.ReadLine());
+                                    Console.WriteLine("Enter a new name:");
+                                    nameS = Console.ReadLine();
                                     myBL.UpdateSkimmerName(ids, nameS);
-                                }
-                                catch (IdDoesNotExistExceptionBL exception)
-                                {
-                                    Console.WriteLine(exception);
-                                }
-                                break;
-                            //Update station data
-                            case UpdateOption.UpdateBaseStation:
-                                string nameB, NumberOfChargingStations;
-                                Console.WriteLine("enter ID of BaseStation:");
-                                int idb = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Station name:");
-                                nameB = Console.ReadLine();
-                                Console.WriteLine("Total amount of charging stations:");
-                                NumberOfChargingStations = Console.ReadLine();
-                                try
-                                {
+                                    //try
+                                    //{
+                                    //    myBL.UpdateSkimmerName(ids, nameS);
+                                    //}
+                                    //catch (IdDoesNotExistExceptionBL exception)
+                                    //{
+                                    //    Console.WriteLine(exception);
+                                    //}
+                                    break;
+                                //Update station data
+                                case UpdateOption.UpdateBaseStation:
+                                    string nameB, NumberOfChargingStations;
+                                    Console.WriteLine("enter ID of BaseStation:");
+                                    int idb = int.Parse(Console.ReadLine());
+                                    Console.WriteLine("Station name:");
+                                    nameB = Console.ReadLine();
+                                    Console.WriteLine("Total amount of charging stations:");
+                                    NumberOfChargingStations = Console.ReadLine();
                                     myBL.UpdateBaseStation(idb, nameB, NumberOfChargingStations);
-                                }
-                                catch (IdDoesNotExistExceptionBL exception)
-                                {
-                                    Console.WriteLine(exception);
-                                }
-                                break;
-                            //Update customer data
-                            case UpdateOption.UpdateCustomerData:
-                                string nameC, phoneC;
-                                Console.WriteLine("enter ID of Customer:");
-                                int idc = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Customer name:");
-                                nameC = Console.ReadLine();
-                                Console.WriteLine("New phone number:");
-                                phoneC = Console.ReadLine();
-                                try
-                                {
+                                    //try
+                                    //{
+                                    //    myBL.UpdateBaseStation(idb, nameB, NumberOfChargingStations);
+                                    //}
+                                    //catch (IdDoesNotExistExceptionBL exception)
+                                    //{
+                                    //    Console.WriteLine(exception);
+                                    //}
+                                    break;
+                                //Update customer data
+                                case UpdateOption.UpdateCustomerData:
+                                    string nameC, phoneC;
+                                    Console.WriteLine("enter ID of Customer:");
+                                    int idc = int.Parse(Console.ReadLine());
+                                    Console.WriteLine("Customer name:");
+                                    nameC = Console.ReadLine();
+                                    Console.WriteLine("New phone number:");
+                                    phoneC = Console.ReadLine();
                                     myBL.UpdateCustomerData(idc, nameC, phoneC);
-                                }
-                                catch (IdDoesNotExistExceptionBL exception)
-                                {
-                                    Console.WriteLine(exception);
-                                    throw;
-                                }
-                                break;
-                            // Sending a skimmer for charging at a base station
-                            case UpdateOption.SendingSkimmerForCharging:
-                                Console.WriteLine("enter ID of skimmers:");
-                                ids = int.Parse(Console.ReadLine());
-                                try
-                                {
+                                    //try
+                                    //{
+                                    //    myBL.UpdateCustomerData(idc, nameC, phoneC);
+                                    //}
+                                    //catch (IdDoesNotExistExceptionBL exception)
+                                    //{
+                                    //    Console.WriteLine(exception);
+                                    //    throw;
+                                    //}
+                                    break;
+                                // Sending a skimmer for charging at a base station
+                                case UpdateOption.SendingSkimmerForCharging:
+                                    Console.WriteLine("enter ID of skimmers:");
+                                    ids = int.Parse(Console.ReadLine());
                                     myBL.SendingSkimmerForCharging(ids);
-                                }
-                                catch (IdDoesNotExistExceptionBL exception)
-                                {
-                                    Console.WriteLine(exception);
-                                    throw;
-                                }
-                                break;
-                            // Release skimmer from charging
-                            case UpdateOption.ReleaseSkimmerFromCharging:
-                                double ChargingTime;
-                                Console.WriteLine("enter ID of Skimmer:");
-                                ids = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Charging time:");
-                                ChargingTime = double.Parse(Console.ReadLine());
-                                try
-                                {
+                                    //try
+                                    //{
+                                    //    myBL.SendingSkimmerForCharging(ids);
+                                    //}
+                                    //catch (IdDoesNotExistExceptionBL exception)
+                                    //{
+                                    //    Console.WriteLine(exception);
+                                    //    throw;
+                                    //}
+                                    break;
+                                // Release skimmer from charging
+                                case UpdateOption.ReleaseSkimmerFromCharging:
+                                    double ChargingTime;
+                                    Console.WriteLine("enter ID of Skimmer:");
+                                    ids = int.Parse(Console.ReadLine());
+                                    Console.WriteLine("Charging time:");
+                                    ChargingTime = double.Parse(Console.ReadLine());
                                     myBL.ReleaseSkimmerFromCharging(ids, ChargingTime);
-                                }
-                                catch (IdDoesNotExistExceptionBL exception)
-                                {
-                                    Console.WriteLine(exception);
-                                }
-                                break;
+                                    //try
+                                    //{
+                                    //    myBL.ReleaseSkimmerFromCharging(ids, ChargingTime);
+                                    //}
+                                    //catch (IdDoesNotExistExceptionBL exception)
+                                    //{
+                                    //    Console.WriteLine(exception);
+                                    //}
+                                    break;
 
-                            //Assigning a package to a skimmer
-                            case UpdateOption.AssigningPackageToSkimmer:
-                                Console.WriteLine("enter ID of skimmers:");
-                                ids = int.Parse(Console.ReadLine());
-                                try
-                                {
+                                //Assigning a package to a skimmer
+                                case UpdateOption.AssigningPackageToSkimmer:
+                                    Console.WriteLine("enter ID of skimmers:");
+                                    ids = int.Parse(Console.ReadLine());
                                     myBL.AssigningPackageToSkimmer(ids);
-                                }
-                                catch (Exception exception)
-                                {
-                                    Console.WriteLine(exception);
-                                }
-                                break;
-                            //Collecting a package by skimmer
-                            case UpdateOption.CollectingPackageBySkimmer:
-                                Console.WriteLine("enter ID of skimmers:");
-                                ids = int.Parse(Console.ReadLine());
-                                try
-                                {
+                                    //try
+                                    //{
+                                    //    myBL.AssigningPackageToSkimmer(ids);
+                                    //}
+                                    //catch (Exception exception)
+                                    //{
+                                    //    Console.WriteLine(exception);
+                                    //}
+                                    break;
+                                //Collecting a package by skimmer
+                                case UpdateOption.CollectingPackageBySkimmer:
+                                    Console.WriteLine("enter ID of skimmers:");
+                                    ids = int.Parse(Console.ReadLine());
                                     myBL.CollectingPackageBySkimmer(ids);
-                                }
-                                catch (Exception exception)
-                                {
-                                    Console.WriteLine(exception);
-                                    throw;
-                                }
-                                break;
-                            //Delivery of a package by skimmer
-                            case UpdateOption.DeliveryOfPackageBySkimmer:
-                                Console.WriteLine("enter ID of skimmers:");
-                                ids = int.Parse(Console.ReadLine());
-                                try
-                                {
+                                    //try
+                                    //{
+                                    //    myBL.CollectingPackageBySkimmer(ids);
+                                    //}
+                                    //catch (Exception exception)
+                                    //{
+                                    //    Console.WriteLine(exception);
+                                    //    throw;
+                                    //}
+                                    break;
+                                //Delivery of a package by skimmer
+                                case UpdateOption.DeliveryOfPackageBySkimmer:
+                                    Console.WriteLine("enter ID of skimmers:");
+                                    ids = int.Parse(Console.ReadLine());
                                     myBL.DeliveryOfPackageBySkimmer(ids);
-                                }
-                                catch (Exception exception)
-                                {
-                                    Console.WriteLine(exception);
-                                }
-                                break;
-                        }
-                        break;
-                    case Options.Display:
-                        Console.WriteLine("adding option:\n" +
-                            " 0-Exit\n" +
-                            " 1-Base Station View\n" +
-                            " 2-Skimmer display\n" +
-                            " 3-Customer view\n" +
-                            " 4-Package view\n");
-                        displayOptions = (DisplayOptions)int.Parse(Console.ReadLine());
-                        switch (displayOptions)
-                        {
-                            case DisplayOptions.Exit:
-                                return;
-                            case DisplayOptions.DisplayBaseStation:
-                                int IDb;
-                                Console.WriteLine("enter ID of BaseStation:");
-                                success = int.TryParse(Console.ReadLine(), out IDb);
-                                try
-                                {
-                                    Console.WriteLine( myBL.GetBeseStation(IDb));
-                                }
-                                catch (IdDoesNotExistExceptionBL Exception)
-                                {
-                                    Console.WriteLine(Exception);
-                                }
-                                break;
-                            case DisplayOptions.DisplaySkimmer:
-                                int IDq;
-                                 Console.WriteLine("enter ID of Skimmer:");
-                                 success = int.TryParse(Console.ReadLine(), out IDq);
-                                try
-                                {
+                                    //try
+                                    //{
+                                    //    myBL.DeliveryOfPackageBySkimmer(ids);
+                                    //}
+                                    //catch (Exception exception)
+                                    //{
+                                    //    Console.WriteLine(exception);
+                                    //}
+                                    break;
+                            }
+                            break;
+                        case Options.Display:
+                            Console.WriteLine("adding option:\n" +
+                                " 0-Exit\n" +
+                                " 1-Base Station View\n" +
+                                " 2-Skimmer display\n" +
+                                " 3-Customer view\n" +
+                                " 4-Package view\n");
+                            displayOptions = (DisplayOptions)int.Parse(Console.ReadLine());
+                            switch (displayOptions)
+                            {
+                                case DisplayOptions.Exit:
+                                    return;
+                                case DisplayOptions.DisplayBaseStation:
+                                    int IDb;
+                                    Console.WriteLine("enter ID of BaseStation:");
+                                    success = int.TryParse(Console.ReadLine(), out IDb);
+                                    Console.WriteLine(myBL.GetBeseStation(IDb));
+                                    //try
+                                    //{
+                                    //    Console.WriteLine(myBL.GetBeseStation(IDb));
+                                    //}
+                                    //catch (IdDoesNotExistExceptionBL Exception)
+                                    //{
+                                    //    Console.WriteLine(Exception);
+                                    //}
+                                    break;
+                                case DisplayOptions.DisplaySkimmer:
+                                    int IDq;
+                                    Console.WriteLine("enter ID of Skimmer:");
+                                    success = int.TryParse(Console.ReadLine(), out IDq);
                                     Console.WriteLine(myBL.GetSkimmer(IDq));
-                                }
-                                catch (IdDoesNotExistExceptionBL Exception)
-                                {
-                                    Console.WriteLine(Exception);
-                                }
-                                break;
-                            case DisplayOptions.DisplayCustomer:
-                                int IDc;
-                                Console.WriteLine("enter ID of Client:");
-                                success = int.TryParse(Console.ReadLine(), out IDc);
-                                try
-                                {
+                                    //try
+                                    //{
+                                    //    Console.WriteLine(myBL.GetSkimmer(IDq));
+                                    //}
+                                    //catch (IdDoesNotExistExceptionBL Exception)
+                                    //{
+                                    //    Console.WriteLine(Exception);
+                                    //}
+                                    break;
+                                case DisplayOptions.DisplayCustomer:
+                                    int IDc;
+                                    Console.WriteLine("enter ID of Client:");
+                                    success = int.TryParse(Console.ReadLine(), out IDc);
                                     Console.WriteLine(myBL.GetCustomer(IDc));
-                                }
-                                catch (IdDoesNotExistExceptionBL Exception)
-                                {
-                                    Console.WriteLine(Exception);
-                                }
-                                break;
-                            case DisplayOptions.DisplayPackage:
-                                int IDp;
-                                Console.WriteLine("enter ID of Package:");
-                                success = int.TryParse(Console.ReadLine(), out IDp);
-                                try
-                                {
+                                    //try
+                                    //{
+                                    //    Console.WriteLine(myBL.GetCustomer(IDc));
+                                    //}
+                                    //catch (IdDoesNotExistExceptionBL Exception)
+                                    //{
+                                    //    Console.WriteLine(Exception);
+                                    //}
+                                    break;
+                                case DisplayOptions.DisplayPackage:
+                                    int IDp;
+                                    Console.WriteLine("enter ID of Package:");
+                                    success = int.TryParse(Console.ReadLine(), out IDp);
                                     Console.WriteLine(myBL.GetPackage(IDp));
-                                }
-                                catch (IdDoesNotExistExceptionBL Exception)
-                                {
-                                    Console.WriteLine(Exception);
-                                }
-                                break;
-                        }
-                        break;
-                    case Options.ViewTheLists:
-                        Console.WriteLine("adding option:\n" +
-                            " 0-Exit\n" +
-                            " 1-Displays a list of base stations\n" +
-                            " 2-Displays the list of skimmers\n" +
-                            " 3-View customer list\n" +
-                            " 4-Displays the list of packages\n" +
-                            " 5-Displays a list of packages not yet associated with the glider\n" +
-                            " 6-Display of base stations with available charging stations");
-                        optionsListView = (OptionsListView)int.Parse(Console.ReadLine());
-                        switch (optionsListView)
-                        {
-                            case OptionsListView.Exit:
-                                return;
-                            case OptionsListView.ViewBaseStation:
-                                foreach (BaseStationToList item in myBL.GetBaseStationList())
-                                {
-                                    Console.WriteLine(item);
-                                }
-                                break;
-                            case OptionsListView.ViewSkimmer:
-                                foreach (SkimmerToList item in myBL.GetSkimmerList())
-                                {
-                                    Console.WriteLine(item);
-                                }
-                                break;
-                            case OptionsListView.ViewCustomer:
-                                foreach (CustomerToList item in myBL.GetCustomerList())
-                                {
-                                    Console.WriteLine(item);
-                                }
-                                break;
-                            case OptionsListView.ViewPackage:
-                                foreach (PackageToList item in myBL.GetPackageList())
-                                {
-                                    Console.WriteLine(item);
-                                }
-                                break;
-                            case OptionsListView.ViewUnassignedPackages:
-                                foreach (var item in myBL.GetPackagesWithoutSkimmer())
-                                {
-                                    Console.WriteLine(item);
-                                }
-                                break;
-                            case OptionsListView.ViewFreeBaseStation:
-                                foreach (var item in myBL.GetBaseStationFreeCharging())
-                                {
-                                    Console.WriteLine(item);
-                                }
-                                break;
-                        }
-                        break;
+                                    //try
+                                    //{
+                                    //    Console.WriteLine(myBL.GetPackage(IDp));
+                                    //}
+                                    //catch (IdDoesNotExistExceptionBL Exception)
+                                    //{
+                                    //    Console.WriteLine(Exception);
+                                    //}
+                                    break;
+                            }
+                            break;
+                        case Options.ViewTheLists:
+                            Console.WriteLine("adding option:\n" +
+                                " 0-Exit\n" +
+                                " 1-Displays a list of base stations\n" +
+                                " 2-Displays the list of skimmers\n" +
+                                " 3-View customer list\n" +
+                                " 4-Displays the list of packages\n" +
+                                " 5-Displays a list of packages not yet associated with the glider\n" +
+                                " 6-Display of base stations with available charging stations");
+                            optionsListView = (OptionsListView)int.Parse(Console.ReadLine());
+                            switch (optionsListView)
+                            {
+                                case OptionsListView.Exit:
+                                    return;
+                                case OptionsListView.ViewBaseStation:
+                                    foreach (BaseStationToList item in myBL.GetBaseStationList())
+                                    {
+                                        Console.WriteLine(item);
+                                    }
+                                    break;
+                                case OptionsListView.ViewSkimmer:
+                                    foreach (SkimmerToList item in myBL.GetSkimmerList())
+                                    {
+                                        Console.WriteLine(item);
+                                    }
+                                    break;
+                                case OptionsListView.ViewCustomer:
+                                    foreach (CustomerToList item in myBL.GetCustomerList())
+                                    {
+                                        Console.WriteLine(item);
+                                    }
+                                    break;
+                                case OptionsListView.ViewPackage:
+                                    foreach (PackageToList item in myBL.GetPackageList())
+                                    {
+                                        Console.WriteLine(item);
+                                    }
+                                    break;
+                                case OptionsListView.ViewUnassignedPackages:
+                                    foreach (var item in myBL.GetPackagesWithoutSkimmer())
+                                    {
+                                        Console.WriteLine(item);
+                                    }
+                                    break;
+                                case OptionsListView.ViewFreeBaseStation:
+                                    foreach (var item in myBL.GetBaseStationFreeCharging())
+                                    {
+                                        Console.WriteLine(item);
+                                    }
+                                    break;
+                            }
+                            break;
+                    }
                 }
+                catch (SkimmerExceptionBL Exception)
+                {
+                    Console.WriteLine(Exception.Message);
+                }
+                catch (ExistsInSystemExceptionBL Exception)
+                {
+                    Console.WriteLine(Exception.Message);
+                }
+                catch (IdDoesNotExistExceptionBL Exception)
+                {
+                    Console.WriteLine(Exception.Message);
+                }
+
             }
             while (options != 0);
         }
