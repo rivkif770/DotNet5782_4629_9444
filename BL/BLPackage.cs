@@ -23,9 +23,6 @@ namespace BL
                 Weight = (WeightCategories)newPackage.WeightCategory,
                 priority = (Priorities)newPackage.priority,
                 PackageCreationTime = DateTime.Now,
-                TimeAssignGlider = new DateTime(0, 0, 0),
-                PackageCollectionTime = new DateTime(0, 0, 0),
-                TimeArrivalRecipient = new DateTime(0, 0, 0),
                 IDSkimmerOperation = 0,
             };
             try
