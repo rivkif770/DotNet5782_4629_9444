@@ -36,11 +36,13 @@ namespace DalObject
             }
             return DataSource.ListClient.Find(c => c.ID == IDc);
         }
-        public IEnumerable<Client> GetClientList()//Displays a list of Client
+        public IEnumerable<Client> GetClientList(Func<Client, bool> predicate = null)//Displays a list of Client
         {
-            //return DataSource.ListClient.ToList();
-            return DataSource.ListClient.Take(DataSource.ListClient.Count).ToList();
+            if (predicate == null)
+                return DataSource.ListClient.Take(DataSource.ListClient.Count).ToList();
+            return DataSource.ListClient.Where(predicate).ToList();
         }
+        
         public void DeleteClient(int IDc)//Adding a customer
         {
             if (!DataSource.ListClient.Exists(item => item.ID == IDc))//If finds an existing Customer throws an error.

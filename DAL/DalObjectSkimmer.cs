@@ -44,12 +44,13 @@ namespace DalObject
             }
             return DataSource.ListQuadocopter.FirstOrDefault(q => q.IDNumber == IDq);
         }
-        public IEnumerable<Quadocopter> GetQuadocopterList()//Displays a list of Skimmer
+        public IEnumerable<Quadocopter> GetQuadocopterList(Func<Quadocopter, bool> predicate = null)//Displays a list of Skimmer
         {
-            return DataSource.ListQuadocopter.Take(DataSource.ListQuadocopter.Count).ToList();
+            if (predicate == null)
+                return DataSource.ListQuadocopter.Take(DataSource.ListQuadocopter.Count).ToList();
+            return DataSource.ListQuadocopter.Where(predicate).ToList();      
         }
-        
-        
+
         public void AddSkimmerLoading(SkimmerLoading SL)//added a skimmer
         {
             if (DataSource.ListSkimmerLoading.Exists(item => item.SkimmerID == SL.SkimmerID))//If finds an existing Skimmer throws an error.

@@ -5,15 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="תרגיל 3" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Button x:Name="btnShowListDrones" Content="Show List drones" FontSize="22"
-                HorizontalAlignment="Stretch" Margin="80" VerticalAlignment="Stretch" Click="btnShowListDrones_Click"/>
-        <Button x:Name="btnAddDrone" Content="add" Grid.Column="1" HorizontalAlignment="Left" Margin="122,123,0,0" VerticalAlignment="Top" Height="176" Width="183" Click="btnAddDrone_Click"/>
+        Title="תרגיל 3" Height="500" Width="800">
+    <Grid Name="MainGrid">
+        <StackPanel>
+            <Button x:Name="btnAddSkimmer" Content="add a skimmer" Margin="5" />
+            <Button x:Name="btSkimmerListView" Content="Show List skimmer" Margin="5,20,5,5" Click="btSkimmerListView_Click"/>
+        </StackPanel>
+        
+        
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="443*"/>
+            <ColumnDefinition Width="357*"/>
+        </Grid.ColumnDefinitions>-->
+
+
+        
+        <!--</Grid>-->
+        <!--<ListView x:Name="SkimmerListView" SelectionChanged="SkimmerListView_SelectionChanged" Grid.ColumnSpan="2" Margin="0,69,0,0" Grid.RowSpan="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>-->
+
+        <!--<Button x:Name="btnShowListSkimmer" Content="Show List skimmer" FontSize="22" Margin="80,21,80,534" Click="btnShowListSkimmer_Click" Grid.Row="1" Grid.ColumnSpan="2">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.678"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>-->
+        <!--<Button x:Name="btnShowListSkimmer" Content="Show List skimmer" HorizontalAlignment="Left" Margin="123,54,0,0" VerticalAlignment="Top" Height="91" Width="95" Click="btnShowListSkimmer_Click" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
+        <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.678"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>-->
 
     </Grid>
 </Window>
