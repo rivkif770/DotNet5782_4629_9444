@@ -220,7 +220,7 @@ namespace ConsoleUI
                                 Console.WriteLine("enter ID of skimmers:");
                                 id = int.Parse(Console.ReadLine());
                                 Console.WriteLine("Select a base station from the displayed stations and enter its ID number:");
-                                foreach (var item in mydal.BaseStationFreeCharging())
+                                foreach (var item in mydal.GetBaseStationList(x => x.SeveralPositionsArgument != 0))
                                 {
                                     Console.WriteLine(item);
                                 }
@@ -376,13 +376,13 @@ namespace ConsoleUI
                                 }
                                 break;
                             case OptionsListView.ViewUnassignedPackages:
-                                foreach (var item in mydal.PackagesWithoutSkimmer())
+                                foreach (var item in mydal.GetPackageList(x => x.IDSkimmerOperation == 0))
                                 {
                                     Console.WriteLine(item);
                                 } 
                                 break;
                             case OptionsListView.ViewFreeBaseStation:
-                                foreach (var item in mydal.BaseStationFreeCharging())
+                                foreach (var item in mydal.GetBaseStationList(x => x.SeveralPositionsArgument != 0))
                                 {
                                     Console.WriteLine(item);
                                 }

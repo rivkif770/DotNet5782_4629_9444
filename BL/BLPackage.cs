@@ -295,25 +295,23 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<PackageToList> GetPackagesWithoutSkimmer()
         {
-            List<PackageToList> packageToList = new List<PackageToList>();
-            foreach (IDAL.DO.Package item in mayDal.GetPackageList())
+            IEnumerable<IDAL.DO.Package> packageFromDal = mayDal.GetPackageList(x => x.TimeAssignGlider == null);
+            List<IBL.BO.PackageToList> result = new List<IBL.BO.PackageToList>();
+            foreach (var item in packageFromDal)
             {
                 IBL.BO.Package package1 = GetPackage(item.ID);
-                if(package1.AssignmentTime==null)
+                result.Add(new PackageToList
                 {
-                    PackageToList package = new PackageToList
-                    {
-                        Id = item.ID,
-                        CustomerNameSends = package1.SendPackage.Name,
-                        CustomerNameGets = package1.ReceivesPackage.Name,
-                        WeightCategory = package1.WeightCategory,
-                        priority = package1.priority,
-                        PackageMode = (ParcelStatus)PackageMode(package1),
-                    };
-                    packageToList.Add(package);
-                }               
+                    Id = item.ID,
+                    CustomerNameSends = package1.SendPackage.Name,
+                    CustomerNameGets = package1.ReceivesPackage.Name,
+                    WeightCategory = package1.WeightCategory,
+                    priority = package1.priority,
+                    PackageMode = (ParcelStatus)PackageMode(package1),
+                });
+
             }
-            return packageToList.Take(packageToList.Count).ToList();
+            return result;
         }
     }
 }

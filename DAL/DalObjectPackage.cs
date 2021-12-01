@@ -37,22 +37,11 @@ namespace DalObject
             }
             return DataSource.ListPackage.FirstOrDefault(p => p.ID == idp);
         }
-        public IEnumerable<Package> GetPackageList()//Displays a list of Package
+        public IEnumerable<Package> GetPackageList(Func<Package, bool> predicate = null)//Displays a list of Package
         {
-            //return DataSource.ListPackage.ToList();
-            return DataSource.ListPackage.Take(DataSource.ListPackage.Count).ToList();
-        }
-        public IEnumerable<Package> PackagesWithoutSkimmer()//Displays a list of Packages not yet associated with the glider
-        {
-            List<Package> result = new List<Package>();
-            for (int i = 0; i < DataSource.ListPackage.Count; i++)
-            {
-                if (DataSource.ListPackage[i].IDSkimmerOperation == 0)
-                {
-                    result.Add(DataSource.ListPackage[i]);
-                }
-            }
-            return result.Take(result.Count).ToList();
+            if (predicate == null)
+                return DataSource.ListPackage.Take(DataSource.ListPackage.Count).ToList();
+            return DataSource.ListPackage.Where(predicate).ToList();
         }
         public void DeletePackage(int IDp)//Add a package
         {

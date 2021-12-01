@@ -15,7 +15,6 @@ namespace IDAL.DO
         void AddBaseStation(BaseStation b);
         BaseStation GetBaseStation(int IDb);
         IEnumerable<BaseStation> GetBaseStationList(Func<BaseStation,bool> predicate =  null);
-       // IEnumerable<BaseStation> BaseStationFreeCharging();
         public void DeleteBaseStation(int idb);
 
         void UpadteC(Client c);
@@ -27,8 +26,7 @@ namespace IDAL.DO
         void UpadteP(Package p);
         void AddPackage(Package p);
         Package GetPackage(int idp);
-        IEnumerable<Package> GetPackageList();
-        IEnumerable<Package> PackagesWithoutSkimmer();
+        IEnumerable<Package> GetPackageList(Func<Package, bool> predicate = null);
         public void DeletePackage(int id);
 
         void UpadteQ(Quadocopter qc);

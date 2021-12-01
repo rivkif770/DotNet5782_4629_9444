@@ -132,7 +132,6 @@ namespace BL
         {
             IEnumerable<IDAL.DO.BaseStation> dalList = mayDal.GetBaseStationList(x => x.SeveralPositionsArgument != 0);
             List<IBL.BO.BaseStationToList> result = new List<IBL.BO.BaseStationToList>();
-
             foreach (var item in dalList)
             {
                 result.Add(new BaseStationToList
@@ -144,27 +143,7 @@ namespace BL
                 });
 
             }
-
             return result;
-
-            //List<BaseStationToList> baseStationToLists = new List<BaseStationToList>();
-            //foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
-            //{
-            //    /// Go through the entire list of base stations and put a new list of stations with free charging stations
-            //    IBL.BO.BaseStation station1 = GetBeseStation(item.UniqueID);
-            //    if(station1.SeveralClaimPositionsVacant!=0)
-            //    {
-            //        BaseStationToList station = new BaseStationToList
-            //        {
-            //            Id = item.UniqueID,
-            //            StationName = item.StationName,
-            //            FreeChargingstations = item.SeveralPositionsArgument,
-            //            CatchChargingstations = GetBeseStation(item.UniqueID).ListOfSkimmersCharge.Count()
-            //        };
-            //        baseStationToLists.Add(station);
-            //    }             
-            //}
-            //return baseStationToLists.Take(baseStationToLists.Count).ToList();
         }
     }
 }
