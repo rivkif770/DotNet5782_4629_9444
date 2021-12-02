@@ -37,6 +37,12 @@ namespace PL
             this.SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.SkimmerStatus == status);
         }
 
+        private void SkimmerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.txtTBD.Text = "All skimmers";
+            this.SkimmerListView.ItemsSource = bL.GetSkimmerList();
+        }
+
         //private void comboStatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{
         //    SkimmerStatuses status = (SkimmerStatuses)comboStatusSelector.SelectedItem;

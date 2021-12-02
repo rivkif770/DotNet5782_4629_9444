@@ -1,4 +1,5 @@
 ﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
 
 namespace IBL
@@ -28,7 +29,7 @@ namespace IBL
         public void ReleaseSkimmerFromCharging(int id, double ChargingTime);
         public void UpdateSkimmerName(int ids, string name);
         public void SendingSkimmerForCharging(int id);
-        IEnumerable<SkimmerToList> GetSkimmerList();
+        IEnumerable<SkimmerToList> GetSkimmerList(Func<SkimmerToList, bool> predicate = null);
 
   
     }

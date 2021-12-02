@@ -476,9 +476,11 @@ namespace BL
         /// Returns an entity of the Skimmer list type
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<SkimmerToList> GetSkimmerList()
+        public IEnumerable<SkimmerToList> GetSkimmerList(Func<SkimmerToList, bool> predicate = null)
         {
-            return skimmersList.Take(skimmersList.Count).ToList();
+            if (predicate == null)
+                return skimmersList.Take(skimmersList.Count).ToList();
+            return skimmersList.Where(predicate).ToList();
         }
     }       
 }

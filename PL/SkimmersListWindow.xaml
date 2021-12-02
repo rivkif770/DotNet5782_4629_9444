@@ -19,20 +19,17 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
             <TextBox x:Name="txtTBD" HorizontalAlignment="Left" Margin="35,10,0,0" Text="TBD" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <ComboBox Name="StatusSelector" Text="Choose a Status" Grid.Column="1" ToolTip="Choose  a Status" Margin="38,34,38,10" IsEditable="True" IsReadOnly="True" />
+            <ComboBox Name="StatusSelector" Text="Choose a Status" 
+                      ToolTip="Choose  a Status" Margin="0,35,76,9" IsEditable="True" IsReadOnly="True" 
+                      SelectionChanged="StatusSelector_SelectionChanged" RenderTransformOrigin="0.048,0.42" Grid.Column="1"/>
         </Grid>
-        <Label Content="status" Grid.Column="0" Margin="170,30,0,554" FontSize="15" Grid.RowSpan="2"/>
+        <Label Content="status" Grid.Column="0" Margin="114,29,626,0" FontSize="15" RenderTransformOrigin="1.072,0.536"/>
         <ListView x:Name="SkimmerListView" Grid.Row="1" SelectionChanged="SkimmerListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
-            <!--<TextBox Text="TextBox" TextWrapping="Wrap" Width="120"/>-->
         </ListView>
-       
-
-
-
     </Grid>
 </Window>

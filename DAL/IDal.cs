@@ -20,7 +20,7 @@ namespace IDAL.DO
         void UpadteC(Client c);
         void AddClient(Client c);
         Client GetClient(int IDc);
-        IEnumerable<Client> GetClientList();
+        IEnumerable<Client> GetClientList(Func<Client, bool> predicate = null);
         void DeleteClient(int IDc);
 
         void UpadteP(Package p);
@@ -33,14 +33,11 @@ namespace IDAL.DO
         void AddSkimmer(Quadocopter q);
         public void DeleteSkimmer(int idq);
         Quadocopter GetQuadrocopter(int IDq);
-        IEnumerable<Quadocopter> GetQuadocopterList();
+        IEnumerable<Quadocopter> GetQuadocopterList(Func<Quadocopter, bool> predicate = null);
 
         void AddSkimmerLoading(SkimmerLoading SL);
         void DeleteSkimmerLoading(int idsl);
         IEnumerable<SkimmerLoading> GetSkimmerLoading();
-        public IEnumerable<SkimmerLoading> GetSkimmerLoadingList();
-          
-        //void SendingSkimmerForCharging(int idq, int idBS);
-        //void SkimmerRelease(int idq, int IdBS);        
+        public IEnumerable<SkimmerLoading> GetSkimmerLoadingList();          
     }
 }
