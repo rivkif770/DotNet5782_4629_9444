@@ -29,32 +29,14 @@ namespace PL
             InitializeComponent();
         }
 
-        //private void btnShowListSkimmer_Click(object sender, SelectionChangedEventArgs e)
-        //{
-        //    new SkimmerListWindow(mybl).Show();
-        //}
-
-        //private void btnShowListSkimmer_Click(object sender, RoutedEventArgs e)
-        //{
-        //    SkimmerListWindow wnd = new SkimmerListWindow(mybl);
-        //    wnd.Show();
-        //}
-
         private void btSkimmerListView_Click(object sender, RoutedEventArgs e)
         {
-            SkimmerListWindow wnd = new SkimmerListWindow(mybl);
-            wnd.Show();
+            new SkimmerListWindow(mybl).Show();
         }
 
-        //private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
-        //{
-        //    DroneWindow wnd = new DroneWindow();
-        //    bool? result = wnd.ShowDialog();
-        //    if(result != null)
-        //    {
-        //    MessageBox.Show( wnd.Skimmer.ToString());
-        //    }
-
-        //}
+        private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
+        {
+            new AddSkimmerWindow(mybl).Show();
+        }
     }
 }

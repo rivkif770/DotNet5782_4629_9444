@@ -8,7 +8,7 @@
         Title="תרגיל 3" Height="500" Width="800">
     <Grid Name="MainGrid">
         <StackPanel>
-            <Button x:Name="btnAddSkimmer" Content="add a skimmer" Margin="5" />
+            <Button x:Name="btnAddSkimmer" Content="add a skimmer" Margin="5" Click="btnAddSkimmer_Click" />
             <Button x:Name="btSkimmerListView" Content="Show List skimmer" Margin="5,20,5,5" Click="btSkimmerListView_Click"/>
         </StackPanel>
         

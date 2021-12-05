@@ -25,7 +25,9 @@ namespace PL
         public SkimmerListWindow(IBL.IBL bl)
         {
             InitializeComponent();
+            //this.SkimmerListView.ItemsSource = bL.GetSkimmerList();
             this.StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.SkimmerStatuses));
+            this.WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.Weight));
             this.bL = bl;
             //StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.SkimmerStatuses));
         }
@@ -42,6 +44,15 @@ namespace PL
             this.txtTBD.Text = "All skimmers";
             this.SkimmerListView.ItemsSource = bL.GetSkimmerList();
         }
+
+        private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Weight weight = (Weight)WeightSelector.SelectedItem;
+            this.txtTBd.Text = WeightSelector.SelectedItem.ToString();
+            this.SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weight);
+        }
+
+     
 
         //private void comboStatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{

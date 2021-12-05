@@ -36,10 +36,10 @@ namespace DalObject
                 {
                     UniqueID = r.Next(999, 10000),
                     StationName = $"BaseStation{i}",
-                    SeveralPositionsArgument = r.Next(3,10),
+                    SeveralPositionsArgument = r.Next(3, 10),
                     Longitude = r.Next(-50, 50),
                     Latitude = r.Next(-50, 50)
-                });
+                }); ;
             }
 
             for (int i = 0; i < 5; i++)
