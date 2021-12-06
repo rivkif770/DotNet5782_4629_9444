@@ -21,7 +21,6 @@ namespace DalObject
                 DataSource.Config.MediumWeightCarrier,
                 DataSource.Config.HeavyWeightCarrier,
                 DataSource.Config.SkimmerLoadingRate};
-            //return arr;
         }
         public void AssignPackageSkimmer(int idp, int idq)//Assign a package to a skimmer
         {

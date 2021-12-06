@@ -30,7 +30,7 @@
                       SelectionChanged="WeightSelector_SelectionChanged" RenderTransformOrigin="0.048,0.42" Grid.Column="3"/>
         </Grid>
         <Label Content="status" Grid.Column="0" Margin="114,29,626,0" FontSize="15" RenderTransformOrigin="1.072,0.536"/>
-        <ListView x:Name="SkimmerListView" Grid.Row="1" SelectionChanged="SkimmerListView_SelectionChanged">
+        <ListView x:Name="SkimmerListView" Grid.Row="1" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

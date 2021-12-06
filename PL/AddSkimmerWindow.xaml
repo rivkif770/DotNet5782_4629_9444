@@ -18,16 +18,25 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Content="Id" Grid.Row="0" />
-            <Label Content="Skimmer Model" Grid.Row="1" />
-            <Label Content="Weight Category" Grid.Row="2" />
-            <Label Content="Station ID" Grid.Row="3" />
-            <TextBox Grid.Column="1" x:Name="textId" Text="{Binding Id}"/>
-            <TextBox Grid.Row="1" Grid.Column="1" x:Name="textSkimmerModel" Text="{Binding SkimmerModel}"/>
+            <Label Content="Id" Grid.Row="0" Margin="24,10,25,57"  >
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.605"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <Label Content="Skimmer Model" Grid.Row="1"  Margin="24,10,25,57" />
+            <Label Content="Weight Category" Grid.Row="2" Margin="24,10,25,57" />
+            <Label Content="Station ID" Grid.Row="3" Margin="24,10,25,57" />
+            <TextBox Grid.Column="1" x:Name="textId" Text="{Binding Id}" Margin="5,10,196,49"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="textSkimmerModel" Text="{Binding SkimmerModel}" Margin="5,10,196,49"/>
             <ComboBox Grid.Row="2" Grid.Column="1" x:Name="textWeightCategory" Text="Choose a Weight"  
                             IsEditable="True" IsReadOnly="True"
-                      IsTextSearchCaseSensitive="True" SelectedItem="{Binding WeightCategory}" SelectionChanged="textWeightCategory_SelectionChanged"/>
-            <TextBox Grid.Row="3" Grid.Column="1" x:Name="textStationID" Text="{Binding StationID}"/>
+                      SelectedItem="{Binding WeightCategory}" Margin="5,10,196,49"/>
+            <TextBox Grid.Row="3" Grid.Column="1" x:Name="textStationID" Text="{Binding StationID}" Margin="5,10,196,49"/>
         </Grid>
         <Button Content="ADD" HorizontalAlignment="Left" Margin="643,191,0,0" VerticalAlignment="Top" Height="46" Width="87" Click="Button_Click"/>
 

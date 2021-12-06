@@ -43,17 +43,10 @@ namespace PL
             {
                 Id = Int32.Parse(textId.Text),
                 SkimmerModel = textSkimmerModel.Text,
-               // WeightCategory = new System.Windows.Forms().textWeightCategory,
-                WeightCategory = (Weight)(textWeightCategory.SelectedItem)
+                WeightCategory = (Weight)(textWeightCategory.SelectedValue)
             };
             int station = Int32.Parse(textStationID.Text);
             bL.AddSkimmer(newSkimmer, station);
-        }
-
-        private void textWeightCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Weight weight = (Weight)textWeightCategory.SelectedItem;
-            //this.txtTBd.Text = textWeightCategory.SelectedItem.ToString();
         }
     }
 }
