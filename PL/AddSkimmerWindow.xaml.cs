@@ -48,5 +48,10 @@ namespace PL
             int station = Int32.Parse(textStationID.Text);
             bL.AddSkimmer(newSkimmer, station);
         }
+
+        private void textStationID_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

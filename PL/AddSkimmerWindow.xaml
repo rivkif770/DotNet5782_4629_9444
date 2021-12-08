@@ -36,7 +36,10 @@
             <ComboBox Grid.Row="2" Grid.Column="1" x:Name="textWeightCategory" Text="Choose a Weight"  
                             IsEditable="True" IsReadOnly="True"
                       SelectedItem="{Binding WeightCategory}" Margin="5,10,196,49"/>
-            <TextBox Grid.Row="3" Grid.Column="1" x:Name="textStationID" Text="{Binding StationID}" Margin="5,10,196,49"/>
+            <ComboBox Grid.Row="3" Grid.Column="1" x:Name="textStationID" Text="Choose a Station"  
+                            IsEditable="True" IsReadOnly="True"
+                      SelectedItem="{Binding StationID}" Margin="5,10,196,49" SelectionChanged="textStationID_SelectionChanged"/>
+            <!--<TextBox Grid.Row="3" Grid.Column="1" x:Name="textStationID" Text="{Binding StationID}" Margin="5,10,196,49"/>-->
         </Grid>
         <Button Content="ADD" HorizontalAlignment="Left" Margin="643,191,0,0" VerticalAlignment="Top" Height="46" Width="87" Click="Button_Click"/>
 
