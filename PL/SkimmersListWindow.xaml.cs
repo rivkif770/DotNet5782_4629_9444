@@ -60,15 +60,8 @@ namespace PL
 
         }
 
-        private void txtTBD_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
-        }
-
-        private void SkimmerListView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+.
 
 
 
