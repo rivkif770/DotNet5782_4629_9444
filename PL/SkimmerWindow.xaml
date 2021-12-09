@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="SkimmerWindow" Height="450" Width="800" >
     <Grid>
-        <Grid x:Name="SkimmerGrid" Margin="58,15,0,196"  HorizontalAlignment="Left" Width="310">
+        <Grid x:Name="SkimmerGrid" Margin="58,15,0,196" Width="310" HorizontalAlignment="Left" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -18,7 +18,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Id" Grid.Row="0" Margin="3"  >
+            <Label Content="Id"  Margin="3" Grid.Row="0"  >
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -30,21 +30,18 @@
             </Label>
             <Label Content="Skimmer Model" Grid.Row="1"  />
             <Label Content="Weight Category" Grid.Row="2" />
-            <Label Content="Station ID" Grid.Row="3" Margin="3" />
-            <TextBox Grid.Column="1"  x:Name="textId" Margin="3,10,34,17" Text="{Binding Id,ValidatesOnExceptions=True,UpdateSourceTrigger=PropertyChanged}" >
-                <!--Validation.ErrorTemplate="{StaticResorct ValidationTemplate}" 
-                     Style="{StaticResource taxtBoxInError}"--> 
-                
-            </TextBox>
-            <TextBox Grid.Row="1" Grid.Column="1" Margin="3,10,34,17" x:Name="textSkimmerModel" Text="{Binding SkimmerModel}"/>
-            <ComboBox Grid.Row="2" Grid.Column="1" Margin="3,10,34,17" x:Name="ComboWeightCategory" Text="Choose a Weight"  
+            <Label Content="Station ID"  Margin="3" Grid.Row="3" />
+            <TextBox  x:Name="textId" Margin="3,10,34,17" Grid.Column="1" Text="{Binding Id,ValidatesOnExceptions=True,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox x:Name="textSkimmerModel"  Margin="3,10,34,17" Grid.Row="1" Grid.Column="1" Text="{Binding SkimmerModel}"/>
+            <ComboBox x:Name="ComboWeightCategory"  Margin="3,10,34,17" Grid.Row="2" Grid.Column="1"  Text="Choose a Weight"  
                             IsEditable="True" IsReadOnly="True"
                       SelectedItem="{Binding WeightCategory}" />
-            <ComboBox Grid.Row="3" Grid.Column="1" Margin="3,10,34,17" x:Name="ComboStationID" Text="Choose a Station"  
+            <ComboBox x:Name="ComboStationID" Margin="3,10,34,17" Grid.Row="3" Grid.Column="1" Text="Choose a Station"  
                             IsEditable="True" IsReadOnly="True"
                       SelectedItem="{Binding StationID}"  />
         </Grid>
-        <Button Content="ADD" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="34" Width="77" Click="btnShow_Click" Margin="122,264,0,0"/>
+        <Button Content="ADD" Margin="122,264,0,0" Height="34" Width="77"
+                HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="btnShow_Click" />
 
     </Grid>
 </Window>
