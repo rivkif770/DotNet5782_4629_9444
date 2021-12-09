@@ -48,9 +48,9 @@ namespace PL
 
         private void SkimmerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            SkimmerToList skimmerToList = new SkimmerToList();
-            skimmerToList = (SkimmerToList)SkimmerListView.SelectedItem;
-            new SkimmerView(bL, skimmerToList).ShowDialog();
+            Skimmer skimmer = new Skimmer();
+            skimmer = (SkimmerToList)SkimmerListView.SelectedItem;
+            //new SkimmerView(bL, skimmerToList).ShowDialog();
            
         }
         private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
@@ -64,6 +64,11 @@ namespace PL
         }
 
         private void txtTBD_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void SkimmerListView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
 
         }

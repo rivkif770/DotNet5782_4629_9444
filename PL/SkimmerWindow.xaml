@@ -31,14 +31,12 @@
             <Label Content="Skimmer Model" Grid.Row="1"  />
             <Label Content="Weight Category" Grid.Row="2" />
             <Label Content="Station ID"  Margin="3" Grid.Row="3" />
-            <TextBox  x:Name="textId" Margin="3,10,34,17" Grid.Column="1" Text="{Binding Id,ValidatesOnExceptions=True,UpdateSourceTrigger=PropertyChanged}" />
-            <TextBox x:Name="textSkimmerModel"  Margin="3,10,34,17" Grid.Row="1" Grid.Column="1" Text="{Binding SkimmerModel}"/>
-            <ComboBox x:Name="ComboWeightCategory"  Margin="3,10,34,17" Grid.Row="2" Grid.Column="1"  Text="Choose a Weight"  
-                            IsEditable="True" IsReadOnly="True"
-                      SelectedItem="{Binding WeightCategory}" />
+            <TextBox  x:Name="textId" Margin="3,10,34,17" Grid.Column="1" TextChanged="textId_TextChanged" BorderBrush="#FFE92617" />
+            <TextBox x:Name="textSkimmerModel"  Margin="3,10,34,17" Grid.Row="1" Grid.Column="1" TextChanged="textSkimmerModel_TextChanged"/>
             <ComboBox x:Name="ComboStationID" Margin="3,10,34,17" Grid.Row="3" Grid.Column="1" Text="Choose a Station"  
                             IsEditable="True" IsReadOnly="True"
                       SelectedItem="{Binding StationID}"  />
+            <ComboBox Name="ComboWeightCategory" HorizontalAlignment="Left" Margin="2,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="120" Grid.Column="1" Text="Choose Weight" IsEditable="True" IsReadOnly="True"/>
         </Grid>
         <Button Content="ADD" Margin="122,264,0,0" Height="34" Width="77"
                 HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="btnShow_Click" />

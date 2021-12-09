@@ -28,7 +28,7 @@
                       SelectionChanged="WeightSelector_SelectionChanged" RenderTransformOrigin="0.048,0.42" Grid.ColumnSpan="2"/>
         </Grid>
         <Label Content="status" Grid.Column="0" Margin="69,119,649,397" FontSize="15" RenderTransformOrigin="1.072,0.536" Grid.Row="1"/>
-        <ListView x:Name="SkimmerListView" Grid.Row="1" MouseDoubleClick="SkimmerListView_MouseDoubleClick" Margin="422,5,0,0" >
+        <ListView x:Name="SkimmerListView" Grid.Row="1" MouseDoubleClick="SkimmerListView_MouseDoubleClick" Margin="422,5,0,0" SelectionChanged="SkimmerListView_SelectionChanged_1" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

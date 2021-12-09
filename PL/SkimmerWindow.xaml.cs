@@ -42,26 +42,46 @@ namespace PL
 
         private void btnShow_Click(object sender, RoutedEventArgs e)
         {
-            int id;
-            bool success;
-            //do
-            //{
-            //    success = Int32.TryParse(textId.Text, out id);
-
-            //} while (!success || id < 99 || id > 1000);
-                success = Int32.TryParse(textId.Text, out id);
-            if (!success || id < 99 || id > 1000)
+            SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
+            if (ComboWeightCategory.SelectedItem==null || ComboStationID.SelectedItem==null || SolidColorBrush.Equals(((SolidColorBrush)textSkimmerModel.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color))
             {
-                throw new ArgumentException("The id should be 3 digits");
+                MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            newSkimmer = new Skimmer
+            else
             {
-                Id = id,
-                SkimmerModel = textSkimmerModel.Text,
-                WeightCategory = (Weight)(ComboWeightCategory.SelectedValue)
-            };
-            int station = (int)(ComboStationID.SelectedValue);
-            bL.AddSkimmer(newSkimmer, station);
+                newSkimmer = new Skimmer
+                {
+                    Id = Int32.Parse(textId.Text),
+                    SkimmerModel = textSkimmerModel.Text,
+                    WeightCategory = (Weight)(ComboWeightCategory.SelectedValue)
+                };
+                int station = (int)(ComboStationID.SelectedValue);
+                bL.AddSkimmer(newSkimmer, station);
+            }      
+        }
+
+        private void textId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var bc = new BrushConverter();
+            if (textId.Text.All(char.IsDigit))
+            {
+               
+                textId.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else textId.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+
+        }
+
+        private void textSkimmerModel_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string text = textSkimmerModel.Text;
+            var bc = new BrushConverter();
+            if (text != "" && char.IsLetter(text.ElementAt(0)))
+            {
+                textSkimmerModel.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else
+                textSkimmerModel.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
     }
 }
