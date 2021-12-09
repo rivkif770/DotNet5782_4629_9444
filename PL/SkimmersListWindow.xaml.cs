@@ -46,7 +46,13 @@ namespace PL
             this.SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weight);
         }
 
-     
+        private void SkimmerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
+
+
 
         //private void comboStatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{
