@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Drawing;
+using System.Collections;
 using IBL.BO;
 
 
@@ -32,9 +33,7 @@ namespace PL
             this.DataContext = new Skimmer();
             InitializeComponent();
             this.textWeightCategory.ItemsSource = Enum.GetValues(typeof(IBL.BO.Weight));
-           // newSkimmer.Id = DataContext
-
-
+            textStationID.ItemsSource = BaseStationToList(typeof(BaseStationToList));  
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -45,13 +44,7 @@ namespace PL
                 SkimmerModel = textSkimmerModel.Text,
                 WeightCategory = (Weight)(textWeightCategory.SelectedValue)
             };
-            int station = Int32.Parse(textStationID.Text);
-            bL.AddSkimmer(newSkimmer, station);
-        }
-
-        private void textStationID_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            int station = Int32.Parse((string)textStationID.SelectedValue);          
         }
     }
 }
