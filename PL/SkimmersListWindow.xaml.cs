@@ -29,20 +29,17 @@ namespace PL
             StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.SkimmerStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.Weight));
             bL = bl;
-            //StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.SkimmerStatuses));
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SkimmerStatuses status = (SkimmerStatuses)StatusSelector.SelectedItem;
-            //this.txtTBD.Text = StatusSelector.SelectedItem.ToString();
             SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.SkimmerStatus == status);
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Weight weight = (Weight)WeightSelector.SelectedItem;
-            //this.txtTBd.Text = WeightSelector.SelectedItem.ToString();
             SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weight);
         }
 
@@ -59,11 +56,6 @@ namespace PL
         }
 
         private void SkimmerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void txtTBD_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
