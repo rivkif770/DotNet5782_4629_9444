@@ -33,10 +33,5 @@ namespace PL
         {
             new SkimmerListWindow(mybl).Show();
         }
-
-        private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
-        {
-            new AddSkimmerWindow(mybl).Show();
-        }
     }
 }

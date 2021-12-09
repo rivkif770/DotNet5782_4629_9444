@@ -35,20 +35,37 @@ namespace PL
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SkimmerStatuses status = (SkimmerStatuses)StatusSelector.SelectedItem;
-            this.txtTBD.Text = StatusSelector.SelectedItem.ToString();
-            this.SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.SkimmerStatus == status);
+            //this.txtTBD.Text = StatusSelector.SelectedItem.ToString();
+            SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.SkimmerStatus == status);
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Weight weight = (Weight)WeightSelector.SelectedItem;
-            this.txtTBd.Text = WeightSelector.SelectedItem.ToString();
-            this.SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weight);
+            //this.txtTBd.Text = WeightSelector.SelectedItem.ToString();
+            SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weight);
         }
 
         private void SkimmerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
+            SkimmerToList skimmerToList = new SkimmerToList();
+            skimmerToList = (SkimmerToList)SkimmerListView.SelectedItem;
+            new SkimmerView(bL, skimmerToList).ShowDialog();
+           
+        }
+        private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
+        {
+            new SkimmerWindow(bL).Show();
+        }
+
+        private void SkimmerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void txtTBD_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
 

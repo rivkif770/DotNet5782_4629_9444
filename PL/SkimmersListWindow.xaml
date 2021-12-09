@@ -18,19 +18,17 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <TextBox x:Name="txtTBD" HorizontalAlignment="Left" Margin="35,10,0,0" Text="TBD" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <TextBox x:Name="txtTBd" HorizontalAlignment="Center" Margin="0,10,0,0" Text="TBD" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="2" />
+            <Button x:Name="btnAddSkimmer" Content="add a skimmer" Margin="95,109,107,-76" Click="btnAddSkimmer_Click" Grid.ColumnSpan="2" />
             <ComboBox Name="StatusSelector" Text="Choose a Status" 
-                      ToolTip="Choose  a Status" Margin="0,35,76,9" IsEditable="True" IsReadOnly="True" 
-                      SelectionChanged="StatusSelector_SelectionChanged" RenderTransformOrigin="0.048,0.42" Grid.Column="1"/>
-            <Label Content="status" Grid.Column="0" Margin="114,29,27,0" FontSize="15" RenderTransformOrigin="1.072,0.536"/>
-            <Label Content="Weight" Grid.Column="2"  Margin="109,29,10,0" FontSize="15" RenderTransformOrigin="1.072,0.536"/>
+                      ToolTip="Choose  a Status" Margin="169,194,107,-151" IsEditable="True" IsReadOnly="True" 
+                      SelectionChanged="StatusSelector_SelectionChanged" RenderTransformOrigin="0.048,0.42" Grid.ColumnSpan="2"/>
+            <Label Content="Weight"  Margin="69,258,49,-229" FontSize="15" RenderTransformOrigin="1.072,0.536"/>
             <ComboBox Name="WeightSelector" Text="Choose a Weight" 
-                      ToolTip="Choose  a Weight" Margin="0,35,76,9" IsEditable="True" IsReadOnly="True" 
-                      SelectionChanged="WeightSelector_SelectionChanged" RenderTransformOrigin="0.048,0.42" Grid.Column="3"/>
+                      ToolTip="Choose  a Weight" Margin="169,265,107,-222" IsEditable="True" IsReadOnly="True" 
+                      SelectionChanged="WeightSelector_SelectionChanged" RenderTransformOrigin="0.048,0.42" Grid.ColumnSpan="2"/>
         </Grid>
-        <Label Content="status" Grid.Column="0" Margin="114,29,626,0" FontSize="15" RenderTransformOrigin="1.072,0.536"/>
-        <ListView x:Name="SkimmerListView" Grid.Row="1" MouseDoubleClick="SkimmerListView_MouseDoubleClick" >
+        <Label Content="status" Grid.Column="0" Margin="69,119,649,397" FontSize="15" RenderTransformOrigin="1.072,0.536" Grid.Row="1"/>
+        <ListView x:Name="SkimmerListView" Grid.Row="1" MouseDoubleClick="SkimmerListView_MouseDoubleClick" Margin="422,5,0,0" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
