@@ -13,7 +13,7 @@ namespace IBL.BO
         public Weight WeightCategory { get; set; }
         public double BatteryStatus { get; set; }
         public SkimmerStatuses SkimmerStatus { get; set; }
-        public Package PackageInTransfer { get; set; }
+        public PackageInTransfer PackageInTransfer { get; set; }
         public Location Location { get; set; }
 
         public override string ToString()

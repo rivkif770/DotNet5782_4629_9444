@@ -59,7 +59,7 @@ namespace BL
                     SkimmerInCharging skimmerInCharging1 = new SkimmerInCharging
                     {
                         Id = item.SkimmerID,
-                        BatteryStatus = GetSkimmer(item.SkimmerID).BatteryStatus
+                        BatteryStatus = GetSkimmerToList(item.SkimmerID).BatteryStatus
                     };
                     skimmerInCharging.Add(skimmerInCharging1);
                 }

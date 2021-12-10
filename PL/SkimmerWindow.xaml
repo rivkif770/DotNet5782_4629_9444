@@ -7,39 +7,85 @@
         mc:Ignorable="d"
         Title="SkimmerWindow" Height="450" Width="800" >
     <Grid>
-        <Grid x:Name="SkimmerGrid" Margin="58,15,0,196" Width="310" HorizontalAlignment="Left" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="Id"  Margin="3" Grid.Row="0"  >
-                <Label.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-0.605"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Label.RenderTransform>
-            </Label>
-            <Label Content="Skimmer Model" Grid.Row="1"  />
-            <Label Content="Weight Category" Grid.Row="2" />
-            <Label Content="Station ID"  Margin="3" Grid.Row="3" />
-            <TextBox  x:Name="textId" Margin="3,10,34,17" Grid.Column="1" TextChanged="textId_TextChanged" BorderBrush="#FFE92617" />
-            <TextBox x:Name="textSkimmerModel"  Margin="3,10,34,17" Grid.Row="1" Grid.Column="1" TextChanged="textSkimmerModel_TextChanged"/>
-            <ComboBox x:Name="ComboStationID" Margin="3,10,34,17" Grid.Row="3" Grid.Column="1" Text="Choose a Station"  
-                            IsEditable="True" IsReadOnly="True"
-                      SelectedItem="{Binding StationID}"  />
-            <ComboBox Name="ComboWeightCategory" HorizontalAlignment="Left" Margin="2,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="120" Grid.Column="1" Text="Choose Weight" IsEditable="True" IsReadOnly="True"/>
+        <Grid x:Name="add" Visibility="Collapsed">
+            <Grid x:Name="AddSkimmerGrid" Margin="217,25,0,171" Width="285" HorizontalAlignment="Left" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Id"  Margin="3" Grid.Row="0"  >
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-0.605"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+                <Label Content="Skimmer Model" Grid.Row="1"  />
+                <Label Content="Weight Category" Grid.Row="2" />
+                <Label Content="Station ID"  Margin="3" Grid.Row="3" />
+                <TextBox  x:Name="textId" Margin="2,0,0,0" Width="150" Height="25" Grid.Column="1" 
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      TextChanged="textId_TextChanged" BorderBrush="#FFE92617"  />
+                <TextBox x:Name="textSkimmerModel"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="1" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center"  
+                     TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617"/>
+                <ComboBox x:Name="ComboStationID" Margin="2,0,0,0" Width="150" Height="25" Grid.Row="3" Grid.Column="1" Text="Choose a Station" 
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                            IsEditable="True" IsReadOnly="True"/>
+                <ComboBox Name="ComboWeightCategory" Margin="2,0,0,0" Width="150" Height="25"
+                      HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1" Text="Choose Weight" 
+                      IsEditable="True" IsReadOnly="True"/>
+            </Grid>
+            <Button x:Name="btnADD" Content="ADD" Margin="130,309,0,0" Height="47" Width="136"
+                HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="btnAddSkimmer_Click" />
+            <Button x:Name="btnEXIT1" Content="EXIT" Margin="492,309,0,0" Height="47" Width="136"
+                HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Button_Click" />
         </Grid>
-        <Button Content="ADD" Margin="122,264,0,0" Height="34" Width="77"
-                HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="btnShow_Click" />
+
+
+        <Grid x:Name="Updates">
+            <Button x:Name="btnUpdate"  Content="Update name" Height="47" Width="136"
+                HorizontalAlignment="Left" Margin="80,40,0,0" VerticalAlignment="Top" Click="Button_Update" RenderTransformOrigin="-2.939,0.505" />
+            <Button x:Name="btnSend" Content="Send for loading" Height="46" Width="136"
+                HorizontalAlignment="Left" Margin="80,168,0,0" VerticalAlignment="Top" Click="Button_Sending_Loading" RenderTransformOrigin="-2.295,0.556" />
+            <Button x:Name="btnRelease" Content="Release from charging" Height="47" Width="136"
+                HorizontalAlignment="Left" Margin="80,267,0,0" VerticalAlignment="Top" Click="Button_Release" />
+            <Button x:Name="btnEXIT2" Content="EXIT" Margin="360,340,0,0" Height="47" Width="136"
+                HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Button_Click" />
+
+            <Label x:Name="labMain" Content="Label" Margin="332,68,0,0" Height="246" Width="193"
+               HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <Label x:Name="labUpdate" Margin="26,87,0,0" Width="244"
+               Content="Please introduce a new model for the skimmer" 
+               HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBox x:Name="textUpdate" Margin="80,113,0,0" Width="136"
+                 HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
+                 TextChanged="textUpdate_TextChanged" BorderBrush="#FFE92617" RenderTransformOrigin="-2.833,0.598" />
+            <Label x:Name="labRelease" Margin="26,314,0,0" Width="244"
+               Content="       Please enter skimmer loading time" 
+               HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBox x:Name="textRelease" Margin="80,340,0,0" Width="136"
+                 HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
+                 TextChanged="textRelease_TextChanged" BorderBrush="#FFE92617" />
+            <Button Content="Sending a skimmer for delivery" Margin="596,60,0,0" Height="46" Width="172"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Sending_Skimmer_For_Delivery" />
+            <Button Content="Collect the package" Margin="596,160,0,0" Height="47" Width="172"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Collect_The_Package" />
+            <Button Content="Package delivery" Margin="596,260,0,0" Height="47" Width="172"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Package_Delivery" />
+
+        </Grid>
+
+
 
     </Grid>
 </Window>

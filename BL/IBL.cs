@@ -25,7 +25,8 @@ namespace IBL
         IEnumerable<PackageToList> GetPackagesWithoutSkimmer();
 
         void AddSkimmer(Skimmer newSkimmer, int station);
-        public SkimmerToList GetSkimmer(int id);
+        public SkimmerToList GetSkimmerToList(int id);
+        public Skimmer GetSkimmerr(int id);
         public void ReleaseSkimmerFromCharging(int id, double ChargingTime);
         public void UpdateSkimmerName(int ids, string name);
         public void SendingSkimmerForCharging(int id);

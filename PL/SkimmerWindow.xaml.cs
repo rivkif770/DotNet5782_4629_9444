@@ -19,20 +19,21 @@ using IBL.BO;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for AddSkimmerWindow.xaml
+    /// Interaction logic for SkimmerWindow.xaml
     /// </summary>
     public partial class SkimmerWindow : Window
     {
-        Skimmer newSkimmer;
+        SkimmerToList newSkimmer;
         IBL.IBL bL;
         public SkimmerWindow(IBL.IBL bl)
         {
+            
             bL = bl;
-            newSkimmer = new Skimmer();
-            DataContext = new Skimmer();
+            //newSkimmer = new Skimmer();           
             InitializeComponent();
+            add.Visibility = Visibility.Visible;
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(IBL.BO.Weight));
-            foreach (var item in bl.GetBaseStationList())
+            foreach (BaseStationToList item in bl.GetBaseStationList())
             {
                 ComboBoxItem newItem = new ComboBoxItem();
                 newItem.Content = item.Id;
@@ -40,7 +41,15 @@ namespace PL
             }
         }
 
-        private void btnShow_Click(object sender, RoutedEventArgs e)
+        public SkimmerWindow(IBL.IBL bl,SkimmerToList skimmerToList)
+        {
+            bL = bl;
+            InitializeComponent();
+            Updates.Visibility = Visibility.Visible;           
+            newSkimmer = new SkimmerToList();
+            newSkimmer = skimmerToList;
+        }
+        private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
         {
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
             if (ComboWeightCategory.SelectedItem==null || ComboStationID.SelectedItem==null || SolidColorBrush.Equals(((SolidColorBrush)textSkimmerModel.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color))
@@ -49,14 +58,21 @@ namespace PL
             }
             else
             {
-                newSkimmer = new Skimmer
+                IBL.BO.Skimmer skimmer = new Skimmer();
+                skimmer.Id = Int32.Parse(textId.Text);
+                skimmer.SkimmerModel = textSkimmerModel.Text;
+                skimmer.WeightCategory = (Weight)(ComboWeightCategory.SelectedItem);
+                try
                 {
-                    Id = Int32.Parse(textId.Text),
-                    SkimmerModel = textSkimmerModel.Text,
-                    WeightCategory = (Weight)(ComboWeightCategory.SelectedValue)
-                };
-                int station = (int)(ComboStationID.SelectedValue);
-                bL.AddSkimmer(newSkimmer, station);
+                    bL.AddSkimmer(skimmer, Int32.Parse(ComboStationID.Text));
+                    MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //RefreshListEvent(this);
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }      
         }
 
@@ -83,66 +99,125 @@ namespace PL
             else
                 textSkimmerModel.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Button_Update(object sender, RoutedEventArgs e)
+        {
+            SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
+            if (SolidColorBrush.Equals(((SolidColorBrush)textUpdate.BorderBrush).Color, red.Color))
+                MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+            {
+                string name = textUpdate.Text;
+                try
+                {
+                    bL.UpdateSkimmerName(newSkimmer.Id, name);
+                    MessageBox.Show("The update was successful", "Updated a skimmer", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void Button_Sending_Loading(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bL.SendingSkimmerForCharging(newSkimmer.Id);
+                MessageBox.Show("The skimmer was successfully shipped for loading", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Button_Release(object sender, RoutedEventArgs e)
+        {
+            SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
+            if (SolidColorBrush.Equals(((SolidColorBrush)textRelease.BorderBrush).Color, red.Color))
+                MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+            {
+                int Time = Int32.Parse(textRelease.Text);
+                try
+                {
+                    bL.ReleaseSkimmerFromCharging(newSkimmer.Id, Time);
+                    MessageBox.Show("The skimmer was successfully released for loading", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void textUpdate_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string text = textUpdate.Text;
+            var bc = new BrushConverter();
+            if (text != "" && char.IsLetter(text.ElementAt(0)))
+            {
+                textUpdate.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else
+                textUpdate.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        }
+
+        private void textRelease_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var bc = new BrushConverter();
+            if (textRelease.Text.All(char.IsDigit))
+            {
+
+                textRelease.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else textRelease.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        }
+
+        private void Button_Sending_Skimmer_For_Delivery(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bL.AssigningPackageToSkimmer(newSkimmer.Id);
+                MessageBox.Show("The glider was successfully shipped", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Button_Collect_The_Package(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bL.CollectingPackageBySkimmer(newSkimmer.Id);
+                MessageBox.Show("The package was successfully collected", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Button_Package_Delivery(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bL.DeliveryOfPackageBySkimmer(newSkimmer.Id);
+                MessageBox.Show("The shipment reached its destination successfully", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }
-
-
-
-
-
-
-
-
-/*<!--<Window x:Class="PL.SkimmerWindow123"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d"
-        Title="DroneWindow" Height="450" Width="800">
-    <Grid>
-        <Grid x:Name="grid1" VerticalAlignment="Top" Margin="84,32,0,0" HorizontalAlignment="Left" Height="206" Width="302">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Battery Status:"/>
-            <TextBox x:Name="batteryStatusTextBox" Width="120" VerticalAlignment="Center" Text="{Binding BatteryStatus, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Id:"/>
-            <TextBox x:Name="idTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Skimmer Model:"/>
-            <TextBox x:Name="skimmerModelTextBox" Width="120" VerticalAlignment="Center" Text="{Binding SkimmerModel, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="4" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Skimmer Status:"/>
-            <ComboBox x:Name="skimmerStatusComboBox" Width="120" Text="Choose a Status" IsEditable="True" IsReadOnly="True" VerticalAlignment="Center" Grid.Row="4" Margin="3"  Height="Auto" HorizontalAlignment="Left"
-                      DisplayMemberPath="SkimmerStatus" Grid.Column="1">
-                <ComboBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel/>
-                    </ItemsPanelTemplate>
-                </ComboBox.ItemsPanel>
-            </ComboBox>
-            <Label VerticalAlignment="Center" Grid.Row="5" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Weight Category:"/>
-            --><!--<TextBox x:Name="weightCategoryTextBox" Width="120" VerticalAlignment="Center" Text="{Binding WeightCategory, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="5" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>--><!--
-            <ComboBox Grid.Row="5" Grid.Column="1" x:Name="ComboWeightCategory" Text="Choose a Weight"  Height="23"
-                            IsEditable="True" IsReadOnly="True" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left"
-                      SelectedItem="{Binding WeightCategory,Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="4,0,0,0" />
-            <Label VerticalAlignment="Center" Grid.Row="6" Margin="6,0,0,0" HorizontalAlignment="Left" Content="station:"/>
-            --><!--<TextBox x:Name="latitudeTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Location.Latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="6" Height="23" HorizontalAlignment="Center" Grid.Column="1"/>--><!--
-            <ComboBox Grid.Row="6" x:Name="ComboStationID" Text="Choose a Station"  
-                            IsEditable="True" IsReadOnly="True" Width="120"
-                      SelectedItem="{Binding StationID}" Height="23" HorizontalAlignment="Center" Grid.Column="1"  />
-        </Grid>
-        <Button x:Name="btnShow" Content="ADD" HorizontalAlignment="Left" Margin="169,286,0,0" VerticalAlignment="Top" Width="75" Click="btnShow_Click" RenderTransformOrigin="-3.728,7.236"/>
-
-    </Grid>
-</Window>-->*/

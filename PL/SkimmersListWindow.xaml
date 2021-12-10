@@ -20,15 +20,16 @@
             </Grid.ColumnDefinitions >
             <Button x:Name="btnAddSkimmer" Content="add a skimmer" Margin="95,109,107,-76" Grid.ColumnSpan="2" 
                     Click="btnAddSkimmer_Click"/>
-            <ComboBox Name="StatusSelector" Text="Choose a Status" Margin="169,194,107,-151" Grid.ColumnSpan="2"
+            <Label Content="status" Margin="59,166,59,-138" Grid.Column="0" FontSize="15" RenderTransformOrigin="-0.563,-0.27" />
+            <ComboBox Name="StatusSelector" Text="Choose a Status" Margin="169,173,107,-131" Grid.ColumnSpan="2"
                       ToolTip="Choose  a Status"  IsEditable="True" IsReadOnly="True" 
                       SelectionChanged="StatusSelector_SelectionChanged" />
-            <Label Content="Weight"  Margin="69,258,49,-229" FontSize="15"/>
-            <ComboBox Name="WeightSelector" Text="Choose a Weight" Margin="169,265,107,-222" Grid.ColumnSpan="2"
+            <Label Content="Weight"  Margin="59,237,59,-208" FontSize="15"/>
+            <ComboBox Name="WeightSelector" Text="Choose a Weight" Margin="169,245,107,-202" Grid.ColumnSpan="2"
                       ToolTip="Choose  a Weight"  IsEditable="True" IsReadOnly="True" 
                       SelectionChanged="WeightSelector_SelectionChanged" />
         </Grid>
-        <Label Content="status" Margin="69,119,649,397" Grid.Row="1" Grid.Column="0" FontSize="15" />
+
         <ListView x:Name="SkimmerListView" Margin="422,5,0,0" Grid.Row="1" MouseDoubleClick="SkimmerListView_MouseDoubleClick" >
             <ListView.View>
                 <GridView>
@@ -36,5 +37,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Content="All Skimmer" HorizontalAlignment="Left" Margin="126,258,0,0" Grid.Row="1" VerticalAlignment="Top" Height="22" Width="83" Click="Button_Click" />
+        <Button Content="EXIT" Margin="57,385,0,0" Width="249" Height="74"
+                HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Click="Button_Click_1" />
     </Grid>
 </Window>

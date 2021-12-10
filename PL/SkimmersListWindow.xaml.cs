@@ -45,9 +45,9 @@ namespace PL
 
         private void SkimmerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Skimmer skimmer = new Skimmer();
+            SkimmerToList skimmer = new SkimmerToList();
             skimmer = (SkimmerToList)SkimmerListView.SelectedItem;
-            //new SkimmerView(bL, skimmerToList).ShowDialog();
+            new SkimmerWindow(bL, skimmer).ShowDialog();
            
         }
         private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
@@ -55,21 +55,14 @@ namespace PL
             new SkimmerWindow(bL).Show();
         }
 
-        private void SkimmerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            SkimmerListView.ItemsSource = bL.GetSkimmerList();            
         }
 
-
-.
-
-
-
-
-        //private void comboStatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    SkimmerStatuses status = (SkimmerStatuses)comboStatusSelector.SelectedItem;
-        //   // this.DronesListView.ItemsSource = fakelist.Where(x => x.SkimmerStatus == status);
-        //}
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

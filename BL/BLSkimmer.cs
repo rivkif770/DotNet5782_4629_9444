@@ -316,14 +316,70 @@ namespace BL
             }
         }
         /// <summary>
+        /// Returns an entity of the SkimmerToList list type
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public SkimmerToList GetSkimmerToList(int id)
+        {
+            return skimmersList.FirstOrDefault(x => x.Id == id);
+        }
+        /// <summary>
         /// Returns an entity of the Skimmer list type
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public SkimmerToList GetSkimmer(int id)
+        public Skimmer GetSkimmerr(int id)
         {
-            return skimmersList.FirstOrDefault(x => x.Id == id);
-        }
+            if (!skimmersList.Any(d => d.Id == id))
+                throw new IdDoesNotExistExceptionBL("Skimmer {id} not found");
+            SkimmerToList skimmerToList = skimmersList.Find(d => d.Id == id);
+            if (skimmersList == null)
+                throw new IdDoesNotExistExceptionBL("Skimmer {id} not found");
+            Skimmer skimmer = new Skimmer();
+            skimmer.PackageInTransfer = new PackageInTransfer();
+            skimmer.Id = skimmerToList.Id;
+            skimmer.BatteryStatus = skimmerToList.BatteryStatus;
+            skimmer.Location = skimmerToList.CurrentLocation;
+            skimmer.WeightCategory = skimmerToList.WeightCategory;
+            skimmer.SkimmerModel = skimmerToList.SkimmerModel;
+            skimmer.SkimmerStatus = skimmerToList.SkimmerStatus;
+            if (skimmer.SkimmerStatus == SkimmerStatuses.shipping)
+            {
+                IDAL.DO.Package package = mayDal.GetPackageList().First(x => x.IDSkimmerOperation == skimmer.Id && x.TimeArrivalRecipient == null);
+                skimmer.PackageInTransfer.Id = package.ID;
+                skimmer.PackageInTransfer.priority = (Priority)(package.priority);
+                skimmer.PackageInTransfer.WeightCategory = (Weight)(package.Weight);
+                if (package.PackageCollectionTime == null)
+                    skimmer.PackageInTransfer.PackageMode = ParcelStatus.Waiting;
+                else
+                    skimmer.PackageInTransfer.PackageMode = ParcelStatus.OnGoing;
+
+                CustomerInParcel sender = new CustomerInParcel();
+                CustomerInParcel receiver = new CustomerInParcel();
+                Location collectLocation = new Location();
+                Location destinationLocation = new Location();
+
+                sender.Id = package.IDSender;
+                sender.Name = mayDal.GetClient(sender.Id).Name;
+                receiver.Id = package.IDgets;
+                receiver.Name = mayDal.GetClient(receiver.Id).Name;
+                skimmer.PackageInTransfer.CustomerSends = sender;
+                skimmer.PackageInTransfer.CustomerReceives = receiver;
+
+                collectLocation.Latitude = mayDal.GetClient(sender.Id).Latitude;
+                collectLocation.Longitude = mayDal.GetClient(sender.Id).Longitude;
+                destinationLocation.Latitude = mayDal.GetClient(receiver.Id).Latitude;
+                destinationLocation.Longitude = mayDal.GetClient(receiver.Id).Longitude;
+
+                skimmer.PackageInTransfer.CollectionLocation = collectLocation;
+                skimmer.PackageInTransfer.DeliveryDestinationLocation = destinationLocation;
+                skimmer.PackageInTransfer.TransportDistance = Tools.Utils.GetDistance(collectLocation.Longitude, collectLocation.Latitude, destinationLocation.Longitude, destinationLocation.Latitude);
+            }
+            else
+                skimmer.PackageInTransfer = null;
+            return skimmer;
+    }
         /// <summary>
         /// Update skimmer name
         /// </summary>

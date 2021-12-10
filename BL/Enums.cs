@@ -10,7 +10,7 @@
     }
     public enum ParcelStatus
     {
-        Created, Assigned, Picked, Delivered
+        Waiting, OnGoing
     }
     public enum SkimmerStatuses
     {
