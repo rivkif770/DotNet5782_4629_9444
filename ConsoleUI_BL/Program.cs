@@ -374,7 +374,7 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("enter ID of Skimmer:");
                                         success = int.TryParse(Console.ReadLine(), out IDq);
                                     } while (!success || IDq < 99 || IDq > 1000);
-                                    Console.WriteLine(myBL.GetSkimmer(IDq));                             
+                                    Console.WriteLine(myBL.GetSkimmerToList(IDq));                             
                                     break;
                                 case DisplayOptions.DisplayCustomer:
                                     int IDc;

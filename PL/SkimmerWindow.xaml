@@ -52,7 +52,7 @@
         </Grid>
 
 
-        <Grid x:Name="Updates">
+        <Grid x:Name="Updates" Visibility="Collapsed">
             <Button x:Name="btnUpdate"  Content="Update name" Height="47" Width="136"
                 HorizontalAlignment="Left" Margin="80,40,0,0" VerticalAlignment="Top" Click="Button_Update" RenderTransformOrigin="-2.939,0.505" />
             <Button x:Name="btnSend" Content="Send for loading" Height="46" Width="136"
