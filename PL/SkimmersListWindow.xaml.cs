@@ -22,6 +22,7 @@ namespace PL
     public partial class SkimmerListWindow : Window
     {
         IBL.IBL bL;
+        SkimmerWindow skimmerWindow;
         public SkimmerListWindow(IBL.IBL bl)
         {
             InitializeComponent();
@@ -31,6 +32,13 @@ namespace PL
             bL = bl;
         }
 
+        private void RefreshListView(object ob)
+        {
+            SkimmerListView.Items.Refresh();
+            if (WeightSelector.SelectedItem == null && StatusSelector.SelectedItem == null) SkimmerListView.ItemsSource = bL.GetSkimmerList();
+            if (WeightSelector.SelectedItem != null) WeightSelector_SelectionChanged(this, null);
+            if (StatusSelector.SelectedItem != null) SkimmerListView_MouseDoubleClick(this, null);
+        }
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SkimmerStatuses status = (SkimmerStatuses)StatusSelector.SelectedItem;
@@ -45,14 +53,19 @@ namespace PL
 
         private void SkimmerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            SkimmerToList skimmer = new SkimmerToList();
-            skimmer = (SkimmerToList)SkimmerListView.SelectedItem;
-            new SkimmerWindow(bL, skimmer).ShowDialog();
-           
+            if((IBL.BO.SkimmerToList)SkimmerListView.SelectedItem!=null)
+            {
+                skimmerWindow = new SkimmerWindow(bL, (IBL.BO.SkimmerToList)SkimmerListView.SelectedItem, this);
+                skimmerWindow.CloseWindowEvent += RefreshListView;
+                skimmerWindow.Show();             
+            }
+            //SkimmerListView.SelectedItem.Clear();
         }
         private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
         {
-            new SkimmerWindow(bL).Show();
+            skimmerWindow = new SkimmerWindow(bL);
+            skimmerWindow.CloseWindowEvent += RefreshListView;
+            skimmerWindow.Show();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
