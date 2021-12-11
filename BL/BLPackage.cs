@@ -195,7 +195,7 @@ namespace BL
                 mayDal.UpadteP(package);
             }
             else
-                throw new SkimmerExceptionBL($"The glider {id} is not available", Severity.Mild);
+                throw new SkimmerExceptionBL($"The skimmer {id} is not available", Severity.Mild);
         }
         /// <summary>
         /// Checks the smallest distance between the skimmer and the package, and returns the package.

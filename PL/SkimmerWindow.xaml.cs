@@ -25,6 +25,9 @@ namespace PL
     {
         SkimmerToList newSkimmer;
         IBL.IBL bL;
+        public delegate void CloseWindow(object ob);
+        public event CloseWindow CloseWindowEvent;
+        SkimmerWindow skimmerWindow;
         public SkimmerWindow(IBL.IBL bl)
         {
             
@@ -41,7 +44,7 @@ namespace PL
             }
         }
 
-        public SkimmerWindow(IBL.IBL bl,SkimmerToList skimmerToList)
+        public SkimmerWindow(IBL.IBL bl,SkimmerToList skimmerToList,SkimmerListWindow skimmerListWindow)
         {
             bL = bl;
             InitializeComponent();
@@ -66,7 +69,7 @@ namespace PL
                 {
                     bL.AddSkimmer(skimmer, Int32.Parse(ComboStationID.Text));
                     MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                    //RefreshListEvent(this);
+                    CloseWindowEvent(this);
                     this.Close();
                 }
                 catch (Exception ex)
@@ -79,7 +82,7 @@ namespace PL
         private void textId_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textId.Text.All(char.IsDigit))
+            if (textId.Text.All(char.IsDigit) && textId.Text.Length < 4 && textId.Text.Length > 2)
             {
                
                 textId.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
@@ -92,7 +95,7 @@ namespace PL
         {
             string text = textSkimmerModel.Text;
             var bc = new BrushConverter();
-            if (text != "" && char.IsLetter(text.ElementAt(0)))
+            if (text != "" && char.IsLetter(text.ElementAt(0)) && textSkimmerModel.Text.Length < 4)
             {
                 textSkimmerModel.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
@@ -117,11 +120,14 @@ namespace PL
                 {
                     bL.UpdateSkimmerName(newSkimmer.Id, name);
                     MessageBox.Show("The update was successful", "Updated a skimmer", MessageBoxButton.OK, MessageBoxImage.Information);
+                    CloseWindowEvent(this);
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+
             }
         }
 
@@ -131,6 +137,8 @@ namespace PL
             {
                 bL.SendingSkimmerForCharging(newSkimmer.Id);
                 MessageBox.Show("The skimmer was successfully shipped for loading", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                CloseWindowEvent(this);
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -150,6 +158,8 @@ namespace PL
                 {
                     bL.ReleaseSkimmerFromCharging(newSkimmer.Id, Time);
                     MessageBox.Show("The skimmer was successfully released for loading", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                    CloseWindowEvent(this);
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
@@ -187,6 +197,8 @@ namespace PL
             {
                 bL.AssigningPackageToSkimmer(newSkimmer.Id);
                 MessageBox.Show("The glider was successfully shipped", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                CloseWindowEvent(this);
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -200,6 +212,8 @@ namespace PL
             {
                 bL.CollectingPackageBySkimmer(newSkimmer.Id);
                 MessageBox.Show("The package was successfully collected", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                CloseWindowEvent(this);
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -213,6 +227,8 @@ namespace PL
             {
                 bL.DeliveryOfPackageBySkimmer(newSkimmer.Id);
                 MessageBox.Show("The shipment reached its destination successfully", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                CloseWindowEvent(this);
+                this.Close();
             }
             catch (Exception ex)
             {

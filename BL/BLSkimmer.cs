@@ -408,6 +408,10 @@ namespace BL
             SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
             double battery = 0;
             //Only a free skimmer can be sent for charging
+            if (skimmer.SkimmerStatus == SkimmerStatuses.maintenance || skimmer.SkimmerStatus == SkimmerStatuses.shipping)
+            {
+                throw new SkimmerExceptionBL("the skimmer is not free");
+            }
             if (skimmer.SkimmerStatus == SkimmerStatuses.free)
             {
                 //Find a very small distance between a skimmer and a base station
@@ -433,7 +437,7 @@ namespace BL
                     }
                     else
                     {
-                        throw new SkimmerExceptionBL("There is not enough battery in the glider");
+                        throw new SkimmerExceptionBL("There is not enough battery in the skimmer");
                     }
                 }
                 else
@@ -441,6 +445,7 @@ namespace BL
                     throw new SkimmerExceptionBL("There are no free charging stations");
                 }
             }
+           
         }
         /// <summary>
         /// Checks a small distance between skimmer and base station
