@@ -21,7 +21,7 @@
         </Grid>
         <StackPanel Orientation="Horizontal">
             <Button x:Name="btnAddSkimmer" Content="add a skimmer" Foreground="White" FontSize="20" FontWeight="Medium"
-                Click="btnAddSkimmer_Click" Width="200" Margin="93,53,491,519" Height="30">
+                Click="btnAddSkimmer_Click" Width="300" Margin="27,400,0,0" Height="30">
 
                 <Button.Style>
                     <Style TargetType="Button">
@@ -49,31 +49,92 @@
 
             </Button>
         </StackPanel>
-        <Label Content="status:" Margin="67,173,0,0" FontSize="15"
+        <Label Content="status:" Margin="67,302,0,0" FontSize="25"
+               FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ComboBox Name="StatusSelector" Text="Choose a Status" Margin="169,173,0,0" Width="108"
-                      HorizontalAlignment="Left" VerticalAlignment="Top" 
+        <ComboBox Name="StatusSelector" Text="Choose a Status" Margin="169,0,0,0" Width="108"
+                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFE2DADC"
                       ToolTip="Choose  a Status"  IsEditable="True" IsReadOnly="True" 
                       SelectionChanged="StatusSelector_SelectionChanged" Height="30"/>
-        <Label Content="Weight:" Margin="67,238,0,0" FontSize="15"
+        <Label Content="Weight:" Margin="67,370,0,0" FontSize="25"
+               FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.584,2.616"/>
-        <ComboBox Name="WeightSelector" Text="Choose a Weight" Margin="169,238,0,0" Width="108" Height="30"
+        <ComboBox Name="WeightSelector" Text="Choose a Weight" Margin="169,375,0,0" Width="108" Height="30"
                       HorizontalAlignment="Left" VerticalAlignment="Top" 
                       ToolTip="Choose  a Weight"  IsEditable="True" IsReadOnly="True" 
-                      SelectionChanged="WeightSelector_SelectionChanged"/>
+                      SelectionChanged="WeightSelector_SelectionChanged" RenderTransformOrigin="0.63,5.717"/>
 
 
-        <ListView x:Name="SkimmerListView" Margin="345,5,0,0" MouseDoubleClick="SkimmerListView_MouseDoubleClick" >
+        <ListView x:Name="SkimmerListView" Margin="345,5,0,0" MouseDoubleClick="SkimmerListView_MouseDoubleClick" Background="#FFE2DADC">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
-
         </ListView>
-        <Button Content="Clear" Margin="140,304,0,0" Height="22" Width="83" ToolTip="Clear filter and display all skimmers"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Click="Clear_Click"/>
-        <Button Content="EXIT" Margin="57,385,0,0" Width="249" Height="74" ToolTip="Exit this window"
-                HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Click="Button_Click_1" />
+
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="Clear" Content="Clear" Foreground="White" FontSize="20" FontWeight="Medium"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Clear filter and display all skimmers"
+                Click="Clear_Click" Width="300" Margin="27,450,0,0" Height="30">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#FFA69D9F"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF7A7778"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
+                    HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" ToolTip="Exit this window"
+                Click="EXIT_Click" Width="300" Margin="27,550,0,0" Height="40">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#FFA69D9F"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF7A7778"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>
