@@ -134,7 +134,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void EXIT_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

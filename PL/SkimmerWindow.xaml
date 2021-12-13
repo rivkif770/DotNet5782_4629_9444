@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="SkimmerWindow" Height="450" Width="800" >
     <Grid>
-        <Grid x:Name="add" Visibility="Collapsed">
+        <Grid x:Name="add" >
             <Grid x:Name="AddSkimmerGrid" Margin="217,25,0,171" Width="285" HorizontalAlignment="Left" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
@@ -19,7 +19,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Id"  Margin="3" Grid.Row="0"  >
+                <Label Content="Id"  Margin="3" Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="36" >
                     <Label.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -52,7 +52,7 @@
         </Grid>
 
 
-        <Grid x:Name="Updates" >
+        <Grid x:Name="Updates" Visibility="Collapsed">
             <Button x:Name="btnUpdate"  Content="Update name" Height="47" Width="136" ToolTip="Update skimmer name"
                 HorizontalAlignment="Left" Margin="80,40,0,0" VerticalAlignment="Top" Click="Button_Update" RenderTransformOrigin="-2.939,0.505" />
             <Button x:Name="btnSend" Content="Send for loading" Height="46" Width="136" ToolTip="Sending a skimmer for charging"
