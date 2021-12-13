@@ -33,5 +33,10 @@ namespace PL
         {
             new SkimmerListWindow(mybl).Show();
         }
+
+        private void EXIT_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

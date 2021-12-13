@@ -5,10 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="SkimmerListWindow" Height="640" Width="800">
+        Title="SkimmerListWindow" Height="640" Width="800"
+        AllowsTransparency="True" Background="Transparent"
+        WindowStyle="None" ResizeMode="NoResize">
     <Grid Name="MainGrid">
-        <Button x:Name="btnAddSkimmer" Content="add a skimmer" Margin="93,53,491,519" 
-                    Click="btnAddSkimmer_Click" RenderTransformOrigin="0.495,0.028"/>
+        <Grid>
+            <Border CornerRadius="10" Grid.RowSpan="2">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#FF090A5D" Offset="0.0"/>
+                        <GradientStop Color="#FF797993" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+        </Grid>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="btnAddSkimmer" Content="add a skimmer" Foreground="White" FontSize="20" FontWeight="Medium"
+                Click="btnAddSkimmer_Click" Width="200" Margin="93,53,491,519" Height="30">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#FFA69D9F"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF7A7778"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </StackPanel>
         <Label Content="status:" Margin="67,173,0,0" FontSize="15"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <ComboBox Name="StatusSelector" Text="Choose a Status" Margin="169,173,0,0" Width="108"
@@ -17,9 +57,6 @@
                       SelectionChanged="StatusSelector_SelectionChanged" Height="30"/>
         <Label Content="Weight:" Margin="67,238,0,0" FontSize="15"
                    HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.584,2.616"/>
-        <!--<ComboBox Name="WeightSelector" Text="Choose a Weight" Margin="169,244,523,350"
-                      ToolTip="Choose  a Weight"  IsEditable="True" IsReadOnly="True" 
-                      SelectionChanged="WeightSelector_SelectionChanged" />-->
         <ComboBox Name="WeightSelector" Text="Choose a Weight" Margin="169,238,0,0" Width="108" Height="30"
                       HorizontalAlignment="Left" VerticalAlignment="Top" 
                       ToolTip="Choose  a Weight"  IsEditable="True" IsReadOnly="True" 
@@ -32,6 +69,7 @@
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
+
         </ListView>
         <Button Content="Clear" Margin="140,304,0,0" Height="22" Width="83" ToolTip="Clear filter and display all skimmers"
                 HorizontalAlignment="Left" VerticalAlignment="Top" Click="Clear_Click"/>

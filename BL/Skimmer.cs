@@ -24,7 +24,7 @@ namespace IBL.BO
             result += $"Weight category: {WeightCategory} \n";
             result += $"Battery status: {BatteryStatus} \n";
             result += $"Skimmer mode: {SkimmerStatus} \n";
-            result += $"Shipping package in transfer: {PackageInTransfer}";
+            result += $"Shipping package in transfer:\n{PackageInTransfer}";
             result += Location;
             return result;
         }

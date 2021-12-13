@@ -59,7 +59,7 @@ namespace PL
             Updates.Visibility = Visibility.Visible;           
             newSkimmer = new SkimmerToList();
             newSkimmer = skimmerToList;
-            show.Content = bl.GetSkimmerr(newSkimmer.Id);
+            showSkimmer.Text = bl.GetSkimmerr(newSkimmer.Id).ToString();
         }
         /// <summary>
         /// Button attempt to add skimmer-checks whether all the required fields are filled correctly and sends to try to add in bl, updates the new skimmer, sends a suitable message and closes the window
