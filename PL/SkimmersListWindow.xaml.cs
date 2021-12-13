@@ -23,6 +23,8 @@ namespace PL
     {
         IBL.IBL bL;
         SkimmerWindow skimmerWindow;
+        static Weight? weightFilter;
+        static SkimmerStatuses? statusesFilter;
         public SkimmerListWindow(IBL.IBL bl)
         {
             InitializeComponent();
@@ -41,19 +43,51 @@ namespace PL
         }
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SkimmerStatuses status = (SkimmerStatuses)StatusSelector.SelectedItem;
-            SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.SkimmerStatus == status);
+            if (StatusSelector.SelectedIndex != -1)
+            {
+                statusesFilter = (SkimmerStatuses)StatusSelector.SelectedItem;
+                if (weightFilter == null)
+                {
+                    SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.SkimmerStatus == statusesFilter);
+                }
+                else
+                {
+                    SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.SkimmerStatus == statusesFilter && x.WeightCategory == weightFilter);
+                }
+            }
+            else
+            {
+                StatusSelector.SelectedIndex = -1;
+                statusesFilter = null;
+                StatusSelector.Text = "Choose a Status";
+            }
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Weight weight = (Weight)WeightSelector.SelectedItem;
-            SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weight);
+            if(WeightSelector.SelectedIndex != -1)
+            {
+                weightFilter = (Weight)WeightSelector.SelectedItem;
+                if (statusesFilter == null)
+                {
+                    SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weightFilter);
+                }
+                else
+                {
+                    SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weightFilter && x.SkimmerStatus == statusesFilter);
+                }
+            }
+            else
+            {
+                WeightSelector.SelectedIndex = -1;
+                weightFilter = null;
+                WeightSelector.Text = "Choose a Weight";
+            }
         }
 
         private void SkimmerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if((IBL.BO.SkimmerToList)SkimmerListView.SelectedItem!=null)
+            if((IBL.BO.SkimmerToList)SkimmerListView.SelectedItem != null)
             {
                 skimmerWindow = new SkimmerWindow(bL, (IBL.BO.SkimmerToList)SkimmerListView.SelectedItem, this);
                 skimmerWindow.CloseWindowEvent += RefreshListView;
@@ -68,9 +102,11 @@ namespace PL
             skimmerWindow.Show();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Clear_Click(object sender, RoutedEventArgs e)
         {
-            SkimmerListView.ItemsSource = bL.GetSkimmerList();            
+            SkimmerListView.ItemsSource = bL.GetSkimmerList();
+            StatusSelector.SelectedIndex = -1;
+            WeightSelector.SelectedIndex = -1;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

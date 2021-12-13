@@ -36,7 +36,7 @@ namespace PL
             InitializeComponent();
             add.Visibility = Visibility.Visible;
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(IBL.BO.Weight));
-            foreach (BaseStationToList item in bl.GetBaseStationList())
+            foreach (BaseStationToList item in bl.GetBaseStationFreeCharging())
             {
                 ComboBoxItem newItem = new ComboBoxItem();
                 newItem.Content = item.Id;
@@ -234,6 +234,11 @@ namespace PL
             {
                 MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void textShowSkimmer_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           // this.textShowSkimmer.Text = newSkimmer.ToString();
         }
     }
 }

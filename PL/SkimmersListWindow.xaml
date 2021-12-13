@@ -7,38 +7,35 @@
         mc:Ignorable="d"
         Title="SkimmerListWindow" Height="640" Width="800">
     <Grid Name="MainGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="400*"/>
-        </Grid.RowDefinitions>
-        <Grid Name="UpGrid" Height="auto" Width="auto" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
-            <Button x:Name="btnAddSkimmer" Content="add a skimmer" Margin="95,109,107,-76" Grid.ColumnSpan="2" 
-                    Click="btnAddSkimmer_Click"/>
-            <Label Content="status" Margin="59,166,59,-138" Grid.Column="0" FontSize="15" RenderTransformOrigin="-0.563,-0.27" />
-            <ComboBox Name="StatusSelector" Text="Choose a Status" Margin="169,173,107,-131" Grid.ColumnSpan="2"
+        <Button x:Name="btnAddSkimmer" Content="add a skimmer" Margin="93,53,491,519" 
+                    Click="btnAddSkimmer_Click" RenderTransformOrigin="0.495,0.028"/>
+        <Label Content="status:" Margin="67,173,0,0" FontSize="15"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ComboBox Name="StatusSelector" Text="Choose a Status" Margin="169,173,0,0" Width="108"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" 
                       ToolTip="Choose  a Status"  IsEditable="True" IsReadOnly="True" 
-                      SelectionChanged="StatusSelector_SelectionChanged" />
-            <Label Content="Weight"  Margin="59,237,59,-208" FontSize="15"/>
-            <ComboBox Name="WeightSelector" Text="Choose a Weight" Margin="169,245,107,-202" Grid.ColumnSpan="2"
+                      SelectionChanged="StatusSelector_SelectionChanged" Height="30"/>
+        <Label Content="Weight:" Margin="67,238,0,0" FontSize="15"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.584,2.616"/>
+        <!--<ComboBox Name="WeightSelector" Text="Choose a Weight" Margin="169,244,523,350"
                       ToolTip="Choose  a Weight"  IsEditable="True" IsReadOnly="True" 
-                      SelectionChanged="WeightSelector_SelectionChanged" />
-        </Grid>
+                      SelectionChanged="WeightSelector_SelectionChanged" />-->
+        <ComboBox Name="WeightSelector" Text="Choose a Weight" Margin="169,238,0,0" Width="108" Height="30"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" 
+                      ToolTip="Choose  a Weight"  IsEditable="True" IsReadOnly="True" 
+                      SelectionChanged="WeightSelector_SelectionChanged"/>
 
-        <ListView x:Name="SkimmerListView" Margin="422,5,0,0" Grid.Row="1" MouseDoubleClick="SkimmerListView_MouseDoubleClick" >
+
+        <ListView x:Name="SkimmerListView" Margin="345,5,0,0" MouseDoubleClick="SkimmerListView_MouseDoubleClick" SelectionChanged="SkimmerListView_SelectionChanged" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="All Skimmer" HorizontalAlignment="Left" Margin="126,258,0,0" Grid.Row="1" VerticalAlignment="Top" Height="22" Width="83" Click="Button_Click" />
-        <Button Content="EXIT" Margin="57,385,0,0" Width="249" Height="74"
+        <Button Content="Clear" Margin="140,304,0,0" Height="22" Width="83" ToolTip="Clear filter and display all skimmers"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Click="Clear_Click"/>
+        <Button Content="EXIT" Margin="57,385,0,0" Width="249" Height="74" ToolTip="Exit this window"
                 HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Click="Button_Click_1" />
     </Grid>
 </Window>

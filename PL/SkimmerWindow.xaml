@@ -34,10 +34,10 @@
                 <Label Content="Station ID"  Margin="3" Grid.Row="3" />
                 <TextBox  x:Name="textId" Margin="2,0,0,0" Width="150" Height="25" Grid.Column="1" 
                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                      TextChanged="textId_TextChanged" BorderBrush="#FFE92617"  />
+                      TextChanged="textId_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 3-digit id number" />
                 <TextBox x:Name="textSkimmerModel"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="1" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center"  
-                     TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617"/>
+                     TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"/>
                 <ComboBox x:Name="ComboStationID" Margin="2,0,0,0" Width="150" Height="25" Grid.Row="3" Grid.Column="1" Text="Choose a Station" 
                       HorizontalAlignment="Left" VerticalAlignment="Center"
                             IsEditable="True" IsReadOnly="True"/>
@@ -46,24 +46,22 @@
                       IsEditable="True" IsReadOnly="True"/>
             </Grid>
             <Button x:Name="btnADD" Content="ADD" Margin="130,309,0,0" Height="47" Width="136"
-                HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="btnAddSkimmer_Click" />
+                HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="btnAddSkimmer_Click" ToolTip="Add a skimmer to the pool"/>
             <Button x:Name="btnEXIT1" Content="EXIT" Margin="492,309,0,0" Height="47" Width="136"
-                HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Button_Click" />
+                HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Button_Click" ToolTip="Exit this window"/>
         </Grid>
 
 
         <Grid x:Name="Updates" Visibility="Collapsed">
-            <Button x:Name="btnUpdate"  Content="Update name" Height="47" Width="136"
+            <Button x:Name="btnUpdate"  Content="Update name" Height="47" Width="136" ToolTip="Update skimmer name"
                 HorizontalAlignment="Left" Margin="80,40,0,0" VerticalAlignment="Top" Click="Button_Update" RenderTransformOrigin="-2.939,0.505" />
-            <Button x:Name="btnSend" Content="Send for loading" Height="46" Width="136"
+            <Button x:Name="btnSend" Content="Send for loading" Height="46" Width="136" ToolTip="Sending a skimmer for charging"
                 HorizontalAlignment="Left" Margin="80,168,0,0" VerticalAlignment="Top" Click="Button_Sending_Loading" RenderTransformOrigin="-2.295,0.556" />
-            <Button x:Name="btnRelease" Content="Release from charging" Height="47" Width="136"
+            <Button x:Name="btnRelease" Content="Release from charging" Height="47" Width="136" ToolTip="Release skimmer from charging"
                 HorizontalAlignment="Left" Margin="80,267,0,0" VerticalAlignment="Top" Click="Button_Release" />
-            <Button x:Name="btnEXIT2" Content="EXIT" Margin="360,340,0,0" Height="47" Width="136"
+            <Button x:Name="btnEXIT2" Content="EXIT" Margin="360,340,0,0" Height="47" Width="136" ToolTip="Exit this window"
                 HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Button_Click" />
 
-            <Label x:Name="labMain" Content="Label" Margin="332,68,0,0" Height="246" Width="193"
-               HorizontalAlignment="Left" VerticalAlignment="Top" />
             <Label x:Name="labUpdate" Margin="26,87,0,0" Width="244"
                Content="Please introduce a new model for the skimmer" 
                HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -76,12 +74,17 @@
             <TextBox x:Name="textRelease" Margin="80,340,0,0" Width="136"
                  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
                  TextChanged="textRelease_TextChanged" BorderBrush="#FFE92617" />
-            <Button Content="Sending a skimmer for delivery" Margin="596,60,0,0" Height="46" Width="172"
+            <Button Content="Sending a skimmer for delivery" Margin="596,60,0,0" Height="46" Width="172" ToolTip="Sending the skimmer for delivery (only for available skimmer)"
                     HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Sending_Skimmer_For_Delivery" />
-            <Button Content="Collect the package" Margin="596,160,0,0" Height="47" Width="172"
+            <Button Content="Collect the package" Margin="596,160,0,0" Height="47" Width="172" ToolTip="Package collection"
                 HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Collect_The_Package" />
-            <Button Content="Package delivery" Margin="596,260,0,0" Height="47" Width="172"
+            <Button Content="Package delivery" Margin="596,260,0,0" Height="47" Width="172" ToolTip="Package delivery"
                 HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Package_Delivery" />
+            <TextBox x:Name="textShowSkimmer" Margin="303,42,0,0" Width="223" Height="285"
+                     HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
+                     TextChanged="textShowSkimmer_TextChanged" FontFamily="Gloucester MT Extra Condensed" 
+                     Text="skimmer" FontSize="20" IsReadOnlyCaretVisible="True" 
+                     />
 
         </Grid>
 
