@@ -26,7 +26,7 @@ namespace PL
         SkimmerToList newSkimmer;
         IBL.IBL bL;
         public delegate void CloseWindow(object ob);
-        public event CloseWindow CloseWindowEvent;
+        //public event CloseWindow CloseWindowEvent;
         SkimmerWindow skimmerWindow;
         /// <summary>
         /// Builder to add
@@ -83,7 +83,7 @@ namespace PL
                 {
                     bL.AddSkimmer(skimmer, Int32.Parse(ComboStationID.Text));
                     MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                    CloseWindowEvent(this);
+                    //CloseWindowEvent(this);
                     this.Close();
                 }
                 catch (Exception ex)
@@ -150,7 +150,7 @@ namespace PL
                 {
                     bL.UpdateSkimmerName(newSkimmer.Id, name);
                     MessageBox.Show("The update was successful", "Updated a skimmer", MessageBoxButton.OK, MessageBoxImage.Information);
-                    CloseWindowEvent(this);
+                    //CloseWindowEvent(this);
                     this.Close();
                 }
                 catch (Exception ex)
@@ -171,7 +171,7 @@ namespace PL
             {
                 bL.SendingSkimmerForCharging(newSkimmer.Id);
                 MessageBox.Show("The skimmer was successfully shipped for loading", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                CloseWindowEvent(this);
+                //CloseWindowEvent(this);
                 this.Close();
             }
             catch (Exception ex)
@@ -196,7 +196,7 @@ namespace PL
                 {
                     bL.ReleaseSkimmerFromCharging(newSkimmer.Id, Time);
                     MessageBox.Show("The skimmer was successfully released for loading", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                    CloseWindowEvent(this);
+                    //CloseWindowEvent(this);
                     this.Close();
                 }
                 catch (Exception ex)
@@ -247,7 +247,7 @@ namespace PL
             {
                 bL.AssigningPackageToSkimmer(newSkimmer.Id);
                 MessageBox.Show("The glider was successfully shipped", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                CloseWindowEvent(this);
+                //CloseWindowEvent(this);
                 this.Close();
             }
             catch (Exception ex)
@@ -266,7 +266,7 @@ namespace PL
             {
                 bL.CollectingPackageBySkimmer(newSkimmer.Id);
                 MessageBox.Show("The package was successfully collected", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                CloseWindowEvent(this);
+                //CloseWindowEvent(this);
                 this.Close();
             }
             catch (Exception ex)
@@ -285,7 +285,7 @@ namespace PL
             {
                 bL.DeliveryOfPackageBySkimmer(newSkimmer.Id);
                 MessageBox.Show("The shipment reached its destination successfully", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                CloseWindowEvent(this);
+                //CloseWindowEvent(this);
                 this.Close();
             }
             catch (Exception ex)

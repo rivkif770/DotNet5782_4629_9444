@@ -34,7 +34,7 @@ namespace PL
             bL = bl;
         }
 
-        private void RefreshListView(object ob)
+        private void RefreshListView(object ob,EventArgs ev)
         {
             SkimmerListView.Items.Refresh();
             if (WeightSelector.SelectedItem == null && StatusSelector.SelectedItem == null) SkimmerListView.ItemsSource = bL.GetSkimmerList();
@@ -103,10 +103,9 @@ namespace PL
             if((IBL.BO.SkimmerToList)SkimmerListView.SelectedItem != null)
             {
                 skimmerWindow = new SkimmerWindow(bL, (IBL.BO.SkimmerToList)SkimmerListView.SelectedItem, this);
-                skimmerWindow.CloseWindowEvent += RefreshListView;
+                skimmerWindow.Closed += RefreshListView;
                 skimmerWindow.Show();             
             }
-            //SkimmerListView.SelectedItem.Clear();
         }
         /// <summary>
         /// Submit by tapping the Add Skimmer button to the Add and Update the New Skimmer window in the list afterwards
@@ -116,7 +115,7 @@ namespace PL
         private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
         {
             skimmerWindow = new SkimmerWindow(bL);
-            skimmerWindow.CloseWindowEvent += RefreshListView;
+            skimmerWindow.Closed += RefreshListView;
             skimmerWindow.Show();
         }
         /// <summary>
