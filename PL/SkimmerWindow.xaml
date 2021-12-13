@@ -18,8 +18,8 @@
             </Border.Background>
         </Border>
 
-        <Grid x:Name="add" Visibility="Collapsed">
-            <Grid x:Name="AddSkimmerGrid" Margin="217,25,0,171" Width="285" HorizontalAlignment="Left" >
+        <Grid x:Name="add" >
+            <Grid x:Name="AddSkimmerGrid" Margin="0,25,0,183" Width="404" HorizontalAlignment="Center" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
@@ -27,10 +27,10 @@
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Id"  Margin="3" Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="36" >
+                <Label Content="Id"  Margin="3" Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="30" >
                     <Label.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -40,14 +40,14 @@
                         </TransformGroup>
                     </Label.RenderTransform>
                 </Label>
-                <Label Content="Skimmer Model" Grid.Row="1"  />
-                <Label Content="Weight Category" Grid.Row="2" />
-                <Label Content="Station ID"  Margin="3" Grid.Row="3" />
+                <Label Content="Skimmer Model" Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="30" />
+                <Label Content="Weight Category" Grid.Row="2" FontFamily="Bahnschrift Condensed" FontSize="30"/>
+                <Label Content="Station ID"  Margin="3" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="30"/>
                 <TextBox  x:Name="textId" Margin="2,0,0,0" Width="150" Height="25" Grid.Column="1" 
-                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"
                       TextChanged="textId_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 3-digit id number" />
                 <TextBox x:Name="textSkimmerModel"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="1" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"/>
                 <ComboBox x:Name="ComboStationID" Margin="2,0,0,0" Width="150" Height="25" Grid.Row="3" Grid.Column="1" Text="Choose a Station" 
                       HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -56,14 +56,72 @@
                       HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1" Text="Choose Weight" 
                       IsEditable="True" IsReadOnly="True"/>
             </Grid>
-            <Button x:Name="btnADD" Content="ADD" Margin="130,309,0,0" Height="47" Width="136"
-                HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="btnAddSkimmer_Click" ToolTip="Add a skimmer to the pool"/>
-            <Button x:Name="btnEXIT1" Content="EXIT" Margin="492,309,0,0" Height="47" Width="136"
-                HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Button_Click" ToolTip="Exit this window"/>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnADD" Content="ADD" Foreground="White" FontSize="20" FontWeight="Medium"
+                        HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Add a skimmer to the pool"
+                Click="btnAddSkimmer_Click" Width="200" Margin="130,309,0,0" Height="30">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                            <Setter Property="Background" Value="#FFA69D9F"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF7A7778"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnEXIT1" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
+                        HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Exit this window"
+                Click="Button_Click" Width="200" Margin="492,309,0,0" Height="30">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                            <Setter Property="Background" Value="#FFA69D9F"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF7A7778"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+            </StackPanel>
         </Grid>
 
 
-        <Grid x:Name="Updates" >
+        <Grid x:Name="Updates" Visibility="Collapsed">
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnUpdate" Content="Update name" ToolTip="Update skimmer name" Foreground="White"
                         FontSize="20" FontWeight="Medium" Click="Button_Update" Width="200" Margin="50,30,0,0" Height="60" VerticalAlignment="Top" RenderTransformOrigin="-2.939,0.505">
