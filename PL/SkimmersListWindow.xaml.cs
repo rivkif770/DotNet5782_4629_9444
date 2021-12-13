@@ -17,7 +17,7 @@ using IBL.BO;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for DronesListWindow.xaml
+    /// Interaction logic for skimmerListWindow.xaml
     /// </summary>
     public partial class SkimmerListWindow : Window
     {
@@ -41,6 +41,11 @@ namespace PL
             if (WeightSelector.SelectedItem != null) WeightSelector_SelectionChanged(this, null);
             if (StatusSelector.SelectedItem != null) SkimmerListView_MouseDoubleClick(this, null);
         }
+        /// <summary>
+        /// Filter by skimmer status (checks whether there is filter by weight and combines them)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (StatusSelector.SelectedIndex != -1)
@@ -62,7 +67,11 @@ namespace PL
                 StatusSelector.Text = "Choose a Status";
             }
         }
-
+        /// <summary>
+        /// Filter by weight of skimmer (checks whether there is a filter by status and combines them)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(WeightSelector.SelectedIndex != -1)
@@ -84,7 +93,11 @@ namespace PL
                 WeightSelector.Text = "Choose a Weight";
             }
         }
-
+        /// <summary>
+        /// Sending by double-tapping a skimmer from the skimmer list to the Updates window and updating the change in the list afterwards
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SkimmerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if((IBL.BO.SkimmerToList)SkimmerListView.SelectedItem != null)
@@ -95,20 +108,33 @@ namespace PL
             }
             //SkimmerListView.SelectedItem.Clear();
         }
+        /// <summary>
+        /// Submit by tapping the Add Skimmer button to the Add and Update the New Skimmer window in the list afterwards
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
         {
             skimmerWindow = new SkimmerWindow(bL);
             skimmerWindow.CloseWindowEvent += RefreshListView;
             skimmerWindow.Show();
         }
-
+        /// <summary>
+        /// Option to clear the filter of the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
             SkimmerListView.ItemsSource = bL.GetSkimmerList();
             StatusSelector.SelectedIndex = -1;
             WeightSelector.SelectedIndex = -1;
         }
-
+        /// <summary>
+        /// Close the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();

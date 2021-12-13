@@ -28,11 +28,14 @@ namespace PL
         public delegate void CloseWindow(object ob);
         public event CloseWindow CloseWindowEvent;
         SkimmerWindow skimmerWindow;
+        /// <summary>
+        /// Builder to add
+        /// </summary>
+        /// <param name="bl"></param>
         public SkimmerWindow(IBL.IBL bl)
         {
             
-            bL = bl;
-            //newSkimmer = new Skimmer();           
+            bL = bl;                      
             InitializeComponent();
             add.Visibility = Visibility.Visible;
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(IBL.BO.Weight));
@@ -43,7 +46,12 @@ namespace PL
                 ComboStationID.Items.Add(newItem);
             }
         }
-
+        /// <summary>
+        /// Builder for update
+        /// </summary>
+        /// <param name="bl"></param>
+        /// <param name="skimmerToList"></param>
+        /// <param name="skimmerListWindow"></param>
         public SkimmerWindow(IBL.IBL bl,SkimmerToList skimmerToList,SkimmerListWindow skimmerListWindow)
         {
             bL = bl;
@@ -53,6 +61,11 @@ namespace PL
             newSkimmer = skimmerToList;
             show.Content = bl.GetSkimmerr(newSkimmer.Id);
         }
+        /// <summary>
+        /// Button attempt to add skimmer-checks whether all the required fields are filled correctly and sends to try to add in bl, updates the new skimmer, sends a suitable message and closes the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
         {
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
@@ -79,7 +92,11 @@ namespace PL
                 }
             }      
         }
-
+        /// <summary>
+        /// Input the id from the user and color the field according to the correctness of the input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textId_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -91,7 +108,11 @@ namespace PL
             else textId.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
 
         }
-
+        /// <summary>
+        /// Input the Skimmer Model from the user and color the field according to the correctness of the input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textSkimmerModel_TextChanged(object sender, TextChangedEventArgs e)
         {
             string text = textSkimmerModel.Text;
@@ -103,12 +124,20 @@ namespace PL
             else
                 textSkimmerModel.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
+        /// <summary>
+        /// Button for closing the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-
+        /// <summary>
+        /// /// Attempt to update skimmer name checks if all required fields are filled in correctly and sends to try to update in bl, updates the new skimmer, sends a suitable message and closes the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Update(object sender, RoutedEventArgs e)
         {
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
@@ -131,7 +160,11 @@ namespace PL
 
             }
         }
-
+        /// <summary>
+        /// /// Attempt button to send skimmer for charging sends to try to update in bl, updates the new skimmer, sends a suitable message and closes the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Sending_Loading(object sender, RoutedEventArgs e)
         {
             try
@@ -146,7 +179,11 @@ namespace PL
                 MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// /// Attempt to release skimmer charger checks if all required fields are filled in correctly and sends to try to update in bl, updates the new skimmer, sends a suitable message and closes the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Release(object sender, RoutedEventArgs e)
         {
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
@@ -168,7 +205,11 @@ namespace PL
                 }
             }
         }
-
+        /// <summary>
+        /// /// Enter the new name from the user and color the field according to the correctness of the input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textUpdate_TextChanged(object sender, TextChangedEventArgs e)
         {
             string text = textUpdate.Text;
@@ -180,7 +221,11 @@ namespace PL
             else
                 textUpdate.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
+        /// <summary>
+        /// /// Enter the number of hours of charging from the user and color the field according to the correctness of the input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textRelease_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -191,7 +236,11 @@ namespace PL
             }
             else textRelease.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
+        /// <summary>
+        /// /// /// Attempt to associate a package with a glider Sender Try to update on bl, update the new glider, send an appropriate message and close the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Sending_Skimmer_For_Delivery(object sender, RoutedEventArgs e)
         {
             try
@@ -206,7 +255,11 @@ namespace PL
                 MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// /// /// Attempt to collect a package, sends to try to update on bl, updates the new glider, sends an appropriate message and closes the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Collect_The_Package(object sender, RoutedEventArgs e)
         {
             try
@@ -221,7 +274,11 @@ namespace PL
                 MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// /// /// Attempt to deliver a package, sends to try to update on bl, updates the new glider, sends an appropriate message and closes the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Package_Delivery(object sender, RoutedEventArgs e)
         {
             try
