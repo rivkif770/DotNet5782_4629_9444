@@ -59,16 +59,16 @@
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnADD" Content="ADD" Foreground="White" FontSize="20" FontWeight="Medium"
                         HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Add a skimmer to the pool"
-                Click="btnAddSkimmer_Click" Width="200" Margin="130,309,0,0" Height="30">
+                Click="btnAddSkimmer_Click" Width="200" Margin="130,309,0,0" Height="30" >
 
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
+                            <Setter Property="Background" Value="#FF4FE899"/>
                             <Setter Property="Cursor" Value="Hand"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
+                                    <Setter Property="Background" Value="#FF20CB73"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -95,11 +95,11 @@
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
+                            <Setter Property="Background" Value="#FF4FE899"/>
                             <Setter Property="Cursor" Value="Hand"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
+                                    <Setter Property="Background" Value="#FF20CB73"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -219,11 +219,11 @@
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
+                            <Setter Property="Background" Value="#FF4FE899"/>
                             <Setter Property="Cursor" Value="Hand"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
+                                    <Setter Property="Background" Value="#FF20CB73"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
