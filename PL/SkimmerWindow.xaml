@@ -52,7 +52,7 @@
         </Grid>
 
 
-        <Grid x:Name="Updates" Visibility="Collapsed">
+        <Grid x:Name="Updates" >
             <Button x:Name="btnUpdate"  Content="Update name" Height="47" Width="136" ToolTip="Update skimmer name"
                 HorizontalAlignment="Left" Margin="80,40,0,0" VerticalAlignment="Top" Click="Button_Update" RenderTransformOrigin="-2.939,0.505" />
             <Button x:Name="btnSend" Content="Send for loading" Height="46" Width="136" ToolTip="Sending a skimmer for charging"
@@ -80,11 +80,9 @@
                 HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Collect_The_Package" />
             <Button Content="Package delivery" Margin="596,260,0,0" Height="47" Width="172" ToolTip="Package delivery"
                 HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Package_Delivery" />
-            <TextBox x:Name="textShowSkimmer" Margin="303,42,0,0" Width="223" Height="285"
-                     HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
-                     TextChanged="textShowSkimmer_TextChanged" FontFamily="Gloucester MT Extra Condensed" 
-                     Text="skimmer" FontSize="20" IsReadOnlyCaretVisible="True" 
-                     />
+            <Label x:Name="show" HorizontalAlignment="Left" Margin="300,60,0,0" VerticalAlignment="Top" Height="230" Width="217"/>
+
+
 
         </Grid>
 

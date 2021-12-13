@@ -51,6 +51,7 @@ namespace PL
             Updates.Visibility = Visibility.Visible;           
             newSkimmer = new SkimmerToList();
             newSkimmer = skimmerToList;
+            show.Content = bl.GetSkimmerr(newSkimmer.Id);
         }
         private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
         {
@@ -236,9 +237,6 @@ namespace PL
             }
         }
 
-        private void textShowSkimmer_TextChanged(object sender, TextChangedEventArgs e)
-        {
-           // this.textShowSkimmer.Text = newSkimmer.ToString();
-        }
+        
     }
 }
