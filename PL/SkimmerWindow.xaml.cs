@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Drawing;
 using System.Collections;
-using IBL.BO;
+using BO;
 
 
 namespace PL
@@ -24,7 +24,7 @@ namespace PL
     public partial class SkimmerWindow : Window
     {
         SkimmerToList newSkimmer;
-        IBL.IBL bL;
+        BlApi.IBL bL;
         public delegate void CloseWindow(object ob);
         //public event CloseWindow CloseWindowEvent;
         SkimmerWindow skimmerWindow;
@@ -32,13 +32,13 @@ namespace PL
         /// Builder to add
         /// </summary>
         /// <param name="bl"></param>
-        public SkimmerWindow(IBL.IBL bl)
+        public SkimmerWindow(BlApi.IBL bl)
         {
             
             bL = bl;                      
             InitializeComponent();
             add.Visibility = Visibility.Visible;
-            ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(IBL.BO.Weight));
+            ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             foreach (BaseStationToList item in bl.GetBaseStationFreeCharging())
             {
                 ComboBoxItem newItem = new ComboBoxItem();
@@ -52,7 +52,7 @@ namespace PL
         /// <param name="bl"></param>
         /// <param name="skimmerToList"></param>
         /// <param name="skimmerListWindow"></param>
-        public SkimmerWindow(IBL.IBL bl,SkimmerToList skimmerToList,SkimmerListWindow skimmerListWindow)
+        public SkimmerWindow(BlApi.IBL bl,SkimmerToList skimmerToList,SkimmerListWindow skimmerListWindow)
         {
             bL = bl;
             InitializeComponent();
@@ -75,7 +75,7 @@ namespace PL
             }
             else
             {
-                IBL.BO.Skimmer skimmer = new Skimmer();
+                BO.Skimmer skimmer = new Skimmer();
                 skimmer.Id = Int32.Parse(textId.Text);
                 skimmer.SkimmerModel = textSkimmerModel.Text;
                 skimmer.WeightCategory = (Weight)(ComboWeightCategory.SelectedItem);

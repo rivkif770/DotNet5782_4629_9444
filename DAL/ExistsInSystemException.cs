@@ -1,8 +1,8 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Runtime.Serialization;
 
-namespace IDAL.DO
+namespace DO
 {
     [Serializable]
     public class ExistsInSystemException : Exception

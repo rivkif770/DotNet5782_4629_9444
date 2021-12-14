@@ -11,8 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL;
-using IBL.BO;
+using BlApi;
+using BO;
 
 namespace PL
 {
@@ -21,16 +21,16 @@ namespace PL
     /// </summary>
     public partial class SkimmerListWindow : Window
     {
-        IBL.IBL bL;
+        BlApi.IBL bL;
         SkimmerWindow skimmerWindow;
         static Weight? weightFilter;
         static SkimmerStatuses? statusesFilter;
-        public SkimmerListWindow(IBL.IBL bl)
+        public SkimmerListWindow(BlApi.IBL bl)
         {
             InitializeComponent();
             SkimmerListView.ItemsSource = bl.GetSkimmerList();
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.SkimmerStatuses));
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.Weight));
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.SkimmerStatuses));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             bL = bl;
         }
 
@@ -100,9 +100,9 @@ namespace PL
         /// <param name="e"></param>
         private void SkimmerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if((IBL.BO.SkimmerToList)SkimmerListView.SelectedItem != null)
+            if((BO.SkimmerToList)SkimmerListView.SelectedItem != null)
             {
-                skimmerWindow = new SkimmerWindow(bL, (IBL.BO.SkimmerToList)SkimmerListView.SelectedItem, this);
+                skimmerWindow = new SkimmerWindow(bL, (BO.SkimmerToList)SkimmerListView.SelectedItem, this);
                 skimmerWindow.Closed += RefreshListView;
                 skimmerWindow.Show();             
             }

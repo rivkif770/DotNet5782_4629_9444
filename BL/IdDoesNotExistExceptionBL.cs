@@ -1,10 +1,10 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Runtime.Serialization;
 /// <summary>
 /// Anomalies if the object does not exist
 /// </summary>
-namespace IBL.BO
+namespace BO
 {
     [Serializable]
     public class IdDoesNotExistExceptionBL : Exception

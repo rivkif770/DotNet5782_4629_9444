@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
-using IDAL.DO;
+using BO;
+using DO;
 
 namespace ConsoleUI_BL
 {
@@ -83,7 +83,7 @@ namespace ConsoleUI_BL
                                         success = int.TryParse(Console.ReadLine(), out num);
                                     } while (!success || num > 1000 || num < 0);
 ;
-                                    IBL.BO.BaseStation newBaseStation = new IBL.BO.BaseStation
+                                    BO.BaseStation newBaseStation = new BO.BaseStation
                                     {
                                         Id = IDb,
                                         Name = name,
@@ -202,7 +202,7 @@ namespace ConsoleUI_BL
                                         success = int.TryParse(Console.ReadLine(), out Priorities);
                                     } while (!success || Priorities < 0 || Priorities > 2);
 
-                                    IBL.BO.Package newPackage = new IBL.BO.Package
+                                    BO.Package newPackage = new BO.Package
                                     {
 
                                         SendPackage = new CustomerInParcel

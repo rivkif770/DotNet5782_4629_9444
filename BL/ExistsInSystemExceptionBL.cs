@@ -1,29 +1,24 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Runtime.Serialization;
 /// <summary>
 /// Anomalies if the object already exists
 /// </summary>
-namespace IBL.BO
+namespace BO
 {
     [Serializable]
     public class ExistsInSystemExceptionBL : Exception
     {
         private Severity mild;
         private string v;
-        public ExistsInSystemExceptionBL()
+        public ExistsInSystemExceptionBL(string v)
         {
         }
 
-        public ExistsInSystemExceptionBL(string message) : base(message)
+        public ExistsInSystemExceptionBL(string message, DO.Severity mild) : base(message)
         {
         }
 
-        public ExistsInSystemExceptionBL(string v, Severity mild)
-        {
-            this.v = v;
-            this.mild = mild;
-        }
 
         public ExistsInSystemExceptionBL(string message, Exception innerException) : base(message, innerException)
         {

@@ -1,22 +1,22 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 namespace BL
 {
-    public partial class BL : IBL.IBL
+    public partial class BL : BlApi.IBL
     {
         /// <summary>
         /// Adding a package, all times initialized to zero time except for a creation date that will be initialized to DateTime.Now, the glider will be initialized to null
         /// </summary>
         /// <param name="newPackage"></param>
-        public void AddPackage(IBL.BO.Package newPackage)
+        public void AddPackage(BO.Package newPackage)
         {
-            IDAL.DO.Package tempP = new IDAL.DO.Package
+            DO.Package tempP = new DO.Package
             {
                 IDSender = newPackage.SendPackage.Id,
                 IDgets = newPackage.ReceivesPackage.Id,
@@ -39,14 +39,14 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IBL.BO.Package GetPackage(int id)
+        public BO.Package GetPackage(int id)
         {
-            IDAL.DO.Package somoePackage;
+            DO.Package somoePackage;
             try
             {
                 somoePackage = mayDal.GetPackage(id);
             }
-            catch (IDAL.DO.IdDoesNotExistException cex)
+            catch (DO.IdDoesNotExistException cex)
             {
                 throw new IdDoesNotExistExceptionBL(cex.Message + " from dal");
             }
@@ -77,7 +77,7 @@ namespace BL
                     Id = somoePackage.IDSkimmerOperation,
                 };
             }            
-            return new IBL.BO.Package
+            return new BO.Package
             {
                 Id = somoePackage.ID,
                 SendPackage = customerSender,
@@ -100,7 +100,7 @@ namespace BL
             SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
             if (skimmer != null)
             {
-                IBL.BO.Package package;
+                BO.Package package;
                 package = GetPackage(skimmer.PackageNumberTransferred);
                 int idc = package.SendPackage.Id;
                 Location locationsend = GetCustomer(idc).Location;
@@ -113,7 +113,7 @@ namespace BL
                     //Update location to sender location
                     skimmer.CurrentLocation = locationsend;
                     //Update package pickup time
-                    IDAL.DO.Package package1 = mayDal.GetPackage(package.Id);
+                    DO.Package package1 = mayDal.GetPackage(package.Id);
                     package1.PackageCollectionTime = DateTime.Now;
                     mayDal.UpadteP(package1);
                 }
@@ -134,8 +134,8 @@ namespace BL
             if (skimmer.SkimmerStatus == SkimmerStatuses.free)
             {
                 //A list containing packages that are equal to or less than the weight of the skimmer and not associated.
-                List<IDAL.DO.Package> dalPackages = new List<IDAL.DO.Package>(mayDal.GetPackageList().ToList().FindAll(x => (int)(x.Weight) <= (int)skimmer.WeightCategory && x.TimeAssignGlider == null));
-                IDAL.DO.Package package = new IDAL.DO.Package();
+                List<DO.Package> dalPackages = new List<DO.Package>(mayDal.GetPackageList().ToList().FindAll(x => (int)(x.Weight) <= (int)skimmer.WeightCategory && x.TimeAssignGlider == null));
+                DO.Package package = new DO.Package();
                 //Setting the priority to the highest priority and weight to the maximum weight of the skimmer.
                 int priority = 2, weight = (int)skimmer.WeightCategory;
                 bool flag = true;
@@ -143,7 +143,7 @@ namespace BL
                 while (flag)
                 {
                     //A list that contains a particular priority.
-                    List<IDAL.DO.Package> filteredPackage = dalPackages.FindAll(p => p.priority == (IDAL.DO.Priorities)priority);
+                    List<DO.Package> filteredPackage = dalPackages.FindAll(p => p.priority == (DO.Priorities)priority);
                     //If the list is empty
                     if (filteredPackage.Count() == 0)
                     {
@@ -157,7 +157,7 @@ namespace BL
                         else throw new SkimmerExceptionBL($"No skimmer package found {id}", Severity.Mild);
                     }
                     //We will mark the list for packages with the maximum weight
-                    filteredPackage = filteredPackage.FindAll(p => p.Weight == (IDAL.DO.WeightCategories)weight);
+                    filteredPackage = filteredPackage.FindAll(p => p.Weight == (DO.WeightCategories)weight);
                     //If the list is empty
                     if (filteredPackage.Count() == 0)
                     {
@@ -177,8 +177,8 @@ namespace BL
                     }
                     //We will look for a package with a small hovercraft distance
                     package = ChecksSmallDistanceBetweenSkimmerAndPackage(skimmer , filteredPackage);
-                    IDAL.DO.Client senderClient = mayDal.GetClient(package.IDSender);
-                    IDAL.DO.Client getClient = mayDal.GetClient(package.IDgets);
+                    DO.Client senderClient = mayDal.GetClient(package.IDSender);
+                    DO.Client getClient = mayDal.GetClient(package.IDgets);
                     double minBattery = MinimumPaymentToGetToThePackage(skimmer, senderClient);
                     minBattery += MinimalLoadingPerformTheShipmentAndArriveForLoading(skimmer, senderClient, getClient);
                     minBattery = Math.Ceiling(minBattery);
@@ -202,9 +202,9 @@ namespace BL
         /// </summary>
         /// <param name="skimmer"></param>
         /// <returns></returns>
-        private IDAL.DO.Package ChecksSmallDistanceBetweenSkimmerAndPackage(SkimmerToList skimmer , List<IDAL.DO.Package> filteredPackage)
+        private DO.Package ChecksSmallDistanceBetweenSkimmerAndPackage(SkimmerToList skimmer , List<DO.Package> filteredPackage)
         {
-            IDAL.DO.Package package = default;
+            DO.Package package = default;
             double smallDistance = Double.MaxValue;
             foreach (var p in filteredPackage)
             {
@@ -229,7 +229,7 @@ namespace BL
             SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
             if (skimmer != null)
             {
-                IBL.BO.Package package = GetPackage(skimmer.PackageNumberTransferred);
+                BO.Package package = GetPackage(skimmer.PackageNumberTransferred);
                 Location locationGets = GetCustomer(package.ReceivesPackage.Id).Location;
                 //Only a skimmer that has collected but has not yet delivered the package will be able to deliver it
                 if (package.CollectionTime != null && package.SupplyTime == null)
@@ -239,7 +239,7 @@ namespace BL
                     //Update location to the location of the shipping destination
                     skimmer.CurrentLocation = locationGets;
                     skimmer.SkimmerStatus = SkimmerStatuses.free;
-                    IDAL.DO.Package package1 = mayDal.GetPackage(package.Id);
+                    DO.Package package1 = mayDal.GetPackage(package.Id);
                     package1.TimeArrivalRecipient = DateTime.Now;
                     mayDal.UpadteP(package1);
                 }
@@ -253,12 +253,12 @@ namespace BL
         /// Returns a list of packages.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<IBL.BO.PackageToList> GetPackageList()
+        public IEnumerable<BO.PackageToList> GetPackageList()
         {
             List<PackageToList> packageToList = new List<PackageToList>();
-            foreach (IDAL.DO.Package item in mayDal.GetPackageList())
+            foreach (DO.Package item in mayDal.GetPackageList())
             {
-                IBL.BO.Package package1 = GetPackage(item.ID);
+                BO.Package package1 = GetPackage(item.ID);
                 PackageToList package = new PackageToList
                 {
                     Id = item.ID,
@@ -277,7 +277,7 @@ namespace BL
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        private int PackageMode(IBL.BO.Package p)
+        private int PackageMode(BO.Package p)
         {
             if (p.SupplyTime != null)
                 return 3;
@@ -295,11 +295,11 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<PackageToList> GetPackagesWithoutSkimmer()
         {
-            IEnumerable<IDAL.DO.Package> packageFromDal = mayDal.GetPackageList(x => x.TimeAssignGlider == null);
-            List<IBL.BO.PackageToList> result = new List<IBL.BO.PackageToList>();
+            IEnumerable<DO.Package> packageFromDal = mayDal.GetPackageList(x => x.TimeAssignGlider == null);
+            List<BO.PackageToList> result = new List<BO.PackageToList>();
             foreach (var item in packageFromDal)
             {
-                IBL.BO.Package package1 = GetPackage(item.ID);
+                BO.Package package1 = GetPackage(item.ID);
                 result.Add(new PackageToList
                 {
                     Id = item.ID,

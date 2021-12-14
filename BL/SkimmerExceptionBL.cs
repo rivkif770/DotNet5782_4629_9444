@@ -1,8 +1,8 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Runtime.Serialization;
 
-namespace IBL.BO
+namespace BO
 {
     [Serializable]
     public class SkimmerExceptionBL : Exception

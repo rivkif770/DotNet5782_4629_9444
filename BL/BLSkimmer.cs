@@ -1,24 +1,24 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 namespace BL
 {
-    public partial class BL : IBL.IBL
+    public partial class BL : BlApi.IBL
     {
         static Random r = new Random();
-        public IDal mayDal;
+        public DalApi.IDal mayDal;
         private List<SkimmerToList> skimmersList;
         public double Free;
         public double LightWeightCarrier;
         public double MediumWeightCarrier;
         public double HeavyWeightCarrier;
         public double SkimmerLoadingRate;
-
+        
         public BL()
         {
             skimmersList = new List<SkimmerToList>();
@@ -48,7 +48,7 @@ namespace BL
                     WeightCategory=(Weight)item.Weight                
                 };
                 //Finding a glider-related package
-                IDAL.DO.Package PackageAssociatedWithSkimmer = FindingPackageAssociatedWithGlider(item);
+                DO.Package PackageAssociatedWithSkimmer = FindingPackageAssociatedWithGlider(item);
                 //If there is a package that has not yet been delivered but the skimmer is already associated
                 if (PackageAssociatedWithSkimmer.TimeArrivalRecipient == null && PackageAssociatedWithSkimmer.ID != 0)
                 {
@@ -68,10 +68,10 @@ namespace BL
                         //Updates skimmer location to package shipper location.
                         updatedSkimmer.CurrentLocation = GetCustomer(PackageAssociatedWithSkimmer.IDSender).Location;
                     }
-                    //IDAL.DO.Client sendCustomer= mayDal.GetClient(PackageAssociatedWithSkimmer.IDSender);
-                    //IDAL.DO.Client getCustomer = mayDal.GetClient(PackageAssociatedWithSkimmer.IDgets);
-                    IBL.BO.Customer sendCustomer = GetCustomer(PackageAssociatedWithSkimmer.IDSender);
-                    IDAL.DO.Client tempS = new IDAL.DO.Client
+                    //DO.Client sendCustomer= mayDal.GetClient(PackageAssociatedWithSkimmer.IDSender);
+                    //DO.Client getCustomer = mayDal.GetClient(PackageAssociatedWithSkimmer.IDgets);
+                    BO.Customer sendCustomer = GetCustomer(PackageAssociatedWithSkimmer.IDSender);
+                    DO.Client tempS = new DO.Client
                     {
                         ID = sendCustomer.Id,
                         Name = sendCustomer.Name,
@@ -79,8 +79,8 @@ namespace BL
                         Latitude = sendCustomer.Location.Latitude,
                         Longitude = sendCustomer.Location.Longitude
                     };
-                    IBL.BO.Customer getCustomer = GetCustomer(PackageAssociatedWithSkimmer.IDgets);
-                    IDAL.DO.Client tempG = new IDAL.DO.Client
+                    BO.Customer getCustomer = GetCustomer(PackageAssociatedWithSkimmer.IDgets);
+                    DO.Client tempG = new DO.Client
                     {
                         ID = getCustomer.Id,
                         Name = getCustomer.Name,
@@ -101,10 +101,10 @@ namespace BL
                 if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.maintenance)
                 {
                     int counts = GetBaseStationList().Count();
-                    List<IDAL.DO.BaseStation> B = new List<IDAL.DO.BaseStation>();
-                    foreach (IDAL.DO.BaseStation item1 in mayDal.GetBaseStationList())
+                    List<DO.BaseStation> B = new List<DO.BaseStation>();
+                    foreach (DO.BaseStation item1 in mayDal.GetBaseStationList())
                     {
-                        B.Add(new IDAL.DO.BaseStation
+                        B.Add(new DO.BaseStation
                         {
                             UniqueID = item1.UniqueID,
                             StationName = item1.StationName,
@@ -113,7 +113,7 @@ namespace BL
                             Longitude = item1.Longitude
                         });
                     }
-                    IDAL.DO.BaseStation baseStation = B[r.Next(counts)];
+                    DO.BaseStation baseStation = B[r.Next(counts)];
                     updatedSkimmer.CurrentLocation = new Location { Latitude = baseStation.Latitude, Longitude = baseStation.Longitude };
                     baseStation.SeveralPositionsArgument = baseStation.SeveralPositionsArgument--;
                     mayDal.UpadteB(baseStation);
@@ -140,7 +140,7 @@ namespace BL
         /// <returns></returns>
         private double MinimalChargeToGetToTheNearestStation(SkimmerToList updatedSkimmer)
         {             
-            IBL.BO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(updatedSkimmer);
+            BO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(updatedSkimmer);
             double distance =Tools.Utils.GetDistance(baseStation.Location.Longitude, baseStation.Location.Latitude, updatedSkimmer.CurrentLocation.Longitude, updatedSkimmer.CurrentLocation.Latitude);
             double minimalCharge = (distance * Free);
             return minimalCharge;
@@ -151,7 +151,7 @@ namespace BL
         /// <param name="updatedSkimmer"></param>
         /// <param name="senderClient"></param>
         /// <returns></returns>
-        private double MinimumPaymentToGetToThePackage(SkimmerToList updatedSkimmer, IDAL.DO.Client senderClient)
+        private double MinimumPaymentToGetToThePackage(SkimmerToList updatedSkimmer, DO.Client senderClient)
         {
             double distance = Tools.Utils.GetDistance(senderClient.Longitude, senderClient.Latitude, updatedSkimmer.CurrentLocation.Longitude, updatedSkimmer.CurrentLocation.Latitude);
             double minimalCharge = (distance * Free);
@@ -162,7 +162,7 @@ namespace BL
         /// </summary>
         /// <param name="updatedSkimmer"></param>
         /// <returns></returns>
-        private double MinimalLoadingPerformTheShipmentAndArriveForLoading (SkimmerToList updatedSkimmer, IDAL.DO.Client senderClient, IDAL.DO.Client getClient)
+        private double MinimalLoadingPerformTheShipmentAndArriveForLoading (SkimmerToList updatedSkimmer, DO.Client senderClient, DO.Client getClient)
         {
             Customer customerGet = GetCustomer(getClient.ID);
             Location locationSend = customerGet.Location;
@@ -174,7 +174,7 @@ namespace BL
                 Battery = distance * MediumWeightCarrier;
             if (updatedSkimmer.WeightCategory == Weight.Light)
                 Battery = distance * LightWeightCarrier;
-            IBL.BO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(updatedSkimmer);
+            BO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(updatedSkimmer);
             double distance1 = Tools.Utils.GetDistance(baseStation.Location.Longitude, baseStation.Location.Latitude, locationSend.Longitude, locationSend.Latitude);
             double minimalCharge = (distance * Free)+ Battery;
             return minimalCharge;
@@ -206,7 +206,7 @@ namespace BL
                     break;
                 }
             }
-            IDAL.DO.BaseStation station = mayDal.GetBaseStation(IDb);
+            DO.BaseStation station = mayDal.GetBaseStation(IDb);
             station.SeveralPositionsArgument++;
             mayDal.UpadteB(station);
             foreach(SkimmerLoading item in mayDal.GetSkimmerLoading())
@@ -223,7 +223,7 @@ namespace BL
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        private Client FindingClientSender(IDAL.DO.Package p)
+        private Client FindingClientSender(DO.Package p)
         {
             return mayDal.GetClient(p.IDSender);
         }
@@ -232,14 +232,14 @@ namespace BL
         /// </summary>
         /// <param name="q"></param>
         /// <returns></returns>
-        private IDAL.DO.Package FindingPackageAssociatedWithGlider(Quadocopter q)
+        private DO.Package FindingPackageAssociatedWithGlider(Quadocopter q)
         {
-            IDAL.DO.Package X = new IDAL.DO.Package
+            DO.Package X = new DO.Package
             {
                 ID = 0
             };
 
-            foreach (IDAL.DO.Package item in mayDal.GetPackageList())
+            foreach (DO.Package item in mayDal.GetPackageList())
             {
                 if(item.IDSkimmerOperation == q.IDNumber)
                 {
@@ -253,13 +253,13 @@ namespace BL
         /// </summary>
         /// <param name="newSkimmer"></param>
         /// <param name="station"></param>
-        public void AddSkimmer(IBL.BO.Skimmer newSkimmer, int station)
+        public void AddSkimmer(BO.Skimmer newSkimmer, int station)
         {
             // Battery status will be raffled off between 20 % and 40 %
              newSkimmer.BatteryStatus = r.Next(20, 41);
             // Joseph as being in maintenance
-            newSkimmer.SkimmerStatus = IBL.BO.SkimmerStatuses.maintenance;
-            IBL.BO.BaseStation tempBaseStation = GetBeseStation(station);
+            newSkimmer.SkimmerStatus = BO.SkimmerStatuses.maintenance;
+            BO.BaseStation tempBaseStation = GetBeseStation(station);
             // The glider location will be the same as the station location
             newSkimmer.Location = tempBaseStation.Location;
             Quadocopter tempS = new Quadocopter
@@ -295,10 +295,10 @@ namespace BL
                 };
             }
             //Add a skimmer to a list of skimmers in charge
-            IDAL.DO.SkimmerLoading skimmerLoading = new SkimmerLoading { SkimmerID = newSkimmer.Id, StationID = tempBaseStation.Id };
+            SkimmerLoading skimmerLoading = new SkimmerLoading { SkimmerID = newSkimmer.Id, StationID = tempBaseStation.Id };
             mayDal.AddSkimmerLoading(skimmerLoading);
             //Update base station, lower charging position.
-            IDAL.DO.BaseStation baseStation = mayDal.GetBaseStation(tempBaseStation.Id);
+            DO.BaseStation baseStation = mayDal.GetBaseStation(tempBaseStation.Id);
             baseStation.SeveralPositionsArgument = tempBaseStation.SeveralClaimPositionsVacant--;
             mayDal.UpadteB(baseStation);
             if (skimmersList.Exists(item => item.Id == skimmerToList.Id))//If finds an existing skimmer throws an error.
@@ -346,7 +346,7 @@ namespace BL
             skimmer.SkimmerStatus = skimmerToList.SkimmerStatus;
             if (skimmer.SkimmerStatus == SkimmerStatuses.shipping)
             {
-                IDAL.DO.Package package = mayDal.GetPackageList().First(x => x.IDSkimmerOperation == skimmer.Id && x.TimeArrivalRecipient == null);
+                DO.Package package = mayDal.GetPackageList().First(x => x.IDSkimmerOperation == skimmer.Id && x.TimeArrivalRecipient == null);
                 skimmer.PackageInTransfer.Id = package.ID;
                 skimmer.PackageInTransfer.priority = (Priority)(package.priority);
                 skimmer.PackageInTransfer.WeightCategory = (Weight)(package.Weight);
@@ -395,7 +395,7 @@ namespace BL
             toUpdate.SkimmerModel = name;
 
             //update dal
-            IDAL.DO.Quadocopter quadocopter = mayDal.GetQuadrocopter(ids);
+            DO.Quadocopter quadocopter = mayDal.GetQuadrocopter(ids);
             quadocopter.SkimmerModel = name;
             mayDal.UpadteQ(quadocopter);
         }
@@ -415,7 +415,7 @@ namespace BL
             if (skimmer.SkimmerStatus == SkimmerStatuses.free)
             {
                 //Find a very small distance between a skimmer and a base station
-                IBL.BO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
+                BO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
                 //If there are free charging stations
                 if (baseStation.SeveralClaimPositionsVacant != 0)
                 {
@@ -427,10 +427,10 @@ namespace BL
                         skimmer.CurrentLocation = baseStation.Location;
                         //The glider condition will be changed for maintenance
                         skimmer.SkimmerStatus = SkimmerStatuses.maintenance;
-                        IDAL.DO.BaseStation station =mayDal.GetBaseStation(baseStation.Id);
+                        DO.BaseStation station =mayDal.GetBaseStation(baseStation.Id);
                         station.SeveralPositionsArgument--;
                         mayDal.UpadteB(station);
-                        IDAL.DO.SkimmerLoading skimmerLoading = new SkimmerLoading();
+                        SkimmerLoading skimmerLoading = new SkimmerLoading();
                         skimmerLoading.SkimmerID = skimmer.Id;
                         skimmerLoading.StationID = baseStation.Id;
                         mayDal.AddSkimmerLoading(skimmerLoading);
@@ -452,11 +452,11 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private IBL.BO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(SkimmerToList s)
+        private BO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(SkimmerToList s)
         {
-            IDAL.DO.BaseStation minDistance = default;
+            DO.BaseStation minDistance = default;
             double smallDistance = Double.MaxValue;
-            foreach (IDAL.DO.BaseStation bs in mayDal.GetBaseStationList())
+            foreach (DO.BaseStation bs in mayDal.GetBaseStationList())
             {
                 double dist = Tools.Utils.GetDistance(s.CurrentLocation.Longitude, s.CurrentLocation.Latitude, bs.Longitude, bs.Latitude);
                 if (dist < smallDistance)
@@ -472,9 +472,9 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private IBL.BO.BaseStation ChecksSmallDistanceBetweenCustomerAndBaseStation(Customer c)
+        private BO.BaseStation ChecksSmallDistanceBetweenCustomerAndBaseStation(Customer c)
         {
-            IDAL.DO.BaseStation station = default;
+            DO.BaseStation station = default;
             double smallDistance = Double.MaxValue;
                        
             foreach(var bs in  mayDal.GetBaseStationList())

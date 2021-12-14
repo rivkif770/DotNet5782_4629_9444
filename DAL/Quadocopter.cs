@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
-namespace IDAL
-{
+using DO;
     namespace DO
     {
         public struct Quadocopter
@@ -24,4 +22,3 @@ namespace IDAL
             }
         }
     }
-}

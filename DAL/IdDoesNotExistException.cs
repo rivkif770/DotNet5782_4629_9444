@@ -1,8 +1,8 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Runtime.Serialization;
 
-namespace IDAL.DO
+namespace DO
 {
     [Serializable]
     public class IdDoesNotExistException : Exception
@@ -10,7 +10,7 @@ namespace IDAL.DO
         private string v;
         private Severity mild;
 
-        public IdDoesNotExistException()
+        public IdDoesNotExistException(string v, string type)
         {
         }
 

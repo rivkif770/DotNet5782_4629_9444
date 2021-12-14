@@ -1,5 +1,5 @@
-﻿using IDAL.DO;
-using IBL.BO;
+﻿using DO;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public partial class BL : IBL.IBL
+    public partial class BL : BlApi.IBL
     {
         /// <summary>
         /// Adding a skimmer
         /// </summary>
         /// <param name="newBaseStation"></param>
-        public void AddBaseStation(IBL.BO.BaseStation newBaseStation)
+        public void AddBaseStation(BO.BaseStation newBaseStation)
         {
-            IDAL.DO.BaseStation tempBS = new IDAL.DO.BaseStation
+            DO.BaseStation tempBS = new DO.BaseStation
             {
                 UniqueID = newBaseStation.Id,
                 StationName = newBaseStation.Name,
@@ -39,20 +39,20 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IBL.BO.BaseStation GetBeseStation(int id)
+        public BO.BaseStation GetBeseStation(int id)
         {
-            IDAL.DO.BaseStation somoeBaseStation;
+            DO.BaseStation somoeBaseStation;
             try
             {
                 somoeBaseStation = mayDal.GetBaseStation(id);
             }
-            catch (IDAL.DO.IdDoesNotExistException cex)
+            catch (DO.IdDoesNotExistException cex)
             {
                 throw new IdDoesNotExistExceptionBL(cex.Message + " from dal");
             }
             //List of skimmers charged at this station
             List<SkimmerInCharging> skimmerInCharging = new List<SkimmerInCharging>();
-            foreach (IDAL.DO.SkimmerLoading item in mayDal.GetSkimmerLoadingList())
+            foreach (DO.SkimmerLoading item in mayDal.GetSkimmerLoadingList())
             {
                 if (item.StationID == somoeBaseStation.UniqueID)
                 {
@@ -64,7 +64,7 @@ namespace BL
                     skimmerInCharging.Add(skimmerInCharging1);
                 }
             }
-            return new IBL.BO.BaseStation
+            return new BO.BaseStation
             {
                 Id = somoeBaseStation.UniqueID,
                 Name = somoeBaseStation.StationName,
@@ -81,7 +81,7 @@ namespace BL
         /// <param name="countOfChargingStations"></param>
         public void UpdateBaseStation(int id, string name, string countOfChargingStations)
         {
-            IBL.BO.BaseStation baseStation = GetBeseStation(id);
+            BO.BaseStation baseStation = GetBeseStation(id);
             int TotalChargeAmount, NumberOfSkimmersInCharge;
             baseStation.Id = id;
             //If the input in the "Name" field is not blank, update the name field
@@ -94,7 +94,7 @@ namespace BL
                 NumberOfSkimmersInCharge = baseStation.ListOfSkimmersCharge.Count();
                 baseStation.SeveralClaimPositionsVacant = TotalChargeAmount - NumberOfSkimmersInCharge;
             }
-            IDAL.DO.BaseStation baseStation1 = new IDAL.DO.BaseStation
+            DO.BaseStation baseStation1 = new DO.BaseStation
             {
                 UniqueID = baseStation.Id,
                 StationName = baseStation.Name,
@@ -108,10 +108,10 @@ namespace BL
         /// Returns an entity of the base station list type
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<IBL.BO.BaseStationToList> GetBaseStationList()
+        public IEnumerable<BO.BaseStationToList> GetBaseStationList()
         {
             List<BaseStationToList> baseStationToLists = new List<BaseStationToList>();
-            foreach (IDAL.DO.BaseStation item in mayDal.GetBaseStationList())
+            foreach (DO.BaseStation item in mayDal.GetBaseStationList())
             {
                 BaseStationToList station = new BaseStationToList
                 {
@@ -128,10 +128,10 @@ namespace BL
         /// Returns a base station-type entity with available charging stations,
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<IBL.BO.BaseStationToList> GetBaseStationFreeCharging()
+        public IEnumerable<BO.BaseStationToList> GetBaseStationFreeCharging()
         {
-            IEnumerable<IDAL.DO.BaseStation> dalList = mayDal.GetBaseStationList(x => x.SeveralPositionsArgument != 0);
-            List<IBL.BO.BaseStationToList> result = new List<IBL.BO.BaseStationToList>();
+            IEnumerable<DO.BaseStation> dalList = mayDal.GetBaseStationList(x => x.SeveralPositionsArgument != 0);
+            List<BO.BaseStationToList> result = new List<BO.BaseStationToList>();
             foreach (var item in dalList)
             {
                 result.Add(new BaseStationToList

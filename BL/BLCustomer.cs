@@ -1,5 +1,5 @@
-﻿using IDAL.DO;
-using IBL.BO;
+﻿using DO;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public partial class BL : IBL.IBL
+    public partial class BL : BlApi.IBL
     {
         /// <summary>
         /// Adding a customer
         /// </summary>
         /// <param name="newCustomer"></param>
-        public void AddCustomer(IBL.BO.Customer newCustomer)
+        public void AddCustomer(BO.Customer newCustomer)
         {
-            IDAL.DO.Client tempC = new IDAL.DO.Client
+            DO.Client tempC = new DO.Client
             {
                 ID = newCustomer.Id,
                 Name = newCustomer.Name,
@@ -41,17 +41,17 @@ namespace BL
         /// <returns></returns>
         public Customer GetCustomer(int id)
         {
-            IDAL.DO.Client somoeone;
+            DO.Client somoeone;
             try
             {
                 somoeone = mayDal.GetClient(id);
             }
-            catch (IDAL.DO.IdDoesNotExistException cex)
+            catch (DO.IdDoesNotExistException cex)
             {
                 throw new IdDoesNotExistExceptionBL(cex.Message + " from dal");
             }
             List<PackageAtCustomer> sentParcels = new List<PackageAtCustomer>();
-            foreach (IDAL.DO.Package item in mayDal.GetPackageList())
+            foreach (DO.Package item in mayDal.GetPackageList())
             {
                 if (item.IDSender == somoeone.ID)
                 {
@@ -71,7 +71,7 @@ namespace BL
                 }
             }
             List<PackageAtCustomer> ReceiveParcels = new List<PackageAtCustomer>();
-            foreach (IDAL.DO.Package item in mayDal.GetPackageList())
+            foreach (DO.Package item in mayDal.GetPackageList())
             {
                 if (item.IDgets == somoeone.ID)
                 {
@@ -106,7 +106,7 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="package"></param>
         /// <returns></returns>
-        private Client ReturnsCustomerContrary(int id,IDAL.DO.Package package)
+        private Client ReturnsCustomerContrary(int id, DO.Package package)
         {
             if (id == package.IDSender)
                 return mayDal.GetClient(package.IDgets);
@@ -120,7 +120,7 @@ namespace BL
         /// <param name="phone"></param>
         public void UpdateCustomerData(int id, string name, string phone)
         {
-            IBL.BO.Customer customer = GetCustomer(id); 
+            BO.Customer customer = GetCustomer(id); 
             customer.Id = id;
             //If the "Name" field is not empty, update the Name field
             if (name != "")
@@ -144,7 +144,7 @@ namespace BL
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        private int ReturnsSkimmerMode(IDAL.DO.Package p)
+        private int ReturnsSkimmerMode(DO.Package p)
         {
             if (p.TimeArrivalRecipient != null)
                 return 3;
@@ -163,7 +163,7 @@ namespace BL
         public IEnumerable<CustomerToList> GetCustomerList()
         {
             List<CustomerToList> customerToList= new List<CustomerToList>();
-            foreach (IDAL.DO.Client item in mayDal.GetClientList())
+            foreach (DO.Client item in mayDal.GetClientList())
             {
                 CustomerToList customer = new CustomerToList
                 {
