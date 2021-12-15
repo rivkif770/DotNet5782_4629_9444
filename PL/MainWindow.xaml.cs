@@ -38,5 +38,10 @@ namespace PL
         {
             this.Close();
         }
+
+        private void btClintListView_Click(object sender, RoutedEventArgs e)
+        {
+            new ClintListWindow(mybl).Show();
+        }
     }
 }
