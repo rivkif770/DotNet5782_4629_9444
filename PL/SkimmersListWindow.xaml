@@ -5,11 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="SkimmerListWindow" Height="640" Width="800"
+        Title="SkimmerListWindow" Height="450" Width="800"
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize">
     <Grid Name="MainGrid" >
-        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="21*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.RowSpan="2">
             <Border CornerRadius="10" Grid.RowSpan="2">
                 <Border.Background>
                     <LinearGradientBrush>
@@ -20,9 +24,9 @@
                 <Image x:Name="skimmerL" Source="/skimmer.png" Margin="0,-74,454,200"/>
             </Border>
         </Grid>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Grid.RowSpan="2">
             <Button x:Name="btnAddSkimmer" Content="add a skimmer" Foreground="White" FontSize="20" FontWeight="Medium"
-                Click="btnAddSkimmer_Click" Width="300" Margin="27,400,0,0" Height="30">
+                Click="btnAddSkimmer_Click" Width="300" Margin="27,310,0,0" Height="30">
 
                 <Button.Style>
                     <Style TargetType="Button">
@@ -50,23 +54,23 @@
 
             </Button>
         </StackPanel>
-        <Label Content="status:" Margin="67,302,0,0" FontSize="25"
+        <Label Content="status:" Margin="68,238,0,0" FontSize="25"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ComboBox Name="StatusSelector" Text="Choose a Status" Margin="169,0,0,0" Width="108"
-                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFE2DADC"
+        <ComboBox Name="StatusSelector" Text="Choose a Status" Margin="169,238,0,0" Width="108"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFE2DADC"
                       ToolTip="Choose  a Status"  IsEditable="True" IsReadOnly="True" 
                       SelectionChanged="StatusSelector_SelectionChanged" Height="30"/>
-        <Label Content="Weight:" Margin="67,370,0,0" FontSize="25"
+        <Label Content="Weight:" Margin="68,283,0,0" FontSize="25"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.584,2.616"/>
-        <ComboBox Name="WeightSelector" Text="Choose a Weight" Margin="169,375,0,0" Width="108" Height="30"
+        <ComboBox Name="WeightSelector" Text="Choose a Weight" Margin="169,282,0,0" Width="108" Height="30"
                       HorizontalAlignment="Left" VerticalAlignment="Top" 
                       ToolTip="Choose  a Weight"  IsEditable="True" IsReadOnly="True" 
                       SelectionChanged="WeightSelector_SelectionChanged" RenderTransformOrigin="0.63,5.717"/>
 
 
-        <ListView x:Name="SkimmerListView" Margin="345,5,0,0" MouseDoubleClick="SkimmerListView_MouseDoubleClick" Background="#FFE2DADC">
+        <ListView x:Name="SkimmerListView" Margin="345,0,0,0" MouseDoubleClick="SkimmerListView_MouseDoubleClick" Background="#FFE2DADC" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -74,10 +78,10 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Grid.RowSpan="2">
             <Button x:Name="Clear" Content="Clear" Foreground="White" FontSize="20" FontWeight="Medium"
                     HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Clear filter and display all skimmers"
-                Click="Clear_Click" Width="300" Margin="27,450,0,0" Height="30">
+                Click="Clear_Click" Width="300" Margin="27,325,0,0" Height="30">
 
                 <Button.Style>
                     <Style TargetType="Button">
@@ -106,10 +110,10 @@
             </Button>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Grid.RowSpan="2">
             <Button Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
                     HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" ToolTip="Exit this window"
-                Click="EXIT_Click" Width="300" Margin="27,550,0,0" Height="40">
+                Click="EXIT_Click" Width="300" Margin="27,400,0,0" Height="40">
 
                 <Button.Style>
                     <Style TargetType="Button">
