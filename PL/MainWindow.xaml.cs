@@ -39,9 +39,9 @@ namespace PL
             this.Close();
         }
 
-        private void btClintListView_Click(object sender, RoutedEventArgs e)
+        private void btCustomerListView_Click(object sender, RoutedEventArgs e)
         {
-            new ClintListWindow(mybl).Show();
+            new CustomerListWindow(mybl).Show();
         }
     }
 }

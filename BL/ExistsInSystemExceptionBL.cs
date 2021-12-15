@@ -9,8 +9,8 @@ namespace BO
     [Serializable]
     public class ExistsInSystemExceptionBL : Exception
     {
-        private Severity mild;
-        private string v;
+        //private Severity mild;
+        //private string v;
         public ExistsInSystemExceptionBL(string v)
         {
         }
