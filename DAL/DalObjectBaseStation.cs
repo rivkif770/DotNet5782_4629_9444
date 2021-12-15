@@ -50,5 +50,6 @@ namespace DalObject
             }
             DataSource.ListBaseStation.RemoveAll(item => item.UniqueID == idb);
         }
+   
     }
 }
