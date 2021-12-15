@@ -198,6 +198,9 @@ namespace BL
             {
                 throw new SkimmerExceptionBL($"Skimmer {id} Not in maintenance", Severity.Mild);
             }
+            DateTime? now = DateTime.Now;
+            DateTime? Loading = skimmer.EntertimeLoading;
+
             //Battery status will be updated according to the time it was charging
             skimmer.BatteryStatus = (ChargingTime * SkimmerLoadingRate) % 100;
             //The skimmer mode will change to free
@@ -215,7 +218,7 @@ namespace BL
             DO.BaseStation station = mayDal.GetBaseStation(IDb);
             station.SeveralPositionsArgument++;
             mayDal.UpadteB(station);
-            foreach(SkimmerLoading item in mayDal.GetSkimmerLoading())
+            foreach (SkimmerLoading item in mayDal.GetSkimmerLoading())
             {
                 if (item.SkimmerID == skimmer.Id)
                 {
@@ -433,6 +436,7 @@ namespace BL
                         skimmer.CurrentLocation = baseStation.Location;
                         //The glider condition will be changed for maintenance
                         skimmer.SkimmerStatus = SkimmerStatuses.maintenance;
+                        skimmer.EntertimeLoading = DateTime.Now;
                         DO.BaseStation station =mayDal.GetBaseStation(baseStation.Id);
                         station.SeveralPositionsArgument--;
                         mayDal.UpadteB(station);

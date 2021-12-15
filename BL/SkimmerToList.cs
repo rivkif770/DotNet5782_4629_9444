@@ -15,6 +15,7 @@ namespace BO
         public SkimmerStatuses SkimmerStatus { get; set; }
         public Location CurrentLocation { get; set; }
         public int PackageNumberTransferred { get; set; }
+        public DateTime? EntertimeLoading { get; set; }
 
         public override string ToString()
         {
