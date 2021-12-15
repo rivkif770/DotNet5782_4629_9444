@@ -15,7 +15,7 @@ namespace BL
         internal static IBL Instance { get { return instance; } }
         static BL() { }
 
-        static Random r = new Random();
+        static Random r ;
         public DalApi.IDal mayDal;
         private List<SkimmerToList> skimmersList;
         public double Free;
@@ -26,6 +26,7 @@ namespace BL
         
         public BL()
         {
+            r = new Random();
             skimmersList = new List<SkimmerToList>();
             mayDal = DalApi.DalFactory.GetDal("List");
             //Array with power consumption data by weight and by charge
