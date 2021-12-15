@@ -27,7 +27,6 @@ namespace PL
         BlApi.IBL bL;
         public delegate void CloseWindow(object ob);
         //public event CloseWindow CloseWindowEvent;
-        SkimmerWindow skimmerWindow;
         /// <summary>
         /// Builder to add
         /// </summary>

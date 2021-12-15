@@ -9,6 +9,7 @@ namespace BlApi
         void AddBaseStation(BaseStation newBaseStation);
         public void UpdateBaseStation(int id, string name, string countOfChargingStations);
         BaseStation GetBeseStation(int id);
+        public void DeleteBaseStation(int id);
         IEnumerable<BaseStationToList> GetBaseStationList();
         IEnumerable<BaseStationToList> GetBaseStationFreeCharging();
 

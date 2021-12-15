@@ -18,7 +18,7 @@
             </Border.Background>
         </Border>
 
-        <Grid x:Name="add"  Visibility="Collapsed">
+        <Grid x:Name="add" >
             <Grid x:Name="AddSkimmerGrid" Margin="0,25,0,183" Width="404" HorizontalAlignment="Center" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
@@ -30,16 +30,7 @@
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Id"  Margin="3" Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="30" >
-                    <Label.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-0.605"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Label.RenderTransform>
-                </Label>
+                <Label Content="Id"  Margin="3" Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="30"/>
                 <Label Content="Skimmer Model" Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="30" />
                 <Label Content="Weight Category" Grid.Row="2" FontFamily="Bahnschrift Condensed" FontSize="30"/>
                 <Label Content="Station ID"  Margin="3" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="30"/>
@@ -118,7 +109,12 @@
 
                 </Button>
             </StackPanel>
-            <Image x:Name="skimmerA" Source="/skimmer.png" Margin="225,132,198,-102"/>
+            <Image x:Name="skimmerA" Margin="225,132,198,-102" >
+                <Image.Source>
+                    <BitmapImage UriSource ="/skimmer.png"/>
+                </Image.Source>
+            </Image>
+            
         </Grid>
 
 

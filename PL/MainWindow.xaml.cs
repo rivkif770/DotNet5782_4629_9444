@@ -41,7 +41,12 @@ namespace PL
 
         private void btClintListView_Click(object sender, RoutedEventArgs e)
         {
-            new ClintListWindow(mybl).Show();
+            //new ClintListWindow(mybl).Show();
+        }
+
+        private void BaseStation_Click(object sender, RoutedEventArgs e)
+        {
+            new BaseStationListWindow(mybl).Show();
         }
     }
 }

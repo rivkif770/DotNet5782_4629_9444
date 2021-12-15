@@ -74,6 +74,21 @@ namespace BL
             };
         }
         /// <summary>
+        /// Delete BaseStation
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteBaseStation(int id)
+        {
+            try
+            {
+                mayDal.DeleteBaseStation(id);
+            }
+            catch (IdDoesNotExistException exception)
+            {
+                throw new ExistsInSystemExceptionBL(exception.Message + " from dal");
+            }
+        }
+        /// <summary>
         /// Update station data
         /// </summary>
         /// <param name="id"></param>
