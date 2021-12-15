@@ -1,4 +1,5 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace DalObject
 {
     public partial class DalObject : DalApi.IDal
     {
+        static readonly IDal instance = new DalObject();
+        internal static IDal Instance { get { return instance; } }
+        static DalObject() { }
         public DalObject()
         {
             DataSource.Initialize();

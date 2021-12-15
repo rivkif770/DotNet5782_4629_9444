@@ -13,7 +13,7 @@ namespace DalApi
             switch(type)
             {
                 case "List":
-                    return DalObject.DalObject();
+                    return DalObject.DalObject.Instance;
                 default:
                     throw new DO.IdDoesNotExistException("Idal only have List/xml type", type);
             }

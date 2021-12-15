@@ -5,11 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
+using BlApi;
 
 namespace BL
 {
     public partial class BL : BlApi.IBL
     {
+        static readonly IBL instance = new BL();
+        internal static IBL Instance { get { return instance; } }
+        static BL() { }
+
         static Random r = new Random();
         public DalApi.IDal mayDal;
         private List<SkimmerToList> skimmersList;
@@ -22,7 +27,7 @@ namespace BL
         public BL()
         {
             skimmersList = new List<SkimmerToList>();
-            mayDal = new DalObject.DalObject();
+            mayDal = DalApi.DalFactory.GetDal("List");
             //Array with power consumption data by weight and by charge
             double[] vs = mayDal.PowerConsumptionRequest();
             Free = vs[0];

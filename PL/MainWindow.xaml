@@ -18,6 +18,7 @@
                         <GradientStop Color="#FF797993" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+                <Image x:Name="skimmerM" Source="/skimmer.png" Width="300" Margin="426,210,74,-22"/>
             </Border>
         </Grid>
 
