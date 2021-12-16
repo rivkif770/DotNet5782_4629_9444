@@ -30,6 +30,7 @@ namespace PL
         private void RefreshListView(object ob, EventArgs ev)
         {
             BaseStationListView.Items.Refresh();
+            BaseStationListView.ItemsSource = bL.GetBaseStationList();
         }
         private void btnAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
