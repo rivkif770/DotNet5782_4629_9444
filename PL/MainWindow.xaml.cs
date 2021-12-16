@@ -41,7 +41,7 @@ namespace PL
 
         private void btCustomerListView_Click(object sender, RoutedEventArgs e)
         {
-            //new ClintListWindow(mybl).Show();
+            new CustomerListWindow(mybl).Show();
         }
 
         private void BaseStation_Click(object sender, RoutedEventArgs e)

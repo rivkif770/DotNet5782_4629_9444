@@ -128,7 +128,7 @@
         </Grid>
 
 
-        <Grid x:Name="Updates"  >
+        <Grid x:Name="Updates" Visibility="Collapsed" >
             <StackPanel Orientation="Horizontal">
                 <!--<Image x:Name="skimmerU" Source="/skimmer.png" Width="300" Height="170" Margin="-20,-250,0,0"/>-->
             </StackPanel>

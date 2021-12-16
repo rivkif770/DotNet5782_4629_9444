@@ -67,8 +67,8 @@ namespace PL
             else
             {
                 BO.Package package = new Package();
-                package.SendPackage.Id = Int32.Parse(textIdSender.Text);
-                package.ReceivesPackage.Id = Int32.Parse(textIdGet.Text);
+                package.SendPackage =bL.GetCustomerInParcel( Int32.Parse(textIdSender.Text));
+                package.ReceivesPackage = bL.GetCustomerInParcel(Int32.Parse(textIdGet.Text));
                 package.priority = (Priority)(ComboPrioritys.SelectedItem);
                 package.WeightCategory = (Weight)(ComboWeightCategory.SelectedItem);
                 try

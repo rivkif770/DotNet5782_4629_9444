@@ -194,5 +194,29 @@ namespace BL
                 throw new ExistsInSystemExceptionBL(exception.Message + " from dal");
             }
         }
+        /// <summary>
+        /// Get Customer In Parcel
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public BO.CustomerInParcel GetCustomerInParcel(int id)
+        {
+            try
+            {
+                CustomerInParcel customerInParcel = new CustomerInParcel
+                {
+                    Id = id,
+                    Name = GetCustomer(id).Name
+                };
+                return customerInParcel;
+            }
+            catch (Exception cex)
+            {
+
+                throw new IdDoesNotExistExceptionBL(cex.Message + " from dal"); ;
+            }
+
+
+        }
     }
 }

@@ -128,7 +128,7 @@ namespace PL
         private void textlongitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textlongitude.Text.All(char.IsDigit) && Int32.Parse(textlongitude.Text) < 50 && Int32.Parse(textlongitude.Text) > -50 && Int32.Parse(textlongitude.Text) != 0)
+            if (textlongitude.Text.All(char.IsDigit) && Int32.Parse(textlongitude.Text) < 50 && Int32.Parse(textlongitude.Text) > (-50) && Int32.Parse(textlongitude.Text) != 0)
             {
 
                 textlongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
@@ -139,7 +139,7 @@ namespace PL
         private void textLatitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textLatitude.Text.All(char.IsDigit) && Int32.Parse(textlongitude.Text) < 50 && Int32.Parse(textlongitude.Text) > -50 && Int32.Parse(textlongitude.Text) != 0)
+            if (textLatitude.Text.All(char.IsDigit) && Int32.Parse(textlongitude.Text) < 50 && Int32.Parse(textlongitude.Text) > (-50) && Int32.Parse(textlongitude.Text) != 0)
             {
 
                 textLatitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");

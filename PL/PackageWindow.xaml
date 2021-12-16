@@ -18,7 +18,7 @@
             </Border.Background>
         </Border>
 
-        <Grid x:Name="add" Visibility="Collapsed">
+        <Grid x:Name="add" >
             <Grid x:Name="AddPackageGrid" Margin="0,25,0,183" Width="404" HorizontalAlignment="Center" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
@@ -42,9 +42,9 @@
                      TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
                 <ComboBox x:Name="ComboPrioritys" Margin="2,0,0,0" Width="150" Height="25" Grid.Row="3" Grid.Column="1" Text="Choose a Priority" 
                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                            IsEditable="True" IsReadOnly="True"/>
+                           ToolTip="Choose a Priority" IsEditable="True" IsReadOnly="True"/>
                 <ComboBox Name="ComboWeightCategory" Margin="2,0,0,0" Width="150" Height="25"
-                      HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1" Text="Choose Weight" 
+                      HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1" ToolTip="Choose Weight" Text="Choose Weight" 
                       IsEditable="True" IsReadOnly="True"/>
             </Grid>
             <StackPanel Orientation="Horizontal">
@@ -118,7 +118,7 @@
         </Grid>
 
 
-        <Grid x:Name="Updates"  >
+        <Grid x:Name="Updates"  Visibility="Collapsed">
             <Button x:Name="btndelete" Margin="-300,-200,-600,50" Content="delete Customer" ToolTip="Delete Package"
                         Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_UpdateDelete" Width="304" Height="30" RenderTransformOrigin="-2.295,0.556">
 

@@ -18,7 +18,7 @@ namespace BlApi
         public void UpdateCustomerData(int id, string name, string phone);
         IEnumerable<CustomerToList> GetCustomerList();
         public void DeleteCustomer(int id);
-
+        public BO.CustomerInParcel GetCustomerInParcel(int id);
 
         void AddPackage(Package newPackage);
         public void CollectingPackageBySkimmer(int id);
