@@ -17,6 +17,8 @@ namespace BlApi
         Customer GetCustomer(int id);
         public void UpdateCustomerData(int id, string name, string phone);
         IEnumerable<CustomerToList> GetCustomerList();
+        public void DeleteCustomer(int id);
+
 
         void AddPackage(Package newPackage);
         public void CollectingPackageBySkimmer(int id);
@@ -24,6 +26,8 @@ namespace BlApi
         public void DeliveryOfPackageBySkimmer(int id);
         IEnumerable<PackageToList> GetPackageList();
         IEnumerable<PackageToList> GetPackagesWithoutSkimmer();
+        public void DeletePackage(int id);
+        public BO.Package GetPackage(int id);
 
         void AddSkimmer(Skimmer newSkimmer, int station);
         public SkimmerToList GetSkimmerToList(int id);

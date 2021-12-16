@@ -209,7 +209,9 @@ namespace PL
 
         private void Button_UpdateDelete(object sender, RoutedEventArgs e)
         {
-
+            bL.DeleteCustomer(newCustomer.Id);
+            MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+            this.Close();
         }
     }
 } 

@@ -179,5 +179,20 @@ namespace BL
             }
             return customerToList.Take(customerToList.Count).ToList();
         }
+        /// <summary>
+        /// Delete Customer
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteCustomer(int id)
+        {
+            try
+            {
+                mayDal.DeleteClient(id);
+            }
+            catch (IdDoesNotExistException exception)
+            {
+                throw new ExistsInSystemExceptionBL(exception.Message + " from dal");
+            }
+        }
     }
 }

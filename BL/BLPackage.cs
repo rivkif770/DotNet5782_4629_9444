@@ -313,5 +313,21 @@ namespace BL
             }
             return result;
         }
+        /// <summary>
+        /// Delete Package
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeletePackage(int id)
+        {
+            try
+            {
+                mayDal.DeletePackage(id);
+            }
+            catch (IdDoesNotExistException exception)
+            {
+                throw new ExistsInSystemExceptionBL(exception.Message + " from dal");
+            }
+        }
+
     }
 }
