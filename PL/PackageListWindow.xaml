@@ -5,8 +5,271 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="PackageListWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="PackageListWindow" Height="450" Width="800"
+    AllowsTransparency="True" Background="Transparent"
+        WindowStyle="None" ResizeMode="NoResize">
+    <Grid Name="MainGrid" >
+        <Grid>
+            <Border CornerRadius="10" Grid.RowSpan="2">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#FF090A5D" Offset="0.0"/>
+                        <GradientStop Color="#FF797993" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+        </Grid>
+        <!--<StackPanel Orientation="Horizontal">
+            <Button x:Name="btnAddBaseStation" Content="add a BaseStation" Foreground="White" FontSize="20" FontWeight="Medium"
+                Click="btnAddBaseStation_Click" Width="300" Margin="27,265,0,120" Height="30">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#FFA69D9F"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF7A7778"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </StackPanel>-->
+
+        <ListView x:Name="PackageListView" Margin="345,5,0,0" MouseDoubleClick="PackageListView_MouseDoubleClick" Background="#FFE2DADC">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Label Content="Weight:" Margin="68,238,0,0" FontSize="25"
+               FontFamily="Bahnschrift Condensed"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ComboBox Name="GettingSelector" Text="Choose  a Weight" Margin="169,238,0,0" Width="108"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFE2DADC"
+                      ToolTip="Filter a list according to the customer receiving the package"  IsEditable="True" IsReadOnly="True" 
+                       Height="30"/>
+        <Label Content="Sender:" Margin="68,283,0,0" FontSize="25"
+               FontFamily="Bahnschrift Condensed"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ComboBox Name="SenderSelector" Text="Select customer id" Margin="169,282,0,0" Width="108" Height="30"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" 
+                      ToolTip="Filter a list according to the customer sending the package"  IsEditable="True" IsReadOnly="True" />
+
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="btnSelectorCustomer" Content="Show an abbreviated list" ToolTip="Displays an abbreviated list by sender or recipient" 
+                    Foreground="White" FontSize="17" FontWeight="Medium"
+                HorizontalAlignment="Left"  Width="250" Margin="50,70,0,0" Height="30" VerticalAlignment="Top" Click="btnSelectorCustomer_Click">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#FFA69D9F"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF7A7778"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </StackPanel>
+        <ComboBox Name="comboSelectorCustomer" Text="           Sends or receives"  Margin="90,110,0,0" Width="180" Height="25"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" 
+                      ToolTip="Select filter by sender or receiver"  IsEditable="True" IsReadOnly="True" />
+        <Label Content="Enter customer name:" Margin="118,133,0,0" FontSize="15"
+               FontFamily="Bahnschrift Condensed"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Height="25"/>
+        <TextBox x:Name="textSelectorCustomer" Margin="110,155,0,0" Width="140"
+                 HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFD3CBCD"
+                  BorderBrush="#FFE92617" Height="18" TextChanged="textSelectorCustomer_TextChanged" />
+
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="butEXIT" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
+                        HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Exit this window"
+                 Width="130" Margin="20,390,0,0" Height="25" Click="butEXIT_Click" >
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#FF4FE899"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF20CB73"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Height="20"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="butClear" Content="Clear" Foreground="White" FontSize="20" FontWeight="Medium"
+                        HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Show full list without filters"
+                 Width="130" Margin="190,390,0,0" Height="25" Click="butClear_Click" >
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#FF4FE899"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF20CB73"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Height="20"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </StackPanel>
+        <!--<StackPanel Orientation="Horizontal">
+            <Button x:Name="Clear" Content="Clear" Foreground="White" FontSize="20" FontWeight="Medium"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Clear filter and display all BaseStation"
+                Click="Clear_Click" Width="300" Margin="27,330,0,0" Height="30">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#FFA69D9F"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF7A7778"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
+                    HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" ToolTip="Exit this window"
+                Click="EXIT_Click" Width="300" Margin="27,370,0,0" Height="40">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#FFA69D9F"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF7A7778"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="freeCharging" Content="Available charging stations" Foreground="White" FontSize="20" FontWeight="Medium"
+                    HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" ToolTip="Show base stations with available charging stations"
+                 Width="300" Margin="27,230,0,0" Height="40" Click="freeCharging_Click">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#FFA69D9F"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF7A7778"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </StackPanel>-->
     </Grid>
 </Window>

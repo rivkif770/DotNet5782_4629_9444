@@ -48,5 +48,10 @@ namespace PL
         {
             new BaseStationListWindow(mybl).Show();
         }
+
+        private void Package_Click(object sender, RoutedEventArgs e)
+        {
+            new PackageListWindow(mybl).Show();
+        }
     }
 }
