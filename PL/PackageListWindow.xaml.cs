@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,9 @@ namespace PL
     {
         BlApi.IBL bL;
         PackageWindow packageWindow;
+        static Weight? weightFilter;
+        static Priority? PriorityFilter;
+        static ParcelStatus? statusesFilter;
         public PackageListWindow(BlApi.IBL bl)
         {
             InitializeComponent();
@@ -31,6 +35,7 @@ namespace PL
             comboSelectorCustomer.Items.Add(newItem.Content = "Customer receives");
             comboWeight.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             comboPriority.ItemsSource = Enum.GetValues(typeof(BO.Priority));
+            comboStatus.ItemsSource = Enum.GetValues(typeof(BO.ParcelStatus));
         }
         private void RefreshListView(object ob, EventArgs ev)
         {
@@ -101,6 +106,9 @@ namespace PL
         private void butClear_Click(object sender, RoutedEventArgs e)
         {
             PackageListView.ItemsSource = bL.GetPackageList();
+            comboWeight.SelectedIndex = -1;
+            comboStatus.SelectedIndex = -1;
+            comboPriority.SelectedIndex = -1;
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -108,6 +116,111 @@ namespace PL
             packageWindow = new PackageWindow(bL);
             packageWindow.Closed += RefreshListView;
             packageWindow.Show();
+        }
+
+        private void comboWeight_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(comboWeight.SelectedIndex != -1)
+            {
+                weightFilter = (Weight)comboWeight.SelectedItem;
+                if (statusesFilter == null && PriorityFilter == null)
+                {
+                    PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter);
+                }
+                else
+                {
+                    if(statusesFilter == null && PriorityFilter != null)
+                    {
+                        PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter && x.priority == PriorityFilter);
+                    }
+                    else
+                    {
+                        if (statusesFilter != null && PriorityFilter == null)
+                        {
+                            PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter && x.PackageMode == statusesFilter);
+                        }
+                        else
+                            PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter && x.PackageMode == statusesFilter && x.priority == PriorityFilter);
+
+                    }
+                }
+            }
+            else
+            {
+                comboWeight.SelectedIndex = -1;
+                weightFilter = null;
+                comboWeight.Text = "Choose a Weight";
+            }
+        }
+
+        private void comboPriority_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboPriority.SelectedIndex != -1)
+            {
+                PriorityFilter = (Priority)comboPriority.SelectedItem;
+                if (statusesFilter == null && weightFilter == null)
+                {
+                    PackageListView.ItemsSource = bL.GetPackageList(x => x.priority == PriorityFilter);
+                }
+                else
+                {
+                    if (statusesFilter == null && weightFilter != null)
+                    {
+                        PackageListView.ItemsSource = bL.GetPackageList(x => x.priority == PriorityFilter && x.WeightCategory == weightFilter);
+                    }
+                    else
+                    {
+                        if (statusesFilter != null && weightFilter == null)
+                        {
+                            PackageListView.ItemsSource = bL.GetPackageList(x => x.priority == PriorityFilter && x.PackageMode == statusesFilter);
+                        }
+                        else
+                            PackageListView.ItemsSource = bL.GetPackageList(x => x.priority == PriorityFilter && x.PackageMode == statusesFilter && x.WeightCategory == weightFilter);
+
+                    }
+                }
+            }
+            else
+            {
+                comboPriority.SelectedIndex = -1;
+                PriorityFilter = null;
+                comboPriority.Text = "Choose a Priority";
+            }
+        }
+
+        private void comboStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboStatus.SelectedIndex != -1)
+            {
+                statusesFilter = (ParcelStatus)comboStatus.SelectedItem;
+                if (PriorityFilter == null && weightFilter == null)
+                {
+                    PackageListView.ItemsSource = bL.GetPackageList(x => x.PackageMode == statusesFilter);
+                }
+                else
+                {
+                    if (PriorityFilter == null && weightFilter != null)
+                    {
+                        PackageListView.ItemsSource = bL.GetPackageList(x => x.PackageMode == statusesFilter && x.WeightCategory == weightFilter);
+                    }
+                    else
+                    {
+                        if (PriorityFilter != null && weightFilter == null)
+                        {
+                            PackageListView.ItemsSource = bL.GetPackageList(x => x.PackageMode == statusesFilter && x.priority == PriorityFilter);
+                        }
+                        else
+                            PackageListView.ItemsSource = bL.GetPackageList(x => x.PackageMode == statusesFilter && x.priority == PriorityFilter && x.WeightCategory == weightFilter);
+
+                    }
+                }
+            }
+            else
+            {
+                comboPriority.SelectedIndex = -1;
+                PriorityFilter = null;
+                comboPriority.Text = "Choose a Priority";
+            }
         }
     }
 }

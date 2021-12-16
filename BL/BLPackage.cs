@@ -253,7 +253,7 @@ namespace BL
         /// Returns a list of packages.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BO.PackageToList> GetPackageList()
+        public IEnumerable<BO.PackageToList> GetPackageList(Func<BO.PackageToList, bool> predicate = null)
         {
             List<PackageToList> packageToList = new List<PackageToList>();
             foreach (DO.Package item in mayDal.GetPackageList())
@@ -270,7 +270,9 @@ namespace BL
                 };
                 packageToList.Add(package);
             }
-            return packageToList.Take(packageToList.Count).ToList();
+            if (predicate == null) 
+                return packageToList.Take(packageToList.Count).ToList();
+            return packageToList.Where((Func<PackageToList, bool>)predicate).ToList();
         }
         /// <summary>
         /// Returns the skimmer mat.
