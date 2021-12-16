@@ -24,7 +24,7 @@ namespace BlApi
         public void CollectingPackageBySkimmer(int id);
         public void AssigningPackageToSkimmer(int id);
         public void DeliveryOfPackageBySkimmer(int id);
-        IEnumerable<PackageToList> GetPackageList();
+        IEnumerable<PackageToList> GetPackageList(Func<BO.PackageToList, bool> predicate = null);
         IEnumerable<PackageToList> GetPackagesWithoutSkimmer();
         public void DeletePackage(int id);
         public BO.Package GetPackage(int id);

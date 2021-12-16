@@ -58,19 +58,26 @@
             </ListView.View>
         </ListView>
 
-        <Label Content="Weight:" Margin="68,238,0,0" FontSize="25"
+        <Label Content="Weight:" Margin="68,200,0,0" FontSize="25"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ComboBox Name="comboWeight" Text="Choose a Weight" Margin="169,238,0,0" Width="108"
+        <ComboBox Name="comboWeight" Text="Choose a Weight" Margin="169,200,0,0" Width="117"
                       HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFE2DADC"
                       ToolTip="Choose a Weight"  IsEditable="True" IsReadOnly="True" 
-                       Height="30"/>
-        <Label Content="Priority:" Margin="68,283,0,0" FontSize="25"
+                       Height="25" SelectionChanged="comboWeight_SelectionChanged"/>
+        <Label Content="Priority:" Margin="68,240,0,0" FontSize="25"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ComboBox Name="comboPriority" Text="Choose a Priority" Margin="169,282,0,0" Width="108" Height="30"
+        <ComboBox Name="comboPriority" Text="Choose a Priority" Margin="169,240,0,0" Width="117" Height="25"
                       HorizontalAlignment="Left" VerticalAlignment="Top" 
-                      ToolTip="Choose a Priority"  IsEditable="True" IsReadOnly="True" />
+                      ToolTip="Choose a Priority"  IsEditable="True" IsReadOnly="True" SelectionChanged="comboPriority_SelectionChanged" />
+        <Label Content="Status:" Margin="68,280,0,0" FontSize="25"
+               FontFamily="Bahnschrift Condensed"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ComboBox Name="comboStatus" Text="Choose a Status" Margin="169,280,0,0" Width="117" Height="25"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" 
+                      ToolTip="Choose a Status"  IsEditable="True" IsReadOnly="True" SelectionChanged="comboStatus_SelectionChanged" />
+
 
         <StackPanel Orientation="Horizontal">
             <Button x:Name="btnSelectorCustomer" Content="Show an abbreviated list" ToolTip="Displays an abbreviated list by sender or recipient" 
@@ -144,7 +151,7 @@
 
             </Button>
         </StackPanel>
-        
+
         <StackPanel Orientation="Horizontal">
             <Button x:Name="butEXIT" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
                         HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Exit this window"
