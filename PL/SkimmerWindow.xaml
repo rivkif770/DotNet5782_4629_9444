@@ -18,7 +18,7 @@
             </Border.Background>
         </Border>
 
-        <Grid x:Name="add" >
+        <Grid x:Name="add" Visibility="Collapsed">
             <Grid x:Name="AddSkimmerGrid" Margin="0,25,0,183" Width="404" HorizontalAlignment="Center" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
@@ -118,7 +118,7 @@
         </Grid>
 
 
-        <Grid x:Name="Updates" >
+        <Grid x:Name="Updates" Visibility="Collapsed" >
             <StackPanel Orientation="Horizontal">
                 <!--<Image x:Name="skimmerU" Source="/skimmer.png" Width="300" Height="170" Margin="-20,-250,0,0"/>-->
                 <Button x:Name="btnUpdate" Content="Update name" ToolTip="Update skimmer name" Foreground="White"
