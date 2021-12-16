@@ -27,6 +27,7 @@ namespace PL
         private void RefreshListView(object ob, EventArgs ev)
         {
             CustomerListView.Items.Refresh();
+            CustomerListView.ItemsSource = bL.GetCustomerList();
         }
         /// <summary>
         /// Filter by skimmer status (checks whether there is filter by weight and combines them)
