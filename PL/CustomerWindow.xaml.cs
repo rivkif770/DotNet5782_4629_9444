@@ -206,7 +206,6 @@ namespace PL
             else
                 textUpdatePhon.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
         private void Button_UpdateDelete(object sender, RoutedEventArgs e)
         {
             bL.DeleteCustomer(newCustomer.Id);

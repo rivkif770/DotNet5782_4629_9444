@@ -49,7 +49,7 @@ namespace PL
         {
             if ((BO.PackageToList)PackageListView.SelectedItem != null)
             {
-                //packageWindow = new PackageWindow(bL, (BO.PackageToList)PackageListView.SelectedItem, this);
+                packageWindow = new PackageWindow(bL, (BO.PackageToList)PackageListView.SelectedItem, this);
                 packageWindow.Closed += RefreshListView;
                 packageWindow.Show();
             }
