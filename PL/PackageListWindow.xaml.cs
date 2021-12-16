@@ -45,6 +45,7 @@ namespace PL
             if (comboStatus.SelectedItem != null) comboStatus_SelectionChanged(this, null);
             if (comboPriority.SelectedItem != null) comboPriority_SelectionChanged(this, null);
         }
+
         private void PackageListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if ((BO.PackageToList)PackageListView.SelectedItem != null)
@@ -77,27 +78,11 @@ namespace PL
             {
                 if (comboSelectorCustomer.SelectedItem.ToString() == "Customer sends")
                 {
-                    foreach (BO.PackageToList item in bL.GetPackageList())
-                    {
-                        if (item.CustomerNameSends == textSelectorCustomer.Text)
-                        {
-                            ListViewItem newItem = new ListViewItem();
-                            newItem.Content = item;
-                            PackageListView.Items.Add(newItem);
-                        }
-                    }
+                    PackageListView.ItemsSource = bL.GetPackageList(x => x.CustomerNameSends == textSelectorCustomer.Text);
                 }
                 else
                 {
-                    foreach (BO.PackageToList item in bL.GetPackageList())
-                    {
-                        if (item.CustomerNameGets == textSelectorCustomer.Text)
-                        {
-                            ListViewItem newItem = new ListViewItem();
-                            newItem.Content = item;
-                            PackageListView.Items.Add(newItem);
-                        }
-                    }
+                    PackageListView.ItemsSource = bL.GetPackageList(x => x.CustomerNameGets == textSelectorCustomer.Text);
                 }
             }
         }
@@ -113,6 +98,8 @@ namespace PL
             comboWeight.SelectedIndex = -1;
             comboStatus.SelectedIndex = -1;
             comboPriority.SelectedIndex = -1;
+            comboSelectorCustomer.SelectedIndex = -1;
+            textSelectorCustomer.Clear();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -224,6 +211,15 @@ namespace PL
                 comboPriority.SelectedIndex = -1;
                 PriorityFilter = null;
                 comboPriority.Text = "Choose a Priority";
+            }
+        }
+
+        private void comboSelectorCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboSelectorCustomer.SelectedIndex == -1)
+            {
+                comboSelectorCustomer.SelectedIndex = -1;
+                comboSelectorCustomer.Text = "Choose a Priority";
             }
         }
     }

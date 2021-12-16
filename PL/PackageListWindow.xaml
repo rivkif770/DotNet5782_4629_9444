@@ -112,7 +112,7 @@
         </StackPanel>
         <ComboBox Name="comboSelectorCustomer" Text="           Sends or receives"  Margin="90,110,0,0" Width="180" Height="25"
                       HorizontalAlignment="Left" VerticalAlignment="Top" 
-                      ToolTip="Select filter by sender or receiver"  IsEditable="True" IsReadOnly="True" />
+                      ToolTip="Select filter by sender or receiver"  IsEditable="True" IsReadOnly="True" SelectionChanged="comboSelectorCustomer_SelectionChanged" />
         <Label Content="Enter customer name:" Margin="118,133,0,0" FontSize="15"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top" Height="25"/>
