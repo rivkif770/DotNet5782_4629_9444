@@ -40,7 +40,7 @@ namespace PL
         private void RefreshListView(object ob, EventArgs ev)
         {
             PackageListView.Items.Refresh();
-            if (comboWeight.SelectedItem == null && comboStatus.SelectedItem == null && comboPriority == null) PackageListView.ItemsSource = bL.GetPackageList();
+            if (comboWeight.SelectedItem == null && comboStatus.SelectedItem == null && comboPriority.SelectedItem == null) PackageListView.ItemsSource = bL.GetPackageList();
             if (comboWeight.SelectedItem != null) comboWeight_SelectionChanged(this, null);
             if (comboStatus.SelectedItem != null) comboStatus_SelectionChanged(this, null);
             if (comboPriority.SelectedItem != null) comboPriority_SelectionChanged(this, null);

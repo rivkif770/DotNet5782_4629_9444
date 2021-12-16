@@ -132,8 +132,5 @@ namespace PL
             MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
             this.Close();
         }
-
-
-
     }
 }

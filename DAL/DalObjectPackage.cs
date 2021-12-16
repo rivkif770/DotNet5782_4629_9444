@@ -50,7 +50,6 @@ namespace DalObject
             {
                 throw new IdDoesNotExistException($"Package {IDp} dont Save to system", Severity.Mild);
             }
-            IDp = global::DalObject.DataSource.Config.IDPackage--;
             DataSource.ListPackage.RemoveAll(item => item.ID == IDp);
         }
     }
