@@ -61,16 +61,16 @@
         <Label Content="Weight:" Margin="68,238,0,0" FontSize="25"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ComboBox Name="GettingSelector" Text="Choose  a Weight" Margin="169,238,0,0" Width="108"
+        <ComboBox Name="comboWeight" Text="Choose a Weight" Margin="169,238,0,0" Width="108"
                       HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFE2DADC"
-                      ToolTip="Filter a list according to the customer receiving the package"  IsEditable="True" IsReadOnly="True" 
+                      ToolTip="Choose a Weight"  IsEditable="True" IsReadOnly="True" 
                        Height="30"/>
-        <Label Content="Sender:" Margin="68,283,0,0" FontSize="25"
+        <Label Content="Priority:" Margin="68,283,0,0" FontSize="25"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ComboBox Name="SenderSelector" Text="Select customer id" Margin="169,282,0,0" Width="108" Height="30"
+        <ComboBox Name="comboPriority" Text="Choose a Priority" Margin="169,282,0,0" Width="108" Height="30"
                       HorizontalAlignment="Left" VerticalAlignment="Top" 
-                      ToolTip="Filter a list according to the customer sending the package"  IsEditable="True" IsReadOnly="True" />
+                      ToolTip="Choose a Priority"  IsEditable="True" IsReadOnly="True" />
 
         <StackPanel Orientation="Horizontal">
             <Button x:Name="btnSelectorCustomer" Content="Show an abbreviated list" ToolTip="Displays an abbreviated list by sender or recipient" 
@@ -113,6 +113,38 @@
                  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFD3CBCD"
                   BorderBrush="#FFE92617" Height="18" TextChanged="textSelectorCustomer_TextChanged" />
 
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="btnAdd" Content="Add package" ToolTip="Add a package to the repository" 
+                    Foreground="White" FontSize="17" FontWeight="Medium"
+                HorizontalAlignment="Left"  Width="250" Margin="50,350,0,0" Height="30" VerticalAlignment="Top" Click="btnAdd_Click" >
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#FFA69D9F"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF7A7778"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </StackPanel>
+        
         <StackPanel Orientation="Horizontal">
             <Button x:Name="butEXIT" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
                         HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Exit this window"

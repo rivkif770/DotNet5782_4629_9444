@@ -29,19 +29,8 @@ namespace PL
             ComboBoxItem newItem = new ComboBoxItem();
             comboSelectorCustomer.Items.Add(newItem.Content = "Customer sends");
             comboSelectorCustomer.Items.Add(newItem.Content = "Customer receives");
-
-            //foreach (BO.PackageToList item in bl.GetPackageList())
-            //{
-            //    ComboBoxItem newItem = new ComboBoxItem();
-            //    newItem.Content = item.CustomerNameGets;
-            //    GettingSelector.Items.Add(newItem);
-            //}
-            //foreach (BO.PackageToList item in bl.GetPackageList())
-            //{
-            //    ComboBoxItem newItem = new ComboBoxItem();
-            //    newItem.Content = item.CustomerNameSends;
-            //    SenderSelector.Items.Add(newItem);
-            //}
+            comboWeight.ItemsSource = Enum.GetValues(typeof(BO.Weight));
+            comboPriority.ItemsSource = Enum.GetValues(typeof(BO.Priority));
         }
         private void RefreshListView(object ob, EventArgs ev)
         {
@@ -112,6 +101,13 @@ namespace PL
         private void butClear_Click(object sender, RoutedEventArgs e)
         {
             PackageListView.ItemsSource = bL.GetPackageList();
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            packageWindow = new PackageWindow(bL);
+            packageWindow.Closed += RefreshListView;
+            packageWindow.Show();
         }
     }
 }
