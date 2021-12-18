@@ -48,6 +48,16 @@ namespace PL
             bL = bl;
             InitializeComponent();
             Updates.Visibility = Visibility.Visible;
+            deletePackage.Visibility = Visibility.Visible;
+            newPackage = new PackageToList();
+            newPackage = packageToList;
+            showPackage.Text = bl.GetPackage(newPackage.Id).ToString();
+        }
+        public PackageWindow(BlApi.IBL bl, PackageToList packageToList)
+        {
+            bL = bl;
+            InitializeComponent();
+            Updates.Visibility = Visibility.Visible;
             newPackage = new PackageToList();
             newPackage = packageToList;
             showPackage.Text = bl.GetPackage(newPackage.Id).ToString();
@@ -66,13 +76,13 @@ namespace PL
             }
             else
             {
-                BO.Package package = new Package();
-                package.SendPackage =bL.GetCustomerInParcel( Int32.Parse(textIdSender.Text));
-                package.ReceivesPackage = bL.GetCustomerInParcel(Int32.Parse(textIdGet.Text));
-                package.priority = (Priority)(ComboPrioritys.SelectedItem);
-                package.WeightCategory = (Weight)(ComboWeightCategory.SelectedItem);
                 try
                 {
+                    BO.Package package = new Package();
+                    package.SendPackage = bL.GetCustomerInParcel(Int32.Parse(textIdSender.Text));
+                    package.ReceivesPackage = bL.GetCustomerInParcel(Int32.Parse(textIdGet.Text));
+                    package.priority = (Priority)(ComboPrioritys.SelectedItem);
+                    package.WeightCategory = (Weight)(ComboWeightCategory.SelectedItem);
                     bL.AddPackage(package);
                     MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                     //CloseWindowEvent(this);
@@ -130,6 +140,11 @@ namespace PL
         {
             bL.DeletePackage(newPackage.Id);
             MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+            this.Close();
+        }
+
+        private void EXIT_Click(object sender, RoutedEventArgs e)
+        {
             this.Close();
         }
     }

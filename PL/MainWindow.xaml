@@ -98,11 +98,11 @@
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                        <Setter Property="Background" Value="#FFA69D9F"/>
+                        <Setter Property="Background" Value="#FF4FE899"/>
                         <Setter Property="Cursor" Value="Hand"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF7A7778"/>
+                                <Setter Property="Background" Value="#FF20CB73"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>

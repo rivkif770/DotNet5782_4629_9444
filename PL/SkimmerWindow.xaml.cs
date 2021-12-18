@@ -18,11 +18,9 @@ using BO;
 
 namespace PL
 {
-    /// <summary>
-    /// Interaction logic for SkimmerWindow.xaml
-    /// </summary>
     public partial class SkimmerWindow : Window
     {
+        PackageWindow packageWindow;
         SkimmerToList newSkimmer;
         BlApi.IBL bL;
         public delegate void CloseWindow(object ob);
@@ -292,7 +290,34 @@ namespace PL
                 MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-        
+        /// <summary>
+        /// A button that displays the package in transit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnShowPackage_Click(object sender, RoutedEventArgs e)
+        {
+            if (newSkimmer.PackageNumberTransferred != 0)
+            {
+                //skimmerWindow.Closed += RefreshListView;
+                //skimmerWindow.Show();
+                Package package = bL.GetPackage(newSkimmer.PackageNumberTransferred);
+                PackageToList packageToList = new PackageToList
+                {
+                    Id = package.Id,
+                    CustomerNameSends = package.SendPackage.Name,
+                    CustomerNameGets = package.ReceivesPackage.Name,
+                    WeightCategory = package.WeightCategory,
+                    priority = package.priority,
+                    PackageMode = (ParcelStatus)bL.PackageMode(package)
+                };
+                packageWindow = new PackageWindow(bL, packageToList);
+                packageWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show($"No package in transfer", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

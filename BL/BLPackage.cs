@@ -279,7 +279,7 @@ namespace BL
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        private int PackageMode(BO.Package p)
+        public int PackageMode(BO.Package p)
         {
             if (p.SupplyTime != null)
                 return 3;

@@ -28,6 +28,7 @@ namespace BlApi
         IEnumerable<PackageToList> GetPackagesWithoutSkimmer();
         public void DeletePackage(int id);
         public BO.Package GetPackage(int id);
+        public int PackageMode(BO.Package p);
 
         void AddSkimmer(Skimmer newSkimmer, int station);
         public SkimmerToList GetSkimmerToList(int id);
