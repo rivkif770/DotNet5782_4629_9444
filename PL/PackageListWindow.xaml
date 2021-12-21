@@ -8,6 +8,19 @@
         Title="PackageListWindow" Height="450" Width="800"
     AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="myButtonStyle"  TargetType="Button">
+
+            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+            <Setter Property="Background" Value="#FFA69D9F"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF7A7778"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid Name="MainGrid" >
         <Grid>
             <Border CornerRadius="10" Grid.RowSpan="2">
@@ -82,21 +95,8 @@
         <StackPanel Orientation="Horizontal">
             <Button x:Name="btnSelectorCustomer" Content="Show an abbreviated list" ToolTip="Displays an abbreviated list by sender or recipient" 
                     Foreground="White" FontSize="17" FontWeight="Medium"
-                HorizontalAlignment="Left"  Width="250" Margin="50,70,0,0" Height="30" VerticalAlignment="Top" Click="btnSelectorCustomer_Click">
-
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                        <Setter Property="Background" Value="#FFA69D9F"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF7A7778"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
+                HorizontalAlignment="Left"  Width="250" Margin="50,70,0,0" Height="30" Style="{StaticResource myButtonStyle}" 
+                    VerticalAlignment="Top" Click="btnSelectorCustomer_Click">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Height="25"
@@ -122,22 +122,8 @@
 
         <StackPanel Orientation="Horizontal">
             <Button x:Name="btnAdd" Content="Add package" ToolTip="Add a package to the repository" 
-                    Foreground="White" FontSize="17" FontWeight="Medium"
+                    Foreground="White" FontSize="17" FontWeight="Medium" Style="{StaticResource myButtonStyle}"
                 HorizontalAlignment="Left"  Width="250" Margin="50,350,0,0" Height="30" VerticalAlignment="Top" Click="btnAdd_Click" >
-
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                        <Setter Property="Background" Value="#FFA69D9F"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF7A7778"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Height="25"
