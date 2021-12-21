@@ -8,6 +8,19 @@
         Title="SkimmerWindow" Height="450" Width="800" 
     AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="myButtonStyle"  TargetType="Button">
+
+            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+            <Setter Property="Background" Value="#FFA69D9F"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF7A7778"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Border CornerRadius="10" Grid.RowSpan="2">
             <Border.Background>
@@ -122,21 +135,8 @@
             <StackPanel Orientation="Horizontal">
                 <!--<Image x:Name="skimmerU" Source="/skimmer.png" Width="300" Height="170" Margin="-20,-250,0,0"/>-->
                 <Button x:Name="btnUpdate" Content="Update name" ToolTip="Update skimmer name" Foreground="White"
-                        FontSize="20" FontWeight="Medium" Click="Button_Update" Width="214" Margin="20,135,0,0" Height="30" VerticalAlignment="Top" RenderTransformOrigin="-2.939,0.505">
-
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-
+                        FontSize="20" FontWeight="Medium" Click="Button_Update" Width="214" Margin="20,135,0,0" 
+                        Height="30" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}" >
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Height="25"
@@ -152,20 +152,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnSend" Content="Send for loading" ToolTip="Sending a skimmer for charging" Foreground="White" FontSize="20" FontWeight="Medium"
-                HorizontalAlignment="Left" Click="Button_Sending_Loading" Width="200" Margin="580,235,0,0" Height="30" VerticalAlignment="Top" RenderTransformOrigin="-2.295,0.556">
-
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                HorizontalAlignment="Left" Click="Button_Sending_Loading" Width="200" Margin="580,235,0,0" Height="30" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}">
 
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
@@ -182,21 +169,8 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnRelease" Content="Release from charging" ToolTip="Release skimmer from charging"
-                        Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_Release" Width="214" Margin="20,240,0,0" Height="30" VerticalAlignment="Top" RenderTransformOrigin="-2.295,0.556">
-
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-
+                        Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_Release" Width="214" Margin="20,240,0,0" 
+                        Height="30" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Height="25"
@@ -256,21 +230,8 @@
 
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnShowPackage" Content="Show package in transfer" ToolTip="Displays the package associated with the skimmer" Foreground="White" FontSize="17" FontWeight="Medium"
-                HorizontalAlignment="Left"  Width="200" Margin="580,85,0,0" Height="30" VerticalAlignment="Top" Click="btnShowPackage_Click">
-
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-
+                HorizontalAlignment="Left"  Width="200" Margin="580,85,0,0" Style="{StaticResource myButtonStyle}"
+                        Height="30" VerticalAlignment="Top" Click="btnShowPackage_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Height="25"
@@ -287,20 +248,7 @@
             
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnSendingSkimmer" Content="Sending a skimmer" ToolTip="Sending the skimmer for delivery (only for available skimmer)" Foreground="White" FontSize="20" FontWeight="Medium"
-                HorizontalAlignment="Left" Click="Button_Sending_Skimmer_For_Delivery" Width="200" Margin="580,135,0,0" Height="30" VerticalAlignment="Top" RenderTransformOrigin="-2.295,0.556">
-
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                HorizontalAlignment="Left" Click="Button_Sending_Skimmer_For_Delivery" Width="200" Margin="580,135,0,0" Height="30" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}">
 
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
@@ -318,20 +266,7 @@
 
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnCollectThePackage" Content="Collect the package" ToolTip="Package collection" Foreground="White" FontSize="20" FontWeight="Medium"
-                HorizontalAlignment="Left" Click="Button_Package_Delivery" Width="200" Margin="580,185,0,0" Height="30" VerticalAlignment="Top" RenderTransformOrigin="-2.295,0.556">
-
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                HorizontalAlignment="Left" Click="Button_Package_Delivery" Width="200" Margin="580,185,0,0" Height="30" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}">
 
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
@@ -347,20 +282,8 @@
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnPackageDelivery" Content="Package delivery" ToolTip="Package delivery" Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_Package_Delivery" Width="200" Margin="580,285,0,0" Height="44" VerticalAlignment="Top" RenderTransformOrigin="-2.295,0.556">
-
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                <Button x:Name="btnPackageDelivery" Content="Package delivery" ToolTip="Package delivery" Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_Package_Delivery" Width="200"
+                        Margin="580,280,0,0" Height="30" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}">
 
                     <Button.Template>
                         <ControlTemplate TargetType="Button">

@@ -8,11 +8,20 @@
         Title="SkimmerListWindow" Height="450" Width="800"
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="myButtonStyle"  TargetType="Button">
+
+            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+            <Setter Property="Background" Value="#FFA69D9F"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF7A7778"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid Name="MainGrid" >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="21*"/>
-            <RowDefinition Height="4*"/>
-        </Grid.RowDefinitions>
         <Grid Grid.RowSpan="2">
             <Border CornerRadius="10" Grid.RowSpan="2">
                 <Border.Background>
@@ -26,21 +35,7 @@
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.RowSpan="2">
             <Button x:Name="btnAddSkimmer" Content="add a skimmer" Foreground="White" FontSize="20" FontWeight="Medium"
-                Click="btnAddSkimmer_Click" Width="300" Margin="27,310,0,0" Height="30">
-
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                        <Setter Property="Background" Value="#FFA69D9F"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF7A7778"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
+                Click="btnAddSkimmer_Click" Width="300" Margin="27,310,0,0" Height="30" Style="{StaticResource myButtonStyle}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Height="25"
@@ -81,21 +76,7 @@
         <StackPanel Orientation="Horizontal" Grid.RowSpan="2">
             <Button x:Name="Clear" Content="Clear" Foreground="White" FontSize="20" FontWeight="Medium"
                     HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Clear filter and display all skimmers"
-                Click="Clear_Click" Width="300" Margin="27,325,0,0" Height="30">
-
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                        <Setter Property="Background" Value="#FFA69D9F"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF7A7778"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
+                Click="Clear_Click" Width="300" Margin="27,325,0,0" Height="30" Style="{StaticResource myButtonStyle}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Height="25"
