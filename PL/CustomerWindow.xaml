@@ -8,6 +8,19 @@
         Title="CustomerWindow" Height="450" Width="800"
     AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="myButtonStyle"  TargetType="Button">
+
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#FFA69D9F"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF7A7778"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Border CornerRadius="10" Margin="-10,10,10,-10">
             <Border.Background>
@@ -128,26 +141,13 @@
         </Grid>
 
 
-        <Grid x:Name="Updates" Visibility="Collapsed" >
+        <Grid x:Name="Updates" >
             <StackPanel Orientation="Horizontal">
                 <!--<Image x:Name="skimmerU" Source="/skimmer.png" Width="300" Height="170" Margin="-20,-250,0,0"/>-->
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnButtoUpdate" Margin="400,-250,0,0" Content="Update Customer Data" ToolTip="UpdateCustomerData"
+                <Button x:Name="btnButtoUpdate" Margin="400,-250,0,0" Style="{StaticResource myButtonStyle}" Content="Update Customer Data" ToolTip="UpdateCustomerData"
                         Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_Update" Width="304" Height="30" RenderTransformOrigin="-2.295,0.556">
-
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
 
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -161,21 +161,8 @@
                     </Button.Template>
 
                 </Button>
-                <Button x:Name="btndelete" Margin="-300,-350,0,0" Content="delete Customer" ToolTip="Delete Customer"
+                <Button x:Name="btndelete" Margin="-300,-350,0,0" Content="delete Customer" Style="{StaticResource myButtonStyle}" ToolTip="Delete Customer"
                         Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_UpdateDelete" Width="304" Height="30" RenderTransformOrigin="-2.295,0.556">
-
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
 
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">

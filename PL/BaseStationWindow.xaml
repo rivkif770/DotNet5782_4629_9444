@@ -8,6 +8,19 @@
         Title="BaseStationWindow" Height="450" Width="800"
     AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="myButtonStyle"  TargetType="Button">
+
+            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+            <Setter Property="Background" Value="#FFA69D9F"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF7A7778"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Border CornerRadius="10" Grid.RowSpan="2">
             <Border.Background>
@@ -127,7 +140,7 @@
 
         <Grid x:Name="Updates">
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnUpdat" Content="Base station update" ToolTip="Update name or number of available charging stations"
+                <Button x:Name="btnUpdat" Content="Base station update" Style="{StaticResource myButtonStyle}" ToolTip="Update name or number of available charging stations"
                         Foreground="White" FontSize="20" FontWeight="Medium" Width="250" Margin="490,180,0,0" Height="30" VerticalAlignment="Top" Click="btnUpdat_Click" RenderTransformOrigin="0.5,0.5">
                     <Button.RenderTransform>
                         <TransformGroup>
@@ -137,19 +150,6 @@
                             <TranslateTransform X="-1.357"/>
                         </TransformGroup>
                     </Button.RenderTransform>
-
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
 
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
@@ -209,21 +209,8 @@
                  BorderBrush="#FFE92617" Height="22" TextChanged="textUpdateCharging_TextChanged"/>
 
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnDeletBaseStation" Content="Delet" ToolTip="Deleting a base station" Foreground="White" FontSize="20" FontWeight="Medium"
+                <Button x:Name="btnDeletBaseStation" Content="Delet" Style="{StaticResource myButtonStyle}" ToolTip="Deleting a base station" Foreground="White" FontSize="20" FontWeight="Medium"
                 HorizontalAlignment="Left"  Width="250" Margin="490,135,0,0" Height="30" VerticalAlignment="Top" Click="btnDeletBaseStation_Click">
-
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FFA69D9F"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF7A7778"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
 
                     <Button.Template>
                         <ControlTemplate TargetType="Button">

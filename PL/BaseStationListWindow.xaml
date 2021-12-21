@@ -8,6 +8,19 @@
         Title="BaseStationListWindow" Height="450" Width="800"        
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="myButtonStyle"  TargetType="Button">
+
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#FFA69D9F"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF7A7778"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid Name="MainGrid" >
         <Grid>
             <Border CornerRadius="10" Grid.RowSpan="2">
@@ -25,21 +38,8 @@
             </Border>
         </Grid>
         <StackPanel Orientation="Horizontal">
-            <Button x:Name="btnAddBaseStation" Content="add a BaseStation" Foreground="White" FontSize="20" FontWeight="Medium"
+            <Button x:Name="btnAddBaseStation" Content="add a BaseStation" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" FontWeight="Medium"
                 Click="btnAddBaseStation_Click" Width="300" Margin="27,265,0,120" Height="30">
-
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                        <Setter Property="Background" Value="#FFA69D9F"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF7A7778"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
 
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
@@ -65,23 +65,10 @@
         </ListView>
 
         <StackPanel Orientation="Horizontal">
-            <Button x:Name="Clear" Content="Clear" Foreground="White" FontSize="20" FontWeight="Medium"
+            <Button x:Name="Clear" Content="Clear" Foreground="White" Style="{StaticResource myButtonStyle}" FontSize="20" FontWeight="Medium"
                     HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Clear filter and display all BaseStation"
                 Click="Clear_Click" Width="300" Margin="27,330,0,0" Height="30">
 
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                        <Setter Property="Background" Value="#FFA69D9F"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF7A7778"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Height="25"
@@ -97,23 +84,10 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <Button Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
+            <Button Content="EXIT" Foreground="White" Style="{StaticResource myButtonStyle}" FontSize="20" FontWeight="Medium"
                     HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" ToolTip="Exit this window"
                 Click="EXIT_Click" Width="300" Margin="27,370,0,0" Height="40">
 
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                        <Setter Property="Background" Value="#FFA69D9F"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF7A7778"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Height="25"
@@ -129,22 +103,9 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <Button x:Name="freeCharging" Content="Available charging stations" Foreground="White" FontSize="20" FontWeight="Medium"
+            <Button x:Name="freeCharging" Content="Available charging stations" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" FontWeight="Medium"
                     HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" ToolTip="Show base stations with available charging stations"
                  Width="300" Margin="27,230,0,0" Height="40" Click="freeCharging_Click">
-
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                        <Setter Property="Background" Value="#FFA69D9F"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF7A7778"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
 
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
