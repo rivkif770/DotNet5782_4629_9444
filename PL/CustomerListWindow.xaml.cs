@@ -23,6 +23,7 @@ namespace PL
             InitializeComponent();
             CustomerListView.ItemsSource = bl.GetCustomerList();
             bL = bl;
+            DataContext = this;
         }
         private void RefreshListView(object ob, EventArgs ev)
         {

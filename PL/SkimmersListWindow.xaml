@@ -61,14 +61,20 @@
                    HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.584,2.616"/>
         <ComboBox Name="WeightSelector" Text="Choose a Weight" Margin="169,282,0,0" Width="108" Height="30"
                       HorizontalAlignment="Left" VerticalAlignment="Top" 
-                      ToolTip="Choose  a Weight"  IsEditable="True" IsReadOnly="True" 
+                      ToolTip="Choose a Weight"  IsEditable="True" IsReadOnly="True" 
                       SelectionChanged="WeightSelector_SelectionChanged" RenderTransformOrigin="0.63,5.717"/>
 
 
         <ListView x:Name="SkimmerListView" Margin="345,0,0,0" MouseDoubleClick="SkimmerListView_MouseDoubleClick" Background="#FFE2DADC" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Model" Width="80" DisplayMemberBinding="{Binding SkimmerModel}" />
+                    <GridViewColumn Header="ID" Width="80" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Max Weight" Width="80" DisplayMemberBinding="{Binding WeightCategory}" />
+                    <GridViewColumn Header="Skimmer Status" Width="90" DisplayMemberBinding="{Binding SkimmerStatus}" />
+                    <GridViewColumn Header="Battery" Width="80" DisplayMemberBinding="{Binding BatteryStatus,StringFormat = N0}" />
+                    <GridViewColumn Header="Location" Width="100" DisplayMemberBinding="{Binding CurrentLocation}" />
+                    <GridViewColumn Header="Package In Transfer" Width="110" DisplayMemberBinding="{Binding PackageNumberTransferred}" />
                 </GridView>
             </ListView.View>
         </ListView>

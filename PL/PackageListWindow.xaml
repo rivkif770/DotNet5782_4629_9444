@@ -66,7 +66,12 @@
         <ListView x:Name="PackageListView" Margin="345,5,0,0" MouseDoubleClick="PackageListView_MouseDoubleClick" Background="#FFE2DADC">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="ID" Width="80" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Customer Name Sends" Width="130" DisplayMemberBinding="{Binding CustomerNameSends}" />
+                    <GridViewColumn Header="Customer Name Gets" Width="130" DisplayMemberBinding="{Binding CustomerNameGets}" />
+                    <GridViewColumn Header="Weight Category" Width="100" DisplayMemberBinding="{Binding WeightCategory}" />
+                    <GridViewColumn Header="Priority" Width="100" DisplayMemberBinding="{Binding priority}" />
+                    <GridViewColumn Header="Package Mode" Width="110" DisplayMemberBinding="{Binding PackageMode}" />
                 </GridView>
             </ListView.View>
         </ListView>

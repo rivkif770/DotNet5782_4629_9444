@@ -71,7 +71,13 @@
         <ListView x:Name="CustomerListView" Margin="345,5,0,0" MouseDoubleClick="CustomerListView_MouseDoubleClick" Background="#FFE2DADC" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Name" Width="80" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="ID" Width="80" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Phone" Width="80" DisplayMemberBinding="{Binding Phone}" />
+                    <GridViewColumn Header="Parcel Send And Delivered" Width="150" DisplayMemberBinding="{Binding ParcelSentAndDelivered}" />
+                    <GridViewColumn Header="Parcel Send And Not Delivered" Width="150" DisplayMemberBinding="{Binding ParcelSentAndNotDelivered}" />
+                    <GridViewColumn Header="Packages He Received" Width="150" DisplayMemberBinding="{Binding PackagesHeReceived}" />
+                    <GridViewColumn Header="Packages On The Way To Customer" Width="150" DisplayMemberBinding="{Binding PackagesOnTheWayToCustomer}" />
                 </GridView>
             </ListView.View>
         </ListView>
