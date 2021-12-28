@@ -175,7 +175,7 @@ namespace PL
                     bL.UpdateCustomerData(newCustomer.Id, name, phon);
                     MessageBox.Show("The update was successful", "Updated a Customer Data", MessageBoxButton.OK, MessageBoxImage.Information);
                     //CloseWindowEvent(this);
-                    this.Close();
+                    //this.Close();
                 }
                 catch (Exception ex)
                 {
@@ -206,11 +206,11 @@ namespace PL
             else
                 textUpdatePhon.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-        private void Button_UpdateDelete(object sender, RoutedEventArgs e)
-        {
-            bL.DeleteCustomer(newCustomer.Id);
-            MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-            this.Close();
-        }
+        //private void Button_UpdateDelete(object sender, RoutedEventArgs e)
+        //{
+        //    bL.DeleteCustomer(newCustomer.Id);
+        //    MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+        //    this.Close();
+        //}
     }
 } 

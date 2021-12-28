@@ -36,6 +36,7 @@ namespace PL
             add.Visibility = Visibility.Visible;
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             ComboPrioritys.ItemsSource = Enum.GetValues(typeof(BO.Priority));
+            DataContext = this;
         }
         /// <summary>
         /// Builder for update

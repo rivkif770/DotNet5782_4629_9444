@@ -138,7 +138,7 @@
         </Grid>
 
 
-        <Grid x:Name="Updates" Visibility="Collapsed">
+        <Grid x:Name="Updates">
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnUpdat" Content="Base station update" Style="{StaticResource myButtonStyle}" ToolTip="Update name or number of available charging stations"
                         Foreground="White" FontSize="20" FontWeight="Medium" Width="250" Margin="490,180,0,0" Height="30" VerticalAlignment="Top" Click="btnUpdat_Click" RenderTransformOrigin="0.5,0.5">
@@ -164,6 +164,32 @@
 
                 </Button>
             </StackPanel>
+            <!--<StackPanel Orientation="Horizontal">
+                <Button x:Name="btnShowSkimmer" Content="show skimmer in charging" Style="{StaticResource myButtonStyle}" ToolTip="show skimmer in charging"
+                        Foreground="White" FontSize="20" FontWeight="Medium" Width="250" Margin="490,130,0,0" Height="30" VerticalAlignment="Top" Click="btnUpdat_Click" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="5.167"/>
+                            <RotateTransform/>
+                            <TranslateTransform X="-1.357"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+            </StackPanel>-->
+
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnEXIT2" Content="EXIT" ToolTip="Exit this window" Foreground="White" FontSize="20" FontWeight="Medium"
                 HorizontalAlignment="Left" Width="200" Margin="150,340,0,0" Height="60" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.635" Click="btnEXIT2_Click">
@@ -208,7 +234,7 @@
                  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFD3CBCD"
                  BorderBrush="#FFE92617" Height="22" TextChanged="textUpdateCharging_TextChanged"/>
 
-            <StackPanel Orientation="Horizontal">
+            <!--<StackPanel Orientation="Horizontal">
                 <Button x:Name="btnDeletBaseStation" Content="Delet" Style="{StaticResource myButtonStyle}" ToolTip="Deleting a base station" Foreground="White" FontSize="20" FontWeight="Medium"
                 HorizontalAlignment="Left"  Width="250" Margin="490,135,0,0" Height="30" VerticalAlignment="Top" Click="btnDeletBaseStation_Click">
 
@@ -224,7 +250,7 @@
                     </Button.Template>
 
                 </Button>
-            </StackPanel>
+            </StackPanel>-->
 
             <TextBox x:Name="showBaseStation" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Background="#FFE2DADC"
                 HorizontalAlignment="Left" Margin="100,0,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="300" Height="317" />

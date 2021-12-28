@@ -129,12 +129,12 @@ namespace PL
             this.Close();
         }
 
-        private void btnDeletBaseStation_Click(object sender, RoutedEventArgs e)
-        {
-            BL.DeleteBaseStation(newBaseStation.Id);
-            MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-            this.Close();
-        }
+        //private void btnDeletBaseStation_Click(object sender, RoutedEventArgs e)
+        //{
+        //    BL.DeleteBaseStation(newBaseStation.Id);
+        //    MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+        //    this.Close();
+        //}
 
         private void btnUpdat_Click(object sender, RoutedEventArgs e)
         {
@@ -147,7 +147,7 @@ namespace PL
             {
                 BL.UpdateBaseStation(newBaseStation.Id, textUpdateName.Text, textUpdateCharging.Text);
                 MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                //this.Close();
             }
             catch (Exception ex)
             {
