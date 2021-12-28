@@ -32,6 +32,7 @@ namespace PL
             StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.SkimmerStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             bL = bl;
+            DataContext = this;
         }
 
         private void RefreshListView(object ob,EventArgs ev)

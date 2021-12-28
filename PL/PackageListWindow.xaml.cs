@@ -36,6 +36,7 @@ namespace PL
             comboWeight.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             comboPriority.ItemsSource = Enum.GetValues(typeof(BO.Priority));
             comboStatus.ItemsSource = Enum.GetValues(typeof(BO.ParcelStatus));
+            DataContext = this;
         }
         private void RefreshListView(object ob, EventArgs ev)
         {

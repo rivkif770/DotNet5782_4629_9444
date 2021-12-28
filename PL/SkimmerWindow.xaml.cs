@@ -73,9 +73,10 @@ namespace PL
             else
             {
                 BO.Skimmer skimmer = new Skimmer();
-                skimmer.Id = Int32.Parse(textId.Text);
-                skimmer.SkimmerModel = textSkimmerModel.Text;
-                skimmer.WeightCategory = (Weight)(ComboWeightCategory.SelectedItem);
+                //skimmer=
+                //skimmer.Id = Int32.Parse(textId.Text);
+                //skimmer.SkimmerModel = textSkimmerModel.Text;
+                //skimmer.WeightCategory = (Weight)(ComboWeightCategory.SelectedItem);
                 try
                 {
                     bL.AddSkimmer(skimmer, Int32.Parse(ComboStationID.Text));

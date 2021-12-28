@@ -26,6 +26,7 @@ namespace PL
             InitializeComponent();
             BaseStationListView.ItemsSource = bl.GetBaseStationList();
             bL = bl;
+            DataContext = this;
         }
         private void RefreshListView(object ob, EventArgs ev)
         {
