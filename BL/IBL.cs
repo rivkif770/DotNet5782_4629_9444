@@ -12,6 +12,7 @@ namespace BlApi
         public void DeleteBaseStation(int id);
         IEnumerable<BaseStationToList> GetBaseStationList();
         IEnumerable<BaseStationToList> GetBaseStationFreeCharging();
+        public IEnumerable<SkimmerInCharging> GetListOfSkimmersCharge(BO.BaseStation baseStation);
 
         void AddCustomer(Customer newCustomer);
         Customer GetCustomer(int id);

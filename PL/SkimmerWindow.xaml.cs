@@ -36,7 +36,6 @@ namespace PL
             bL = bl;                      
             InitializeComponent();
             add.Visibility = Visibility.Visible;
-            maingrid
             DataContext = this;
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             foreach (BaseStationToList item in bl.GetBaseStationFreeCharging())

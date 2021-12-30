@@ -160,6 +160,13 @@ namespace BL
             }
             return result;
         }
+        public IEnumerable<SkimmerInCharging> GetListOfSkimmersCharge(BO.BaseStation baseStation)
+        {
+            IEnumerable<DO.BaseStation> dalList = mayDal.GetBaseStationList(x => x.SeveralPositionsArgument != 0);
+            List<SkimmerInCharging> result = new List<SkimmerInCharging>();
+            result = baseStation.ListOfSkimmersCharge;
+            return result;
+        }
     }
 }
 

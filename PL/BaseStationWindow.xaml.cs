@@ -20,7 +20,8 @@ namespace PL
     /// </summary>
     public partial class BaseStationWindow : Window
     {
-        BaseStationToList newBaseStation;
+        BaseStationToList newBaseStation = new BaseStationToList();
+        BaseStation baseStation1;
         BlApi.IBL BL;
         public delegate void CloseWindow(object ob);
         public BaseStationWindow(BlApi.IBL bL)
@@ -33,10 +34,11 @@ namespace PL
         {
             BL = bl;
             InitializeComponent();
-            Updates.Visibility = Visibility.Visible;
-            newBaseStation = new BaseStationToList();
+            //Updates.Visibility = Visibility.Visible;
             newBaseStation = baseStationToList;
-            showBaseStation.Text = bl.GetBeseStation(newBaseStation.Id).ToString();
+            baseStation1 = bl.GetBeseStation(newBaseStation.Id);
+            SkimmerListOfChargeView.ItemsSource = bl.GetListOfSkimmersCharge(baseStation1);
+            //showBaseStation.Text = bl.GetBeseStation(newBaseStation.Id).ToString();
         }
 
         private void textId_TextChanged(object sender, TextChangedEventArgs e)
@@ -182,5 +184,10 @@ namespace PL
         {
             this.Close();
         }
+
+        //private void Button_Click_1(object sender, RoutedEventArgs e)
+        //{
+        //    new SkimmerListWindow(mybl).Show();
+        //}
     }
 }
