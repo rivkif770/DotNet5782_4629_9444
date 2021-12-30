@@ -9,6 +9,8 @@
     AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
+        <local:FalseToHidden x:Key="FalseToHidden"></local:FalseToHidden>
+        <local:TrueToHidden x:Key="TrueToHidden"></local:TrueToHidden>
         <Style x:Key="myButtonStyle"  TargetType="Button">
 
             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -22,7 +24,7 @@
         </Style>
     </Window.Resources>
     <Grid >
-        <Border CornerRadius="10" Grid.RowSpan="2">
+        <Border CornerRadius="10" Grid.RowSpan="2" >
             <Border.Background>
                 <LinearGradientBrush>
                     <GradientStop Color="#FF090A5D" Offset="0.0"/>
@@ -32,10 +34,8 @@
         </Border>
 
         <Grid x:Name="add" >
-            <CheckBox>
-                <CheckBox x:Name="help" Visibility="Hidden" />
-            </CheckBox>
-            <Grid x:Name="AddSkimmerGrid" Margin="231,34,0,166" Width="404" Height="250" HorizontalAlignment="Left" >
+            <CheckBox x:Name="help" Visibility="Hidden" />
+            <Grid x:Name="AddSkimmerGrid" Margin="47,33,0,155" Width="404" HorizontalAlignment="Left" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -49,15 +49,20 @@
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Id"  Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+                <Label Content="Id" FontFamily="Bahnschrift Condensed" FontSize="20"/>
                 <Label Content="Skimmer Model" Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="20" />
                 <Label Content="Weight Category" Grid.Row="2" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"/>
-                <Label Content="Skimmer Status" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"/>
-                <Label Content="Battery Status" Grid.Row="4" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"/>
-                <Label Content="Id Of Package In Transfer" Grid.Row="5" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"/>
-                <Label Content="Location" Grid.Row="6" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"/>
+                <Label Content="Skimmer Status" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"
+                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <Label Content="Battery Status" Grid.Row="4" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"
+                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <Label Content="Id Of Package In Transfer" Grid.Row="5" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"
+                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <Label Content="Location" Grid.Row="6" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"
+                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
 
-                <Label Content="Station ID"  Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+                <Label Content="Station ID"  Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="20"
+                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"/>
                 <TextBox  x:Name="textId" Width="150" Height="25" Grid.Column="1" 
                       HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD"
                        TextChanged="textId_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 3-digit id number" 
@@ -69,92 +74,247 @@
                           DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <TextBox x:Name="BatteryStatus" Width="150" Height="25" Grid.Row="4" Grid.Column="1"  
-                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
-                          DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
+                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" BorderBrush="#FFE92617" 
+                          DataContext="{Binding BatteryStatus, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="SkimmerStatus" Width="150" Height="25" Grid.Row="3" Grid.Column="1"  
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
                           DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
                 <TextBox x:Name="IdOfPackageInTransfer" Width="150" Height="25" Grid.Row="5" Grid.Column="1"  
+                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" BorderBrush="#FFE92617"
+                          DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <!--<TextBox x:Name="Location" Width="150" Height="25" Grid.Row="6" Grid.Column="1"  
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
-                          DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
-                <TextBox x:Name="Location" Width="150" Height="25" Grid.Row="6" Grid.Column="1"  
-                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
-                          DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
+                          DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>-->
+                <TextBox x:Name="textLatitude"  Margin="2,0,0,8" Width="50" Height="20" Grid.Row="6" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                     BorderBrush="#FFE92617" ToolTip="Enter latitude"
+                          DataContext="{Binding Location.Latitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <TextBox x:Name="textLongitude"  Margin="100,0,0,8" Width="50" Height="20" Grid.Row="6" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                     BorderBrush="#FFE92617" ToolTip="Enter longitude"
+                          DataContext="{Binding Location.Longitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,23,0,2" FontSize="10" Grid.Row="6" Text="Latitude" TextWrapping="Wrap"
+                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="103,23,0,2" FontSize="10" Grid.Row="6" Text="Longitude" TextWrapping="Wrap"
+                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
 
-                <ComboBox x:Name="ComboStationID" Width="150" Height="25" Grid.Row="3" Grid.Column="1" Text="Choose a Station" 
+                <ComboBox x:Name="ComboStationID" Width="150" Height="25" Grid.Row="3" Grid.Column="1" 
                       HorizontalAlignment="Center" VerticalAlignment="Center"
                             IsEditable="True" IsReadOnly="True"/>
                 <ComboBox Name="ComboWeightCategory" Width="150" Height="25"
-                      HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1" Text="Choose Weight" 
-                      IsEditable="True" IsReadOnly="True"
-                           DataContext="{Binding WeightCategory, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
+                      HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1"  
+                      IsEditable="True" IsReadOnly="True"/>
             </Grid>
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnADD" Content="ADD" Foreground="White" FontSize="20" FontWeight="Medium"
-                        HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Add a skimmer to the pool"
-                Click="btnAddSkimmer_Click" Width="200" Margin="130,309,0,0" Height="30" >
+            <Grid Margin="450,80,10,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="6">
+                    <Button x:Name="btnADD" Content="ADD" Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Add a skimmer to the pool"
+                Click="btnAddSkimmer_Click" Width="300" Height="30" 
+                        Visibility="{Binding IsChecked, Converter={StaticResource TrueToHidden}, ElementName=help, Mode=OneWay}">
 
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FF4FE899"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF20CB73"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                                <Setter Property="Background" Value="#FF4FE899"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF20CB73"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
 
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Height="30"
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Height="30"
                             CornerRadius="12"
                             Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
+                                    <ContentPresenter VerticalAlignment="Center"
                                               HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
 
-                </Button>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnEXIT1" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
-                        HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Exit this window"
-                Click="Button_Click" Width="200" Margin="492,309,0,0" Height="30">
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="8">
+                    <Button x:Name="btnEXIT1" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
+                         ToolTip="Exit this window"
+                Click="Button_Click" Width="300" Height="30">
 
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FF4FE899"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF20CB73"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                                <Setter Property="Background" Value="#FF4FE899"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF20CB73"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
 
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Height="30"
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Height="30"
                             CornerRadius="12"
                             Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
+                                    <ContentPresenter VerticalAlignment="Center"
                                               HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
 
-                </Button>
-            </StackPanel>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" >
+                    <!--<Image x:Name="skimmerU" Source="/skimmer.png" Width="300" Height="170" Margin="-20,-250,0,0"/>-->
+                    <Button x:Name="btnUpdate" Content="Update name" ToolTip="Update skimmer name" Foreground="White"
+                        FontSize="20" FontWeight="Medium" Click="Button_Update" Width="300" 
+                        Height="30"  Style="{StaticResource myButtonStyle}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <Button x:Name="btnSend" Content="Send for loading" ToolTip="Sending a skimmer for charging" Foreground="White" FontSize="20" FontWeight="Medium"
+                 Click="Button_Sending_Loading" Width="300" Height="30" Style="{StaticResource myButtonStyle}"
+                        >
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <Button x:Name="btnRelease" Content="Release from charging" ToolTip="Release skimmer from charging"
+                        Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_Release" Width="300" 
+                        Height="30" Style="{StaticResource myButtonStyle}" 
+                        >
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="6">
+                    <Button x:Name="btnShowPackage" Content="Show package in transfer" ToolTip="Displays the package associated with the skimmer" 
+                            Foreground="White" FontSize="20" FontWeight="Medium"
+                        Width="300" Style="{StaticResource myButtonStyle}"
+                        Height="30" Click="btnShowPackage_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="3">
+                    <Button x:Name="btnSendingSkimmer" Content="Sending a skimmer" ToolTip="Sending the skimmer for delivery (only for available skimmer)" Foreground="White" FontSize="20" FontWeight="Medium"
+                  Click="Button_Sending_Skimmer_For_Delivery" Width="300" Height="30"  
+                        Style="{StaticResource myButtonStyle}" >
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="4">
+                    <Button x:Name="btnCollectThePackage" Content="Collect the package" ToolTip="Package collection" Foreground="White" FontSize="20" FontWeight="Medium"
+                   Click="Button_Package_Delivery" Width="300" Height="30"  
+                        Style="{StaticResource myButtonStyle}" >
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="5">
+                    <Button x:Name="btnPackageDelivery" Content="Package delivery" ToolTip="Package delivery" Foreground="White" FontSize="20" FontWeight="Medium" 
+                        Click="Button_Package_Delivery" Width="300" Height="30" Style="{StaticResource myButtonStyle}"
+                            >
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+                </StackPanel>
+            </Grid>
             <!--<Image x:Name="skimmerA" Margin="225,132,198,-102" >
                 <Image.Source>
                     <BitmapImage UriSource ="/skimmer.png"/>
@@ -165,88 +325,7 @@
 
 
         <Grid x:Name="Updates" Visibility="Collapsed" >
-            <StackPanel Orientation="Horizontal">
-                <!--<Image x:Name="skimmerU" Source="/skimmer.png" Width="300" Height="170" Margin="-20,-250,0,0"/>-->
-                <Button x:Name="btnUpdate" Content="Update name" ToolTip="Update skimmer name" Foreground="White"
-                        FontSize="20" FontWeight="Medium" Click="Button_Update" Width="214" Margin="20,135,0,0" 
-                        Height="30" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}" >
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Height="25"
-                            CornerRadius="12"
-                            Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
 
-                </Button>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnSend" Content="Send for loading" ToolTip="Sending a skimmer for charging" Foreground="White" FontSize="20" FontWeight="Medium"
-                HorizontalAlignment="Left" Click="Button_Sending_Loading" Width="200" Margin="580,235,0,0" Height="30" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}">
-
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Height="25"
-                            CornerRadius="12"
-                            Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-
-                </Button>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnRelease" Content="Release from charging" ToolTip="Release skimmer from charging"
-                        Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_Release" Width="214" Margin="20,240,0,0" 
-                        Height="30" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Height="25"
-                            CornerRadius="12"
-                            Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-
-                </Button>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnEXIT2" Content="EXIT" ToolTip="Exit this window" Foreground="White" FontSize="20" FontWeight="Medium"
-                HorizontalAlignment="Left" Click="Button_Click" Width="200" Margin="300,340,0,0" Height="60" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.635">
-
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#FF4FE899"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF20CB73"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Height="40"
-                            CornerRadius="12"
-                            Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-
-                </Button>
-            </StackPanel>
 
             <Label x:Name="labUpdate" Margin="10,165,0,0" Width="244"
                Content="Please introduce a new model for the skimmer" 
@@ -261,76 +340,7 @@
                  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFD3CBCD"
                  TextChanged="textRelease_TextChanged" BorderBrush="#FFE92617" RenderTransformOrigin="-2.833,0.598" Height="22"/>
 
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnShowPackage" Content="Show package in transfer" ToolTip="Displays the package associated with the skimmer" Foreground="White" FontSize="17" FontWeight="Medium"
-                HorizontalAlignment="Left"  Width="200" Margin="580,85,0,0" Style="{StaticResource myButtonStyle}"
-                        Height="30" VerticalAlignment="Top" Click="btnShowPackage_Click">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Height="25"
-                            CornerRadius="12"
-                            Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
 
-                </Button>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnSendingSkimmer" Content="Sending a skimmer" ToolTip="Sending the skimmer for delivery (only for available skimmer)" Foreground="White" FontSize="20" FontWeight="Medium"
-                HorizontalAlignment="Left" Click="Button_Sending_Skimmer_For_Delivery" Width="200" Margin="580,135,0,0" Height="30" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}">
-
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Height="25"
-                            CornerRadius="12"
-                            Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-
-                </Button>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnCollectThePackage" Content="Collect the package" ToolTip="Package collection" Foreground="White" FontSize="20" FontWeight="Medium"
-                HorizontalAlignment="Left" Click="Button_Package_Delivery" Width="200" Margin="580,185,0,0" Height="30" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}">
-
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Height="25"
-                            CornerRadius="12"
-                            Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-
-                </Button>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnPackageDelivery" Content="Package delivery" ToolTip="Package delivery" Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_Package_Delivery" Width="200"
-                        Margin="580,280,0,0" Height="30" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}">
-
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Height="25"
-                            CornerRadius="12"
-                            Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-
-                </Button>
-            </StackPanel>
 
             <TextBox x:Name="showSkimmer" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Background="#FFE2DADC"
                 HorizontalAlignment="Left" Margin="255,10,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="300" Height="317" />
@@ -338,8 +348,6 @@
 
 
         </Grid>
-
-
 
     </Grid>
 </Window>
