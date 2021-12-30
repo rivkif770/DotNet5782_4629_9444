@@ -21,24 +21,26 @@ namespace PL
     public partial class BaseStationWindow : Window
     {
         BaseStationToList newBaseStation = new BaseStationToList();
-        BaseStation baseStation1;
+        BaseStation baseStation1 = new BaseStation();
         BlApi.IBL BL;
         public delegate void CloseWindow(object ob);
         public BaseStationWindow(BlApi.IBL bL)
         {
             bL = BL;
             InitializeComponent();
-            add.Visibility = Visibility.Visible;
+            baseStation1 = (BaseStation)DataContext;
+            baseStation1 = new BaseStation();
         }
         public BaseStationWindow(BlApi.IBL bl, BaseStationToList baseStationToList, BaseStationListWindow baseStationListWindow)
         {
             BL = bl;
+            
             InitializeComponent();
-            //Updates.Visibility = Visibility.Visible;
+            DataContext = baseStation1;
+            help.IsChecked = true;
             newBaseStation = baseStationToList;
             baseStation1 = bl.GetBeseStation(newBaseStation.Id);
             SkimmerListOfChargeView.ItemsSource = bl.GetListOfSkimmersCharge(baseStation1);
-            //showBaseStation.Text = bl.GetBeseStation(newBaseStation.Id).ToString();
         }
 
         private void textId_TextChanged(object sender, TextChangedEventArgs e)
@@ -46,7 +48,6 @@ namespace PL
             var bc = new BrushConverter();
             if (textId.Text.All(char.IsDigit) && textId.Text.Length < 5 && textId.Text.Length > 3)
             {
-
                 textId.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
             else textId.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
@@ -64,7 +65,7 @@ namespace PL
                 textName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
 
-        private void textLatitude_TextChanged(object sender, TextChangedEventArgs e)
+        private void textLocation_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
             if (textLatitude.Text.All(char.IsDigit) && Int32.Parse(textLatitude.Text) < 50 && Int32.Parse(textLatitude.Text) > -50 && Int32.Parse(textLatitude.Text) != 0)
@@ -74,23 +75,11 @@ namespace PL
             else textLatitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
 
-        private void textLongitude_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var bc = new BrushConverter();
-            if (textLongitude.Text.All(char.IsDigit) && Int32.Parse(textLongitude.Text) < 50 && Int32.Parse(textLongitude.Text) > -50 && Int32.Parse(textLongitude.Text) != 0)
-            {
-
-                textLongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
-            }
-            else textLongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
-        }
-
         private void textCharging_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
             if (textCharging.Text.All(char.IsDigit) && Int32.Parse(textCharging.Text) > 0)
             {
-
                 textCharging.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
             else textCharging.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
