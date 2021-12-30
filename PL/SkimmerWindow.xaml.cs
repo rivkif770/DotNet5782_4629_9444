@@ -22,6 +22,7 @@ namespace PL
     {
         PackageWindow packageWindow;
         SkimmerToList newSkimmer;
+        Skimmer skimmer1 = new Skimmer();
         BlApi.IBL bL;
         public delegate void CloseWindow(object ob);
         //public event CloseWindow CloseWindowEvent;
@@ -35,6 +36,7 @@ namespace PL
             bL = bl;                      
             InitializeComponent();
             add.Visibility = Visibility.Visible;
+            maingrid
             DataContext = this;
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             foreach (BaseStationToList item in bl.GetBaseStationFreeCharging())

@@ -21,7 +21,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid >
         <Border CornerRadius="10" Grid.RowSpan="2">
             <Border.Background>
                 <LinearGradientBrush>
@@ -31,36 +31,65 @@
             </Border.Background>
         </Border>
 
-        <Grid x:Name="add" Visibility="Collapsed">
-            <Grid x:Name="AddSkimmerGrid" Margin="0,25,0,183" Width="404" HorizontalAlignment="Center" >
+        <Grid x:Name="add" >
+            <CheckBox>
+                <CheckBox x:Name="help" Visibility="Hidden" />
+            </CheckBox>
+            <Grid x:Name="AddSkimmerGrid" Margin="231,34,0,166" Width="404" Height="250" HorizontalAlignment="Left" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Id"  Margin="3" Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="30"/>
-                <Label Content="Skimmer Model" Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="30" />
-                <Label Content="Weight Category" Grid.Row="2" FontFamily="Bahnschrift Condensed" FontSize="30"/>
-                <!--<Label Content="Station ID"  Margin="3" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="30"/>-->
-                <TextBox  x:Name="textId" Margin="2,0,0,0" Width="150" Height="25" Grid.Column="1" 
-                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"
+                <Label Content="Id"  Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+                <Label Content="Skimmer Model" Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="20" />
+                <Label Content="Weight Category" Grid.Row="2" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"/>
+                <Label Content="Skimmer Status" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"/>
+                <Label Content="Battery Status" Grid.Row="4" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"/>
+                <Label Content="Id Of Package In Transfer" Grid.Row="5" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"/>
+                <Label Content="Location" Grid.Row="6" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"/>
+
+                <Label Content="Station ID"  Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+                <TextBox  x:Name="textId" Width="150" Height="25" Grid.Column="1" 
+                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD"
                        TextChanged="textId_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 3-digit id number" 
-                          DataContext="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
-                
-                <TextBox x:Name="textSkimmerModel"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="1" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                          DataContext="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True}" 
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+                <TextBox x:Name="textSkimmerModel" Width="150" Height="25" Grid.Row="1" Grid.Column="1"  
+                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                     TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
+                          DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+                <TextBox x:Name="BatteryStatus" Width="150" Height="25" Grid.Row="4" Grid.Column="1"  
+                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
                           DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
-                <ComboBox x:Name="ComboStationID" Margin="2,0,0,0" Width="150" Height="25" Grid.Row="3" Grid.Column="1" Text="Choose a Station" 
-                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                <TextBox x:Name="SkimmerStatus" Width="150" Height="25" Grid.Row="3" Grid.Column="1"  
+                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                     TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
+                          DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
+                <TextBox x:Name="IdOfPackageInTransfer" Width="150" Height="25" Grid.Row="5" Grid.Column="1"  
+                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                     TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
+                          DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
+                <TextBox x:Name="Location" Width="150" Height="25" Grid.Row="6" Grid.Column="1"  
+                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                     TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
+                          DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
+
+                <ComboBox x:Name="ComboStationID" Width="150" Height="25" Grid.Row="3" Grid.Column="1" Text="Choose a Station" 
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
                             IsEditable="True" IsReadOnly="True"/>
-                <ComboBox Name="ComboWeightCategory" Margin="2,0,0,0" Width="150" Height="25"
-                      HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1" Text="Choose Weight" 
+                <ComboBox Name="ComboWeightCategory" Width="150" Height="25"
+                      HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1" Text="Choose Weight" 
                       IsEditable="True" IsReadOnly="True"
                            DataContext="{Binding WeightCategory, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
             </Grid>
@@ -131,11 +160,11 @@
                     <BitmapImage UriSource ="/skimmer.png"/>
                 </Image.Source>
             </Image>-->
-            
+
         </Grid>
 
 
-        <Grid x:Name="Updates"  >
+        <Grid x:Name="Updates" Visibility="Collapsed" >
             <StackPanel Orientation="Horizontal">
                 <!--<Image x:Name="skimmerU" Source="/skimmer.png" Width="300" Height="170" Margin="-20,-250,0,0"/>-->
                 <Button x:Name="btnUpdate" Content="Update name" ToolTip="Update skimmer name" Foreground="White"
@@ -249,7 +278,7 @@
 
                 </Button>
             </StackPanel>
-            
+
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnSendingSkimmer" Content="Sending a skimmer" ToolTip="Sending the skimmer for delivery (only for available skimmer)" Foreground="White" FontSize="20" FontWeight="Medium"
                 HorizontalAlignment="Left" Click="Button_Sending_Skimmer_For_Delivery" Width="200" Margin="580,135,0,0" Height="30" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}">
