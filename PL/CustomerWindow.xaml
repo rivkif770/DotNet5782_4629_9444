@@ -31,7 +31,7 @@
             </Border.Background>
         </Border>
 
-        <Grid x:Name="add"  Visibility="Collapsed">
+        <Grid x:Name="add" Visibility="Collapsed" >
             <Grid x:Name="AddSkimmerGrid" Margin="0,25,0,124" Width="404" HorizontalAlignment="Center" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>

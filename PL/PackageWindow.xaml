@@ -18,33 +18,83 @@
             </Border.Background>
         </Border>
 
-        <Grid x:Name="add" Visibility="Collapsed">
-            <Grid x:Name="AddPackageGrid" Margin="0,25,0,183" Width="404" HorizontalAlignment="Center" >
+        <Grid x:Name="add" >
+            <CheckBox>
+                    <CheckBox x:Name="help" Visibility="Hidden" />
+                </CheckBox>
+                <Grid x:Name="AddPackageGrid" Margin="0,25,0,157" Width="445" HorizontalAlignment="Center" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="IdSender"  Margin="3" Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="30"/>
-                <Label Content="IdGet" Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="30" />
-                <Label Content="Weight" Grid.Row="2" FontFamily="Bahnschrift Condensed" FontSize="30"/>
-                <Label Content="Priority"  Margin="3" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="30"/>
-                <TextBox  x:Name="textIdSender" Margin="2,0,0,0" Width="150" Height="25" Grid.Column="1" 
+                <Label Content="Id Sender"   Grid.Row="2" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+                <Label Content="Id Get" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="20" />
+                <Label Content="Weight" Grid.Row="4" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+                <Label Content="Priority"  Grid.Row="5" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+                <Label Content="Skimmer In Package"   Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+                <Label Content="Id" Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="20" />
+                <Label Content="Package Creation Time" Grid.Row="6" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+                <Label Content="Assignment Time"  Grid.Row="7" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+                <Label Content="Supply Time" Grid.Row="9" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+                <Label Content="Collection Time"  Grid.Row="8" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+                <TextBox  x:Name="textIdGet"  Width="150" Height="20" Grid.Column="1" Grid.Row="3"
                       HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"
+                           DataContext="{Binding ReceivesPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
                       TextChanged="textIdSender_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 9-digit id number sender" />
-                <TextBox x:Name="textIdGet"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="1" Grid.Column="1"  
+                <TextBox x:Name="textIdSender"  Width="150" Height="20" Grid.Row="2" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                         DataContext="{Binding SendPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
                      TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
-                <ComboBox x:Name="ComboPrioritys" Margin="2,0,0,0" Width="150" Height="25" Grid.Row="3" Grid.Column="1" Text="Choose a Priority" 
+                <TextBox x:Name="textId"  Width="150" Height="20" Grid.Row="0" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                            DataContext="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
+                     TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
+                <TextBox x:Name="textSkimmerInPackage"  Width="150" Height="20" Grid.Row="1" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                          DataContext="{Binding SkimmerInPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
+                     TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
+                <TextBox x:Name="textPackageCreationTime"  Width="150" Height="20" Grid.Row="6" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                          DataContext="{Binding PackageCreationTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
+                     TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
+                <TextBox x:Name="textAssignmentTime"  Width="150" Height="20" Grid.Row="7" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                           DataContext="{Binding AssignmentTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
+                     TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
+                <TextBox x:Name="textCollectionTime"  Width="150" Height="20" Grid.Row="8" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                             DataContext="{Binding CollectionTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
+                     TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
+                <TextBox x:Name="textSupplyTime"  Width="150" Height="20" Grid.Row="9" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                            DataContext="{Binding SupplyTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
+                     TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
+
+                <ComboBox x:Name="ComboPrioritys" Width="150" Height="20" Grid.Row="5" Grid.Column="1" Text="Choose a Priority" 
                       HorizontalAlignment="Left" VerticalAlignment="Center"
                            ToolTip="Choose a Priority" IsEditable="True" IsReadOnly="True"/>
-                <ComboBox Name="ComboWeightCategory" Margin="2,0,0,0" Width="150" Height="25"
-                      HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1" ToolTip="Choose Weight" Text="Choose Weight" 
+                <ComboBox Name="ComboWeightCategory"  Width="150" Height="20"
+                      HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Grid.Column="1" ToolTip="Choose Weight" Text="Choose Weight" 
                       IsEditable="True" IsReadOnly="True"/>
             </Grid>
             <StackPanel Orientation="Horizontal">
