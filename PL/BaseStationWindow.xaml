@@ -34,73 +34,12 @@
 
         <Grid x:Name="add" >
             <CheckBox x:Name="help" Visibility="Hidden" />
-            <Grid x:Name="AddBaseStationGrid" Margin="189,38,0,109" Width="552" HorizontalAlignment="Left" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Content="Id"  Margin="3" Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="30"/>
-                <Label Content="Name" Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="30" />
-                <Label Content="Location" Grid.Row="2" FontFamily="Bahnschrift Condensed" FontSize="30"/>
-                <Label Content="List Of Skimmers Charge"  Margin="3" Grid.Row="4" FontFamily="Bahnschrift Condensed" FontSize="30"
-                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
-                <Label Content="Charging positions"  Margin="3" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="30"
-                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"/>
-                <Label Content="Available charging"  Margin="3" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="30"
-                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
-
-                <TextBox  x:Name="textId" Margin="2,0,0,0" Width="150" Height="25" Grid.Column="1" 
-                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"
-                      TextChanged="textId_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 4-digit id number" 
-                          DataContext="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
-                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
-                <TextBox x:Name="textName"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="1" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textName_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter the name of the base station"
-                         DataContext="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
-                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
-                <TextBox x:Name="textLatitude"  Margin="2,0,0,0" Width="50" Height="25" Grid.Row="2" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textLocation_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter latitude"
-                          DataContext="{Binding Location.Latitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
-                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
-
-                <TextBox x:Name="textLongitude"  Margin="100,0,0,0" Width="50" Height="25" Grid.Row="2" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textLocation_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter longitude"
-                          DataContext="{Binding Location.Longitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
-                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
-                <TextBox x:Name="textCharging"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="3" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textCharging_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter longitude"
-                          DataContext="{Binding SeveralClaimPositionsVacant, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
-                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
-                <Expander Header="Click to show" Background="#FFD3CBCD" Margin="2,14,124,22" Grid.Column="1" Grid.Row="4"
-                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
-                    <ListView x:Name="SkimmerListOfChargeView" Background="#FFD3CBCD" Margin="0,0,0,-110" Width="182">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="ID" Width="60" DisplayMemberBinding="{Binding Id}" />
-                                <GridViewColumn Header="Battery Status" Width="80" DisplayMemberBinding="{Binding BatteryStatus}" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Expander>
-                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="3,43,0,2" Grid.Row="2" Text="Latitude" TextWrapping="Wrap"/>
-                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="101,43,0,2" Grid.Row="2" Text="Longitude" TextWrapping="Wrap"/>
-            </Grid>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnADD" Content="ADD" Foreground="White" FontSize="20" FontWeight="Medium"
                         HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Add a BaseStation to the pool"
-                Click="btnAddBaseStation_Click" Width="150" Margin="130,350,0,0" Height="30"
-                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}">
+                Click="btnAddBaseStation_Click" Width="150" Margin="130,350,0,0" Height="30" 
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}">
+
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -193,7 +132,8 @@
                 <Button x:Name="btnDelete" Content="Delete" Foreground="White" FontSize="20" FontWeight="Medium"
                         HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Deleting a base station"
                 Click="Button_Click" Width="150" Margin="130,350,0,0" Height="30"
-                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -220,6 +160,69 @@
 
                 </Button>
             </StackPanel>
+            <Grid x:Name="AddBaseStationGrid" Margin="189,38,0,109" Width="552" HorizontalAlignment="Left" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Id"  Margin="3" Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="30"/>
+                <Label Content="Name" Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="30" />
+                <Label Content="Location" Grid.Row="2" FontFamily="Bahnschrift Condensed" FontSize="30"/>
+                <Label Content="List Of Skimmers Charge"  Margin="3" Grid.Row="4" FontFamily="Bahnschrift Condensed" FontSize="30"
+                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <Label Content="Charging positions"  Margin="3" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="30"
+                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"/>
+                <Label Content="Available charging"  Margin="3" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="30"
+                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+
+                <TextBox  x:Name="textId" Margin="2,0,0,0" Width="150" Height="25" Grid.Column="1" 
+                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"
+                      TextChanged="textId_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 4-digit id number" 
+                          DataContext="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+                <TextBox x:Name="textName"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="1" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                     TextChanged="textName_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter the name of the base station"
+                         DataContext="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+                <TextBox x:Name="textLatitude"  Margin="2,0,0,0" Width="50" Height="25" Grid.Row="2" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                     TextChanged="textLocation_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter latitude"
+                          DataContext="{Binding Location.Latitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+
+                <TextBox x:Name="textLongitude"  Margin="100,0,0,0" Width="50" Height="25" Grid.Row="2" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                     TextChanged="textLocation_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter longitude"
+                          DataContext="{Binding Location.Longitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+                <TextBox x:Name="textCharging"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="3" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                     TextChanged="textCharging_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter longitude"
+                          DataContext="{Binding SeveralClaimPositionsVacant, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+                <Expander Header="Click to show" Background="#FFD3CBCD" Margin="2,14,124,22" Grid.Column="1" Grid.Row="4"
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                    <ListView x:Name="SkimmerListOfChargeView" Background="#FFD3CBCD" Margin="0,0,0,-110" Width="182">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" Width="60" DisplayMemberBinding="{Binding Id}" />
+                                <GridViewColumn Header="Battery Status" Width="80" DisplayMemberBinding="{Binding BatteryStatus}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Expander>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="3,43,0,2" Grid.Row="2" Text="Latitude" TextWrapping="Wrap"/>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="101,43,0,2" Grid.Row="2" Text="Longitude" TextWrapping="Wrap"/>
+            </Grid>
+            
             <Image x:Name="skimmerA" Source="/skimmer.png" Margin="772,131,-349,-101"/>
         </Grid>
 
