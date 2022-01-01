@@ -28,6 +28,12 @@ namespace PL
             mybl = BlApi.BlFactory.GetBL();
             InitializeComponent();
         }
+        public MainWindow(BlApi.IBL mybl)
+        {
+            mybl = BlApi.BlFactory.GetBL();
+            InitializeComponent();
+            help.IsChecked = true;
+        }
 
         private void btSkimmerListView_Click(object sender, RoutedEventArgs e)
         {
@@ -52,6 +58,50 @@ namespace PL
         private void Package_Click(object sender, RoutedEventArgs e)
         {
             new PackageListWindow(mybl).Show();
+        }
+
+        private void manager_Click(object sender, RoutedEventArgs e)
+        {
+            if(textPasswordM.Text== "123456789")
+            {
+                new MainWindow(mybl).Show();
+            }
+            else MessageBox.Show("The password is incorrect", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void textPasswordM_TextChanged(object sender, TextChangedEventArgs e)
+        {
+                var bc = new BrushConverter();
+                if (textPasswordM.Text.All(char.IsDigit) && textPasswordM.Text.Length == 9)
+                {
+
+                textPasswordM.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                }
+                else textPasswordM.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+
+        }
+
+        private void NewCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            new CustomerWindow(mybl).Show();
+        }
+        private void Login_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void textName_TextChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void textPassword_TextChanged(object sender, RoutedEventArgs e)
+        {
+            var bc = new BrushConverter();
+            if (textPassword.Text.All(char.IsDigit) && textPassword.Text.Length == 9)
+            {
+
+                textPassword.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else textPassword.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
     }
 }
