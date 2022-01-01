@@ -218,5 +218,18 @@ namespace BL
 
 
         }
+        public IEnumerable<PackageAtCustomer> GetSentParcels(BO.Customer customer)
+        {
+            List<PackageAtCustomer> result = new List<PackageAtCustomer>();
+            result = customer.SentParcels;
+            return result;
+        }
+        public IEnumerable<PackageAtCustomer> GetReceiveParcels(Customer customer)
+        {
+            List<PackageAtCustomer> result = new List<PackageAtCustomer>();
+            result = customer.ReceiveParcels;
+            return result;
+        }
     }
+
 }

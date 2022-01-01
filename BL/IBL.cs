@@ -20,6 +20,8 @@ namespace BlApi
         IEnumerable<CustomerToList> GetCustomerList();
         public void DeleteCustomer(int id);
         public BO.CustomerInParcel GetCustomerInParcel(int id);
+        public IEnumerable<PackageAtCustomer> GetSentParcels(BO.Customer customer);
+        public IEnumerable<PackageAtCustomer> GetReceiveParcels(BO.Customer customer);
 
         void AddPackage(Package newPackage);
         public void CollectingPackageBySkimmer(int id);

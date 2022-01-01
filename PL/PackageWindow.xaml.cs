@@ -36,11 +36,11 @@ namespace PL
             bL = bl;
             //InitializeComponent();
             //add.Visibility = Visibility.Visible;
-            ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
-            ComboPrioritys.ItemsSource = Enum.GetValues(typeof(BO.Priority));
             //DataContext = this;
             //bL = BL;
             InitializeComponent();
+            ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
+            ComboPrioritys.ItemsSource = Enum.GetValues(typeof(BO.Priority));
             package1 = (Package)DataContext;
             package1 = new Package();
         }

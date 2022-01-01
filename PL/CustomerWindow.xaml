@@ -9,11 +9,13 @@
     AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
+        <local:FalseToHidden x:Key="FalseToHidden"></local:FalseToHidden>
+        <local:TrueToHidden x:Key="TrueToHidden"></local:TrueToHidden>
         <Style x:Key="myButtonStyle"  TargetType="Button">
 
-                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                    <Setter Property="Background" Value="#FFA69D9F"/>
-                    <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+            <Setter Property="Background" Value="#FFA69D9F"/>
+            <Setter Property="Cursor" Value="Hand"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#FF7A7778"/>
@@ -22,7 +24,7 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Border CornerRadius="10" Margin="-10,10,10,-10">
+        <Border CornerRadius="10" Margin="0,10,0,-10">
             <Border.Background>
                 <LinearGradientBrush>
                     <GradientStop Color="#FF090A5D" Offset="0.0"/>
@@ -31,54 +33,82 @@
             </Border.Background>
         </Border>
 
-        <Grid x:Name="add" Visibility="Collapsed" >
-            <Grid x:Name="AddSkimmerGrid" Margin="0,25,0,124" Width="404" HorizontalAlignment="Center" >
+        <Grid x:Name="add" >
+            <CheckBox x:Name="help" Visibility="Hidden" />
+            <Grid x:Name="AddSkimmerGrid" Margin="0,44,0,148" Width="552" HorizontalAlignment="Center" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="36.857"/>
+                    <RowDefinition/>
 
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="250"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Id"  Margin="3" Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="30" >
-                    <Label.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-0.605"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Label.RenderTransform>
-                </Label>
+                <Label Content="Id"   Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="30"/>
                 <Label Content="Customer Name" Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="30" />
                 <Label Content="Customer Phone" Grid.Row="2" FontFamily="Bahnschrift Condensed" FontSize="30"/>
                 <Label Content="longitude" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="30" />
                 <Label Content="Latitude" Grid.Row="4" FontFamily="Bahnschrift Condensed" FontSize="30"/>
-                <TextBox  x:Name="textId" Margin="2,0,0,0" Width="150" Height="25" Grid.Column="1" 
-                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"
-                      TextChanged="textId_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 9-digit id number" />
-                <TextBox x:Name="textCustomerName"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="1" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textCustomerName_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a Customer Name "/>
-                <TextBox  x:Name="textCustomerPhone" Margin="2,0,0,0" Width="150" Height="25" Grid.Row="2" Grid.Column="1" 
-                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"
-                      TextChanged="textCustomerPhone_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 10-digit number for Customer phon " />
-                <TextBox x:Name="textlongitude"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="3" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textlongitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a number of longitude between -50 and 50"/>
-                <TextBox x:Name="textLatitude"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="4" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textLatitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a number of Latitude between -50 and 50"/>
+                <Label Content="List packages Sent" Grid.Row="5" FontFamily="List of packages Sent" FontSize="25"
+                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" FontWeight="Bold" />
+                <Label Content="List packages Receive" Grid.Row="6" FontFamily="List of packages Receive" FontSize="25"
+                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" FontWeight="Bold"/>
+                <TextBox  x:Name="textId" Width="150" Height="24" Grid.Column="1" 
+                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD"
+                      TextChanged="textId_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 9-digit id number"
+                           DataContext="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+                <TextBox x:Name="textCustomerName" Width="150" Height="24" Grid.Row="1" Grid.Column="1"  
+                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                     TextChanged="textCustomerName_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a Customer Name "
+                          DataContext="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"/>
+                <TextBox  x:Name="textCustomerPhone" Width="150" Height="24" Grid.Row="2" Grid.Column="1" 
+                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD"
+                      TextChanged="textCustomerPhone_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 10-digit number for Customer phon " 
+                           DataContext="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"/>
+                <TextBox x:Name="textlongitude" Width="150" Height="24" Grid.Row="3" Grid.Column="1"  
+                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                     TextChanged="textlongitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a number of longitude between -50 and 50"
+                          DataContext="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+                <TextBox x:Name="textLatitude" Width="150" Height="24" Grid.Row="4" Grid.Column="1"  
+                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                     TextChanged="textLatitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a number of Latitude between -50 and 50"
+                          DataContext="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+                <Expander Header="Click to show" Background="#FFD3CBCD" Grid.Column="1" Grid.Row="6" Height="24"
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                    <ListView x:Name="PackgeListOfGetView" Background="#FFD3CBCD" Margin="0,0,0,-110" Width="150">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding Id}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Expander>
+                <Expander Header="Click to show" Background="#FFD3CBCD"  Grid.Column="1" Grid.Row="5" Height="24"
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                    <ListView x:Name="PackgeListOfSenderView" Background="#FFD3CBCD" Margin="0,0,0,-110" Width="150">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding Id}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Expander>
+
             </Grid>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnADD" Content="ADD" Foreground="White" FontSize="20" FontWeight="Medium"
                         HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Add a Customer to the pool"
-                Click="btnAddCustomer_Click" Width="200" Margin="130,309,0,0" Height="30" >
+                Click="btnAddCustomer_Click" Width="200" Margin="130,309,0,0" Height="30"
+                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}">
 
                     <Button.Style>
                         <Style TargetType="Button">
@@ -106,6 +136,39 @@
 
                 </Button>
             </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnUpdate" Content="Update" Foreground="White" FontSize="20" FontWeight="Medium"
+                        HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Update name or phon Customer"
+                Click="Button_Update" Width="200" Margin="130,309,0,0" Height="30" 
+                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                            <Setter Property="Background" Value="#FF4FE899"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF20CB73"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+            </StackPanel>
+
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnEXIT1" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
                         HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Exit this window"
@@ -141,7 +204,7 @@
         </Grid>
 
 
-        <Grid x:Name="Updates" >
+        <Grid x:Name="Updates" Visibility="Collapsed" >
             <StackPanel Orientation="Horizontal">
                 <!--<Image x:Name="skimmerU" Source="/skimmer.png" Width="300" Height="170" Margin="-20,-250,0,0"/>-->
             </StackPanel>
