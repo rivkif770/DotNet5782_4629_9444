@@ -20,7 +20,8 @@ namespace PL
     /// </summary>
     public partial class CustomerWindow : Window
     {
-        CustomerToList newCustomer;
+        CustomerToList newCustomer = new CustomerToList();
+        Customer customer = new Customer();
         BlApi.IBL bL;
         public delegate void CloseWindow(object ob);
         //public event CloseWindow CloseWindowEvent;
@@ -33,7 +34,9 @@ namespace PL
         {
             bL = bl;
             InitializeComponent();
-            add.Visibility = Visibility.Visible;
+            //add.Visibility = Visibility.Visible;
+            customer = (Customer)DataContext;
+            customer = new Customer();
         }
         /// <summary>
         /// Builder for update
@@ -45,10 +48,17 @@ namespace PL
         {
             bL = bl;
             InitializeComponent();
-            Updates.Visibility = Visibility.Visible;
-            newCustomer = new CustomerToList();
+            //Updates.Visibility = Visibility.Visible;
+            //newCustomer = new CustomerToList();
+            //newCustomer = customerToList;
+            //showCustomer.Text = bl.GetCustomer(newCustomer.Id).ToString();
+            DataContext = customer;
+            help.IsChecked = true;
             newCustomer = customerToList;
-            showCustomer.Text = bl.GetCustomer(newCustomer.Id).ToString();
+            customer = bl.GetCustomer(newCustomer.Id);
+            PackgeListOfSenderView.ItemsSource = bl.GetSentParcels(customer);
+            PackgeListOfGetView.ItemsSource = bl.GetReceiveParcels(customer);
+
         }
         /// <summary>
         /// Button attempt to add skimmer-checks whether all the required fields are filled correctly and sends to try to add in bl, updates the new skimmer, sends a suitable message and closes the window
@@ -168,8 +178,8 @@ namespace PL
                 MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
-                string name = textUpdateName.Text;
-                string phon = textUpdatePhon.Text;
+                string name = textCustomerName.Text;
+                string phon = textCustomerPhone.Text;
                 try
                 {
                     bL.UpdateCustomerData(newCustomer.Id, name, phon);
