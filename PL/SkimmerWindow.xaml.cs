@@ -35,15 +35,16 @@ namespace PL
             
             bL = bl;                      
             InitializeComponent();
-            add.Visibility = Visibility.Visible;
-            DataContext = this;
+            //add.Visibility = Visibility.Visible;
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             foreach (BaseStationToList item in bl.GetBaseStationFreeCharging())
             {
                 ComboBoxItem newItem = new ComboBoxItem();
                 newItem.Content = item.Id;
+                newSkimmer = new SkimmerToList();
                 ComboStationID.Items.Add(newItem);
             }
+            DataContext = this;
         }
         /// <summary>
         /// Builder for update
@@ -55,10 +56,12 @@ namespace PL
         {
             bL = bl;
             InitializeComponent();
-            Updates.Visibility = Visibility.Visible;           
+            //Updates.Visibility = Visibility.Visible;
+            help.IsChecked = true;
+            DataContext = skimmerToList;
             newSkimmer = new SkimmerToList();
             newSkimmer = skimmerToList;
-            showSkimmer.Text = bl.GetSkimmerr(newSkimmer.Id).ToString();
+            //showSkimmer.Text = bl.GetSkimmerr(newSkimmer.Id).ToString();
         }
         /// <summary>
         /// Button attempt to add skimmer-checks whether all the required fields are filled correctly and sends to try to add in bl, updates the new skimmer, sends a suitable message and closes the window
@@ -75,10 +78,9 @@ namespace PL
             else
             {
                 BO.Skimmer skimmer = new Skimmer();
-                //skimmer=
-                //skimmer.Id = Int32.Parse(textId.Text);
-                //skimmer.SkimmerModel = textSkimmerModel.Text;
-                //skimmer.WeightCategory = (Weight)(ComboWeightCategory.SelectedItem);
+                skimmer.Id = Int32.Parse(textId.Text);
+                skimmer.SkimmerModel = textSkimmerModel.Text;
+                skimmer.WeightCategory = (Weight)(ComboWeightCategory.SelectedItem);
                 try
                 {
                     bL.AddSkimmer(skimmer, Int32.Parse(ComboStationID.Text));

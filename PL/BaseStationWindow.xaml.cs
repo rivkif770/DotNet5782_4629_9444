@@ -65,7 +65,7 @@ namespace PL
                 textName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
 
-        private void textLocation_TextChanged(object sender, TextChangedEventArgs e)
+        private void textLatitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
             if (textLatitude.Text.All(char.IsDigit) && Int32.Parse(textLatitude.Text) < 50 && Int32.Parse(textLatitude.Text) > -50 && Int32.Parse(textLatitude.Text) != 0)
@@ -74,7 +74,15 @@ namespace PL
             }
             else textLatitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
+        private void textLongitude_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var bc = new BrushConverter();
+            if (textLongitude.Text.All(char.IsDigit) && Int32.Parse(textLongitude.Text) < 50 && Int32.Parse(textLongitude.Text) > -50 && Int32.Parse(textLongitude.Text) != 0)
+            {
+                textLongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else textLongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        }
         private void textCharging_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -130,13 +138,13 @@ namespace PL
         private void btnUpdat_Click(object sender, RoutedEventArgs e)
         {
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            if (SolidColorBrush.Equals(((SolidColorBrush)textUpdateName.BorderBrush).Color, red.Color) && SolidColorBrush.Equals(((SolidColorBrush)textUpdateCharging.BorderBrush).Color, red.Color))
+            if (/*SolidColorBrush.Equals(((SolidColorBrush)textUpdateName.BorderBrush).Color, red.Color) &&*/ SolidColorBrush.Equals(((SolidColorBrush)textUpdateCharging.BorderBrush).Color, red.Color))
             {
                 MessageBox.Show($"Insert input", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             try
             {
-                BL.UpdateBaseStation(newBaseStation.Id, textUpdateName.Text, textUpdateCharging.Text);
+                BL.UpdateBaseStation(newBaseStation.Id,textName.Text/*, textUpdateName.Text*/, textUpdateCharging.Text);
                 MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 //this.Close();
             }
@@ -146,17 +154,17 @@ namespace PL
             }
         }
 
-        private void textUpdateName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string text = textName.Text;
-            var bc = new BrushConverter();
-            if (text != "")
-            {
-                textUpdateName.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
-            }
-            else
-                textUpdateName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
-        }
+        //private void textUpdateName_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    string text = textName.Text;
+        //    var bc = new BrushConverter();
+        //    if (text != "")
+        //    {
+        //        textUpdateName.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+        //    }
+        //    else
+        //        textUpdateName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        //}
 
         private void textUpdateCharging_TextChanged(object sender, TextChangedEventArgs e)
         {
