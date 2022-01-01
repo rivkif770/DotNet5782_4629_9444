@@ -8,8 +8,23 @@
         Title="PackageWindow" Height="450" Width="800"
     AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize">
+    <Window.Resources>
+        <local:FalseToHidden x:Key="FalseToHidden"></local:FalseToHidden>
+        <local:TrueToHidden x:Key="TrueToHidden"></local:TrueToHidden>
+        <Style x:Key="myButtonStyle"  TargetType="Button">
+            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+            <Setter Property="Background" Value="#FFA69D9F"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF7A7778"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        <Border CornerRadius="10" Grid.RowSpan="2">
+        <Border CornerRadius="10" Grid.RowSpan="2" RenderTransformOrigin="0.472,0.877">
             <Border.Background>
                 <LinearGradientBrush>
                     <GradientStop Color="#FF090A5D" Offset="0.0"/>
@@ -19,10 +34,8 @@
         </Border>
 
         <Grid x:Name="add" >
-            <CheckBox>
-                    <CheckBox x:Name="help" Visibility="Hidden" />
-                </CheckBox>
-                <Grid x:Name="AddPackageGrid" Margin="0,25,0,157" Width="445" HorizontalAlignment="Center" >
+            <CheckBox x:Name="help" Visibility="Hidden" />
+            <Grid x:Name="AddPackageGrid" Margin="32,25,323,157" Width="445"  >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -43,67 +56,73 @@
                 <Label Content="Id Get" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="20" />
                 <Label Content="Weight" Grid.Row="4" FontFamily="Bahnschrift Condensed" FontSize="20"/>
                 <Label Content="Priority"  Grid.Row="5" FontFamily="Bahnschrift Condensed" FontSize="20"/>
-                <Label Content="Skimmer In Package"   Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="20"/>
-                <Label Content="Id" Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="20" />
-                <Label Content="Package Creation Time" Grid.Row="6" FontFamily="Bahnschrift Condensed" FontSize="20"/>
-                <Label Content="Assignment Time"  Grid.Row="7" FontFamily="Bahnschrift Condensed" FontSize="20"/>
-                <Label Content="Supply Time" Grid.Row="9" FontFamily="Bahnschrift Condensed" FontSize="20"/>
-                <Label Content="Collection Time"  Grid.Row="8" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+                <Label Content="Skimmer In Package"   Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="20"
+                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <Label Content="Id" Grid.Row="0" FontFamily="Bahnschrift Condensed" FontSize="20"
+                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <Label Content="Package Creation Time" Grid.Row="6" FontFamily="Bahnschrift Condensed" FontSize="20"
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <Label Content="Assignment Time"  Grid.Row="7" FontFamily="Bahnschrift Condensed" FontSize="20"
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <Label Content="Supply Time" Grid.Row="9" FontFamily="Bahnschrift Condensed" FontSize="20"
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <Label Content="Collection Time"  Grid.Row="8" FontFamily="Bahnschrift Condensed" FontSize="20"
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox  x:Name="textIdGet"  Width="150" Height="20" Grid.Column="1" Grid.Row="3"
                       HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"
                            DataContext="{Binding ReceivesPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
-                      TextChanged="textIdSender_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 9-digit id number sender" />
-                <TextBox x:Name="textIdSender"  Width="150" Height="20" Grid.Row="2" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                      TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 9-digit id number Get" />
+                <TextBox x:Name="textIdSender" Height="20" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Background="#FFD3CBCD" 
                          DataContext="{Binding SendPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
-                     TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
+                     TextChanged="textIdSender_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number Sender" HorizontalAlignment="Left" Width="150"/>
                 <TextBox x:Name="textId"  Width="150" Height="20" Grid.Row="0" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                             DataContext="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
-                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
-                     TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617"  
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="textSkimmerInPackage"  Width="150" Height="20" Grid.Row="1" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                           DataContext="{Binding SkimmerInPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
-                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
-                     TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617"
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="textPackageCreationTime"  Width="150" Height="20" Grid.Row="6" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                           DataContext="{Binding PackageCreationTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
-                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
-                     TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617" 
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="textAssignmentTime"  Width="150" Height="20" Grid.Row="7" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                            DataContext="{Binding AssignmentTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
-                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
-                     TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617"
+                            Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="textCollectionTime"  Width="150" Height="20" Grid.Row="8" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                              DataContext="{Binding CollectionTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
-                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
-                     TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617" 
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="textSupplyTime"  Width="150" Height="20" Grid.Row="9" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                             DataContext="{Binding SupplyTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
-                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
-                     TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number geter"/>
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617" 
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
 
-                <ComboBox x:Name="ComboPrioritys" Width="150" Height="20" Grid.Row="5" Grid.Column="1" Text="Choose a Priority" 
+                <ComboBox x:Name="ComboPrioritys" Width="150" Height="20" Grid.Row="5" Grid.Column="1"  
                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                           ToolTip="Choose a Priority" IsEditable="True" IsReadOnly="True"/>
+                           ToolTip="Choose a Priority" IsEditable="True" IsReadOnly="True" />
                 <ComboBox Name="ComboWeightCategory"  Width="150" Height="20"
-                      HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Grid.Column="1" ToolTip="Choose Weight" Text="Choose Weight" 
+                      HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Grid.Column="1" ToolTip="Choose Weight"  
                       IsEditable="True" IsReadOnly="True"/>
             </Grid>
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnADD" Content="ADD" Foreground="White" FontSize="20" FontWeight="Medium"
-                        HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Add a package to the pool"
-                Click="btnAddPackage_Click" Width="200" Margin="130,309,0,0" Height="30" >
+                <Button x:Name="btnDelete" Content="Delete" Margin="492,300,0,0" Foreground="White" FontSize="20" FontWeight="Medium"
+                        ToolTip="Delete a package" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"
+
+                Click="btnDeletePackage_Click" Width="263" Height="30" >
 
                     <Button.Style>
-                        <Style TargetType="Button">
+                        <Style TargetType="{x:Type Button}">
                             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
                             <Setter Property="Background" Value="#FF4FE899"/>
                             <Setter Property="Cursor" Value="Hand"/>
@@ -116,7 +135,39 @@
                     </Button.Style>
 
                     <Button.Template>
-                        <ControlTemplate TargetType="Button">
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnADD" Content="ADD" Margin="492,300,0,0" Foreground="White" FontSize="20" FontWeight="Medium"
+                        ToolTip="Add a package to the pool"  Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"
+                Click="btnAddPackage_Click" Width="263" Height="30" >
+
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                            <Setter Property="Background" Value="#FF4FE899"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF20CB73"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
                             <Border Height="30"
                             CornerRadius="12"
                             Background="{TemplateBinding Background}">
@@ -129,9 +180,8 @@
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnEXIT1" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
-                        HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Exit this window"
-                Click="Button_Click" Width="200" Margin="492,309,0,0" Height="30">
+                <Button x:Name="btnEXIT1" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium" VerticalAlignment="Top" ToolTip="Exit this window"
+                Click="Button_Click" Width="264" Margin="492,400,0,0" Height="30">
 
                     <Button.Style>
                         <Style TargetType="Button">
@@ -172,7 +222,7 @@
 
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="EXIT" Margin="270,380,0,0" Content="EXIT" ToolTip="Delete Package"
-                        Foreground="White" FontSize="20" FontWeight="Medium" Width="304" Height="30" RenderTransformOrigin="-2.295,0.556" Click="EXIT_Click">
+                        Foreground="White" FontSize="20" FontWeight="Medium" Width="304" Height="30" RenderTransformOrigin="-2.295,0.556" >
 
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
@@ -214,7 +264,7 @@
         <Grid x:Name="deletePackage" Visibility="Collapsed">
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btndelete" Margin="270,300,0,0" Content="delete Package" ToolTip="Delete Package"
-                        Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_UpdateDelete" Width="304" Height="30" RenderTransformOrigin="-2.295,0.556">
+                        Foreground="White" FontSize="20" FontWeight="Medium"  Width="304" Height="30" RenderTransformOrigin="-2.295,0.556">
 
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">

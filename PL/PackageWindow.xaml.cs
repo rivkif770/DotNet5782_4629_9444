@@ -21,6 +21,8 @@ namespace PL
     public partial class PackageWindow : Window
     {
         PackageToList newPackage;
+        Package package1= new Package();
+
         BlApi.IBL bL;
         public delegate void CloseWindow(object ob);
         //public event CloseWindow CloseWindowEvent;
@@ -32,11 +34,15 @@ namespace PL
         {
 
             bL = bl;
-            InitializeComponent();
-            add.Visibility = Visibility.Visible;
+            //InitializeComponent();
+            //add.Visibility = Visibility.Visible;
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             ComboPrioritys.ItemsSource = Enum.GetValues(typeof(BO.Priority));
-            DataContext = this;
+            //DataContext = this;
+            //bL = BL;
+            InitializeComponent();
+            package1 = (Package)DataContext;
+            package1 = new Package();
         }
         /// <summary>
         /// Builder for update
@@ -47,12 +53,18 @@ namespace PL
         public PackageWindow(BlApi.IBL bl, PackageToList packageToList, PackageListWindow packageListWindow)
         {
             bL = bl;
-            InitializeComponent();
-            Updates.Visibility = Visibility.Visible;
-            deletePackage.Visibility = Visibility.Visible;
+            //InitializeComponent();
+            //Updates.Visibility = Visibility.Visible;
+            //deletePackage.Visibility = Visibility.Visible;
             newPackage = new PackageToList();
             newPackage = packageToList;
-            showPackage.Text = bl.GetPackage(newPackage.Id).ToString();
+            //showPackage.Text = bl.GetPackage(newPackage.Id).ToString();
+
+            InitializeComponent();
+            DataContext = package1;
+            help.IsChecked = true;
+            newPackage = packageToList;
+            //newPackage = bl.GetPackage(newPackage.Id);
         }
         public PackageWindow(BlApi.IBL bl, PackageToList packageToList)
         {
@@ -137,16 +149,18 @@ namespace PL
         {
             this.Close();
         }
-        private void Button_UpdateDelete(object sender, RoutedEventArgs e)
+        private void btnDeletePackage_Click(object sender, RoutedEventArgs e)
         {
-            bL.DeletePackage(newPackage.Id);
-            MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-            this.Close();
+            BO.Package package = bL.GetPackage(newPackage.Id);
+            if(package.AssignmentTime==null)
+            {
+                bL.DeletePackage(newPackage.Id);
+                MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            else
+                MessageBox.Show("The package was associated", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void EXIT_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
     }
 }
