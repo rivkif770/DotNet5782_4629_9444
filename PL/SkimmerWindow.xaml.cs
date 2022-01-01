@@ -52,7 +52,7 @@ namespace PL
         /// <param name="bl"></param>
         /// <param name="skimmerToList"></param>
         /// <param name="skimmerListWindow"></param>
-        public SkimmerWindow(BlApi.IBL bl,SkimmerToList skimmerToList,SkimmerListWindow skimmerListWindow)
+        public SkimmerWindow(BlApi.IBL bl,SkimmerToList skimmerToList)
         {
             bL = bl;
             InitializeComponent();

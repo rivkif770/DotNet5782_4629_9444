@@ -211,7 +211,7 @@
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <Expander Header="Click to show" Background="#FFD3CBCD" Margin="2,14,124,22" Grid.Column="1" Grid.Row="4"
                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
-                    <ListView x:Name="SkimmerListOfChargeView" Background="#FFD3CBCD" Margin="0,0,0,-110" Width="182">
+                    <ListView x:Name="SkimmerListOfChargeView" Background="#FFD3CBCD" Margin="0,0,0,-110" Width="182"  >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="ID" Width="60" DisplayMemberBinding="{Binding Id}" />

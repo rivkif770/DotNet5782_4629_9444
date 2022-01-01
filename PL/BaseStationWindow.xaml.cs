@@ -23,6 +23,8 @@ namespace PL
         BaseStationToList newBaseStation = new BaseStationToList();
         BaseStation baseStation1 = new BaseStation();
         BlApi.IBL BL;
+        private SkimmerWindow skimmerWindow;
+
         public delegate void CloseWindow(object ob);
         public BaseStationWindow(BlApi.IBL bL)
         {
@@ -68,7 +70,7 @@ namespace PL
         private void textLatitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textLatitude.Text.All(char.IsDigit) && Int32.Parse(textLatitude.Text) < 50 && Int32.Parse(textLatitude.Text) > -50 && Int32.Parse(textLatitude.Text) != 0)
+            if (textLatitude.Text != "" && textLatitude.Text.All(char.IsDigit) && Int32.Parse(textLatitude.Text) < 50 && Int32.Parse(textLatitude.Text) > -50 && Int32.Parse(textLatitude.Text) != 0)
             {
                 textLatitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
@@ -77,7 +79,7 @@ namespace PL
         private void textLongitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textLongitude.Text.All(char.IsDigit) && Int32.Parse(textLongitude.Text) < 50 && Int32.Parse(textLongitude.Text) > -50 && Int32.Parse(textLongitude.Text) != 0)
+            if (textLongitude.Text != "" && textLongitude.Text.All(char.IsDigit) && Int32.Parse(textLongitude.Text) < 50 && Int32.Parse(textLongitude.Text) > -50 && Int32.Parse(textLongitude.Text) != 0)
             {
                 textLongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
@@ -86,7 +88,7 @@ namespace PL
         private void textCharging_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textCharging.Text.All(char.IsDigit) && Int32.Parse(textCharging.Text) > 0)
+            if (textCharging.Text != "" && textCharging.Text.All(char.IsDigit) && Int32.Parse(textCharging.Text) > 0)
             {
                 textCharging.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
@@ -107,8 +109,7 @@ namespace PL
                 BO.BaseStation baseStation = new BaseStation();
                 baseStation.Id = Int32.Parse(textId.Text);
                 baseStation.Name = textName.Text;
-                baseStation.Location.Latitude = double.Parse(textLatitude.Text);
-                baseStation.Location.Longitude = double.Parse(textLongitude.Text);
+                baseStation.Location = new Location { Latitude = double.Parse(textLatitude.Text), Longitude = double.Parse(textLongitude.Text) };
                 baseStation.SeveralClaimPositionsVacant = Int32.Parse(textCharging.Text);
                 try
                 {
@@ -181,6 +182,23 @@ namespace PL
         {
             this.Close();
         }
+        //private void RefreshListView(object ob, EventArgs ev)
+        //{
+        //    SkimmerListOfChargeView.Items.Refresh();
+        //    if (WeightSelector.SelectedItem == null && StatusSelector.SelectedItem == null) SkimmerListView.ItemsSource = bL.GetSkimmerList();
+        //    if (WeightSelector.SelectedItem != null) WeightSelector_SelectionChanged(this, null);
+        //    if (StatusSelector.SelectedItem != null) SkimmerListView_MouseDoubleClick(this, null);
+        //}
+        //private void SkimmerListOfChargeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //{
+        //    if ((BO.SkimmerInCharging)SkimmerListOfChargeView.SelectedItem != null)
+        //    {
+        //        Skimmer skimmer = BL.GetSkimmerr((BO.SkimmerInCharging)SkimmerListOfChargeView.SelectedItem.)
+        //        skimmerWindow = new SkimmerWindow(BL, (BO.SkimmerToList)SkimmerListOfChargeView.SelectedItem);
+        //        skimmerWindow.Closed += RefreshListView;
+        //        skimmerWindow.Show();
+        //    }
+        //}
 
         //private void Button_Click_1(object sender, RoutedEventArgs e)
         //{

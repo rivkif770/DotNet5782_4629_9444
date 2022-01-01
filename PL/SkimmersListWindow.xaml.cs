@@ -103,7 +103,7 @@ namespace PL
         {
             if((BO.SkimmerToList)SkimmerListView.SelectedItem != null)
             {
-                skimmerWindow = new SkimmerWindow(bL, (BO.SkimmerToList)SkimmerListView.SelectedItem, this);
+                skimmerWindow = new SkimmerWindow(bL, (BO.SkimmerToList)SkimmerListView.SelectedItem);
                 skimmerWindow.Closed += RefreshListView;
                 skimmerWindow.Show();             
             }
