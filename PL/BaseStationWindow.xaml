@@ -195,13 +195,13 @@
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <TextBox x:Name="textLatitude"  Margin="2,0,0,0" Width="50" Height="25" Grid.Row="2" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textLocation_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter latitude"
+                     TextChanged="textLatitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter latitude"
                           DataContext="{Binding Location.Latitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
 
                 <TextBox x:Name="textLongitude"  Margin="100,0,0,0" Width="50" Height="25" Grid.Row="2" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textLocation_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter longitude"
+                     TextChanged="textLongitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter longitude"
                           DataContext="{Binding Location.Longitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <TextBox x:Name="textCharging"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="3" Grid.Column="1"  
@@ -314,9 +314,9 @@
             <Label x:Name="labUpdate" Margin="455,210,0,0" Width="315"
                Content="Please enter a new name for the base station"
                FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Bahnschrift Condensed" />
-            <TextBox x:Name="textUpdateName" Margin="530,255,0,0" Width="154"
+            <!--<TextBox x:Name="textUpdateName" Margin="530,255,0,0" Width="154"
                  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFD3CBCD"
-                  BorderBrush="#FFE92617" Height="25" TextChanged="textUpdateName_TextChanged" />
+                  BorderBrush="#FFE92617" Height="25" TextChanged="textUpdateName_TextChanged" />-->
             <Label x:Name="labRelease" Margin="415,283,0,0" Width="375"
                Content="Please enter the number of available charging stations" FontFamily="Bahnschrift Condensed"
                FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" />
