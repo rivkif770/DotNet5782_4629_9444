@@ -87,12 +87,24 @@ namespace PL
         }
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-
+            SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
+            if (textPassword.Text == "987654321" && ! SolidColorBrush.Equals(((SolidColorBrush)textName.BorderBrush).Color, red.Color))
+            {
+                new CustomerCard().Show();
+            }
+            else MessageBox.Show("The password is incorrect", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-        private void textName_TextChanged(object sender, RoutedEventArgs e)
-        {
-
-        }
+        //private void textName_TextChanged(object sender, RoutedEventArgs e)
+        //{
+        //    string text = textName.Text;
+        //    var bc = new BrushConverter();
+        //    if (text != "" && char.IsLetter(text.ElementAt(0)))
+        //    {
+        //        textName.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+        //    }
+        //    else
+        //        textName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        //}
         private void textPassword_TextChanged(object sender, RoutedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -102,6 +114,18 @@ namespace PL
                 textPassword.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
             else textPassword.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        }
+
+        private void textName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string text = textName.Text;
+            var bc = new BrushConverter();
+            if (text != "" && char.IsLetter(text.ElementAt(0)))
+            {
+                textName.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else
+                textName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
     }
 }

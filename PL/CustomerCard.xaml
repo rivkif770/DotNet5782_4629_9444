@@ -1,0 +1,100 @@
+﻿<Window x:Class="PL.CustomerCard" WindowStartupLocation="CenterScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="CustomerCard" Height="450" Width="800"
+            AllowsTransparency="True" Background="Transparent"
+        WindowStyle="None" ResizeMode="NoResize">
+    <Window.Resources>
+        <local:FalseToHidden x:Key="FalseToHidden"></local:FalseToHidden>
+        <local:TrueToHidden x:Key="TrueToHidden"></local:TrueToHidden>
+        <Style x:Key="myButtonStyle"  TargetType="Button">
+
+            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+            <Setter Property="Background" Value="#FFA69D9F"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF7A7778"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Border CornerRadius="10" Margin="0,10,0,-10">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#FF090A5D" Offset="0.0"/>
+                    <GradientStop Color="#FF797993" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <Label Content="The pacages you sent:" Margin="130,36,470,372" FontFamily="Bahnschrift Condensed" FontSize="25"></Label>
+        <Label Content="The pacages sent to you:" Margin="130,225,449,183" FontFamily="Bahnschrift Condensed" FontSize="25"></Label>
+
+        <ListView x:Name="PackageShippedListView" Margin="10,78,397,245"  Background="#FFE2DADC" SelectionChanged="PackageShippedListView_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="80" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Receiver" Width="80" DisplayMemberBinding="{Binding ReceivesPackage}" />
+                    <GridViewColumn Header="Weight" Width="80" DisplayMemberBinding="{Binding WeightCategory}" />
+                    <GridViewColumn Header="Priority" Width="80" DisplayMemberBinding="{Binding priority}" />
+                    <GridViewColumn Header="Status" Width="80" DisplayMemberBinding="{Binding PackageMode}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView x:Name="PackageReceivedListView" Margin="10,267,397,36"  Background="#FFE2DADC" SelectionChanged="PackageShippedListView_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="80" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Sender" Width="80" DisplayMemberBinding="{Binding SendPackage}" />
+                    <GridViewColumn Header="Weight" Width="80" DisplayMemberBinding="{Binding WeightCategory}" />
+                    <GridViewColumn Header="Priority" Width="80" DisplayMemberBinding="{Binding priority}" />
+                    <GridViewColumn Header="Status" Width="80" DisplayMemberBinding="{Binding PackageMode}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="buttonDeletPackage" Margin="408,107,240,308" Content="Delet Package" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" Click="buttonDeletPackage_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="buttonConfimDelivery" Margin="408,306,226,110" Content="Confim Delivery" 
+                Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" Click="buttonConfimDelivery_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="buttonConfimCollection" Margin="408,147,226,268" Content="Confim Collection" 
+                Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" Click="buttonConfimCollection_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </Grid>
+</Window>
