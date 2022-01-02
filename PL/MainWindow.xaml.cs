@@ -71,14 +71,13 @@ namespace PL
 
         private void textPasswordM_TextChanged(object sender, TextChangedEventArgs e)
         {
-                var bc = new BrushConverter();
-                if (textPasswordM.Text.All(char.IsDigit) && textPasswordM.Text.Length == 9)
-                {
+            var bc = new BrushConverter();
+            if (textPasswordM.Text.All(char.IsDigit) && textPasswordM.Text.Length == 9)
+            {
 
                 textPasswordM.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
-                }
-                else textPasswordM.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
-
+            }
+            else textPasswordM.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
 
         private void NewCustomer_Click(object sender, RoutedEventArgs e)

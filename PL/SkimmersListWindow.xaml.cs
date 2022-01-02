@@ -29,7 +29,7 @@ namespace PL
         {
             InitializeComponent();
             SkimmerListView.ItemsSource = bl.GetSkimmerList();
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.SkimmerStatuses));
+            //StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.SkimmerStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             bL = bl;
             DataContext = this;
@@ -38,36 +38,36 @@ namespace PL
         private void RefreshListView(object ob,EventArgs ev)
         {
             SkimmerListView.Items.Refresh();
-            if (WeightSelector.SelectedItem == null && StatusSelector.SelectedItem == null) SkimmerListView.ItemsSource = bL.GetSkimmerList();
+            if (WeightSelector.SelectedItem == null /*&& StatusSelector.SelectedItem == null*/) SkimmerListView.ItemsSource = bL.GetSkimmerList();
             if (WeightSelector.SelectedItem != null) WeightSelector_SelectionChanged(this, null);
-            if (StatusSelector.SelectedItem != null) SkimmerListView_MouseDoubleClick(this, null);
+            //if (StatusSelector.SelectedItem != null) SkimmerListView_MouseDoubleClick(this, null);
         }
         /// <summary>
         /// Filter by skimmer status (checks whether there is filter by weight and combines them)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (StatusSelector.SelectedIndex != -1)
-            {
-                statusesFilter = (SkimmerStatuses)StatusSelector.SelectedItem;
-                if (weightFilter == null)
-                {
-                    SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.SkimmerStatus == statusesFilter);
-                }
-                else
-                {
-                    SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.SkimmerStatus == statusesFilter && x.WeightCategory == weightFilter);
-                }
-            }
-            else
-            {
-                StatusSelector.SelectedIndex = -1;
-                statusesFilter = null;
-                StatusSelector.Text = "Choose a Status";
-            }
-        }
+        //private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if (StatusSelector.SelectedIndex != -1)
+        //    {
+        //        statusesFilter = (SkimmerStatuses)StatusSelector.SelectedItem;
+        //        if (weightFilter == null)
+        //        {
+        //            SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.SkimmerStatus == statusesFilter);
+        //        }
+        //        else
+        //        {
+        //            SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.SkimmerStatus == statusesFilter && x.WeightCategory == weightFilter);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        StatusSelector.SelectedIndex = -1;
+        //        statusesFilter = null;
+        //        StatusSelector.Text = "Choose a Status";
+        //    }
+        //}
         /// <summary>
         /// Filter by weight of skimmer (checks whether there is a filter by status and combines them)
         /// </summary>
@@ -127,7 +127,7 @@ namespace PL
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
             SkimmerListView.ItemsSource = bL.GetSkimmerList();
-            StatusSelector.SelectedIndex = -1;
+            //StatusSelector.SelectedIndex = -1;
             WeightSelector.SelectedIndex = -1;
         }
         /// <summary>
@@ -138,6 +138,14 @@ namespace PL
         private void EXIT_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            //SkimmerListView.ItemsSource = bL.GetBaseStationList();
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(SkimmerListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("SkimmerStatus");
+            view.GroupDescriptions.Add(groupDescription);
         }
     }
 }
