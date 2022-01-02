@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
 
 namespace PL
 {
@@ -19,6 +20,7 @@ namespace PL
     /// </summary>
     public partial class CustomerCard : Window
     {
+        CustomerToList newCustomer = new CustomerToList();
         BlApi.IBL bL;
         BO.Customer customer = new BO.Customer();
         public CustomerCard()
@@ -27,7 +29,23 @@ namespace PL
             customer = (BO.Customer)DataContext;
             PackageShippedListView.ItemsSource = bL.GetListOfPackageShipped(customer);
             PackageReceivedListView.ItemsSource = bL.GetListOfPackageReceived(customer);
+            DataContext = customer;
+            help.IsChecked = true;
+            
         }
+
+        //private void buttonDeletPackage_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        help.
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
 
         //private void buttonDeletPackage_Click(object sender, RoutedEventArgs e)
         //{
@@ -41,4 +59,5 @@ namespace PL
         //    else
         //        MessageBox.Show("The package was associated", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
         //}
+    }
 }

@@ -9,8 +9,7 @@
             AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
-        <local:FalseToHidden x:Key="FalseToHidden"></local:FalseToHidden>
-        <local:TrueToHidden x:Key="TrueToHidden"></local:TrueToHidden>
+        <local:TrueIfStatusCreated x:Key="TrueIfStatusCreated"></local:TrueIfStatusCreated>
         <Style x:Key="myButtonStyle"  TargetType="Button">
 
             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -24,6 +23,8 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <CheckBox x:Name="help" Visibility="Hidden" />
+
         <Border CornerRadius="10" Margin="0,10,0,-10">
             <Border.Background>
                 <LinearGradientBrush>
@@ -35,7 +36,7 @@
         <Label Content="The pacages you sent:" Margin="130,36,470,372" FontFamily="Bahnschrift Condensed" FontSize="25"></Label>
         <Label Content="The pacages sent to you:" Margin="130,225,449,183" FontFamily="Bahnschrift Condensed" FontSize="25"></Label>
 
-        <ListView x:Name="PackageShippedListView" Margin="10,78,397,245"  Background="#FFE2DADC" SelectionChanged="PackageShippedListView_SelectionChanged">
+        <ListView x:Name="PackageShippedListView" Margin="10,78,397,245"  Background="#FFE2DADC" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="80" DisplayMemberBinding="{Binding Id}" />
@@ -46,7 +47,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="PackageReceivedListView" Margin="10,267,397,36"  Background="#FFE2DADC" SelectionChanged="PackageShippedListView_SelectionChanged">
+        <ListView x:Name="PackageReceivedListView" Margin="10,267,397,36"  Background="#FFE2DADC" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="80" DisplayMemberBinding="{Binding Id}" />
@@ -57,7 +58,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="buttonDeletPackage" Margin="408,107,240,308" Content="Delet Package" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" Click="buttonDeletPackage_Click">
+        <Button x:Name="buttonDeletPackage" Margin="408,107,240,308" Content="Delet Package" 
+                Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" >
+            
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Height="25"
@@ -68,9 +71,12 @@
                     </Border>
                 </ControlTemplate>
             </Button.Template>
+            <!--<Butten.IsEnabled>
+                <Binding Converter="{StaticResource TrueIfStatusCreated}" ElementName="ClintPackageSendt" Mode="OneWay" Path="SelectedItem"/>>
+            </Butten.IsEnabled>-->
         </Button>
         <Button x:Name="buttonConfimDelivery" Margin="408,306,226,110" Content="Confim Delivery" 
-                Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" Click="buttonConfimDelivery_Click">
+                Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Height="25"
@@ -84,7 +90,7 @@
         </Button>
 
         <Button x:Name="buttonConfimCollection" Margin="408,147,226,268" Content="Confim Collection" 
-                Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" Click="buttonConfimCollection_Click">
+                Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" >
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Height="25"
