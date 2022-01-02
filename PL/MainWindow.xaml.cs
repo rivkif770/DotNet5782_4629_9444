@@ -22,15 +22,15 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        BlApi.IBL mybl;
+        private BlApi.IBL mybl;
         public MainWindow()
         {
             mybl = BlApi.BlFactory.GetBL();
             InitializeComponent();
         }
-        public MainWindow(BlApi.IBL mybl)
+        public MainWindow(BlApi.IBL mybL)
         {
-            mybl = BlApi.BlFactory.GetBL();
+            mybl = mybL;
             InitializeComponent();
             help.IsChecked = true;
         }
