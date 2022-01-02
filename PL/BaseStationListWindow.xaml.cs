@@ -23,10 +23,12 @@ namespace PL
         BaseStationWindow baseStationWindow;
         public BaseStationListWindow(BlApi.IBL bl)
         {
-            InitializeComponent();
-            BaseStationListView.ItemsSource = bl.GetBaseStationList();
             bL = bl;
-            DataContext = this;
+            InitializeComponent();
+            
+            BaseStationListView.ItemsSource = bl.GetBaseStationList();
+            
+           // DataContext = this;
         }
         private void RefreshListView(object ob, EventArgs ev)
         {
