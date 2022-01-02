@@ -330,6 +330,17 @@ namespace BL
                 throw new ExistsInSystemExceptionBL(exception.Message + " from dal");
             }
         }
-
+        public IEnumerable<PackageAtCustomer> GetListOfPackageShipped(BO.Customer customer)
+        {
+            List<PackageAtCustomer> result = new List<PackageAtCustomer>();
+            result = customer.SentParcels;
+            return result;
+        }
+        public IEnumerable<PackageAtCustomer> GetListOfPackageReceived(BO.Customer customer)
+        {
+            List<PackageAtCustomer> result = new List<PackageAtCustomer>();
+            result = customer.ReceiveParcels;
+            return result;
+        }
     }
 }

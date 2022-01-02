@@ -32,6 +32,8 @@ namespace BlApi
         public void DeletePackage(int id);
         public BO.Package GetPackage(int id);
         public int PackageMode(BO.Package p);
+        public IEnumerable<PackageAtCustomer> GetListOfPackageShipped(BO.Customer customer);
+        public IEnumerable<PackageAtCustomer> GetListOfPackageReceived(BO.Customer customer);
 
         void AddSkimmer(Skimmer newSkimmer, int station);
         public SkimmerToList GetSkimmerToList(int id);
