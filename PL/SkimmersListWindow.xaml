@@ -52,10 +52,11 @@
         <Label Content="status:" Margin="68,238,0,0" FontSize="25"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ComboBox Name="StatusSelector" Text="Choose a Status" Margin="169,238,0,0" Width="108"
+        <!--<ComboBox Name="StatusSelector" Text="Choose a Status" Margin="169,238,0,0" Width="108"
                       HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFE2DADC"
                       ToolTip="Choose  a Status"  IsEditable="True" IsReadOnly="True" 
-                      SelectionChanged="StatusSelector_SelectionChanged" Height="30"/>
+                      SelectionChanged="StatusSelector_SelectionChanged" Height="30"/>-->
+        <CheckBox Content="File list" HorizontalAlignment="Left" Margin="169,238,0,0" VerticalAlignment="Top" FontSize="20" ToolTip="Group a list by status category" Checked="CheckBox_Checked"/>
         <Label Content="Weight:" Margin="68,283,0,0" FontSize="25"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.584,2.616"/>

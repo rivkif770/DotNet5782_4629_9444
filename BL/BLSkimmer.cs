@@ -202,19 +202,24 @@ namespace BL
             DateTime? Loading = skimmer.EntertimeLoading;
 
             //Battery status will be updated according to the time it was charging
-            skimmer.BatteryStatus = (ChargingTime * SkimmerLoadingRate) % 100;
+            
             //The skimmer mode will change to free
             skimmer.SkimmerStatus = SkimmerStatuses.free;
             int IDb=0;
             //Search v skimmer by id
+            SkimmerLoading skimmerLoading = new SkimmerLoading();
             foreach (SkimmerLoading item in mayDal.GetSkimmerLoading())
             {
                 if(item.SkimmerID== skimmer.Id)
                 {
-                    IDb = item.StationID;
+                    skimmerLoading = item;
                     break;
                 }
             }
+            DateTime dt = skimmerLoading.EnteredLoading;
+            TimeSpan timeSpan = DateTime.Now - dt;
+
+           // skimmer.BatteryStatus = (timeSpan * SkimmerLoadingRate) % 100;
             DO.BaseStation station = mayDal.GetBaseStation(IDb);
             station.SeveralPositionsArgument++;
             mayDal.UpadteB(station);
@@ -443,6 +448,7 @@ namespace BL
                         SkimmerLoading skimmerLoading = new SkimmerLoading();
                         skimmerLoading.SkimmerID = skimmer.Id;
                         skimmerLoading.StationID = baseStation.Id;
+                        skimmerLoading.EnteredLoading = DateTime.Now;
                         mayDal.AddSkimmerLoading(skimmerLoading);
                     }
                     else
