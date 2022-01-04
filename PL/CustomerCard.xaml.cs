@@ -20,19 +20,72 @@ namespace PL
     /// </summary>
     public partial class CustomerCard : Window
     {
+        Package package1 = new Package();
+        
         CustomerToList newCustomer = new CustomerToList();
         BlApi.IBL bL;
         BO.Customer customer = new BO.Customer();
-        public CustomerCard()
+        public CustomerCard( Customer customer1)
         {
+            bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
-            customer = (BO.Customer)DataContext;
+            customer = customer1;
+            //DataContext = customer;
+            package1.SendPackage = new CustomerInParcel();
+            package1.ReceivesPackage = new CustomerInParcel();
+
+            ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
+            ComboPrioritys.ItemsSource = Enum.GetValues(typeof(BO.Priority));
+            //DataContext = customer;
             PackageShippedListView.ItemsSource = bL.GetListOfPackageShipped(customer);
             PackageReceivedListView.ItemsSource = bL.GetListOfPackageReceived(customer);
-            DataContext = customer;
             help.IsChecked = true;
-            
+            //DataContext = this;
+           
+            package1.SendPackage.Id = customer.Id;
+            package1.SendPackage.Name = customer.Name;
+            DataContext = package1;
         }
+        private void btnAddPackage_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bL.AddPackage(package1);
+                MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+                package1 = new Package();
+
+            }
+            catch (Exception ex)
+            { 
+                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+            private void buttonDeletPackage_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void textIdGet_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var bc = new BrushConverter();
+            if (textIdGet.Text.All(char.IsDigit) && textIdGet.Text.Length == 9)
+            {
+
+                textIdGet.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else textIdGet.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+
+        }
+
 
         //private void buttonDeletPackage_Click(object sender, RoutedEventArgs e)
         //{

@@ -230,6 +230,25 @@ namespace BL
             result = customer.ReceiveParcels;
             return result;
         }
+        public Customer GetCustomerListID(int id, string name)
+        {
+            try
+            {
+                foreach (DO.Client item in mayDal.GetClientList())
+                {
+                    if (id == item.ID)
+                    {
+                        if (item.Name == name) return GetCustomer(id);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new IdDoesNotExistExceptionBL($"{ id }does exist");
+            }
+            return GetCustomer(id);
+        }
     }
 
 }

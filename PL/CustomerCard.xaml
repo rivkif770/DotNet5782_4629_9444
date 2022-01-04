@@ -40,7 +40,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="80" DisplayMemberBinding="{Binding Id}" />
-                    <GridViewColumn Header="Receiver" Width="80" DisplayMemberBinding="{Binding ReceivesPackage}" />
+                    <GridViewColumn Header="Receiver" Width="80" DisplayMemberBinding="{Binding CustomerNameGets}" />
                     <GridViewColumn Header="Weight" Width="80" DisplayMemberBinding="{Binding WeightCategory}" />
                     <GridViewColumn Header="Priority" Width="80" DisplayMemberBinding="{Binding priority}" />
                     <GridViewColumn Header="Status" Width="80" DisplayMemberBinding="{Binding PackageMode}" />
@@ -51,16 +51,17 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="80" DisplayMemberBinding="{Binding Id}" />
-                    <GridViewColumn Header="Sender" Width="80" DisplayMemberBinding="{Binding SendPackage}" />
+                    <GridViewColumn Header="Sender" Width="80" DisplayMemberBinding="{Binding CustomerNameSends}" />
                     <GridViewColumn Header="Weight" Width="80" DisplayMemberBinding="{Binding WeightCategory}" />
                     <GridViewColumn Header="Priority" Width="80" DisplayMemberBinding="{Binding priority}" />
                     <GridViewColumn Header="Status" Width="80" DisplayMemberBinding="{Binding PackageMode}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="buttonDeletPackage" Margin="408,107,240,308" Content="Delet Package" 
+        <Button x:Name="buttonDeletPackage" Margin="408,107,240,308" Content="Delet Package" IsEnabled="{Binding ElementName=PackageShippedListView, Path=SelectedItem, Converter= {StaticResource TrueIfStatusCreated}}"
                 Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" >
-            
+          
+
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Height="25"
@@ -72,7 +73,7 @@
                 </ControlTemplate>
             </Button.Template>
             <!--<Butten.IsEnabled>
-                <Binding Converter="{StaticResource TrueIfStatusCreated}" ElementName="ClintPackageSendt" Mode="OneWay" Path="SelectedItem"/>>
+                <Binding Converter="{StaticResource TrueIfStatusCreated}" ElementName="PackageShippedListView" Mode="OneWay" Path="SelectedItem">
             </Butten.IsEnabled>-->
         </Button>
         <Button x:Name="buttonConfimDelivery" Margin="408,306,226,110" Content="Confim Delivery" 
@@ -102,5 +103,53 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <Label Content="Receiver ID" Margin="654,72,24,351" FontFamily="Bahnschrift Condensed" FontSize="20" />
+        <Label Content="Weight" Margin="669,142,10,265" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+        <Label Content="Priority"  Margin="669,235,10,179" FontFamily="Bahnschrift Condensed" FontSize="20"/>
+        <TextBox  x:Name="textIdGet"  Width="136" Height="20"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFD3CBCD"
+                           Text="{Binding ReceivesPackage.Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                      TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 9-digit id number Get" Margin="640,104,0,0" />
+        <ComboBox Name="ComboWeightCategory"  Width="136" Height="20"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Choose Weight"  
+                      IsEditable="True" IsReadOnly="True" Margin="640,185,0,0"
+                  SelectedItem="{Binding WeightCategory, Mode=OneWayToSource}"/>
+        <ComboBox x:Name="ComboPrioritys" Width="143" Height="20"  
+                      HorizontalAlignment="Left" VerticalAlignment="Top"
+                           ToolTip="Choose a Priority" IsEditable="True" IsReadOnly="True" Margin="640,271,0,0"
+                  SelectedItem="{Binding priority, Mode=OneWayToSource}"/>
+        <Button x:Name="btnADD" Content="ADD" Foreground="White" FontSize="20" FontWeight="Medium"
+                        ToolTip="Add a package to the pool"  
+                Click="btnAddPackage_Click" Height="30" Margin="654,354,17,66" >
+            <!--Visibility="{Binding IsChecked, Converter={StaticResource TrueIfStatusCreated}, ElementName=help, Mode=OneWay}"-->
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#FF4FE899"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF20CB73"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+
+        </Button>
+
+
+
+
     </Grid>
 </Window>

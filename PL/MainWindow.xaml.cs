@@ -86,12 +86,17 @@ namespace PL
         }
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            if (textPassword.Text == "987654321" && ! SolidColorBrush.Equals(((SolidColorBrush)textName.BorderBrush).Color, red.Color))
+            try
             {
-                new CustomerCard().Show();
+                Customer customer = mybl.GetCustomerListID(Int32.Parse(textPassword.Text), textName.Text);
+                new CustomerCard( customer).Show();
+                return;
             }
-            else MessageBox.Show("The password is incorrect", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            catch (Exception ex)
+            {
+
+                 MessageBox.Show("The password is incorrect", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         //private void textName_TextChanged(object sender, RoutedEventArgs e)
         //{

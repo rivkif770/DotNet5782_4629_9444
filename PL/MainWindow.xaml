@@ -122,28 +122,8 @@
                 </Button>
 
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="50,250,543,172" >
-                <Button x:Name="Login" Content="Login" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" 
+                <Button x:Name="Login" Margin="238,321,362,99" Content="Login" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" 
                  Width="200" Height="30" Click="Login_Click"
-                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}">
-
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Height="25"
-                            CornerRadius="12"
-                            Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-
-                </Button>
-
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="50,150,543,172" >
-                <Button x:Name="manager" Content="manager" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" 
-                 Width="200" Height="30" Click="manager_Click"
                          Visibility="{Binding IsChecked, Converter={StaticResource TrueToHidden}, ElementName=help, Mode=OneWay}">
 
                     <Button.Template>
@@ -159,20 +139,37 @@
 
                 </Button>
 
-            </StackPanel>
+            <Button x:Name="manager" Margin="471,312,129,108" Content="manager" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" 
+                 Width="200" Height="30" Click="manager_Click"
+                         Visibility="{Binding IsChecked, Converter={StaticResource TrueToHidden}, ElementName=help, Mode=OneWay}">
 
-            <Label Content="Enter your name:" Margin="325,166,325,242" FontFamily="Bahnschrift Condensed" FontSize="25" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"></Label>
-            <TextBox x:Name="textName" Width="150" Height="24" Grid.Row="4" Grid.Column="1"  
-                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+
+
+
+            <Label Content="Enter your name:" Margin="285,178,365,230" FontFamily="Bahnschrift Condensed" FontSize="25" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"></Label>
+            <TextBox x:Name="textName" Width="150" Height="24"  
+                     HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFD3CBCD" 
                      TextChanged="textName_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter your name"
                           DataContext="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
-                      Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"/>
-            <Label Content="Enter your ID:" Margin="325,246,325,172" FontFamily="Bahnschrift Condensed" FontSize="25"
+                      Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}" Margin="285,220,0,0"/>
+            <Label Content="Enter your ID:" Margin="285,244,365,174" FontFamily="Bahnschrift Condensed" FontSize="25"
              Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"></Label>
             <TextBox x:Name="textPassword" Width="150" Height="24"  
-                     HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FFD3CBCD" 
+                     HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFD3CBCD" 
                      TextChanged="textPassword_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter your ID"
-                          DataContext="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" Margin="0,283,0,0"
+                          DataContext="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" Margin="285,278,0,0"
                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"/>
             <Label Content="Enter your ID:" Margin="515,223,135,195" FontFamily="Bahnschrift Condensed" FontSize="25"  Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"></Label>
             <TextBox x:Name="textPasswordM" Width="150" Height="24"  

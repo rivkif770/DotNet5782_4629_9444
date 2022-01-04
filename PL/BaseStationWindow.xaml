@@ -186,31 +186,31 @@
                 <TextBox  x:Name="textId" Margin="2,0,0,0" Width="150" Height="25" Grid.Column="1" 
                       HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"
                       TextChanged="textId_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 4-digit id number" 
-                          DataContext="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                          Text="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <TextBox x:Name="textName"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="1" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textName_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter the name of the base station"
-                         DataContext="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                         Text="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <TextBox x:Name="textLatitude"  Margin="2,0,0,0" Width="50" Height="25" Grid.Row="2" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textLatitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter latitude"
-                          DataContext="{Binding Location.Latitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                          Text="{Binding Location.Latitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
 
                 <TextBox x:Name="textLongitude"  Margin="100,0,0,0" Width="50" Height="25" Grid.Row="2" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textLongitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter longitude"
-                          DataContext="{Binding Location.Longitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                          Text="{Binding Location.Longitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <TextBox x:Name="textCharging"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="3" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textCharging_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter longitude"
-                          DataContext="{Binding SeveralClaimPositionsVacant, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                          Text="{Binding SeveralClaimPositionsVacant, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <Expander Header="Click to show" Background="#FFD3CBCD" Margin="2,14,124,22" Grid.Column="1" Grid.Row="4"
-                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" MouseDoubleClick="SkimmerListOfChargeView_MouseDoubleClick">
                     <ListView x:Name="SkimmerListOfChargeView" Background="#FFD3CBCD" Margin="0,0,0,-110" Width="182"  >
                         <ListView.View>
                             <GridView>

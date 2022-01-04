@@ -28,7 +28,10 @@ namespace PL
         public SkimmerListWindow(BlApi.IBL bl)
         {
             InitializeComponent();
-            SkimmerListView.ItemsSource = bl.GetSkimmerList();
+            foreach (SkimmerToList skimmer in bl.GetSkimmerList())
+            {
+                SkimmerListView.Items.Add(skimmer);}
+            //SkimmerListView.ItemsSource = bl.GetSkimmerList();
             //StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.SkimmerStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             bL = bl;
@@ -126,6 +129,8 @@ namespace PL
         /// <param name="e"></param>
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
+            if (SkimmerListView.Items != null)
+                SkimmerListView.Items.Clear();
             SkimmerListView.ItemsSource = bL.GetSkimmerList();
             //StatusSelector.SelectedIndex = -1;
             WeightSelector.SelectedIndex = -1;
@@ -142,10 +147,20 @@ namespace PL
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            if(SkimmerListView.Items != null)
+                SkimmerListView.Items.Clear();
+            var skimmers = bL.GetSkimmerList().GroupBy(s => s.SkimmerStatus);
+            foreach (var group in skimmers)
+            {
+                foreach (SkimmerToList skimmer in group)
+                {
+                    SkimmerListView.Items.Add(skimmer);
+                }
+            }
             //SkimmerListView.ItemsSource = bL.GetBaseStationList();
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(SkimmerListView.ItemsSource);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("SkimmerStatus");
-            view.GroupDescriptions.Add(groupDescription);
+            //CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(SkimmerListView.ItemsSource);
+            //PropertyGroupDescription groupDescription = new PropertyGroupDescription("SkimmerStatus");
+            //view.GroupDescriptions.Add(groupDescription);
         }
     }
 }

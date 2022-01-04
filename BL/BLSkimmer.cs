@@ -218,8 +218,8 @@ namespace BL
             }
             DateTime dt = skimmerLoading.EnteredLoading;
             TimeSpan timeSpan = DateTime.Now - dt;
-
-           // skimmer.BatteryStatus = (timeSpan * SkimmerLoadingRate) % 100;
+            int time = (int)timeSpan.TotalMinutes;
+            skimmer.BatteryStatus = (time * SkimmerLoadingRate) % 100;
             DO.BaseStation station = mayDal.GetBaseStation(IDb);
             station.SeveralPositionsArgument++;
             mayDal.UpadteB(station);

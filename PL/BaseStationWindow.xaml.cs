@@ -36,12 +36,11 @@ namespace PL
         public BaseStationWindow(BlApi.IBL bl, BaseStationToList baseStationToList, BaseStationListWindow baseStationListWindow)
         {
             BL = bl;
-            
             InitializeComponent();
-            DataContext = baseStation1;
             help.IsChecked = true;
             newBaseStation = baseStationToList;
             baseStation1 = bl.GetBeseStation(newBaseStation.Id);
+            DataContext = baseStation1;
             SkimmerListOfChargeView.ItemsSource = bl.GetListOfSkimmersCharge(baseStation1);
         }
 
@@ -54,7 +53,6 @@ namespace PL
             }
             else textId.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
         private void textName_TextChanged(object sender, TextChangedEventArgs e)
         {
             string text = textName.Text;
@@ -66,7 +64,6 @@ namespace PL
             else
                 textName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
         private void textLatitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -94,26 +91,25 @@ namespace PL
             }
             else textCharging.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
         private void btnAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
-            SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            if (SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textName.BorderBrush).Color, red.Color)
-                || SolidColorBrush.Equals(((SolidColorBrush)textLatitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLongitude.BorderBrush).Color, red.Color)
-                || SolidColorBrush.Equals(((SolidColorBrush)textCharging.BorderBrush).Color, red.Color))
-            {
-                MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else
-            {
-                BO.BaseStation baseStation = new BaseStation();
-                baseStation.Id = Int32.Parse(textId.Text);
-                baseStation.Name = textName.Text;
-                baseStation.Location = new Location { Latitude = double.Parse(textLatitude.Text), Longitude = double.Parse(textLongitude.Text) };
-                baseStation.SeveralClaimPositionsVacant = Int32.Parse(textCharging.Text);
+            //SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
+            //if (SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textName.BorderBrush).Color, red.Color)
+            //    || SolidColorBrush.Equals(((SolidColorBrush)textLatitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLongitude.BorderBrush).Color, red.Color)
+            //    || SolidColorBrush.Equals(((SolidColorBrush)textCharging.BorderBrush).Color, red.Color))
+            //{
+            //    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
+            //else
+            //{
+            //    BO.BaseStation baseStation = new BaseStation();
+            //    baseStation.Id = Int32.Parse(textId.Text);
+            //    baseStation.Name = textName.Text;
+            //    baseStation.Location = new Location { Latitude = double.Parse(textLatitude.Text), Longitude = double.Parse(textLongitude.Text) };
+            //    baseStation.SeveralClaimPositionsVacant = Int32.Parse(textCharging.Text);
                 try
                 {
-                    BL.AddBaseStation(baseStation);
+                    BL.AddBaseStation(baseStation1);
                     MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                 }
@@ -121,7 +117,7 @@ namespace PL
                 {
                     MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }
+            //}
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -182,23 +178,22 @@ namespace PL
         {
             this.Close();
         }
-        //private void RefreshListView(object ob, EventArgs ev)
-        //{
-        //    SkimmerListOfChargeView.Items.Refresh();
-        //    if (WeightSelector.SelectedItem == null && StatusSelector.SelectedItem == null) SkimmerListView.ItemsSource = bL.GetSkimmerList();
-        //    if (WeightSelector.SelectedItem != null) WeightSelector_SelectionChanged(this, null);
-        //    if (StatusSelector.SelectedItem != null) SkimmerListView_MouseDoubleClick(this, null);
-        //}
-        //private void SkimmerListOfChargeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //    if ((BO.SkimmerInCharging)SkimmerListOfChargeView.SelectedItem != null)
-        //    {
-        //        Skimmer skimmer = BL.GetSkimmerr((BO.SkimmerInCharging)SkimmerListOfChargeView.SelectedItem.)
-        //        skimmerWindow = new SkimmerWindow(BL, (BO.SkimmerToList)SkimmerListOfChargeView.SelectedItem);
-        //        skimmerWindow.Closed += RefreshListView;
-        //        skimmerWindow.Show();
-        //    }
-        //}
+        private void RefreshListView(object ob, EventArgs ev)
+        {
+            SkimmerListOfChargeView.ItemsSource = BL.GetListOfSkimmersCharge(baseStation1);
+        }
+        private void SkimmerListOfChargeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if ((BO.SkimmerInCharging)SkimmerListOfChargeView.SelectedItem != null)
+            {
+                
+                SkimmerToList skimmer = new SkimmerToList();
+                skimmer.Id = ((SkimmerInCharging)SkimmerListOfChargeView.SelectedItem).Id;
+                skimmerWindow = new SkimmerWindow(BL, skimmer);
+                skimmerWindow.Closed += RefreshListView;
+                skimmerWindow.Show();
+            }
+        }
 
         //private void Button_Click_1(object sender, RoutedEventArgs e)
         //{

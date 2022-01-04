@@ -58,7 +58,7 @@ namespace PL
             InitializeComponent();
             //Updates.Visibility = Visibility.Visible;
             help.IsChecked = true;
-            DataContext = skimmerToList;
+            DataContext = bL.GetSkimmerr(skimmerToList.Id);
             newSkimmer = new SkimmerToList();
             newSkimmer = skimmerToList;
             //showSkimmer.Text = bl.GetSkimmerr(newSkimmer.Id).ToString();
@@ -70,20 +70,22 @@ namespace PL
         /// <param name="e"></param>
         private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
         {
-            SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            if (ComboWeightCategory.SelectedItem==null || ComboStationID.SelectedItem==null || SolidColorBrush.Equals(((SolidColorBrush)textSkimmerModel.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color))
-            {
-                MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else
-            {
-                BO.Skimmer skimmer = new Skimmer();
-                skimmer.Id = Int32.Parse(textId.Text);
-                skimmer.SkimmerModel = textSkimmerModel.Text;
-                skimmer.WeightCategory = (Weight)(ComboWeightCategory.SelectedItem);
+            //SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
+            //if (ComboWeightCategory.SelectedItem==null || ComboStationID.SelectedItem==null || SolidColorBrush.Equals(((SolidColorBrush)textSkimmerModel.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color))
+            //{
+            //    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
+            //else
+            //{
+            //    BO.Skimmer skimmer = new Skimmer();
+            //    skimmer.Id = Int32.Parse(textId.Text);
+            //    skimmer.SkimmerModel = textSkimmerModel.Text;
+            //    skimmer.WeightCategory = (Weight)(ComboWeightCategory.SelectedItem);
                 try
                 {
-                    bL.AddSkimmer(skimmer, Int32.Parse(ComboStationID.Text));
+                //bL.AddSkimmer(skimmer, Int32.Parse(ComboStationID.Text));
+                BaseStation baseStation = (BaseStation)ComboStationID.SelectedItem;
+                bL.AddSkimmer(skimmer1, baseStation.Id);
                     MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                     //CloseWindowEvent(this);
                     this.Close();
@@ -92,7 +94,7 @@ namespace PL
                 {
                     MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }      
+            //}      
         }
         /// <summary>
         /// Input the id from the user and color the field according to the correctness of the input
