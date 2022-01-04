@@ -60,10 +60,10 @@
                 <Label Content="List packages Receive" Grid.Row="6" FontFamily="List of packages Receive" FontSize="25"
                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" FontWeight="Bold"/>
                 <TextBox  x:Name="textId" Width="150" Height="24" Grid.Column="1" 
-                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD"
+                      HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFD3CBCD"
                       TextChanged="textId_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 9-digit id number"
                            Text="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
-                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" Margin="0,0,0,7"/>
                 <TextBox x:Name="textCustomerName" Width="150" Height="24" Grid.Row="1" Grid.Column="1"  
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textCustomerName_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a Customer Name "

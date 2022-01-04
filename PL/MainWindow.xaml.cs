@@ -94,7 +94,7 @@ namespace PL
                 new CustomerCard( customer).Show();
                 return;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
                  MessageBox.Show("The password is incorrect", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);

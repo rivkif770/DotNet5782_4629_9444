@@ -330,17 +330,19 @@ namespace BL
                 throw new ExistsInSystemExceptionBL(exception.Message + " from dal");
             }
         }
-        public IEnumerable<PackageAtCustomer> GetListOfPackageShipped(BO.Customer customer)
+        public IEnumerable<PackageToList> GetListOfPackageShipped(int customerID)
         {
-            List<PackageAtCustomer> result = new List<PackageAtCustomer>();
-            result = customer.SentParcels;
-            return result;
+            IEnumerable<PackageToList> PackageShipped = GetPackageList();
+            if (!GetCustomerList().Any(p => p.Id == customerID)) throw new IdDoesNotExistExceptionBL("ID not found");
+            PackageShipped = PackageShipped.Where(p => (GetPackage(p.Id)).SendPackage.Id == customerID);
+            return PackageShipped;
         }
-        public IEnumerable<PackageAtCustomer> GetListOfPackageReceived(BO.Customer customer)
+        public IEnumerable<PackageToList> GetListOfPackageReceived(int customerID)
         {
-            List<PackageAtCustomer> result = new List<PackageAtCustomer>();
-            result = customer.ReceiveParcels;
-            return result;
+            IEnumerable<PackageToList> PackageShipped = GetPackageList();
+            if (!GetCustomerList().Any(p => p.Id == customerID)) throw new IdDoesNotExistExceptionBL("ID not found");
+            PackageShipped = PackageShipped.Where(p => (GetPackage(p.Id)).ReceivesPackage.Id == customerID);
+            return PackageShipped;
         }
     }
 }
