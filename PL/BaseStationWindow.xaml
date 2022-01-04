@@ -68,9 +68,9 @@
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnEXIT1" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
+                <Button x:Name="btnEXIT" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
                         HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Exit this window"
-                Click="Button_Click" Width="150" Margin="530,350,0,0" Height="30">
+                Click="EXIT_Click" Width="150" Margin="530,350,0,0" Height="30">
 
                     <Button.Style>
                         <Style TargetType="Button">
@@ -101,7 +101,7 @@
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnUpdate" Content="Update" Foreground="White" FontSize="20" FontWeight="Medium"
                         HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Update name or number of charging stations"
-                Click="Button_Click" Width="150" Margin="340,350,0,0" Height="30"
+                Click="btnUpdat_Click" Width="150" Margin="340,350,0,0" Height="30"
                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
                     <Button.Style>
                         <Style TargetType="Button">
@@ -132,8 +132,8 @@
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnDelete" Content="Delete" Foreground="White" FontSize="20" FontWeight="Medium"
                         HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTip="Deleting a base station"
-                Click="Button_Click" Width="150" Margin="130,350,0,0" Height="30"
-                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                        Width="150" Margin="130,350,0,0" Height="30"
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" Click="btnDelete_Click">
 
                     <Button.Style>
                         <Style TargetType="Button">
@@ -191,8 +191,7 @@
                 <TextBox x:Name="textName"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="1" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textName_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter the name of the base station"
-                         Text="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
-                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+                         Text="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"/>
                 <TextBox x:Name="textLatitude"  Margin="2,0,0,0" Width="50" Height="25" Grid.Row="2" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textLatitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter latitude"
@@ -207,8 +206,7 @@
                 <TextBox x:Name="textCharging"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="3" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textCharging_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter longitude"
-                          Text="{Binding SeveralClaimPositionsVacant, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
-                         IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+                          Text="{Binding SeveralClaimPositionsVacant, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"/>
                 <Expander Header="Click to show" Background="#FFD3CBCD" Margin="2,14,124,22" Grid.Column="1" Grid.Row="4"
                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" MouseDoubleClick="SkimmerListOfChargeView_MouseDoubleClick">
                     <ListView x:Name="SkimmerListOfChargeView" Background="#FFD3CBCD" Margin="0,0,0,-110" Width="182"  >
@@ -280,9 +278,9 @@
                 </Button>
             </StackPanel>-->
 
-            <StackPanel Orientation="Horizontal">
+            <!--<StackPanel Orientation="Horizontal">
                 <Button x:Name="btnEXIT2" Content="EXIT" ToolTip="Exit this window" Foreground="White" FontSize="20" FontWeight="Medium"
-                HorizontalAlignment="Left" Width="200" Margin="150,340,0,0" Height="60" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.635" Click="btnEXIT2_Click">
+                HorizontalAlignment="Left" Width="200" Margin="150,340,0,0" Height="60" VerticalAlignment="Top" Click="btnEXIT2_Click">
 
                     <Button.Style>
                         <Style TargetType="Button">
@@ -309,7 +307,7 @@
                     </Button.Template>
 
                 </Button>
-            </StackPanel>
+            </StackPanel>-->
 
             <Label x:Name="labUpdate" Margin="455,210,0,0" Width="315"
                Content="Please enter a new name for the base station"
@@ -320,9 +318,9 @@
             <Label x:Name="labRelease" Margin="415,283,0,0" Width="375"
                Content="Please enter the number of available charging stations" FontFamily="Bahnschrift Condensed"
                FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <TextBox x:Name="textUpdateCharging" Margin="530,320,0,0" Width="154"
+            <!--<TextBox x:Name="textUpdateCharging" Margin="530,320,0,0" Width="154"
                  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFD3CBCD"
-                 BorderBrush="#FFE92617" Height="22" TextChanged="textUpdateCharging_TextChanged"/>
+                 BorderBrush="#FFE92617" Height="22" TextChanged="textUpdateCharging_TextChanged"/>-->
 
             <!--<StackPanel Orientation="Horizontal">
                 <Button x:Name="btnDeletBaseStation" Content="Delet" Style="{StaticResource myButtonStyle}" ToolTip="Deleting a base station" Foreground="White" FontSize="20" FontWeight="Medium"

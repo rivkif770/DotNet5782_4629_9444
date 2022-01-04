@@ -41,7 +41,12 @@ namespace PL
         private void RefreshListView(object ob,EventArgs ev)
         {
             SkimmerListView.Items.Refresh();
-            if (WeightSelector.SelectedItem == null /*&& StatusSelector.SelectedItem == null*/) SkimmerListView.ItemsSource = bL.GetSkimmerList();
+            if (WeightSelector.SelectedItem == null /*&& StatusSelector.SelectedItem == null*/)
+                SkimmerListView.Items.Clear();
+                foreach (SkimmerToList skimmer in bL.GetSkimmerList())
+                {
+                    SkimmerListView.Items.Add(skimmer);
+                }
             if (WeightSelector.SelectedItem != null) WeightSelector_SelectionChanged(this, null);
             //if (StatusSelector.SelectedItem != null) SkimmerListView_MouseDoubleClick(this, null);
         }
@@ -81,14 +86,21 @@ namespace PL
             if(WeightSelector.SelectedIndex != -1)
             {
                 weightFilter = (Weight)WeightSelector.SelectedItem;
-                if (statusesFilter == null)
-                {
-                    SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weightFilter);
-                }
-                else
-                {
-                    SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weightFilter && x.SkimmerStatus == statusesFilter);
-                }
+                //if (statusesFilter == null)
+               // {
+                    foreach (SkimmerToList skimmer in bL.GetSkimmerList())
+                    {
+                    SkimmerListView.Items.Clear();
+                        if(skimmer.WeightCategory == weightFilter)
+                          SkimmerListView.Items.Add(skimmer);
+                    }
+                    //SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weightFilter);
+            //    }
+            //    else
+            //    {
+                    
+            //        SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weightFilter && x.SkimmerStatus == statusesFilter);
+            //    }
             }
             else
             {

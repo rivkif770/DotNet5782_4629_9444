@@ -96,7 +96,7 @@ namespace PL
         {
                 try
                 {
-                    BL.AddBaseStation(baseStation1);
+                BL.AddBaseStation(baseStation1);
                     MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                 }
@@ -106,7 +106,7 @@ namespace PL
                 }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void EXIT_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -121,13 +121,13 @@ namespace PL
         private void btnUpdat_Click(object sender, RoutedEventArgs e)
         {
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            if (/*SolidColorBrush.Equals(((SolidColorBrush)textUpdateName.BorderBrush).Color, red.Color) &&*/ SolidColorBrush.Equals(((SolidColorBrush)textUpdateCharging.BorderBrush).Color, red.Color))
+            if (SolidColorBrush.Equals(((SolidColorBrush)textName.BorderBrush).Color, red.Color) && SolidColorBrush.Equals(((SolidColorBrush)textCharging.BorderBrush).Color, red.Color))
             {
                 MessageBox.Show($"Insert input", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             try
             {
-                BL.UpdateBaseStation(newBaseStation.Id,textName.Text/*, textUpdateName.Text*/, textUpdateCharging.Text);
+                BL.UpdateBaseStation(newBaseStation.Id,textName.Text, textCharging.Text);
                 MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 //this.Close();
             }
@@ -137,33 +137,21 @@ namespace PL
             }
         }
 
-        //private void textUpdateName_TextChanged(object sender, TextChangedEventArgs e)
+        //private void textUpdateCharging_TextChanged(object sender, TextChangedEventArgs e)
         //{
-        //    string text = textName.Text;
         //    var bc = new BrushConverter();
-        //    if (text != "")
+        //    if (textUpdateCharging.Text.All(char.IsDigit) && Int32.Parse(textUpdateCharging.Text) > 0)
         //    {
-        //        textUpdateName.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+
+        //        textUpdateCharging.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
         //    }
-        //    else
-        //        textUpdateName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        //    else textUpdateCharging.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         //}
 
-        private void textUpdateCharging_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var bc = new BrushConverter();
-            if (textUpdateCharging.Text.All(char.IsDigit) && Int32.Parse(textUpdateCharging.Text) > 0)
-            {
-
-                textUpdateCharging.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
-            }
-            else textUpdateCharging.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
-        }
-
-        private void btnEXIT2_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        //private void btnEXIT2_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.Close();
+        //}
         private void RefreshListView(object ob, EventArgs ev)
         {
             SkimmerListOfChargeView.ItemsSource = BL.GetListOfSkimmersCharge(baseStation1);
@@ -179,6 +167,11 @@ namespace PL
                 skimmerWindow.Closed += RefreshListView;
                 skimmerWindow.Show();
             }
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         //private void Button_Click_1(object sender, RoutedEventArgs e)

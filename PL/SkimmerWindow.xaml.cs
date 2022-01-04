@@ -31,11 +31,9 @@ namespace PL
         /// </summary>
         /// <param name="bl"></param>
         public SkimmerWindow(BlApi.IBL bl)
-        {
-            
+        {           
             bL = bl;                      
             InitializeComponent();
-            //add.Visibility = Visibility.Visible;
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             foreach (BaseStationToList item in bl.GetBaseStationFreeCharging())
             {
@@ -44,7 +42,8 @@ namespace PL
                 newSkimmer = new SkimmerToList();
                 ComboStationID.Items.Add(newItem);
             }
-            DataContext = this;
+            DataContext = skimmer1;
+            //DataContext = this;
         }
         /// <summary>
         /// Builder for update
@@ -145,11 +144,11 @@ namespace PL
         private void Button_Update(object sender, RoutedEventArgs e)
         {
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            if (SolidColorBrush.Equals(((SolidColorBrush)textUpdate.BorderBrush).Color, red.Color))
+            if (SolidColorBrush.Equals(((SolidColorBrush)textSkimmerModel.BorderBrush).Color, red.Color))
                 MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
-                string name = textUpdate.Text;
+                string name = textSkimmerModel.Text;
                 try
                 {
                     bL.UpdateSkimmerName(newSkimmer.Id, name);
