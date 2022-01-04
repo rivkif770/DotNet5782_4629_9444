@@ -23,6 +23,8 @@ namespace PL
         CustomerToList newCustomer = new CustomerToList();
         Customer customer = new Customer();
         BlApi.IBL bL;
+        private PackageWindow PackageWindow;
+
         public delegate void CloseWindow(object ob);
         //public event CloseWindow CloseWindowEvent;
         //CustomerWindow customerWindow;
@@ -227,6 +229,40 @@ namespace PL
             }
             else
                 textUpdatePhon.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        }
+        private void RefreshListSendView(object ob, EventArgs ev)
+        {
+            PackgeListOfSenderView.ItemsSource = bL.GetListOfPackageShipped(customer.Id);
+        }
+        
+        private void PackgeListOfSenderView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if ((BO.PackageAtCustomer)PackgeListOfSenderView.SelectedItem != null)
+            {
+
+                PackageToList package = new PackageToList();
+                package.Id = ((PackageAtCustomer)PackgeListOfSenderView.SelectedItem).Id;
+                PackageWindow = new PackageWindow(bL, package);
+                PackageWindow.Closed += RefreshListSendView;
+                PackageWindow.Show();
+            }
+        }
+        private void RefreshListGetView(object ob, EventArgs ev)
+        {
+            PackgeListOfGetView.ItemsSource = bL.GetListOfPackageShipped(customer.Id);
+        }
+
+        private void PackgeListOfGetView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if ((BO.PackageAtCustomer)PackgeListOfGetView.SelectedItem != null)
+            {
+
+                PackageToList package = new PackageToList();
+                package.Id = ((PackageAtCustomer)PackgeListOfGetView.SelectedItem).Id;
+                PackageWindow = new PackageWindow(bL, package);
+                PackageWindow.Closed += RefreshListGetView;
+                PackageWindow.Show();
+            }
         }
         //private void Button_UpdateDelete(object sender, RoutedEventArgs e)
         //{

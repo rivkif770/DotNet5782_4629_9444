@@ -83,7 +83,7 @@
                           Text="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <Expander Header="Click to show" Background="#FFD3CBCD" Grid.Column="1" Grid.Row="6" Height="24"
-                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" MouseDoubleClick="PackgeListOfGetView_MouseDoubleClick">
                     <ListView x:Name="PackgeListOfGetView" Background="#FFD3CBCD" Margin="0,0,0,-110" Width="150">
                         <ListView.View>
                             <GridView>
@@ -93,7 +93,7 @@
                     </ListView>
                 </Expander>
                 <Expander Header="Click to show" Background="#FFD3CBCD"  Grid.Column="1" Grid.Row="5" Height="24"
-                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" MouseDoubleClick="PackgeListOfSenderView_MouseDoubleClick">
                     <ListView x:Name="PackgeListOfSenderView" Background="#FFD3CBCD" Margin="0,0,0,-110" Width="150">
                         <ListView.View>
                             <GridView>
