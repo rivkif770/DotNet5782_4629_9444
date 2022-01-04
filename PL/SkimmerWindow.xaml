@@ -108,10 +108,11 @@
 
                 <ComboBox x:Name="ComboStationID" Width="150" Height="25" Grid.Row="3" Grid.Column="1" 
                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                            IsEditable="True" IsReadOnly="True"/>
+                            IsEditable="True" IsReadOnly="True" />
                 <ComboBox Name="ComboWeightCategory" Width="150" Height="25"
                       HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Bottom" Grid.Column="1"  
-                      IsEditable="True" SelectedItem="{Binding WeightCategory, Mode=OneWayToSource}" SelectedIndex="{Binding WeightCategory, Converter={StaticResource EnumToInt}}"
+                      IsEditable="True" SelectedItem="{Binding WeightCategory, Mode=OneWay}" 
+                          SelectedIndex="{Binding WeightCategory, Converter={StaticResource EnumToInt}}"
                       IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" Margin="0,0,0,6" IsDropDownOpen="True"/>
             </Grid>
             <Grid Margin="450,80,10,10">

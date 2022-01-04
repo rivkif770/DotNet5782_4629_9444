@@ -28,14 +28,13 @@ namespace PL
         public SkimmerListWindow()
         {
             InitializeComponent();
+            bL = BlApi.BlFactory.GetBL();
             foreach (SkimmerToList skimmer in bL.GetSkimmerList())
             {
                 SkimmerListView.Items.Add(skimmer);}
             //SkimmerListView.ItemsSource = bl.GetSkimmerList();
             //StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.SkimmerStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.Weight));
-            bL = BlApi.BlFactory.GetBL();
-            DataContext = this;
         }
 
         private void RefreshListView(object ob,EventArgs ev)

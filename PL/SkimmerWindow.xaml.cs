@@ -55,7 +55,7 @@ namespace PL
         {
             bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
-            //Updates.Visibility = Visibility.Visible;
+            ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             help.IsChecked = true;
             DataContext = bL.GetSkimmerr(skimmerToList.Id);
             newSkimmer = new SkimmerToList();
@@ -310,5 +310,6 @@ namespace PL
                 MessageBox.Show($"No package in transfer", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
     }
 }

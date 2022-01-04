@@ -21,10 +21,12 @@ namespace PL
     public partial class PackageWindow : Window
     {
         PackageToList newPackage;
-        Package package1= new Package();
+        Package package1 = new Package();
 
         BlApi.IBL bL;
-        public delegate void CloseWindow(object ob);
+        private SkimmerWindow skimmerWindow;
+
+        //public delegate void CloseWindow(object ob);
         //public event CloseWindow CloseWindowEvent;
         /// <summary>
         /// Builder to add
@@ -36,8 +38,7 @@ namespace PL
             bL = BlApi.BlFactory.GetBL();
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             ComboPrioritys.ItemsSource = Enum.GetValues(typeof(BO.Priority));
-            package1 = (Package)DataContext;
-            package1 = new Package();
+            DataContext = package1;
         }
         /// <summary>
         /// Builder for update
@@ -50,13 +51,10 @@ namespace PL
             InitializeComponent();
             bL = BlApi.BlFactory.GetBL();
             newPackage = new PackageToList();
-            //newPackage = packageToList;
-            //showPackage.Text = bl.GetPackage(newPackage.Id).ToString();
-
-            DataContext = package1;
+            package1.ReceivesPackage = new CustomerInParcel();
+            package1.SendPackage = new CustomerInParcel();
+            DataContext = bL.GetPackage(packageToList.Id);
             help.IsChecked = true;
-            //newPackage = packageToList;
-            //newPackage = bl.GetPackage(newPackage.Id);
         }
         //public PackageWindow(PackageToList packageToList)
         //{
@@ -153,6 +151,19 @@ namespace PL
             else
                 MessageBox.Show("The package was associated", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-
+        
+        private void textSkimmerInPackage_Click(object sender, RoutedEventArgs e)
+        {
+            if(package1.SkimmerInPackage == null)
+                MessageBox.Show("There is no associated skimmer", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+            {
+                SkimmerToList skimmer = new SkimmerToList();
+                skimmer.Id = package1.SkimmerInPackage.Id;
+                skimmerWindow = new SkimmerWindow(skimmer);
+                skimmerWindow.Close();
+                skimmerWindow.Show();
+            }
+        }
     }
 }
