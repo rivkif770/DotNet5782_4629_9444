@@ -70,11 +70,11 @@
                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox  x:Name="textIdGet"  Width="150" Height="20" Grid.Column="1" Grid.Row="3"
                       HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"
-                           Text="{Binding ReceivesPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                           Text="{Binding ReceivesPackage.Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
                       TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 9-digit id number Get" />
                 <TextBox x:Name="textIdSender" Height="20" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                         Text="{Binding SendPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                         Text="{Binding SendPackage.Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
                      TextChanged="textIdSender_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number Sender" HorizontalAlignment="Left" Width="150"/>
                 <TextBox x:Name="textId"  Width="150" Height="20" Grid.Row="0" Grid.Column="1"  
@@ -82,11 +82,15 @@
                             Text="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617"  
                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
-                <TextBox x:Name="textSkimmerInPackage"  Width="150" Height="20" Grid.Row="1" Grid.Column="1"  
+                <Button x:Name="textSkimmerInPackage"  Width="150" Height="20" Grid.Row="1" Grid.Column="1"
+                        HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"
+                        Content="Show skimmer sends"
+                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}" Click="textSkimmerInPackage_Click"/>
+                <!--<TextBox x:Name="textSkimmerInPackage"  Width="150" Height="20" Grid.Row="1" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                           Text="{Binding SkimmerInPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617"
-                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>-->
                 <TextBox x:Name="textPackageCreationTime"  Width="150" Height="20" Grid.Row="6" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                           Text="{Binding PackageCreationTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
