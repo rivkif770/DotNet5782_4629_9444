@@ -90,6 +90,36 @@ namespace PL
             }
         }
 
+        private void buttonConfimCollection_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bL.CollectingPackageBySkimmer(((BO.PackageToList)PackageShippedListView.SelectedItem).Id);
+                MessageBox.Show("The package collection confirmation was successful !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show($"Can not For confirmation of package collection {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ;
+            }
+        }
+
+        private void buttonConfimDelivery_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bL.DeliveryOfPackageBySkimmer(((BO.PackageToList)PackageShippedListView.SelectedItem).Id);
+                MessageBox.Show("The package was delivered successfully !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show($"Can no Unable to deliver package {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ;
+            }
+        }
+
 
         //private void buttonDeletPackage_Click(object sender, RoutedEventArgs e)
         //{
