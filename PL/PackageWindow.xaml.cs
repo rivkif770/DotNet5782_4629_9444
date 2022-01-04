@@ -50,6 +50,8 @@ namespace PL
         {
             InitializeComponent();
             bL = BlApi.BlFactory.GetBL();
+            ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
+            ComboPrioritys.ItemsSource = Enum.GetValues(typeof(BO.Priority));
             newPackage = new PackageToList();
             package1.ReceivesPackage = new CustomerInParcel();
             package1.SendPackage = new CustomerInParcel();
