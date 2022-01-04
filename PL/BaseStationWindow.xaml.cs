@@ -30,8 +30,9 @@ namespace PL
         {
             bL = BL;
             InitializeComponent();
-            baseStation1 = (BaseStation)DataContext;
-            baseStation1 = new BaseStation();
+            baseStation1.Location = new Location();
+            //baseStation1.ListOfSkimmersCharge = new List<SkimmerInCharging>();
+            DataContext = baseStation1;
         }
         public BaseStationWindow(BlApi.IBL bl, BaseStationToList baseStationToList, BaseStationListWindow baseStationListWindow)
         {
@@ -93,20 +94,6 @@ namespace PL
         }
         private void btnAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
-            //SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            //if (SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textName.BorderBrush).Color, red.Color)
-            //    || SolidColorBrush.Equals(((SolidColorBrush)textLatitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLongitude.BorderBrush).Color, red.Color)
-            //    || SolidColorBrush.Equals(((SolidColorBrush)textCharging.BorderBrush).Color, red.Color))
-            //{
-            //    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
-            //else
-            //{
-            //    BO.BaseStation baseStation = new BaseStation();
-            //    baseStation.Id = Int32.Parse(textId.Text);
-            //    baseStation.Name = textName.Text;
-            //    baseStation.Location = new Location { Latitude = double.Parse(textLatitude.Text), Longitude = double.Parse(textLongitude.Text) };
-            //    baseStation.SeveralClaimPositionsVacant = Int32.Parse(textCharging.Text);
                 try
                 {
                     BL.AddBaseStation(baseStation1);
@@ -117,7 +104,6 @@ namespace PL
                 {
                     MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            //}
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
