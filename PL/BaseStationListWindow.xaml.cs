@@ -25,15 +25,23 @@ namespace PL
         {
             bL = bl;
             InitializeComponent();
-            
-            BaseStationListView.ItemsSource = bl.GetBaseStationList();
-            
-           // DataContext = this;
+
+            //BaseStationListView.ItemsSource = bl.GetBaseStationList();
+            foreach (BO.BaseStationToList baseStationToList in bl.GetBaseStationList())
+            {
+                BaseStationListView.Items.Add(baseStationToList);
+            }
+
+            // DataContext = this;
         }
         private void RefreshListView(object ob, EventArgs ev)
         {
             BaseStationListView.Items.Refresh();
-            BaseStationListView.ItemsSource = bL.GetBaseStationList();
+            BaseStationListView.Items.Clear();
+            foreach (BO.BaseStationToList baseStationToList in bL.GetBaseStationList())
+            {
+                BaseStationListView.Items.Add(baseStationToList);
+            }
         }
         private void btnAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
@@ -53,6 +61,8 @@ namespace PL
 
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
+            if (BaseStationListView.Items != null)
+                BaseStationListView.Items.Clear();
             BaseStationListView.ItemsSource = bL.GetBaseStationList();
         }
 
@@ -64,6 +74,20 @@ namespace PL
         private void freeCharging_Click(object sender, RoutedEventArgs e)
         {
             BaseStationListView.ItemsSource = bL.GetBaseStationFreeCharging();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (BaseStationListView.Items != null)
+                BaseStationListView.Items.Clear();
+            var baseStations = bL.GetBaseStationList().GroupBy(b => b.FreeChargingstations);
+            foreach (var group in baseStations)
+            {
+                foreach (BO.BaseStationToList baseStation in group)
+                {
+                    BaseStationListView.Items.Add(baseStation);
+                }
+            }
         }
     }
 }

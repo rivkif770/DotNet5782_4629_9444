@@ -11,6 +11,7 @@
     <Window.Resources>
         <local:FalseToHidden x:Key="FalseToHidden"></local:FalseToHidden>
         <local:TrueToHidden x:Key="TrueToHidden"></local:TrueToHidden>
+        <local:EnumToInt x:Key="EnumToInt"></local:EnumToInt>
         <Style x:Key="myButtonStyle"  TargetType="Button">
 
             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -74,16 +75,16 @@
                           Text="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
                 <TextBox x:Name="BatteryStatus" Width="150" Height="25" Grid.Row="4" Grid.Column="1"  
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" BorderBrush="#FFE92617" 
-                          DataContext="{Binding BatteryStatus, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+                          Text="{Binding BatteryStatus, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
                          IsReadOnly="True"
                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="SkimmerStatus" Width="150" Height="25" Grid.Row="3" Grid.Column="1"  
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
-                          DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
+                          Text="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
                 <TextBox x:Name="IdOfPackageInTransfer" Width="150" Height="25" Grid.Row="5" Grid.Column="1" IsReadOnly="True" 
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" BorderBrush="#FFE92617"
-                          DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+                          Text="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <!--<TextBox x:Name="Location" Width="150" Height="25" Grid.Row="6" Grid.Column="1"  
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
@@ -92,12 +93,12 @@
                 <TextBox x:Name="textLatitude"  Margin="2,0,0,8" Width="50" Height="20" Grid.Row="6" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      BorderBrush="#FFE92617" ToolTip="Enter latitude" IsReadOnly="True"
-                          DataContext="{Binding Location.Latitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                          Text="{Binding Location.Latitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="textLongitude"  Margin="100,0,0,8" Width="50" Height="20" Grid.Row="6" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      BorderBrush="#FFE92617" ToolTip="Enter longitude"
-                          DataContext="{Binding Location.Longitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                          Text="{Binding Location.Longitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="True"
                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,23,0,2" FontSize="10" Grid.Row="6" Text="Latitude" TextWrapping="Wrap"
@@ -109,8 +110,9 @@
                       HorizontalAlignment="Center" VerticalAlignment="Center"
                             IsEditable="True" IsReadOnly="True"/>
                 <ComboBox Name="ComboWeightCategory" Width="150" Height="25"
-                      HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1"  
-                      IsEditable="True" IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
+                      HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Bottom" Grid.Column="1"  
+                      IsEditable="True" SelectedItem="{Binding WeightCategory, Mode=OneWayToSource}" SelectedIndex="{Binding WeightCategory, Converter={StaticResource EnumToInt}}"
+                      IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" Margin="0,0,0,6" IsDropDownOpen="True"/>
             </Grid>
             <Grid Margin="450,80,10,10">
                 <Grid.RowDefinitions>

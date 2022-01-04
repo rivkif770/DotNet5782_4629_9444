@@ -11,9 +11,9 @@
     <Window.Resources>
         <Style x:Key="myButtonStyle"  TargetType="Button">
 
-                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                    <Setter Property="Background" Value="#FFA69D9F"/>
-                    <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+            <Setter Property="Background" Value="#FFA69D9F"/>
+            <Setter Property="Cursor" Value="Hand"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#FF7A7778"/>
@@ -30,12 +30,16 @@
                         <GradientStop Color="#FF797993" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <Image x:Name="skimmerL" Margin="0,-74,454,145" >
-                    <Image.Source>
-                        <BitmapImage UriSource ="/skimmer.png"/>
-                    </Image.Source>
-                </Image>
             </Border>
+            <Image x:Name="skimmerL" Margin="0,-74,454,234" >
+                <Image.Source>
+                    <BitmapImage UriSource ="/skimmer.png"/>
+                </Image.Source>
+            </Image>
+            <Label Content="Available charging stations:" Margin="28,186,0,0" FontSize="20"
+               FontFamily="Bahnschrift Condensed"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <CheckBox Content="File list" HorizontalAlignment="Left" Margin="238,190,0,0" VerticalAlignment="Top" FontSize="20" ToolTip="List grouped by number of available charging stations" Checked="CheckBox_Checked" />
         </Grid>
         <StackPanel Orientation="Horizontal">
             <Button x:Name="btnAddBaseStation" Content="add a BaseStation" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" FontWeight="Medium"
