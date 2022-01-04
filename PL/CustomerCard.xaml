@@ -59,8 +59,8 @@
             </ListView.View>
         </ListView>
         <Button x:Name="buttonDeletPackage" Margin="408,107,240,308" Content="Delet Package" IsEnabled="{Binding ElementName=PackageShippedListView, Path=SelectedItem, Converter= {StaticResource TrueIfStatusCreated}}"
-                Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" >
-          
+                Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" Click="buttonDeletPackage_Click_1" >
+
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -118,6 +118,36 @@
                       HorizontalAlignment="Left" VerticalAlignment="Top"
                            ToolTip="Choose a Priority" IsEditable="True" IsReadOnly="True" Margin="640,271,0,0"
                   SelectedItem="{Binding priority, Mode=OneWayToSource}"/>
+
+        <Button x:Name="btnEXIT1" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Exit this window"
+                Click="Button_Click" Height="30" Margin="622,393,17,27">
+
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                    <Setter Property="Background" Value="#FF4FE899"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF20CB73"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+
+        </Button>
+
         <Button x:Name="btnADD" Content="ADD" Foreground="White" FontSize="20" FontWeight="Medium"
                         ToolTip="Add a package to the pool"  
                 Click="btnAddPackage_Click" Height="30" Margin="654,354,17,66" >

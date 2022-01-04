@@ -62,23 +62,25 @@ namespace PL
 
         private void manager_Click(object sender, RoutedEventArgs e)
         {
-            if(textPasswordM.Text== "123456789")
-            {
-                new MainWindow(mybl).Show();
-            }
-            else MessageBox.Show("The password is incorrect", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            new MainWindow(mybl).Show();
+
+            //if(textPasswordM.Text== "123456789")
+            //{
+            //    new MainWindow(mybl).Show();
+            //}
+            //else MessageBox.Show("The password is incorrect", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void textPasswordM_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var bc = new BrushConverter();
-            if (textPasswordM.Text.All(char.IsDigit) && textPasswordM.Text.Length == 9)
-            {
+        //private void textPasswordM_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    var bc = new BrushConverter();
+        //    if (textPasswordM.Text.All(char.IsDigit) && textPasswordM.Text.Length == 9)
+        //    {
 
-                textPasswordM.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
-            }
-            else textPasswordM.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
-        }
+        //        textPasswordM.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+        //    }
+        //    else textPasswordM.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        //}
 
         private void NewCustomer_Click(object sender, RoutedEventArgs e)
         {

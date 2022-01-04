@@ -66,12 +66,12 @@
                 <TextBox  x:Name="textId" Width="150" Height="25" Grid.Column="1" 
                       HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
                        TextChanged="textId_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 3-digit id number" 
-                          DataContext="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                          Text="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <TextBox x:Name="textSkimmerModel" Width="150" Height="25" Grid.Row="1" Grid.Column="1"  
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
-                          DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
+                          Text="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
                 <TextBox x:Name="BatteryStatus" Width="150" Height="25" Grid.Row="4" Grid.Column="1"  
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" BorderBrush="#FFE92617" 
                           DataContext="{Binding BatteryStatus, NotifyOnValidationError=True, ValidatesOnExceptions=True}"

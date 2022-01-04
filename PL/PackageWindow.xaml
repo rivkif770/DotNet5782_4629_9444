@@ -70,11 +70,11 @@
                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox  x:Name="textIdGet"  Width="150" Height="20" Grid.Column="1" Grid.Row="3"
                       HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"
-                           DataContext="{Binding ReceivesPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                           Text="{Binding ReceivesPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
                       TextChanged="textIdGet_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 9-digit id number Get" />
                 <TextBox x:Name="textIdSender" Height="20" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                         DataContext="{Binding SendPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                         Text="{Binding SendPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
                      TextChanged="textIdSender_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number Sender" HorizontalAlignment="Left" Width="150"/>
                 <TextBox x:Name="textId"  Width="150" Height="20" Grid.Row="0" Grid.Column="1"  
@@ -104,7 +104,7 @@
                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="textSupplyTime"  Width="150" Height="20" Grid.Row="9" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                            DataContext="{Binding SupplyTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                            Text="{Binding SupplyTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617" 
                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
 

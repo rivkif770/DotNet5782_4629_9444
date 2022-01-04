@@ -62,17 +62,17 @@ namespace PL
             }
         }
 
-            private void buttonDeletPackage_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-            }
-            catch (Exception)
-            {
+        //    private void buttonDeletPackage_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-        }
+        //        throw;
+        //    }
+        //}
 
         private void textIdGet_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -84,6 +84,24 @@ namespace PL
             }
             else textIdGet.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void buttonDeletPackage_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bL.DeletePackage(((BO.Package)PackageShippedListView.SelectedItems).Id);
+                MessageBox.Show("package successfully deleted !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex )
+            {
+                MessageBox.Show($"Can not delete package {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
 
