@@ -28,7 +28,7 @@ namespace PL
         public delegate void CloseWindow(object ob);
         public BaseStationWindow(BlApi.IBL bL)
         {
-            bL = BlApi.BlFactory.GetBL();
+            BL = BlApi.BlFactory.GetBL();
             InitializeComponent();
             baseStation1.Location = new Location();
             //baseStation1.ListOfSkimmersCharge = new List<SkimmerInCharging>();
