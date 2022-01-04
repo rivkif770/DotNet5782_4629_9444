@@ -10,6 +10,9 @@
         WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
         <local:TrueIfStatusCreated x:Key="TrueIfStatusCreated"></local:TrueIfStatusCreated>
+        <local:TrueIfStatusAssignment x:Key="TrueIfStatusAssignment"></local:TrueIfStatusAssignment>
+        <local:TrueIfStatusCollection x:Key="TrueIfStatusCollection"></local:TrueIfStatusCollection>
+
         <Style x:Key="myButtonStyle"  TargetType="Button">
 
             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -76,8 +79,8 @@
                 <Binding Converter="{StaticResource TrueIfStatusCreated}" ElementName="PackageShippedListView" Mode="OneWay" Path="SelectedItem">
             </Butten.IsEnabled>-->
         </Button>
-        <Button x:Name="buttonConfimDelivery" Margin="408,306,226,110" Content="Confim Delivery" 
-                Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35">
+        <Button x:Name="buttonConfimDelivery" Margin="408,306,226,110" Content="Confim Delivery" IsEnabled="{Binding ElementName=PackageShippedListView, Path=SelectedItem, Converter= {StaticResource TrueIfStatusCollection}}"
+                Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" Click="buttonConfimDelivery_Click">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Height="25"
@@ -90,8 +93,8 @@
             </Button.Template>
         </Button>
 
-        <Button x:Name="buttonConfimCollection" Margin="408,147,226,268" Content="Confim Collection" 
-                Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" >
+        <Button x:Name="buttonConfimCollection" Margin="408,147,226,268" Content="Confim Collection" IsEnabled="{Binding ElementName=PackageShippedListView, Path=SelectedItem, Converter= {StaticResource TrueIfStatusAssignment}}"
+                Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" Click="buttonConfimCollection_Click" >
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Height="25"

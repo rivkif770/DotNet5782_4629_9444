@@ -107,7 +107,7 @@
                            Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
 
                 <ComboBox x:Name="ComboStationID" Width="150" Height="25" Grid.Row="3" Grid.Column="1" 
-                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      HorizontalAlignment="Center" VerticalAlignment="Center" SelectedItem="{Binding SkimmerStatus, Mode=OneWayToSource}" SelectedIndex="{Binding SkimmerStatus, Converter={StaticResource EnumToInt}}"
                             IsEditable="True" IsReadOnly="True"/>
                 <ComboBox Name="ComboWeightCategory" Width="150" Height="25"
                       HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Bottom" Grid.Column="1"  

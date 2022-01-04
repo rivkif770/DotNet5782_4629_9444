@@ -35,6 +35,7 @@ namespace PL
             bL = BlApi.BlFactory.GetBL();                      
             InitializeComponent();
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
+            ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.SkimmerStatuses));
             foreach (BaseStationToList item in bL.GetBaseStationFreeCharging())
             {
                 ComboBoxItem newItem = new ComboBoxItem();
