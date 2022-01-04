@@ -20,8 +20,7 @@ namespace PL
     /// </summary>
     public partial class CustomerCard : Window
     {
-        Package package1 = new Package();
-        
+        Package package1 = new Package();    
         CustomerToList newCustomer = new CustomerToList();
         BlApi.IBL bL;
         BO.Customer customer = new BO.Customer();
@@ -37,8 +36,8 @@ namespace PL
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             ComboPrioritys.ItemsSource = Enum.GetValues(typeof(BO.Priority));
             //DataContext = customer;
-            PackageShippedListView.ItemsSource = bL.GetListOfPackageShipped(customer);
-            PackageReceivedListView.ItemsSource = bL.GetListOfPackageReceived(customer);
+            PackageShippedListView.ItemsSource = bL.GetListOfPackageShipped(customer.Id);
+            PackageReceivedListView.ItemsSource = bL.GetListOfPackageReceived(customer.Id);
             help.IsChecked = true;
             //DataContext = this;
            
@@ -52,7 +51,6 @@ namespace PL
             {
                 bL.AddPackage(package1);
                 MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
                 package1 = new Package();
 
             }
@@ -61,18 +59,6 @@ namespace PL
                 MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-        //    private void buttonDeletPackage_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
 
         private void textIdGet_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -95,7 +81,7 @@ namespace PL
         {
             try
             {
-                bL.DeletePackage(((BO.Package)PackageShippedListView.SelectedItems).Id);
+                bL.DeletePackage(((BO.PackageToList)PackageShippedListView.SelectedItem).Id);
                 MessageBox.Show("package successfully deleted !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex )

@@ -242,7 +242,7 @@ namespace BL
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
                 throw new IdDoesNotExistExceptionBL($"{ id }does exist");

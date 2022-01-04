@@ -365,9 +365,9 @@ namespace BL
                 skimmer.PackageInTransfer.priority = (Priority)(package.priority);
                 skimmer.PackageInTransfer.WeightCategory = (Weight)(package.Weight);
                 if (package.PackageCollectionTime == null)
-                    skimmer.PackageInTransfer.PackageMode = ParcelStatus.Waiting;
+                    skimmer.PackageInTransfer.PackageMode = ParcelStatus.Assignment;
                 else
-                    skimmer.PackageInTransfer.PackageMode = ParcelStatus.OnGoing;
+                    skimmer.PackageInTransfer.PackageMode = ParcelStatus.Collection;
 
                 CustomerInParcel sender = new CustomerInParcel();
                 CustomerInParcel receiver = new CustomerInParcel();
