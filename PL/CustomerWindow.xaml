@@ -62,7 +62,7 @@
                 <TextBox  x:Name="textId" Width="150" Height="24" Grid.Column="1" 
                       HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFD3CBCD"
                       TextChanged="textId_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 9-digit id number"
-                           Text="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                           Text="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" Margin="0,0,0,7"/>
                 <TextBox x:Name="textCustomerName" Width="150" Height="24" Grid.Row="1" Grid.Column="1"  
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
@@ -71,16 +71,16 @@
                 <TextBox  x:Name="textCustomerPhone" Width="150" Height="24" Grid.Row="2" Grid.Column="1" 
                       HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD"
                       TextChanged="textCustomerPhone_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 10-digit number for Customer phon " 
-                           Text="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"/>
+                           Text="{Binding Phone, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"/>
                 <TextBox x:Name="textlongitude" Width="150" Height="24" Grid.Row="3" Grid.Column="1"  
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textlongitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a number of longitude between -50 and 50"
-                          Text="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                          Text="{Binding Location.Longitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <TextBox x:Name="textLatitude" Width="150" Height="24" Grid.Row="4" Grid.Column="1"  
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textLatitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a number of Latitude between -50 and 50"
-                          Text="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
+                          Text="{Binding Location.Latitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <Expander Header="Click to show" Background="#FFD3CBCD" Grid.Column="1" Grid.Row="6" Height="24"
                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" MouseDoubleClick="PackgeListOfGetView_MouseDoubleClick">

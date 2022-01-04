@@ -37,7 +37,8 @@ namespace PL
             bL = bl;
             InitializeComponent();
             //add.Visibility = Visibility.Visible;
-            customer = (Customer)DataContext;
+            // customer = (Customer)DataContext;
+            customer.Location = new Location();
             DataContext = customer;
 
         }
