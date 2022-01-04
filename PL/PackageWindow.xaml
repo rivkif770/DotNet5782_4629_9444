@@ -35,7 +35,7 @@
 
         <Grid x:Name="add" >
             <CheckBox x:Name="help" Visibility="Hidden" />
-            <Grid x:Name="AddPackageGrid" Margin="32,25,323,157" Width="445"  >
+            <Grid x:Name="AddPackageGrid" Margin="32,25,337,23"  >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -79,27 +79,27 @@
                      TextChanged="textIdSender_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a 9-digit id number Sender" HorizontalAlignment="Left" Width="150"/>
                 <TextBox x:Name="textId"  Width="150" Height="20" Grid.Row="0" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                            DataContext="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                            Text="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617"  
                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="textSkimmerInPackage"  Width="150" Height="20" Grid.Row="1" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                          DataContext="{Binding SkimmerInPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                          Text="{Binding SkimmerInPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617"
                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="textPackageCreationTime"  Width="150" Height="20" Grid.Row="6" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                          DataContext="{Binding PackageCreationTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                          Text="{Binding PackageCreationTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617" 
                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="textAssignmentTime"  Width="150" Height="20" Grid.Row="7" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                           DataContext="{Binding AssignmentTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                           Text="{Binding AssignmentTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617"
                             Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="textCollectionTime"  Width="150" Height="20" Grid.Row="8" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                             DataContext="{Binding CollectionTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
+                             Text="{Binding CollectionTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617" 
                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBox x:Name="textSupplyTime"  Width="150" Height="20" Grid.Row="9" Grid.Column="1"  

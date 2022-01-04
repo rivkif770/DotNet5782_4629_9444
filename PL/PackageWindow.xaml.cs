@@ -30,15 +30,10 @@ namespace PL
         /// Builder to add
         /// </summary>
         /// <param name="bl"></param>
-        public PackageWindow(BlApi.IBL bl)
+        public PackageWindow()
         {
-
-            bL = bl;
-            //InitializeComponent();
-            //add.Visibility = Visibility.Visible;
-            //DataContext = this;
-            //bL = BL;
             InitializeComponent();
+            bL = BlApi.BlFactory.GetBL();
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             ComboPrioritys.ItemsSource = Enum.GetValues(typeof(BO.Priority));
             package1 = (Package)DataContext;
@@ -50,31 +45,28 @@ namespace PL
         /// <param name="bl"></param>
         /// <param name="skimmerToList"></param>
         /// <param name="skimmerListWindow"></param>
-        public PackageWindow(BlApi.IBL bl, PackageToList packageToList, PackageListWindow packageListWindow)
+        public PackageWindow(PackageToList packageToList)
         {
-            bL = bl;
-            //InitializeComponent();
-            //Updates.Visibility = Visibility.Visible;
-            //deletePackage.Visibility = Visibility.Visible;
+            InitializeComponent();
+            bL = BlApi.BlFactory.GetBL();
             newPackage = new PackageToList();
-            newPackage = packageToList;
+            //newPackage = packageToList;
             //showPackage.Text = bl.GetPackage(newPackage.Id).ToString();
 
-            InitializeComponent();
             DataContext = package1;
             help.IsChecked = true;
-            newPackage = packageToList;
+            //newPackage = packageToList;
             //newPackage = bl.GetPackage(newPackage.Id);
         }
-        public PackageWindow(BlApi.IBL bl, PackageToList packageToList)
-        {
-            bL = bl;
-            InitializeComponent();
-            Updates.Visibility = Visibility.Visible;
-            newPackage = new PackageToList();
-            newPackage = packageToList;
-            showPackage.Text = bl.GetPackage(newPackage.Id).ToString();
-        }
+        //public PackageWindow(PackageToList packageToList)
+        //{
+        //    bL = BlApi.BlFactory.GetBL();
+        //    InitializeComponent();
+        //    Updates.Visibility = Visibility.Visible;
+        //    newPackage = new PackageToList();
+        //    newPackage = packageToList;
+        //    showPackage.Text = bL.GetPackage(newPackage.Id).ToString();
+        //}
         /// <summary>
         /// Button attempt to add skimmer-checks whether all the required fields are filled correctly and sends to try to add in bl, updates the new skimmer, sends a suitable message and closes the window
         /// </summary>

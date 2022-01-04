@@ -32,9 +32,9 @@ namespace PL
         /// Builder to add
         /// </summary>
         /// <param name="bl"></param>
-        public CustomerWindow(BlApi.IBL bl)
+        public CustomerWindow()
         {
-            bL = bl;
+            bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
             //add.Visibility = Visibility.Visible;
             // customer = (Customer)DataContext;
@@ -48,9 +48,9 @@ namespace PL
         /// <param name="bl"></param>
         /// <param name="CustomerToList"></param>
         /// <param name="CustomerListWindow"></param>
-        public CustomerWindow(BlApi.IBL bl, CustomerToList customerToList, CustomerListWindow CustomerListWindow)
+        public CustomerWindow(CustomerToList customerToList, CustomerListWindow CustomerListWindow)
         {
-            bL = bl;
+            bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
             //Updates.Visibility = Visibility.Visible;
             //newCustomer = new CustomerToList();
@@ -59,9 +59,9 @@ namespace PL
             DataContext = customer;
             help.IsChecked = true;
             newCustomer = customerToList;
-            customer = bl.GetCustomer(newCustomer.Id);
-            PackgeListOfSenderView.ItemsSource = bl.GetSentParcels(customer);
-            PackgeListOfGetView.ItemsSource = bl.GetReceiveParcels(customer);
+            customer = bL.GetCustomer(newCustomer.Id);
+            PackgeListOfSenderView.ItemsSource = bL.GetSentParcels(customer);
+            PackgeListOfGetView.ItemsSource = bL.GetReceiveParcels(customer);
 
         }
         /// <summary>
@@ -243,7 +243,7 @@ namespace PL
 
                 PackageToList package = new PackageToList();
                 package.Id = ((PackageAtCustomer)PackgeListOfSenderView.SelectedItem).Id;
-                PackageWindow = new PackageWindow(bL, package);
+                PackageWindow = new PackageWindow( package);
                 PackageWindow.Closed += RefreshListSendView;
                 PackageWindow.Show();
             }
@@ -260,7 +260,7 @@ namespace PL
 
                 PackageToList package = new PackageToList();
                 package.Id = ((PackageAtCustomer)PackgeListOfGetView.SelectedItem).Id;
-                PackageWindow = new PackageWindow(bL, package);
+                PackageWindow = new PackageWindow(package);
                 PackageWindow.Closed += RefreshListGetView;
                 PackageWindow.Show();
             }

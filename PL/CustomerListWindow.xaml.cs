@@ -18,11 +18,11 @@ namespace PL
     {
         BlApi.IBL bL;
         CustomerWindow customerWindow;
-        public CustomerListWindow(BlApi.IBL bl)
+        public CustomerListWindow()
         {
             InitializeComponent();
-            CustomerListView.ItemsSource = bl.GetCustomerList();
-            bL = bl;
+            bL = BlApi.BlFactory.GetBL();
+            CustomerListView.ItemsSource = bL.GetCustomerList();
             DataContext = this;
         }
         private void RefreshListView(object ob, EventArgs ev)
@@ -42,7 +42,7 @@ namespace PL
         /// <param name="e"></param>
         private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
         {
-            customerWindow = new CustomerWindow(bL);
+            customerWindow = new CustomerWindow();
             customerWindow.Closed += RefreshListView;
             customerWindow.Show();
         }
@@ -68,7 +68,7 @@ namespace PL
         {
             if ((BO.CustomerToList)CustomerListView.SelectedItem != null)
             {
-                customerWindow = new CustomerWindow(bL, (BO.CustomerToList)CustomerListView.SelectedItem, this);
+                customerWindow = new CustomerWindow((BO.CustomerToList)CustomerListView.SelectedItem, this);
                 customerWindow.Closed += RefreshListView;
                 customerWindow.Show();
             }

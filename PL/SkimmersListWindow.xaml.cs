@@ -25,16 +25,16 @@ namespace PL
         SkimmerWindow skimmerWindow;
         static Weight? weightFilter;
         static SkimmerStatuses? statusesFilter;
-        public SkimmerListWindow(BlApi.IBL bl)
+        public SkimmerListWindow()
         {
             InitializeComponent();
-            foreach (SkimmerToList skimmer in bl.GetSkimmerList())
+            foreach (SkimmerToList skimmer in bL.GetSkimmerList())
             {
                 SkimmerListView.Items.Add(skimmer);}
             //SkimmerListView.ItemsSource = bl.GetSkimmerList();
             //StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.SkimmerStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.Weight));
-            bL = bl;
+            bL = BlApi.BlFactory.GetBL();
             DataContext = this;
         }
 
@@ -118,7 +118,7 @@ namespace PL
         {
             if((BO.SkimmerToList)SkimmerListView.SelectedItem != null)
             {
-                skimmerWindow = new SkimmerWindow(bL, (BO.SkimmerToList)SkimmerListView.SelectedItem);
+                skimmerWindow = new SkimmerWindow((BO.SkimmerToList)SkimmerListView.SelectedItem);
                 skimmerWindow.Closed += RefreshListView;
                 skimmerWindow.Show();             
             }
@@ -130,7 +130,7 @@ namespace PL
         /// <param name="e"></param>
         private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
         {
-            skimmerWindow = new SkimmerWindow(bL);
+            skimmerWindow = new SkimmerWindow();
             skimmerWindow.Closed += RefreshListView;
             skimmerWindow.Show();
         }

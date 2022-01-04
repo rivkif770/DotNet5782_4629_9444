@@ -25,11 +25,11 @@ namespace PL
         static Weight? weightFilter;
         static Priority? PriorityFilter;
         static ParcelStatus? statusesFilter;
-        public PackageListWindow(BlApi.IBL bl)
+        public PackageListWindow()
         {
             InitializeComponent();
-            PackageListView.ItemsSource = bl.GetPackageList();
-            bL = bl;
+            bL = BlApi.BlFactory.GetBL();
+            PackageListView.ItemsSource = bL.GetPackageList();
             ComboBoxItem newItem = new ComboBoxItem();
             comboSelectorCustomer.Items.Add(newItem.Content = "Customer sends");
             comboSelectorCustomer.Items.Add(newItem.Content = "Customer receives");
@@ -51,7 +51,7 @@ namespace PL
         {
             if ((BO.PackageToList)PackageListView.SelectedItem != null)
             {
-                packageWindow = new PackageWindow(bL, (BO.PackageToList)PackageListView.SelectedItem, this);
+                packageWindow = new PackageWindow((BO.PackageToList)PackageListView.SelectedItem);
                 packageWindow.Closed += RefreshListView;
                 packageWindow.Show();
             }
@@ -105,7 +105,7 @@ namespace PL
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            packageWindow = new PackageWindow(bL);
+            packageWindow = new PackageWindow();
             packageWindow.Closed += RefreshListView;
             packageWindow.Show();
         }

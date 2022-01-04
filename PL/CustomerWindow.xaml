@@ -55,9 +55,9 @@
                 <Label Content="Customer Phone" Grid.Row="2" FontFamily="Bahnschrift Condensed" FontSize="30"/>
                 <Label Content="longitude" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="30" />
                 <Label Content="latitude" Grid.Row="4" FontFamily="Bahnschrift Condensed" FontSize="30"/>
-                <Label Content="List packages Sent" Grid.Row="5" FontFamily="List of packages Sent" FontSize="25"
+                <Label Content="List packages Sent" Grid.Row="5" FontFamily="Bahnschrift Condensed" FontSize="30"
                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" FontWeight="Bold" />
-                <Label Content="List packages Receive" Grid.Row="6" FontFamily="List of packages Receive" FontSize="25"
+                <Label Content="List packages Receive" Grid.Row="6" FontFamily="Bahnschrift Condensed" FontSize="30"
                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" FontWeight="Bold"/>
                 <TextBox  x:Name="textId" Width="150" Height="24" Grid.Column="1" 
                       HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFD3CBCD"

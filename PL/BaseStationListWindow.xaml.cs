@@ -21,13 +21,13 @@ namespace PL
     {
         BlApi.IBL bL;
         BaseStationWindow baseStationWindow;
-        public BaseStationListWindow(BlApi.IBL bl)
+        public BaseStationListWindow()
         {
-            bL = bl;
+            bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
 
             //BaseStationListView.ItemsSource = bl.GetBaseStationList();
-            foreach (BO.BaseStationToList baseStationToList in bl.GetBaseStationList())
+            foreach (BO.BaseStationToList baseStationToList in bL.GetBaseStationList())
             {
                 BaseStationListView.Items.Add(baseStationToList);
             }
@@ -45,7 +45,7 @@ namespace PL
         }
         private void btnAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
-            baseStationWindow = new BaseStationWindow(bL);
+            baseStationWindow = new BaseStationWindow();
             baseStationWindow.Closed += RefreshListView;
             baseStationWindow.Show();
         }
@@ -53,7 +53,7 @@ namespace PL
         {
             if ((BO.BaseStationToList)BaseStationListView.SelectedItem != null)
             {
-                baseStationWindow = new BaseStationWindow(bL, (BO.BaseStationToList)BaseStationListView.SelectedItem, this);
+                baseStationWindow = new BaseStationWindow((BO.BaseStationToList)BaseStationListView.SelectedItem, this);
                 baseStationWindow.Closed += RefreshListView;
                 baseStationWindow.Show();
             }

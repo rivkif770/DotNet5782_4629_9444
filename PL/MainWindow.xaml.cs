@@ -37,7 +37,7 @@ namespace PL
 
         private void btSkimmerListView_Click(object sender, RoutedEventArgs e)
         {
-            new SkimmerListWindow(mybl).Show();
+            new SkimmerListWindow().Show();
         }
 
         private void EXIT_Click(object sender, RoutedEventArgs e)
@@ -47,17 +47,17 @@ namespace PL
 
         private void btCustomerListView_Click(object sender, RoutedEventArgs e)
         {
-            new CustomerListWindow(mybl).Show();
+            new CustomerListWindow().Show();
         }
 
         private void BaseStation_Click(object sender, RoutedEventArgs e)
         {
-            new BaseStationListWindow(mybl).Show();
+            new BaseStationListWindow().Show();
         }
 
         private void Package_Click(object sender, RoutedEventArgs e)
         {
-            new PackageListWindow(mybl).Show();
+            new PackageListWindow().Show();
         }
 
         private void manager_Click(object sender, RoutedEventArgs e)
@@ -84,7 +84,7 @@ namespace PL
 
         private void NewCustomer_Click(object sender, RoutedEventArgs e)
         {
-            new CustomerWindow(mybl).Show();
+            new CustomerWindow().Show();
         }
         private void Login_Click(object sender, RoutedEventArgs e)
         {

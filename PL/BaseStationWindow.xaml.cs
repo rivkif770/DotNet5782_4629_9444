@@ -22,27 +22,27 @@ namespace PL
     {
         BaseStationToList newBaseStation = new BaseStationToList();
         BaseStation baseStation1 = new BaseStation();
-        BlApi.IBL BL;
+        BlApi.IBL bL;
         private SkimmerWindow skimmerWindow;
 
         public delegate void CloseWindow(object ob);
-        public BaseStationWindow(BlApi.IBL bL)
+        public BaseStationWindow()
         {
-            BL = BlApi.BlFactory.GetBL();
+            bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
             baseStation1.Location = new Location();
             //baseStation1.ListOfSkimmersCharge = new List<SkimmerInCharging>();
             DataContext = baseStation1;
         }
-        public BaseStationWindow(BlApi.IBL bl, BaseStationToList baseStationToList, BaseStationListWindow baseStationListWindow)
+        public BaseStationWindow(BaseStationToList baseStationToList, BaseStationListWindow baseStationListWindow)
         {
-            BL = bl;
+            bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
             help.IsChecked = true;
             newBaseStation = baseStationToList;
-            baseStation1 = bl.GetBeseStation(newBaseStation.Id);
+            baseStation1 = bL.GetBeseStation(newBaseStation.Id);
             DataContext = baseStation1;
-            SkimmerListOfChargeView.ItemsSource = bl.GetListOfSkimmersCharge(baseStation1);
+            SkimmerListOfChargeView.ItemsSource = bL.GetListOfSkimmersCharge(baseStation1);
         }
 
         private void textId_TextChanged(object sender, TextChangedEventArgs e)
@@ -96,7 +96,7 @@ namespace PL
         {
                 try
                 {
-                BL.AddBaseStation(baseStation1);
+                bL.AddBaseStation(baseStation1);
                     MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                 }
@@ -127,7 +127,7 @@ namespace PL
             }
             try
             {
-                BL.UpdateBaseStation(newBaseStation.Id,textName.Text, textCharging.Text);
+                bL.UpdateBaseStation(newBaseStation.Id,textName.Text, textCharging.Text);
                 MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 //this.Close();
             }
@@ -154,7 +154,7 @@ namespace PL
         //}
         private void RefreshListView(object ob, EventArgs ev)
         {
-            SkimmerListOfChargeView.ItemsSource = BL.GetListOfSkimmersCharge(baseStation1);
+            SkimmerListOfChargeView.ItemsSource = bL.GetListOfSkimmersCharge(baseStation1);
         }
         private void SkimmerListOfChargeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -163,7 +163,7 @@ namespace PL
                 
                 SkimmerToList skimmer = new SkimmerToList();
                 skimmer.Id = ((SkimmerInCharging)SkimmerListOfChargeView.SelectedItem).Id;
-                skimmerWindow = new SkimmerWindow(BL, skimmer);
+                skimmerWindow = new SkimmerWindow(skimmer);
                 skimmerWindow.Closed += RefreshListView;
                 skimmerWindow.Show();
             }
