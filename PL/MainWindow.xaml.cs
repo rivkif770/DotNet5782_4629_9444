@@ -92,6 +92,8 @@ namespace PL
             {
                 Customer customer = mybl.GetCustomerListID(Int32.Parse(textPassword.Text), textName.Text);
                 new CustomerCard( customer).Show();
+                textName.Text = "";
+                textPassword.Text = "";
                 return;
             }
             catch (Exception )
