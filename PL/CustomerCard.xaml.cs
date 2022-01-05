@@ -45,6 +45,7 @@ namespace PL
             package1.SendPackage.Name = customer.Name;
             DataContext = package1;
         }
+
         private void btnAddPackage_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -94,7 +95,9 @@ namespace PL
         {
             try
             {
-                bL.CollectingPackageBySkimmer(((BO.PackageToList)PackageShippedListView.SelectedItem).Id);
+                int id = bL.GetPackage(((BO.PackageToList)PackageShippedListView.SelectedItem).Id).SkimmerInPackage.Id;
+                //bL.CollectingPackageBySkimmer(((BO.PackageToList)PackageShippedListView.SelectedItem).Id);
+                bL.CollectingPackageBySkimmer(id);
                 MessageBox.Show("The package collection confirmation was successful !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
@@ -109,7 +112,9 @@ namespace PL
         {
             try
             {
-                bL.DeliveryOfPackageBySkimmer(((BO.PackageToList)PackageShippedListView.SelectedItem).Id);
+                int id = bL.GetPackage(((BO.PackageToList)PackageShippedListView.SelectedItem).Id).SkimmerInPackage.Id;
+                //bL.DeliveryOfPackageBySkimmer(((BO.PackageToList)PackageShippedListView.SelectedItem).Id);
+                bL.DeliveryOfPackageBySkimmer(id);
                 MessageBox.Show("The package was delivered successfully !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
