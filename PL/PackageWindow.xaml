@@ -11,6 +11,7 @@
     <Window.Resources>
         <local:FalseToHidden x:Key="FalseToHidden"></local:FalseToHidden>
         <local:TrueToHidden x:Key="TrueToHidden"></local:TrueToHidden>
+        <local:EnumToInt x:Key="EnumToInt"></local:EnumToInt>
         <Style x:Key="myButtonStyle"  TargetType="Button">
             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
             <Setter Property="Background" Value="#FFA69D9F"/>
@@ -84,13 +85,8 @@
                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <Button x:Name="textSkimmerInPackage"  Width="150" Height="20" Grid.Row="1" Grid.Column="1"
                         HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"
-                        Content="Show skimmer sends"
-                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}" Click="textSkimmerInPackage_Click"/>
-                <!--<TextBox x:Name="textSkimmerInPackage"  Width="150" Height="20" Grid.Row="1" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                          Text="{Binding SkimmerInPackage, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
-                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617"
-                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>-->
+                        Content="Show skimmer sends "
+                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" Click="textSkimmerInPackage_Click"/>
                 <TextBox x:Name="textPackageCreationTime"  Width="150" Height="20" Grid.Row="6" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                           Text="{Binding PackageCreationTime, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
@@ -114,10 +110,13 @@
 
                 <ComboBox x:Name="ComboPrioritys" Width="150" Height="20" Grid.Row="5" Grid.Column="1"  
                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                           ToolTip="Choose a Priority" IsEditable="True" IsReadOnly="True" />
+                           ToolTip="Choose a Priority" IsReadOnly="True" 
+                          IsEditable="True" SelectedItem="{Binding WeightCategory, Mode=OneWay}" 
+                          SelectedIndex="{Binding WeightCategory, Converter={StaticResource EnumToInt}}"/>
                 <ComboBox Name="ComboWeightCategory"  Width="150" Height="20"
                       HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Grid.Column="1" ToolTip="Choose Weight"  
-                      IsEditable="True" IsReadOnly="True"/>
+                      IsEditable="True" SelectedItem="{Binding WeightCategory, Mode=OneWay}" 
+                          SelectedIndex="{Binding WeightCategory, Converter={StaticResource EnumToInt}}"/>
             </Grid>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnDelete" Content="Delete" Margin="492,300,0,0" Foreground="White" FontSize="20" FontWeight="Medium"
