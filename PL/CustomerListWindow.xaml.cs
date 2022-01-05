@@ -68,7 +68,7 @@ namespace PL
         {
             if ((BO.CustomerToList)CustomerListView.SelectedItem != null)
             {
-                customerWindow = new CustomerWindow((BO.CustomerToList)CustomerListView.SelectedItem, this);
+                customerWindow = new CustomerWindow((BO.CustomerToList)CustomerListView.SelectedItem);
                 customerWindow.Closed += RefreshListView;
                 customerWindow.Show();
             }

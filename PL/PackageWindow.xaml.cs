@@ -154,7 +154,7 @@ namespace PL
                 MessageBox.Show("The package was associated", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         
-        private void textSkimmerInPackage_Click(object sender, RoutedEventArgs e)
+        private void SkimmerInPackage_Click(object sender, RoutedEventArgs e)
         {
             if(package1.SkimmerInPackage == null)
                 MessageBox.Show("There is no associated skimmer", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);

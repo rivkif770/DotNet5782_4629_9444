@@ -312,5 +312,18 @@ namespace PL
             }
         }
 
+        private void IdOfPackageInTransfer_Click(object sender, RoutedEventArgs e)
+        {
+            if (skimmer1.PackageInTransfer == null)
+                MessageBox.Show("No package associated", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+            {
+                BO.PackageToList package = new PackageToList();
+                package.Id = skimmer1.PackageInTransfer.Id;
+                packageWindow = new PackageWindow(package);
+                packageWindow.Close();
+                packageWindow.Show();
+            }
+        }
     }
 }

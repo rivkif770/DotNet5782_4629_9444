@@ -173,5 +173,14 @@ namespace PL
             //PropertyGroupDescription groupDescription = new PropertyGroupDescription("SkimmerStatus");
             //view.GroupDescriptions.Add(groupDescription);
         }
+
+        private void status_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SkimmerListView.Items.Clear();
+            foreach (SkimmerToList skimmer in bL.GetSkimmerList())
+            {
+                SkimmerListView.Items.Add(skimmer);
+            }
+        }
     }
 }

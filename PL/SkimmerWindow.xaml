@@ -57,7 +57,7 @@
                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <Label Content="Battery Status" Grid.Row="4" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"
                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
-                <Label Content="Id Of Package In Transfer" Grid.Row="5" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"
+                <Label Content="Package In Transfer" Grid.Row="5" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"
                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <Label Content="Location" Grid.Row="6" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"
                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
@@ -82,14 +82,13 @@
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
                           Text="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
-                <TextBox x:Name="IdOfPackageInTransfer" Width="150" Height="25" Grid.Row="5" Grid.Column="1" IsReadOnly="True" 
+                <Button x:Name="IdOfPackageInTransfer" Content="View package" Width="150" Height="25" Grid.Row="5" Grid.Column="1"
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD"
+                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" Click="IdOfPackageInTransfer_Click"/>
+                <!--<TextBox x:Name="IdOfPackageInTransfr" Width="150" Height="25" Grid.Row="5" Grid.Column="1" IsReadOnly="True" 
                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" BorderBrush="#FFE92617"
                           Text="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
-                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
-                <!--<TextBox x:Name="Location" Width="150" Height="25" Grid.Row="6" Grid.Column="1"  
-                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
-                          DataContext="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>-->
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>-->
                 <TextBox x:Name="textLatitude"  Margin="2,0,0,8" Width="50" Height="20" Grid.Row="6" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      BorderBrush="#FFE92617" ToolTip="Enter latitude" IsReadOnly="True"
@@ -112,7 +111,7 @@
                             IsEditable="True" IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <ComboBox Name="ComboWeightCategory" Width="150" Height="25"
                       HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" Grid.Column="1"  
-                      IsEditable="True" SelectedItem="{Binding WeightCategory, Mode=OneWay}" 
+                      IsEditable="True" SelectedItem="{Binding WeightCategory, Mode=OneWay}"
                           SelectedIndex="{Binding WeightCategory, Converter={StaticResource EnumToInt}}"
                       IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" Margin="0,6,0,0" IsDropDownOpen="True"/>
             </Grid>

@@ -48,15 +48,11 @@ namespace PL
         /// <param name="bl"></param>
         /// <param name="CustomerToList"></param>
         /// <param name="CustomerListWindow"></param>
-        public CustomerWindow(CustomerToList customerToList, CustomerListWindow CustomerListWindow)
+        public CustomerWindow(CustomerToList customerToList)
         {
             bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
-            //Updates.Visibility = Visibility.Visible;
-            //newCustomer = new CustomerToList();
-            //newCustomer = customerToList;
-            //showCustomer.Text = bl.GetCustomer(newCustomer.Id).ToString();
-            DataContext = customer;
+            DataContext = bL.GetCustomer(customerToList.Id);
             help.IsChecked = true;
             newCustomer = customerToList;
             customer = bL.GetCustomer(newCustomer.Id);
@@ -153,9 +149,8 @@ namespace PL
         private void textlongitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textlongitude.Text.All(char.IsDigit) && Int32.Parse(textlongitude.Text) < 50 && Int32.Parse(textlongitude.Text) > (-50) && Int32.Parse(textlongitude.Text) != 0)
+            if (textlongitude.Text != "" && textlongitude.Text.All(char.IsDigit) && Int32.Parse(textlongitude.Text) < 50 && Int32.Parse(textlongitude.Text) > (-50) && Int32.Parse(textlongitude.Text) != 0)
             {
-
                 textlongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
             else textlongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
@@ -164,7 +159,7 @@ namespace PL
         private void textLatitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textLatitude.Text.All(char.IsDigit) && Int32.Parse(textlongitude.Text) < 50 && Int32.Parse(textlongitude.Text) > (-50) && Int32.Parse(textlongitude.Text) != 0)
+            if (textLatitude.Text != "" && textLatitude.Text.All(char.IsDigit) && Int32.Parse(textlongitude.Text) < 50 && Int32.Parse(textlongitude.Text) > (-50) && Int32.Parse(textlongitude.Text) != 0)
             {
 
                 textLatitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
@@ -189,7 +184,7 @@ namespace PL
         private void Button_Update(object sender, RoutedEventArgs e)
         {
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            if (SolidColorBrush.Equals(((SolidColorBrush)textUpdateName.BorderBrush).Color, red.Color) && SolidColorBrush.Equals(((SolidColorBrush)textUpdatePhon.BorderBrush).Color, red.Color))
+            if (SolidColorBrush.Equals(((SolidColorBrush)textCustomerName.BorderBrush).Color, red.Color) && SolidColorBrush.Equals(((SolidColorBrush)textCustomerPhone.BorderBrush).Color, red.Color))
                 MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
@@ -199,8 +194,6 @@ namespace PL
                 {
                     bL.UpdateCustomerData(newCustomer.Id, name, phon);
                     MessageBox.Show("The update was successful", "Updated a Customer Data", MessageBoxButton.OK, MessageBoxImage.Information);
-                    //CloseWindowEvent(this);
-                    //this.Close();
                 }
                 catch (Exception ex)
                 {
