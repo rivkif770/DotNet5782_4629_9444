@@ -53,7 +53,7 @@ namespace PL
                 bL.AddPackage(package1);
                 MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 package1 = new Package();
-
+                PackageShippedListView.ItemsSource = bL.GetListOfPackageShipped(customer.Id);
             }
             catch (Exception ex)
             { 
@@ -84,6 +84,7 @@ namespace PL
             {
                 bL.DeletePackage(((BO.PackageToList)PackageShippedListView.SelectedItem).Id);
                 MessageBox.Show("package successfully deleted !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                PackageShippedListView.ItemsSource= bL.GetListOfPackageShipped(customer.Id);
             }
             catch (Exception ex )
             {
@@ -99,6 +100,7 @@ namespace PL
                 //bL.CollectingPackageBySkimmer(((BO.PackageToList)PackageShippedListView.SelectedItem).Id);
                 bL.CollectingPackageBySkimmer(id);
                 MessageBox.Show("The package collection confirmation was successful !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                PackageShippedListView.ItemsSource = bL.GetListOfPackageShipped(customer.Id);
             }
             catch (Exception ex)
             {
@@ -112,10 +114,11 @@ namespace PL
         {
             try
             {
-                int id = bL.GetPackage(((BO.PackageToList)PackageShippedListView.SelectedItem).Id).SkimmerInPackage.Id;
+                int id = bL.GetPackage(((BO.PackageToList)PackageReceivedListView.SelectedItem).Id).SkimmerInPackage.Id;
                 //bL.DeliveryOfPackageBySkimmer(((BO.PackageToList)PackageShippedListView.SelectedItem).Id);
                 bL.DeliveryOfPackageBySkimmer(id);
-                MessageBox.Show("The package was delivered successfully !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("The package was delivered successfully !", "S  uccess", MessageBoxButton.OK, MessageBoxImage.Information);
+                PackageReceivedListView.ItemsSource = bL.GetListOfPackageShipped(customer.Id);
             }
             catch (Exception ex)
             {

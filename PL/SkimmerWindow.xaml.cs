@@ -35,7 +35,7 @@ namespace PL
             bL = BlApi.BlFactory.GetBL();                      
             InitializeComponent();
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
-            ComboStationID.ItemsSource = Enum.GetValues(typeof(BO.SkimmerStatuses));
+            //ComboStationID.ItemsSource = Enum.GetValues(typeof(BO.SkimmerStatuses));
             foreach (BaseStationToList item in bL.GetBaseStationFreeCharging())
             {
                 ComboBoxItem newItem = new ComboBoxItem();
@@ -334,6 +334,16 @@ namespace PL
             {
                 MessageBox.Show($"No package in transfer", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void ComboStationID_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ComboWeightCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
