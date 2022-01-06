@@ -118,7 +118,7 @@ namespace PL
                 //bL.DeliveryOfPackageBySkimmer(((BO.PackageToList)PackageShippedListView.SelectedItem).Id);
                 bL.DeliveryOfPackageBySkimmer(id);
                 MessageBox.Show("The package was delivered successfully !", "S  uccess", MessageBoxButton.OK, MessageBoxImage.Information);
-                PackageReceivedListView.ItemsSource = bL.GetListOfPackageShipped(customer.Id);
+                PackageReceivedListView.ItemsSource = bL.GetListOfPackageReceived(customer.Id);
             }
             catch (Exception ex)
             {
