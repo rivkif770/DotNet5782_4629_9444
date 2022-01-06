@@ -243,7 +243,7 @@ namespace PL
         }
         private void RefreshListGetView(object ob, EventArgs ev)
         {
-            PackgeListOfGetView.ItemsSource = bL.GetListOfPackageShipped(customer.Id);
+            PackgeListOfGetView.ItemsSource = bL.GetListOfPackageReceived(customer.Id);
         }
 
         private void PackgeListOfGetView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -55,6 +55,7 @@ namespace PL
             package1.ReceivesPackage = new CustomerInParcel();
             package1.SendPackage = new CustomerInParcel();
             DataContext = bL.GetPackage(packageToList.Id);
+            package1 = bL.GetPackage(packageToList.Id);
             help.IsChecked = true;
         }
         /// <summary>
@@ -145,15 +146,16 @@ namespace PL
         
         private void SkimmerInPackage_Click(object sender, RoutedEventArgs e)
         {
-            if(package1.SkimmerInPackage == null)
-                MessageBox.Show("There is no associated skimmer", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
-            else
+            if (package1.SkimmerInPackage != null)
             {
                 SkimmerToList skimmer = new SkimmerToList();
                 skimmer.Id = package1.SkimmerInPackage.Id;
                 skimmerWindow = new SkimmerWindow(skimmer);
-                skimmerWindow.Close();
                 skimmerWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("There is no associated skimmer", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

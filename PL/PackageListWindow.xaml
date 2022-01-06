@@ -9,6 +9,7 @@
     AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
+        <local:TrueToFalse x:Key="TrueToFalse"></local:TrueToFalse>
         <Style x:Key="myButtonStyle"  TargetType="Button">
 
             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -95,8 +96,8 @@
         <ComboBox Name="comboStatus" Text="Choose a Status" Margin="169,240,0,0" Width="117" Height="25"
                       HorizontalAlignment="Left" VerticalAlignment="Top" 
                       ToolTip="Choose a Status"  IsEditable="True" IsReadOnly="True" SelectionChanged="comboStatus_SelectionChanged" />
-        <CheckBox x:Name="geter" Content="List view by recipient" HorizontalAlignment="Left" Margin="105,315,0,0" VerticalAlignment="Top" FontSize="15" ToolTip="List grouped by number of available charging stations" Checked="Geter_CheckBox_Checked" Unchecked="GeterAndSender_CheckBox_Unchecked"/>
-        <CheckBox x:Name="sender" Content="List view by sender" HorizontalAlignment="Left" Margin="105,290,0,0" VerticalAlignment="Top" FontSize="15" ToolTip="List grouped by number of available charging stations" Checked="Sender_CheckBox_Checked" Unchecked="GeterAndSender_CheckBox_Unchecked"/>
+        <CheckBox x:Name="geter" Content="List view by recipient" HorizontalAlignment="Left" Margin="105,315,0,0" VerticalAlignment="Top" FontSize="15" ToolTip="List grouped by recipient" Checked="Geter_CheckBox_Checked" Unchecked="GeterAndSender_CheckBox_Unchecked" IsEnabled="{Binding ElementName=send, Path=IsChecked, Converter= {StaticResource TrueToFalse}}"/>
+        <CheckBox x:Name="send" Content="List view by sender" HorizontalAlignment="Left" Margin="105,290 ,0,0" VerticalAlignment="Top" FontSize="15" ToolTip="List grouped by sender" Checked="Sender_CheckBox_Checked" Unchecked="GeterAndSender_CheckBox_Unchecked" IsEnabled="{Binding ElementName=geter, Path=IsChecked, Converter= {StaticResource TrueToFalse}}"/>
         <!--<Label Content="List view by recipient:" Margin="68,137,0,0" FontSize="20"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>

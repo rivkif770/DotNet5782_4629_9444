@@ -61,6 +61,7 @@ namespace PL
             DataContext = bL.GetSkimmerr(skimmerToList.Id);
             newSkimmer = new SkimmerToList();
             newSkimmer = skimmerToList;
+            skimmer1 = bL.GetSkimmerr(skimmerToList.Id);
             //showSkimmer.Text = bl.GetSkimmerr(newSkimmer.Id).ToString();
         }
         /// <summary>
@@ -314,11 +315,9 @@ namespace PL
 
         private void IdOfPackageInTransfer_Click(object sender, RoutedEventArgs e)
         {
-            if (newSkimmer.PackageNumberTransferred != 0)
+            if (skimmer1.PackageInTransfer.Id != 0)
             {
-                //skimmerWindow.Closed += RefreshListView;
-                //skimmerWindow.Show();
-                Package package = bL.GetPackage(newSkimmer.PackageNumberTransferred);
+                Package package = bL.GetPackage(skimmer1.PackageInTransfer.Id);
                 PackageToList packageToList = new PackageToList
                 {
                     Id = package.Id,

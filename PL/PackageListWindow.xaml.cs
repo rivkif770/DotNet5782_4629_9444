@@ -44,7 +44,14 @@ namespace PL
         private void RefreshListView(object ob, EventArgs ev)
         {
             PackageListView.Items.Refresh();
-            if (comboWeight.SelectedItem == null && comboStatus.SelectedItem == null && comboPriority.SelectedItem == null) PackageListView.ItemsSource = bL.GetPackageList();
+            if (comboWeight.SelectedItem == null && comboStatus.SelectedItem == null && comboPriority.SelectedItem == null)
+            {
+                PackageListView.Items.Clear();
+                foreach (BO.PackageToList packageToList in bL.GetPackageList())
+                {
+                    PackageListView.Items.Add(packageToList);
+                }
+            }
             if (comboWeight.SelectedItem != null) comboWeight_SelectionChanged(this, null);
             if (comboStatus.SelectedItem != null) comboStatus_SelectionChanged(this, null);
             if (comboPriority.SelectedItem != null) comboPriority_SelectionChanged(this, null);
@@ -80,13 +87,25 @@ namespace PL
             }
             else
             {
+                if (geter.IsChecked == true) geter.IsChecked = false;
+                else send.IsChecked = false;
                 if (comboSelectorCustomer.SelectedItem.ToString() == "Customer sends")
                 {
-                    PackageListView.ItemsSource = bL.GetPackageList(x => x.CustomerNameSends == textSelectorCustomer.Text);
+                    PackageListView.Items.Clear();
+                    foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.CustomerNameSends == textSelectorCustomer.Text))
+                    {
+                        PackageListView.Items.Add(packageToList);
+                    }
+                    //PackageListView.ItemsSource = bL.GetPackageList(x => x.CustomerNameSends == textSelectorCustomer.Text);
                 }
                 else
                 {
-                    PackageListView.ItemsSource = bL.GetPackageList(x => x.CustomerNameGets == textSelectorCustomer.Text);
+                    PackageListView.Items.Clear();
+                    foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.CustomerNameGets == textSelectorCustomer.Text))
+                    {
+                        PackageListView.Items.Add(packageToList);
+                    }
+                    //PackageListView.ItemsSource = bL.GetPackageList(x => x.CustomerNameGets == textSelectorCustomer.Text);
                 }
             }
         }
@@ -98,6 +117,7 @@ namespace PL
 
         private void butClear_Click(object sender, RoutedEventArgs e)
         {
+            PackageListView.Items.Clear();
             foreach (BO.PackageToList packageToList in bL.GetPackageList())
             {
                 PackageListView.Items.Add(packageToList);
@@ -106,6 +126,8 @@ namespace PL
             comboStatus.SelectedIndex = -1;
             comboPriority.SelectedIndex = -1;
             comboSelectorCustomer.SelectedIndex = -1;
+            if (geter.IsChecked == true) geter.IsChecked = false;
+            else send.IsChecked = false;
             textSelectorCustomer.Clear();
         }
 
@@ -118,6 +140,8 @@ namespace PL
 
         private void comboWeight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (geter.IsChecked == true) geter.IsChecked = false;
+            else send.IsChecked = false;
             if (PackageListView.Items.Count != 0)
             {
                 PackageListView.Items.Clear();
@@ -175,7 +199,9 @@ namespace PL
 
         private void comboPriority_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(PackageListView.Items!=null)
+            if (geter.IsChecked == true) geter.IsChecked = false;
+            else send.IsChecked = false;
+            if (PackageListView.Items!=null)
                PackageListView.Items.Clear();
             if (comboPriority.SelectedIndex != -1)
             {
@@ -230,6 +256,8 @@ namespace PL
 
         private void comboStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (geter.IsChecked == true) geter.IsChecked = false;
+            else send.IsChecked = false;
             if (PackageListView.Items != null)
                 PackageListView.Items.Clear();
             if (comboStatus.SelectedIndex != -1)
