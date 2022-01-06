@@ -93,7 +93,6 @@ namespace PL
             var bc = new BrushConverter();
             if (textId.Text.All(char.IsDigit) && textId.Text.Length < 4 && textId.Text.Length > 2)
             {
-               
                 textId.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
             else textId.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
@@ -334,16 +333,6 @@ namespace PL
             {
                 MessageBox.Show($"No package in transfer", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void ComboStationID_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void ComboWeightCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

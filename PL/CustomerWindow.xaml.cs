@@ -226,12 +226,12 @@ namespace PL
         }
         private void RefreshListSendView(object ob, EventArgs ev)
         {
-            PackgeListOfSenderView.ItemsSource = bL.GetListOfPackageShipped(customer.Id);
+            PackgeListOfSenderView.ItemsSource = bL.GetSentParcels(customer);
         }
         
         private void PackgeListOfSenderView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if ((BO.PackageAtCustomer)PackgeListOfSenderView.SelectedItem != null)
+            if (PackgeListOfSenderView.SelectedItem != null)
             {
 
                 PackageToList package = new PackageToList();
@@ -243,7 +243,7 @@ namespace PL
         }
         private void RefreshListGetView(object ob, EventArgs ev)
         {
-            PackgeListOfGetView.ItemsSource = bL.GetListOfPackageReceived(customer.Id);
+            PackgeListOfGetView.ItemsSource = bL.GetReceiveParcels(customer);
         }
 
         private void PackgeListOfGetView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
