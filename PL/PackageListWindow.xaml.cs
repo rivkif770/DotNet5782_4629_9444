@@ -117,14 +117,14 @@ namespace PL
 
         private void butClear_Click(object sender, RoutedEventArgs e)
         {
+            comboWeight.SelectedIndex = -1;
+            comboStatus.SelectedIndex = -1;
+            comboPriority.SelectedIndex = -1;
             PackageListView.Items.Clear();
             foreach (BO.PackageToList packageToList in bL.GetPackageList())
             {
                 PackageListView.Items.Add(packageToList);
             }
-            comboWeight.SelectedIndex = -1;
-            comboStatus.SelectedIndex = -1;
-            comboPriority.SelectedIndex = -1;
             comboSelectorCustomer.SelectedIndex = -1;
             if (geter.IsChecked == true) geter.IsChecked = false;
             else send.IsChecked = false;
