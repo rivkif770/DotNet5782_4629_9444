@@ -79,7 +79,7 @@
                 <Binding Converter="{StaticResource TrueIfStatusCreated}" ElementName="PackageShippedListView" Mode="OneWay" Path="SelectedItem">
             </Butten.IsEnabled>-->
         </Button>
-        <Button x:Name="buttonConfimDelivery" Margin="408,306,226,110" Content="Confim Delivery" IsEnabled="{Binding ElementName=PackageShippedListView, Path=SelectedItem, Converter= {StaticResource TrueIfStatusCollection}}"
+        <Button x:Name="buttonConfimDelivery" Margin="408,306,226,110" Content="Confim Delivery" IsEnabled="{Binding ElementName=PackageReceivedListView, Path=SelectedItem, Converter= {StaticResource TrueIfStatusCollection}}"
                 Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Height="35" Click="buttonConfimDelivery_Click">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
