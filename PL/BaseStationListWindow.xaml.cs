@@ -60,7 +60,10 @@ namespace PL
         {
             if (BaseStationListView.Items != null)
                 BaseStationListView.Items.Clear();
-            BaseStationListView.ItemsSource = bL.GetBaseStationList();
+            foreach (BO.BaseStationToList baseStationToList in bL.GetBaseStationList())
+            {
+                BaseStationListView.Items.Add(baseStationToList);
+            }
         }
 
         private void EXIT_Click(object sender, RoutedEventArgs e)

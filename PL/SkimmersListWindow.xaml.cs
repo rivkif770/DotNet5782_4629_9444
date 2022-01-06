@@ -140,6 +140,7 @@ namespace PL
         /// <param name="e"></param>
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
+            WeightSelector.SelectedIndex = -1;
             if (SkimmerListView.Items != null)
                 SkimmerListView.Items.Clear();
             foreach (SkimmerToList skimmer in bL.GetSkimmerList())
@@ -147,7 +148,7 @@ namespace PL
                 SkimmerListView.Items.Add(skimmer);
             }
             //StatusSelector.SelectedIndex = -1;
-            WeightSelector.SelectedIndex = -1;
+            
         }
         /// <summary>
         /// Close the window
