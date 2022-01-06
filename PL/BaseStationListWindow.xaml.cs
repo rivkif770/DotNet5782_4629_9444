@@ -26,13 +26,10 @@ namespace PL
             bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
 
-            //BaseStationListView.ItemsSource = bl.GetBaseStationList();
             foreach (BO.BaseStationToList baseStationToList in bL.GetBaseStationList())
             {
                 BaseStationListView.Items.Add(baseStationToList);
             }
-
-            // DataContext = this;
         }
         private void RefreshListView(object ob, EventArgs ev)
         {
@@ -73,7 +70,12 @@ namespace PL
 
         private void freeCharging_Click(object sender, RoutedEventArgs e)
         {
-            BaseStationListView.ItemsSource = bL.GetBaseStationFreeCharging();
+            if (BaseStationListView.Items != null)
+                BaseStationListView.Items.Clear();
+            foreach (BO.BaseStationToList baseStationToList in bL.GetBaseStationFreeCharging())
+            {
+                BaseStationListView.Items.Add(baseStationToList);
+            }
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -87,6 +89,16 @@ namespace PL
                 {
                     BaseStationListView.Items.Add(baseStation);
                 }
+            }
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            BaseStationListView.Items.Refresh();
+            BaseStationListView.Items.Clear();
+            foreach (BO.BaseStationToList baseStationToList in bL.GetBaseStationList())
+            {
+                BaseStationListView.Items.Add(baseStationToList);
             }
         }
     }

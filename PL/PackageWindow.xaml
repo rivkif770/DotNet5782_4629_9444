@@ -81,7 +81,7 @@
                 <TextBox x:Name="textId"  Width="150" Height="20" Grid.Row="0" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                             Text="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
-                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" BorderBrush="#FFE92617"  
+                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=OneWay}" BorderBrush="#FFE92617"  
                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <Button x:Name="SkimmerInPackage"  Width="150" Height="20" Grid.Row="1" Grid.Column="1"
                         HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD"

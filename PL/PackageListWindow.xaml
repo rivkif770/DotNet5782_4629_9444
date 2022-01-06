@@ -76,31 +76,38 @@
             </ListView.View>
         </ListView>
 
-        <Label Content="Weight:" Margin="68,200,0,0" FontSize="25"
+        <Label Content="Weight:" Margin="68,160,0,0" FontSize="25"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ComboBox Name="comboWeight" Text="Choose a Weight" Margin="169,200,0,0" Width="117"
+        <ComboBox Name="comboWeight" Text="Choose a Weight" Margin="169,160,0,0" Width="117"
                       HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFE2DADC"
                       ToolTip="Choose a Weight"  IsEditable="True" IsReadOnly="True" 
                        Height="25" SelectionChanged="comboWeight_SelectionChanged"/>
-        <Label Content="Priority:" Margin="68,240,0,0" FontSize="25"
+        <Label Content="Priority:" Margin="68,200,0,0" FontSize="25"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ComboBox Name="comboPriority" Text="Choose a Priority" Margin="169,240,0,0" Width="117" Height="25"
+        <ComboBox Name="comboPriority" Text="Choose a Priority" Margin="169,200,0,0" Width="117" Height="25"
                       HorizontalAlignment="Left" VerticalAlignment="Top" 
                       ToolTip="Choose a Priority"  IsEditable="True" IsReadOnly="True" SelectionChanged="comboPriority_SelectionChanged" />
-        <Label Content="Status:" Margin="68,280,0,0" FontSize="25"
+        <Label Content="Status:" Margin="68,240,0,0" FontSize="25"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ComboBox Name="comboStatus" Text="Choose a Status" Margin="169,280,0,0" Width="117" Height="25"
+        <ComboBox Name="comboStatus" Text="Choose a Status" Margin="169,240,0,0" Width="117" Height="25"
                       HorizontalAlignment="Left" VerticalAlignment="Top" 
                       ToolTip="Choose a Status"  IsEditable="True" IsReadOnly="True" SelectionChanged="comboStatus_SelectionChanged" />
-
+        <CheckBox x:Name="geter" Content="List view by recipient" HorizontalAlignment="Left" Margin="105,315,0,0" VerticalAlignment="Top" FontSize="15" ToolTip="List grouped by number of available charging stations" Checked="Geter_CheckBox_Checked" Unchecked="GeterAndSender_CheckBox_Unchecked"/>
+        <CheckBox x:Name="sender" Content="List view by sender" HorizontalAlignment="Left" Margin="105,290,0,0" VerticalAlignment="Top" FontSize="15" ToolTip="List grouped by number of available charging stations" Checked="Sender_CheckBox_Checked" Unchecked="GeterAndSender_CheckBox_Unchecked"/>
+        <!--<Label Content="List view by recipient:" Margin="68,137,0,0" FontSize="20"
+               FontFamily="Bahnschrift Condensed"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="List view by sender:" Margin="68,92,0,0" FontSize="20"
+               FontFamily="Bahnschrift Condensed"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"/>-->
 
         <StackPanel Orientation="Horizontal">
             <Button x:Name="btnSelectorCustomer" Content="Show an abbreviated list" ToolTip="Displays an abbreviated list by sender or recipient" 
                     Foreground="White" FontSize="17" FontWeight="Medium"
-                HorizontalAlignment="Left"  Width="250" Margin="50,70,0,0" Height="30" Style="{StaticResource myButtonStyle}" 
+                HorizontalAlignment="Left"  Width="250" Margin="50,30,0,0" Height="30" Style="{StaticResource myButtonStyle}" 
                     VerticalAlignment="Top" Click="btnSelectorCustomer_Click">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
@@ -115,13 +122,13 @@
 
             </Button>
         </StackPanel>
-        <ComboBox Name="comboSelectorCustomer" Text="           Sends or receives"  Margin="90,110,0,0" Width="180" Height="25"
+        <ComboBox Name="comboSelectorCustomer" Text="           Sends or receives"  Margin="90,70,0,0" Width="180" Height="25"
                       HorizontalAlignment="Left" VerticalAlignment="Top" 
                       ToolTip="Select filter by sender or receiver"  IsEditable="True" IsReadOnly="True" SelectionChanged="comboSelectorCustomer_SelectionChanged" />
-        <Label Content="Enter customer name:" Margin="118,133,0,0" FontSize="15"
+        <Label Content="Enter customer name:" Margin="118,93,0,0" FontSize="15"
                FontFamily="Bahnschrift Condensed"
                    HorizontalAlignment="Left" VerticalAlignment="Top" Height="25"/>
-        <TextBox x:Name="textSelectorCustomer" Margin="110,155,0,0" Width="140"
+        <TextBox x:Name="textSelectorCustomer" Margin="110,115,0,0" Width="140"
                  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFD3CBCD"
                   BorderBrush="#FFE92617" Height="18" TextChanged="textSelectorCustomer_TextChanged" />
 
@@ -206,6 +213,6 @@
 
             </Button>
         </StackPanel>
-        
+
     </Grid>
 </Window>

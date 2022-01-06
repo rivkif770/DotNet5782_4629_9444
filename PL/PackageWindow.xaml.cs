@@ -22,7 +22,6 @@ namespace PL
     {
         PackageToList newPackage;
         Package package1 = new Package();
-
         BlApi.IBL bL;
         private SkimmerWindow skimmerWindow;
 
@@ -58,15 +57,6 @@ namespace PL
             DataContext = bL.GetPackage(packageToList.Id);
             help.IsChecked = true;
         }
-        //public PackageWindow(PackageToList packageToList)
-        //{
-        //    bL = BlApi.BlFactory.GetBL();
-        //    InitializeComponent();
-        //    Updates.Visibility = Visibility.Visible;
-        //    newPackage = new PackageToList();
-        //    newPackage = packageToList;
-        //    showPackage.Text = bL.GetPackage(newPackage.Id).ToString();
-        //}
         /// <summary>
         /// Button attempt to add skimmer-checks whether all the required fields are filled correctly and sends to try to add in bl, updates the new skimmer, sends a suitable message and closes the window
         /// </summary>
@@ -148,7 +138,6 @@ namespace PL
             {
                 bL.DeletePackage(newPackage.Id);
                 MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
             }
             else
                 MessageBox.Show("The package was associated", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);

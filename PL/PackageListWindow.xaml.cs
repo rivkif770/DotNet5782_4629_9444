@@ -29,7 +29,10 @@ namespace PL
         {
             InitializeComponent();
             bL = BlApi.BlFactory.GetBL();
-            PackageListView.ItemsSource = bL.GetPackageList();
+            foreach (BO.PackageToList packageToList in bL.GetPackageList())
+            {
+                PackageListView.Items.Add(packageToList);
+            }
             ComboBoxItem newItem = new ComboBoxItem();
             comboSelectorCustomer.Items.Add(newItem.Content = "Customer sends");
             comboSelectorCustomer.Items.Add(newItem.Content = "Customer receives");
@@ -95,7 +98,10 @@ namespace PL
 
         private void butClear_Click(object sender, RoutedEventArgs e)
         {
-            PackageListView.ItemsSource = bL.GetPackageList();
+            foreach (BO.PackageToList packageToList in bL.GetPackageList())
+            {
+                PackageListView.Items.Add(packageToList);
+            }
             comboWeight.SelectedIndex = -1;
             comboStatus.SelectedIndex = -1;
             comboPriority.SelectedIndex = -1;
@@ -112,27 +118,49 @@ namespace PL
 
         private void comboWeight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(comboWeight.SelectedIndex != -1)
+            if (PackageListView.Items.Count != 0)
+            {
+                PackageListView.Items.Clear();
+            }
+            if (comboWeight.SelectedIndex != -1)
             {
                 weightFilter = (Weight)comboWeight.SelectedItem;
                 if (statusesFilter == null && PriorityFilter == null)
                 {
-                    PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter);
+                    foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.WeightCategory == weightFilter))
+                    {
+                        PackageListView.Items.Add(packageToList);
+                    }
+                   // PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter);
                 }
                 else
                 {
                     if(statusesFilter == null && PriorityFilter != null)
                     {
-                        PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter && x.priority == PriorityFilter);
+                        foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.WeightCategory == weightFilter && x.priority == PriorityFilter))
+                        {
+                            PackageListView.Items.Add(packageToList);
+                        }
+                        //PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter && x.priority == PriorityFilter);
                     }
                     else
                     {
                         if (statusesFilter != null && PriorityFilter == null)
                         {
-                            PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter && x.PackageMode == statusesFilter);
+                            foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.WeightCategory == weightFilter && x.PackageMode == statusesFilter))
+                            {
+                                PackageListView.Items.Add(packageToList);
+                            }
+                            //PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter && x.PackageMode == statusesFilter);
                         }
                         else
-                            PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter && x.PackageMode == statusesFilter && x.priority == PriorityFilter);
+                        {
+                            foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.WeightCategory == weightFilter && x.PackageMode == statusesFilter && x.priority == PriorityFilter))
+                            {
+                                PackageListView.Items.Add(packageToList);
+                            }
+                        }
+                        //PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter && x.PackageMode == statusesFilter && x.priority == PriorityFilter);
 
                     }
                 }
@@ -147,27 +175,47 @@ namespace PL
 
         private void comboPriority_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if(PackageListView.Items!=null)
+               PackageListView.Items.Clear();
             if (comboPriority.SelectedIndex != -1)
             {
                 PriorityFilter = (Priority)comboPriority.SelectedItem;
                 if (statusesFilter == null && weightFilter == null)
                 {
-                    PackageListView.ItemsSource = bL.GetPackageList(x => x.priority == PriorityFilter);
+                    foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.priority == PriorityFilter))
+                    {
+                        PackageListView.Items.Add(packageToList);
+                    }
+                    //PackageListView.ItemsSource = bL.GetPackageList(x => x.priority == PriorityFilter);
                 }
                 else
                 {
                     if (statusesFilter == null && weightFilter != null)
                     {
-                        PackageListView.ItemsSource = bL.GetPackageList(x => x.priority == PriorityFilter && x.WeightCategory == weightFilter);
+                        foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.priority == PriorityFilter && x.WeightCategory == weightFilter))
+                        {
+                            PackageListView.Items.Add(packageToList);
+                        }
+                        //PackageListView.ItemsSource = bL.GetPackageList(x => x.priority == PriorityFilter && x.WeightCategory == weightFilter);
                     }
                     else
                     {
                         if (statusesFilter != null && weightFilter == null)
                         {
-                            PackageListView.ItemsSource = bL.GetPackageList(x => x.priority == PriorityFilter && x.PackageMode == statusesFilter);
+                            foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.priority == PriorityFilter && x.PackageMode == statusesFilter))
+                            {
+                                PackageListView.Items.Add(packageToList);
+                            }
+                            //PackageListView.ItemsSource = bL.GetPackageList(x => x.priority == PriorityFilter && x.PackageMode == statusesFilter);
                         }
                         else
-                            PackageListView.ItemsSource = bL.GetPackageList(x => x.priority == PriorityFilter && x.PackageMode == statusesFilter && x.WeightCategory == weightFilter);
+                        {
+                            foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.priority == PriorityFilter && x.PackageMode == statusesFilter && x.WeightCategory == weightFilter))
+                            {
+                                PackageListView.Items.Add(packageToList);
+                            }
+                        }
+                            //PackageListView.ItemsSource = bL.GetPackageList(x => x.priority == PriorityFilter && x.PackageMode == statusesFilter && x.WeightCategory == weightFilter);
 
                     }
                 }
@@ -182,27 +230,47 @@ namespace PL
 
         private void comboStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (PackageListView.Items != null)
+                PackageListView.Items.Clear();
             if (comboStatus.SelectedIndex != -1)
             {
                 statusesFilter = (ParcelStatus)comboStatus.SelectedItem;
                 if (PriorityFilter == null && weightFilter == null)
                 {
-                    PackageListView.ItemsSource = bL.GetPackageList(x => x.PackageMode == statusesFilter);
+                    foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.PackageMode == statusesFilter))
+                    {
+                        PackageListView.Items.Add(packageToList);
+                    }
+                    //PackageListView.ItemsSource = bL.GetPackageList(x => x.PackageMode == statusesFilter);
                 }
                 else
                 {
                     if (PriorityFilter == null && weightFilter != null)
                     {
-                        PackageListView.ItemsSource = bL.GetPackageList(x => x.PackageMode == statusesFilter && x.WeightCategory == weightFilter);
+                        foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.PackageMode == statusesFilter && x.WeightCategory == weightFilter))
+                        {
+                            PackageListView.Items.Add(packageToList);
+                        }
+                        //PackageListView.ItemsSource = bL.GetPackageList(x => x.PackageMode == statusesFilter && x.WeightCategory == weightFilter);
                     }
                     else
                     {
                         if (PriorityFilter != null && weightFilter == null)
                         {
-                            PackageListView.ItemsSource = bL.GetPackageList(x => x.PackageMode == statusesFilter && x.priority == PriorityFilter);
+                            foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.PackageMode == statusesFilter && x.priority == PriorityFilter))
+                            {
+                                PackageListView.Items.Add(packageToList);
+                            }
+                            //PackageListView.ItemsSource = bL.GetPackageList(x => x.PackageMode == statusesFilter && x.priority == PriorityFilter);
                         }
                         else
-                            PackageListView.ItemsSource = bL.GetPackageList(x => x.PackageMode == statusesFilter && x.priority == PriorityFilter && x.WeightCategory == weightFilter);
+                        {
+                            foreach (BO.PackageToList packageToList in bL.GetPackageList(x => x.PackageMode == statusesFilter && x.priority == PriorityFilter && x.WeightCategory == weightFilter))
+                            {
+                                PackageListView.Items.Add(packageToList);
+                            }
+                        }
+                            //PackageListView.ItemsSource = bL.GetPackageList(x => x.PackageMode == statusesFilter && x.priority == PriorityFilter && x.WeightCategory == weightFilter);
 
                     }
                 }
@@ -221,6 +289,44 @@ namespace PL
             {
                 comboSelectorCustomer.SelectedIndex = -1;
                 comboSelectorCustomer.Text = "Choose a Priority";
+            }
+        }
+
+        private void Geter_CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (PackageListView.Items != null)
+                PackageListView.Items.Clear();
+            var Packages = bL.GetPackageList().GroupBy(b => b.CustomerNameGets);
+            foreach (var group in Packages)
+            {
+                foreach (BO.PackageToList Package in group)
+                {
+                    PackageListView.Items.Add(Package);
+                }
+            }
+        }
+
+        private void Sender_CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (PackageListView.Items != null)
+                PackageListView.Items.Clear();
+            var Packages = bL.GetPackageList().GroupBy(b => b.CustomerNameSends);
+            foreach (var group in Packages)
+            {
+                foreach (BO.PackageToList Package in group)
+                {
+                    PackageListView.Items.Add(Package);
+                }
+            }
+        }
+
+        private void GeterAndSender_CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            PackageListView.Items.Refresh();
+            PackageListView.Items.Clear();
+            foreach (BO.PackageToList packageToList in bL.GetPackageList())
+            {
+                PackageListView.Items.Add(packageToList);
             }
         }
     }

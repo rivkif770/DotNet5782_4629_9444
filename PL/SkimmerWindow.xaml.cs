@@ -44,7 +44,6 @@ namespace PL
                 ComboStationID.Items.Add(newItem);
             }
             DataContext = skimmer1;
-            //DataContext = this;
         }
         /// <summary>
         /// Builder for update
@@ -57,6 +56,7 @@ namespace PL
             bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
+            ComboStationID.ItemsSource = Enum.GetValues(typeof(BO.Priority));
             help.IsChecked = true;
             DataContext = bL.GetSkimmerr(skimmerToList.Id);
             newSkimmer = new SkimmerToList();
@@ -314,15 +314,26 @@ namespace PL
 
         private void IdOfPackageInTransfer_Click(object sender, RoutedEventArgs e)
         {
-            if (skimmer1.PackageInTransfer == null)
-                MessageBox.Show("No package associated", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (newSkimmer.PackageNumberTransferred != 0)
+            {
+                //skimmerWindow.Closed += RefreshListView;
+                //skimmerWindow.Show();
+                Package package = bL.GetPackage(newSkimmer.PackageNumberTransferred);
+                PackageToList packageToList = new PackageToList
+                {
+                    Id = package.Id,
+                    CustomerNameSends = package.SendPackage.Name,
+                    CustomerNameGets = package.ReceivesPackage.Name,
+                    WeightCategory = package.WeightCategory,
+                    priority = package.priority,
+                    PackageMode = (ParcelStatus)bL.PackageMode(package)
+                };
+                packageWindow = new PackageWindow(packageToList);
+                packageWindow.Show();
+            }
             else
             {
-                BO.PackageToList package = new PackageToList();
-                package.Id = skimmer1.PackageInTransfer.Id;
-                packageWindow = new PackageWindow(package);
-                packageWindow.Close();
-                packageWindow.Show();
+                MessageBox.Show($"No package in transfer", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

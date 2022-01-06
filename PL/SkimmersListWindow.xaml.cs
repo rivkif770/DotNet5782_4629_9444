@@ -82,24 +82,24 @@ namespace PL
         /// <param name="e"></param>
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(WeightSelector.SelectedIndex != -1)
+            SkimmerListView.Items.Clear();
+            if (WeightSelector.SelectedIndex != -1)
             {
                 weightFilter = (Weight)WeightSelector.SelectedItem;
                 //if (statusesFilter == null)
-               // {
-                    foreach (SkimmerToList skimmer in bL.GetSkimmerList())
-                    {
-                    SkimmerListView.Items.Clear();
-                        if(skimmer.WeightCategory == weightFilter)
-                          SkimmerListView.Items.Add(skimmer);
-                    }
-                    //SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weightFilter);
-            //    }
-            //    else
-            //    {
-                    
-            //        SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weightFilter && x.SkimmerStatus == statusesFilter);
-            //    }
+                // {
+                foreach (SkimmerToList skimmer in bL.GetSkimmerList())
+                {
+                    if (skimmer.WeightCategory == weightFilter)
+                        SkimmerListView.Items.Add(skimmer);
+                }
+                //SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weightFilter);
+                //    }
+                //    else
+                //    {
+
+                //        SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weightFilter && x.SkimmerStatus == statusesFilter);
+                //    }
             }
             else
             {
@@ -142,7 +142,10 @@ namespace PL
         {
             if (SkimmerListView.Items != null)
                 SkimmerListView.Items.Clear();
-            SkimmerListView.ItemsSource = bL.GetSkimmerList();
+            foreach (SkimmerToList skimmer in bL.GetSkimmerList())
+            {
+                SkimmerListView.Items.Add(skimmer);
+            }
             //StatusSelector.SelectedIndex = -1;
             WeightSelector.SelectedIndex = -1;
         }
