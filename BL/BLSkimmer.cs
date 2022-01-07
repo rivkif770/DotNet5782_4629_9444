@@ -28,7 +28,7 @@ namespace BL
         {
             r = new Random();
             skimmersList = new List<SkimmerToList>();
-            mayDal = DalApi.DalFactory.GetDal("List");
+            mayDal = DalApi.DalFactory.GetDal("xml");
             //Array with power consumption data by weight and by charge
             double[] vs = mayDal.PowerConsumptionRequest();
             Free = vs[0];

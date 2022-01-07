@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<listbasestation>
+  <listbasestation>
+    <UniqueID>1447</UniqueID>
+    <StationName>BaseStation0</StationName>
+    <Latitude>-17</Latitude>
+    <Longitude>4</Longitude>
+    <SeveralPositionsArgument>6</SeveralPositionsArgument>
+  </listbasestation>
+  <listbasestation>
+    <UniqueID>2328</UniqueID>
+    <StationName>BaseStation1</StationName>
+    <Latitude>-8</Latitude>
+    <Longitude>-12</Longitude>
+    <SeveralPositionsArgument>6</SeveralPositionsArgument>
+  </listbasestation>
+</listbasestation>

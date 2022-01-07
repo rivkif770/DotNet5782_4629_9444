@@ -14,6 +14,8 @@ namespace DalApi
             {
                 case "List":
                     return DalObject.DalObject.Instance;
+                case "xml":
+                    return DalXml.Instance;
                 default:
                     throw new DO.IdDoesNotExistException("Idal only have List/xml type", type);
             }
