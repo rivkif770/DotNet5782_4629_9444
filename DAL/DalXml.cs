@@ -60,14 +60,23 @@ namespace DalApi
             xml.XMLTools.SaveListToXMLSerializer(clients, ClientPath);
         }
 
-        public void AddPackage(Package p)
+        public void AddPackage(Package package)
         {
-            throw new NotImplementedException();
+            List<Package> packages = xml.XMLTools.LoadListFromXMLSerializer<DO.Package>(PackagePath);
+            if(packages.Any(p=>p.ID ==package.ID)) throw new ExistsInSystemException("BaseStation Save to system", package.ID);
+            package.PackageCreationTime = DateTime.Now;
+            //package.ID = GetPackage();
+            packages.Add(package);
+            xml.XMLTools.SaveListToXMLSerializer(packages, PackagePath);
+           // return package.ID;
         }
 
-        public void AddSkimmer(Quadocopter q)
+        public void AddSkimmer(Quadocopter quadocopter)
         {
-            throw new NotImplementedException();
+            List<Quadocopter> Quadocopters = xml.XMLTools.LoadListFromXMLSerializer<DO.Quadocopter>(SkimmerPath);
+            if (Quadocopters.Any(q => q.IDNumber == quadocopter.IDNumber)) throw new ExistsInSystemException("skimmer Save to system", quadocopter.IDNumber);
+            Quadocopters.Add(quadocopter);
+            xml.XMLTools.SaveListToXMLSerializer(Quadocopters, SkimmerPath);
         }
 
         public void AddSkimmerLoading(SkimmerLoading SL)
@@ -115,12 +124,20 @@ namespace DalApi
 
         public void DeletePackage(int id)
         {
-            throw new NotImplementedException();
+            var packages = xml.XMLTools.LoadListFromXMLSerializer<DO.Package>(PackagePath);
+            if(!packages.Any(p=>p.ID==id)) throw new ExistsInSystemException("Package dont Save to system", id);
+            Package package = packages.Find(p => p.ID == id);
+            packages.Remove(package);
+            xml.XMLTools.SaveListToXMLSerializer(packages, PackagePath);
         }
 
         public void DeleteSkimmer(int idq)
         {
-            throw new NotImplementedException();
+            var skimmers = xml.XMLTools.LoadListFromXMLSerializer<DO.Quadocopter>(SkimmerPath);
+            if (!skimmers.Any(s => s.IDNumber == idq)) throw new ExistsInSystemException("skimmer dont Save to system", idq);
+            Quadocopter skimmer = skimmers.Find(s => s.IDNumber == idq);
+            skimmers.Remove(skimmer);
+            xml.XMLTools.SaveListToXMLSerializer(skimmers, SkimmerPath);
         }
 
         public void DeleteSkimmerLoading(int idsl)
@@ -190,12 +207,16 @@ namespace DalApi
 
         public Package GetPackage(int idp)
         {
-            throw new NotImplementedException();
+            var packages = xml.XMLTools.LoadListFromXMLSerializer<DO.Package>(PackagePath);
+            if (!packages.Any(p => p.ID == idp)) throw new ExistsInSystemException("Package dont Save to system", idp);
+            Package package = packages.Find(p => p.ID == idp);
+            return package;
         }
 
         public IEnumerable<Package> GetPackageList(Func<Package, bool> predicate = null)
         {
-            throw new NotImplementedException();
+            if (predicate == null) return xml.XMLTools.LoadListFromXMLSerializer<DO.Package>(PackagePath);
+            return xml.XMLTools.LoadListFromXMLSerializer<DO.Package>(PackagePath).Where(predicate);
         }
 
         public IEnumerable<Quadocopter> GetQuadocopterList(Func<Quadocopter, bool> predicate = null)
@@ -205,7 +226,10 @@ namespace DalApi
 
         public Quadocopter GetQuadrocopter(int IDq)
         {
-            throw new NotImplementedException();
+            var skimmers = xml.XMLTools.LoadListFromXMLSerializer<DO.Quadocopter>(SkimmerPath);
+            if (!skimmers.Any(s => s.IDNumber == IDq)) throw new ExistsInSystemException("Package dont Save to system", IDq);
+            Quadocopter skimmer = skimmers.Find(s => s.IDNumber == IDq);
+            return skimmer;
         }
 
         public SkimmerLoading GetSkimmerLoading(int IDsl)
@@ -266,9 +290,14 @@ namespace DalApi
             xml.XMLTools.SaveListToXMLSerializer(clientList, ClientPath);
         }
 
-        public void UpadteP(Package p)
+        public void UpadteP(Package package)
         {
-            throw new NotImplementedException();
+            var packages = xml.XMLTools.LoadListFromXMLSerializer<DO.Package>(PackagePath);
+            Package newpackage = packages.Find(p => p.ID == package.ID);
+            packages.Remove(newpackage);
+            newpackage = package;
+            packages.Add(newpackage);
+            xml.XMLTools.SaveListToXMLSerializer(packages, PackagePath);
         }
 
         public void UpadteQ(Quadocopter qc)
