@@ -48,6 +48,18 @@ namespace xml
             rootElementBaseStation.Save(dirPath + basestationpath);
         }
 
+        public static void Config(string configPath)
+        {
+            XElement rootId = new XElement("Config",
+               new XElement("IDPackage", 1010),
+               new XElement("Free", 0.001),
+               new XElement("LightWeightCarrier", 0.003),
+               new XElement("MediumWeightCarrier", 0.004),
+               new XElement("HeavyWeightCarrier", 0.006),
+               new XElement("SkimmerLoadingRate", 20)
+               );
+            rootId.Save(dirPath + configPath);
+        }
         public static XElement LoadListFromXmlElement(string filePath)
         {
             try

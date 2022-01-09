@@ -14,12 +14,13 @@ namespace DalApi
         static readonly IDal instance = new DalXml();
         internal static IDal Instance { get { return instance; } }
         static DalXml() { }
-        
-        private string BaseStationPath = "BaseStation.xml";
-        private string ClientPath = "Clien.xml";
-        private string PackagePath = "Package.xml";
-        private string SkimmerLoadingPath = "SkimmerLoading.xml";
-        private string SkimmerPath = "Skimmer.xml";
+
+        readonly string BaseStationPath = "BaseStation.xml";
+        readonly string ClientPath = "Clien.xml";
+        readonly string PackagePath = "Package.xml";
+        readonly string SkimmerLoadingPath = "SkimmerLoading.xml";
+        readonly string SkimmerPath = "Skimmer.xml";
+        readonly string ConfigPsth = "Config.xml";
         DalXml()
         {
             DalObject.DataSource.Initialize();
@@ -28,6 +29,7 @@ namespace DalApi
             //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListClient, ClientPath);
             //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListQuadocopter, SkimmerPath);
             //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListSkimmerLoading, SkimmerLoadingPath);
+            //xml.XMLTools.Config(ConfigPsth);
         }
 
         public void AddBaseStation(BaseStation baseStation)
@@ -63,12 +65,19 @@ namespace DalApi
         public void AddPackage(Package package)
         {
             List<Package> packages = xml.XMLTools.LoadListFromXMLSerializer<DO.Package>(PackagePath);
-            if(packages.Any(p=>p.ID ==package.ID)) throw new ExistsInSystemException("BaseStation Save to system", package.ID);
+            if (packages.Any(p => p.ID == package.ID)) throw new ExistsInSystemException("BaseStation Save to system", package.ID);
             package.PackageCreationTime = DateTime.Now;
-            //package.ID = GetPackage();
+            XElement rootConfigElement = xml.XMLTools.LoadListFromXmlElement(ConfigPsth);
+            XElement idPackage = rootConfigElement.Element("IDPackage");
+
+            int id = Convert.ToInt32(idPackage.Value);
+            idPackage.Value = (Convert.ToInt32(idPackage.Value) + 1).ToString();
+
+            xml.XMLTools.SaveListToXmlElement(rootConfigElement, ConfigPsth);
+
+            package.ID = id;
             packages.Add(package);
             xml.XMLTools.SaveListToXMLSerializer(packages, PackagePath);
-           // return package.ID;
         }
 
         public void AddSkimmer(Quadocopter quadocopter)
@@ -273,7 +282,16 @@ namespace DalApi
 
         public double[] PowerConsumptionRequest()
         {
-            throw new NotImplementedException();
+            XElement rootConfigElement = xml.XMLTools.LoadListFromXmlElement(ConfigPsth);
+
+            double[] arry = new double[5];
+            arry[0] = Convert.ToInt32(rootConfigElement.Element("Free").Value);
+            arry[1] = Convert.ToInt32(rootConfigElement.Element("LightWeightCarrier").Value);
+            arry[2] = Convert.ToInt32(rootConfigElement.Element("MediumWeightCarrier").Value);
+            arry[3] = Convert.ToInt32(rootConfigElement.Element("HeavyWeightCarrier").Value);
+            arry[4] = Convert.ToInt32(rootConfigElement.Element("SkimmerLoadingRate").Value);
+
+            return arry;
         }
 
         public void UpadteB(BaseStation baseStation)

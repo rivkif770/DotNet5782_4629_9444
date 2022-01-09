@@ -208,7 +208,7 @@ namespace BL
             int IDb=0;
             //Search v skimmer by id
             SkimmerLoading skimmerLoading = new SkimmerLoading();
-            foreach (SkimmerLoading item in mayDal.GetSkimmerLoading())
+            foreach (SkimmerLoading item in mayDal.GetSkimmerLoadingList())
             {
                 if(item.SkimmerID== skimmer.Id)
                 {
@@ -223,7 +223,7 @@ namespace BL
             DO.BaseStation station = mayDal.GetBaseStation(IDb);
             station.SeveralPositionsArgument++;
             mayDal.UpadteB(station);
-            foreach (SkimmerLoading item in mayDal.GetSkimmerLoading())
+            foreach (SkimmerLoading item in mayDal.GetSkimmerLoadingList())
             {
                 if (item.SkimmerID == skimmer.Id)
                 {
