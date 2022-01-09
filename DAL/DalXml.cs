@@ -89,12 +89,25 @@ namespace DalApi
 
         public void AssignPackageSkimmer(int idp, int idq)
         {
-            throw new NotImplementedException();
+            Package temp_p = GetPackage(idp);
+            temp_p.IDSkimmerOperation = idq;//Change the skimmer ID of the package to the associated skimmer ID
+            temp_p.TimeAssignGlider = DateTime.Now;//Update time association
+
+            List<Package> Packages = xml.XMLTools.LoadListFromXMLSerializer<Package>(PackagePath);
+            Packages.RemoveAll(packag => packag.ID == idp);
+            Packages.Add(temp_p);
+            xml.XMLTools.SaveListToXMLSerializer(Packages, PackagePath);
         }
 
         public void CollectionPackage(int idp)
         {
-            throw new NotImplementedException();
+            Package temp_p = this.GetPackage(idp);
+            temp_p.PackageCollectionTime = DateTime.Now;//Update the package collection time from the sender
+
+            List<Package> Packages = xml.XMLTools.LoadListFromXMLSerializer<Package>(PackagePath);
+            Packages.RemoveAll(packag => packag.ID == idp);
+            Packages.Add(temp_p);
+            xml.XMLTools.SaveListToXMLSerializer(Packages, PackagePath);
         }
 
         public void DeleteBaseStation(int idb)
@@ -221,7 +234,8 @@ namespace DalApi
 
         public IEnumerable<Quadocopter> GetQuadocopterList(Func<Quadocopter, bool> predicate = null)
         {
-            throw new NotImplementedException();
+            if (predicate == null) return xml.XMLTools.LoadListFromXMLSerializer<DO.Quadocopter>(SkimmerPath);
+            return xml.XMLTools.LoadListFromXMLSerializer<DO.Quadocopter>(SkimmerPath).Where(predicate);
         }
 
         public Quadocopter GetQuadrocopter(int IDq)
@@ -248,7 +262,13 @@ namespace DalApi
 
         public void PackageDelivery(int idp)
         {
-            throw new NotImplementedException();
+            Package temp_p = this.GetPackage(idp);
+            temp_p.TimeArrivalRecipient = DateTime.Now;//Update the time of arrival of the package to the recipient
+
+            List<Package> Packages = xml.XMLTools.LoadListFromXMLSerializer<Package>(PackagePath);
+            Packages.RemoveAll(packag => packag.ID == idp);
+            Packages.Add(temp_p);
+            xml.XMLTools.SaveListToXMLSerializer(Packages, PackagePath);
         }
 
         public double[] PowerConsumptionRequest()
