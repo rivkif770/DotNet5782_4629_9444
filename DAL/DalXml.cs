@@ -16,11 +16,18 @@ namespace DalApi
         static DalXml() { }
         
         private string BaseStationPath = "BaseStation.xml";
+        private string ClientPath = "Clien.xml";
+        private string PackagePath = "Package.xml";
+        private string SkimmerLoadingPath = "SkimmerLoading.xml";
+        private string SkimmerPath = "Skimmer.xml";
         DalXml()
         {
-            XElement a = new XElement("jojo");
             DalObject.DataSource.Initialize();
-            xml.XMLTools.SetBaseStationListFile(DalObject.DataSource.ListBaseStation, BaseStationPath);
+            //xml.XMLTools.SetBaseStationListFile(DalObject.DataSource.ListBaseStation, BaseStationPath);
+            //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListPackage, PackagePath);
+            //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListClient, ClientPath);
+            //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListQuadocopter, SkimmerPath);
+            //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListSkimmerLoading, SkimmerLoadingPath);
         }
 
         public void AddBaseStation(BaseStation baseStation)
@@ -85,7 +92,7 @@ namespace DalApi
                 throw new ExistsInSystemException("BaseStation dont Save to system", idb);
             else
             {
-                rootBaseStationElemnt.Remove(idb);
+                baseStationElemnt.Remove();
                 xml.XMLTools.SaveListToXmlElement(rootBaseStationElemnt, BaseStationPath);
             }
         }
@@ -120,13 +127,22 @@ namespace DalApi
                 throw new ExistsInSystemException("id does not exist!!", IDb);
             else
             {
-                return baseStationElemnt;
+                BaseStation newBaseStation = new BaseStation()
+                {
+                    UniqueID = Convert.ToInt32(baseStationElemnt.Element("Id").Value),
+                    StationName = baseStationElemnt.Element("Name").Value.ToString(),
+                    Latitude = Convert.ToDouble(baseStationElemnt.Element("Latitude").Value),
+                    Longitude = Convert.ToDouble(baseStationElemnt.Element("Longitude").Value),
+                    SeveralPositionsArgument = Convert.ToInt32(baseStationElemnt.Element("SeveralPositionsArgument").Value)
+                };
+                      
+                return newBaseStation;
             }
         }
 
         public IEnumerable<BaseStation> GetBaseStationList(Func<BaseStation, bool> predicate = null)
         {
-            List<BaseStation> baseStations = new List<BaseStation>();
+            IEnumerable<BaseStation> baseStations = new List<BaseStation>();
             XElement rootBaseStationElemnt = xml.XMLTools.LoadListFromXmlElement(BaseStationPath);
             baseStations = (from b in rootBaseStationElemnt.Elements()
                             select new BaseStation()
@@ -136,8 +152,9 @@ namespace DalApi
                                 Latitude = Convert.ToDouble(b.Element("Latitude").Value),
                                 Longitude = Convert.ToDouble(b.Element("Longitude").Value),
                                 SeveralPositionsArgument = Convert.ToInt32(b.Element("SeveralPositionsArgument").Value)
-                            }).ToList();
-            return baseStations.FindAll(predicate);
+                            });
+            if (predicate == null) return baseStations;
+            return baseStations.Where(predicate);
         }
 
         public Client GetClient(int IDc)
@@ -190,9 +207,28 @@ namespace DalApi
             throw new NotImplementedException();
         }
 
-        public void UpadteB(BaseStation b)
+        public void UpadteB(BaseStation baseStation)
         {
-            throw new NotImplementedException();
+            XElement rootBaseStationElemnt = xml.XMLTools.LoadListFromXmlElement(BaseStationPath);
+            XElement baseStationElemnt = (from b in rootBaseStationElemnt.Elements()
+                                          where Convert.ToInt32(b.Element("Id").Value) == baseStation.UniqueID
+                                          select b).FirstOrDefault();
+            if (baseStationElemnt != null)
+                throw new ExistsInSystemException("BaseStation Not Find", baseStation.UniqueID);
+            else
+            {
+                baseStationElemnt.Remove();
+                BaseStation newBaseStation = new BaseStation()
+                {
+                    UniqueID = baseStation.UniqueID,
+                    StationName = baseStation.StationName,
+                    Latitude = baseStation.Latitude,
+                    Longitude = baseStation.Longitude,
+                    SeveralPositionsArgument = baseStation.SeveralPositionsArgument
+                };
+                rootBaseStationElemnt.Add(newBaseStation);
+                xml.XMLTools.SaveListToXmlElement(rootBaseStationElemnt, BaseStationPath);
+            }
         }
 
         public void UpadteC(Client c)

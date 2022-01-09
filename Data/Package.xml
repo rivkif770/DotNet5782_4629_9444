@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<ArrayOfPackage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Package>
+    <ID>1000</ID>
+    <IDSender>442077568</IDSender>
+    <IDgets>781005079</IDgets>
+    <Weight>middle</Weight>
+    <priority>regular</priority>
+    <IDSkimmerOperation>0</IDSkimmerOperation>
+    <PackageCreationTime>2022-01-09T21:30:37.5895868+02:00</PackageCreationTime>
+    <TimeAssignGlider xsi:nil="true" />
+    <PackageCollectionTime xsi:nil="true" />
+    <TimeArrivalRecipient xsi:nil="true" />
+  </Package>
+  <Package>
+    <ID>1001</ID>
+    <IDSender>447932664</IDSender>
+    <IDgets>442077568</IDgets>
+    <Weight>middle</Weight>
+    <priority>emergency</priority>
+    <IDSkimmerOperation>0</IDSkimmerOperation>
+    <PackageCreationTime>2022-01-09T21:30:37.5940769+02:00</PackageCreationTime>
+    <TimeAssignGlider xsi:nil="true" />
+    <PackageCollectionTime xsi:nil="true" />
+    <TimeArrivalRecipient xsi:nil="true" />
+  </Package>
+  <Package>
+    <ID>1002</ID>
+    <IDSender>814541091</IDSender>
+    <IDgets>447932664</IDgets>
+    <Weight>low</Weight>
+    <priority>emergency</priority>
+    <IDSkimmerOperation>0</IDSkimmerOperation>
+    <PackageCreationTime>2022-01-09T21:30:37.594085+02:00</PackageCreationTime>
+    <TimeAssignGlider xsi:nil="true" />
+    <PackageCollectionTime xsi:nil="true" />
+    <TimeArrivalRecipient xsi:nil="true" />
+  </Package>
+  <Package>
+    <ID>1003</ID>
+    <IDSender>365263246</IDSender>
+    <IDgets>814541091</IDgets>
+    <Weight>low</Weight>
+    <priority>regular</priority>
+    <IDSkimmerOperation>0</IDSkimmerOperation>
+    <PackageCreationTime>2022-01-09T21:30:37.594086+02:00</PackageCreationTime>
+    <TimeAssignGlider xsi:nil="true" />
+    <PackageCollectionTime xsi:nil="true" />
+    <TimeArrivalRecipient xsi:nil="true" />
+  </Package>
+  <Package>
+    <ID>1004</ID>
+    <IDSender>781005079</IDSender>
+    <IDgets>365263246</IDgets>
+    <Weight>heavy</Weight>
+    <priority>regular</priority>
+    <IDSkimmerOperation>0</IDSkimmerOperation>
+    <PackageCreationTime>2022-01-09T21:30:37.5940865+02:00</PackageCreationTime>
+    <TimeAssignGlider xsi:nil="true" />
+    <PackageCollectionTime xsi:nil="true" />
+    <TimeArrivalRecipient xsi:nil="true" />
+  </Package>
+  <Package>
+    <ID>1005</ID>
+    <IDSender>442077568</IDSender>
+    <IDgets>781005079</IDgets>
+    <Weight>low</Weight>
+    <priority>emergency</priority>
+    <IDSkimmerOperation>0</IDSkimmerOperation>
+    <PackageCreationTime>2022-01-09T21:30:37.5940878+02:00</PackageCreationTime>
+    <TimeAssignGlider xsi:nil="true" />
+    <PackageCollectionTime xsi:nil="true" />
+    <TimeArrivalRecipient xsi:nil="true" />
+  </Package>
+  <Package>
+    <ID>1006</ID>
+    <IDSender>447932664</IDSender>
+    <IDgets>442077568</IDgets>
+    <Weight>heavy</Weight>
+    <priority>regular</priority>
+    <IDSkimmerOperation>0</IDSkimmerOperation>
+    <PackageCreationTime>2022-01-09T21:30:37.5940883+02:00</PackageCreationTime>
+    <TimeAssignGlider xsi:nil="true" />
+    <PackageCollectionTime xsi:nil="true" />
+    <TimeArrivalRecipient xsi:nil="true" />
+  </Package>
+  <Package>
+    <ID>1007</ID>
+    <IDSender>442077568</IDSender>
+    <IDgets>781005079</IDgets>
+    <Weight>low</Weight>
+    <priority>emergency</priority>
+    <IDSkimmerOperation>803</IDSkimmerOperation>
+    <PackageCreationTime>2022-01-09T19:30:37.5942199Z</PackageCreationTime>
+    <TimeAssignGlider>2022-01-09T19:30:37.5942202Z</TimeAssignGlider>
+    <PackageCollectionTime>2022-01-09T21:30:37.594287+02:00</PackageCollectionTime>
+    <TimeArrivalRecipient xsi:nil="true" />
+  </Package>
+  <Package>
+    <ID>1008</ID>
+    <IDSender>447932664</IDSender>
+    <IDgets>442077568</IDgets>
+    <Weight>low</Weight>
+    <priority>fast</priority>
+    <IDSkimmerOperation>441</IDSkimmerOperation>
+    <PackageCreationTime>2022-01-09T19:30:37.5943468Z</PackageCreationTime>
+    <TimeAssignGlider>2022-01-09T19:30:37.5943471Z</TimeAssignGlider>
+    <PackageCollectionTime>2022-01-09T21:30:37.5943473+02:00</PackageCollectionTime>
+    <TimeArrivalRecipient xsi:nil="true" />
+  </Package>
+  <Package>
+    <ID>1009</ID>
+    <IDSender>442077568</IDSender>
+    <IDgets>781005079</IDgets>
+    <Weight>middle</Weight>
+    <priority>emergency</priority>
+    <IDSkimmerOperation>103</IDSkimmerOperation>
+    <PackageCreationTime>2022-01-09T19:30:37.5943495Z</PackageCreationTime>
+    <TimeAssignGlider>2022-01-09T21:30:37.5943496+02:00</TimeAssignGlider>
+    <PackageCollectionTime xsi:nil="true" />
+    <TimeArrivalRecipient xsi:nil="true" />
+  </Package>
+</ArrayOfPackage>
