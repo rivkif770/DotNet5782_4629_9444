@@ -52,9 +52,12 @@ namespace DalApi
             }
         }
 
-        public void AddClient(Client c)
+        public void AddClient(Client client)
         {
-            throw new NotImplementedException();
+            List<Client> clients = xml.XMLTools.LoadListFromXMLSerializer<Client>(ClientPath);
+            if (clients.Any(c => c.ID == client.ID)) throw new ExistsInSystemException($"Customer {client.ID} Save to system", Severity.Mild);
+            clients.Add(client);
+            xml.XMLTools.SaveListToXMLSerializer(clients, ClientPath);
         }
 
         public void AddPackage(Package p)
@@ -69,7 +72,10 @@ namespace DalApi
 
         public void AddSkimmerLoading(SkimmerLoading SL)
         {
-            throw new NotImplementedException();
+            List<SkimmerLoading> SkimmerLoadings = xml.XMLTools.LoadListFromXMLSerializer<SkimmerLoading>(SkimmerLoadingPath);
+            if (SkimmerLoadings.Any(s => s.SkimmerID == SL.SkimmerID)) throw new ExistsInSystemException($"SkimmerLoading {SL.SkimmerID} Save to system", Severity.Mild);
+            SkimmerLoadings.Add(SL);
+            xml.XMLTools.SaveListToXMLSerializer(SkimmerLoadings, SkimmerLoadingPath);
         }
 
         public void AssignPackageSkimmer(int idp, int idq)
@@ -99,7 +105,12 @@ namespace DalApi
 
         public void DeleteClient(int IDc)
         {
-            throw new NotImplementedException();
+            var clientList = xml.XMLTools.LoadListFromXMLSerializer<Client>(ClientPath);
+            if (!clientList.Any(c => c.ID == IDc))
+                throw new IdDoesNotExistException($"Customer {IDc} dont Save to system", Severity.Mild);
+            Client client = clientList.Find(c => c.ID == IDc);
+            clientList.Remove(client);
+            xml.XMLTools.SaveListToXMLSerializer(clientList, ClientPath);
         }
 
         public void DeletePackage(int id)
@@ -114,7 +125,12 @@ namespace DalApi
 
         public void DeleteSkimmerLoading(int idsl)
         {
-            throw new NotImplementedException();
+            var SkimmerLoadingList = xml.XMLTools.LoadListFromXMLSerializer<SkimmerLoading>(SkimmerLoadingPath);
+            if (!SkimmerLoadingList.Any(s => s.SkimmerID == idsl))
+                throw new ExistsInSystemException($"Skimmer {idsl} Save to system of SkimmerLoading", Severity.Mild);
+            SkimmerLoading skimmerLoading = SkimmerLoadingList.Find(s => s.SkimmerID == idsl);
+            SkimmerLoadingList.Remove(skimmerLoading);
+            xml.XMLTools.SaveListToXMLSerializer(SkimmerLoadingList, SkimmerPath);
         }
 
         public BaseStation GetBaseStation(int IDb)
@@ -159,12 +175,17 @@ namespace DalApi
 
         public Client GetClient(int IDc)
         {
-            throw new NotImplementedException();
+            var clientList = xml.XMLTools.LoadListFromXMLSerializer<Client>(ClientPath);
+            if (!clientList.Any(c => c.ID == IDc))
+                throw new IdDoesNotExistException($"id : {IDc} does not exist!!", Severity.Mild);
+            Client client = clientList.Find(c => c.ID == IDc);
+            return client;
         }
 
         public IEnumerable<Client> GetClientList(Func<Client, bool> predicate = null)
         {
-            throw new NotImplementedException();
+            if (predicate == null) return xml.XMLTools.LoadListFromXMLSerializer<Client>(ClientPath);
+            return xml.XMLTools.LoadListFromXMLSerializer<Client>(ClientPath).Where(predicate);
         }
 
         public Package GetPackage(int idp)
@@ -187,14 +208,18 @@ namespace DalApi
             throw new NotImplementedException();
         }
 
-        public IEnumerable<SkimmerLoading> GetSkimmerLoading()
+        public SkimmerLoading GetSkimmerLoading(int IDsl)
         {
-            throw new NotImplementedException();
+            var skimmerLoadingList = xml.XMLTools.LoadListFromXMLSerializer<SkimmerLoading>(SkimmerLoadingPath);
+            if (!skimmerLoadingList.Any(s => s.SkimmerID == IDsl))
+                throw new IdDoesNotExistException($"id : {IDsl} does not exist!!", Severity.Mild);
+            SkimmerLoading skimmerLoading = skimmerLoadingList.Find(s => s.SkimmerID == IDsl);
+            return skimmerLoading;
         }
 
         public IEnumerable<SkimmerLoading> GetSkimmerLoadingList()
         {
-            throw new NotImplementedException();
+            return xml.XMLTools.LoadListFromXMLSerializer<SkimmerLoading>(SkimmerLoadingPath);
         }
 
         public void PackageDelivery(int idp)
@@ -231,9 +256,14 @@ namespace DalApi
             }
         }
 
-        public void UpadteC(Client c)
+        public void UpadteC(Client client)
         {
-            throw new NotImplementedException();
+            var clientList = xml.XMLTools.LoadListFromXMLSerializer<Client>(ClientPath);
+            Client newclient = clientList.Find(c => c.ID == client.ID);
+            clientList.Remove(newclient);
+            newclient = client;
+            clientList.Add(newclient);
+            xml.XMLTools.SaveListToXMLSerializer(clientList, ClientPath);
         }
 
         public void UpadteP(Package p)

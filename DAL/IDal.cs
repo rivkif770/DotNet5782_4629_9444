@@ -37,7 +37,7 @@ namespace DalApi
 
         void AddSkimmerLoading(SkimmerLoading SL);
         void DeleteSkimmerLoading(int idsl);
-        IEnumerable<SkimmerLoading> GetSkimmerLoading();
+        public SkimmerLoading GetSkimmerLoading(int IDsl);
         public IEnumerable<SkimmerLoading> GetSkimmerLoadingList();          
     }
 }

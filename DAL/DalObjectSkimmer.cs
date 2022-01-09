@@ -67,10 +67,13 @@ namespace DalObject
             }
             DataSource.ListSkimmerLoading.RemoveAll(item => item.SkimmerID == idsl);
         }
-        public IEnumerable<SkimmerLoading> GetSkimmerLoading()//Displays a list of Skimmer
+        public SkimmerLoading GetSkimmerLoading(int IDsl)//Displays a list of Skimmer
         {
-            return DataSource.ListSkimmerLoading.Take(DataSource.ListSkimmerLoading.Count).ToList();
-            //return (IEnumerable<Quadocopter>)DataSource.ListSkimmerLoading.Take(DataSource.ListSkimmerLoading.Count).ToList();
+            if (!DataSource.ListSkimmerLoading.Exists(item => item.SkimmerID == IDsl))
+            {
+                throw new IdDoesNotExistException($"id : {IDsl} does not exist!!", Severity.Mild);
+            }
+            return DataSource.ListSkimmerLoading.FirstOrDefault(s => s.SkimmerID == IDsl);
         }
         public IEnumerable<SkimmerLoading> GetSkimmerLoadingList()//Displays a list of SkimmerLoading
         {
