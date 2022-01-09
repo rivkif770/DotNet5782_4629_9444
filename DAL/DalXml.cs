@@ -320,9 +320,14 @@ namespace DalApi
             xml.XMLTools.SaveListToXMLSerializer(packages, PackagePath);
         }
 
-        public void UpadteQ(Quadocopter qc)
+        public void UpadteQ(Quadocopter quadocopter)
         {
-            throw new NotImplementedException();
+            var skimmers = xml.XMLTools.LoadListFromXMLSerializer<DO.Quadocopter>(SkimmerPath);
+            Quadocopter newskimmer = skimmers.Find(s => s.IDNumber == quadocopter.IDNumber);
+            skimmers.Remove(newskimmer);
+            newskimmer = quadocopter;
+            skimmers.Add(newskimmer);
+            xml.XMLTools.SaveListToXMLSerializer(skimmers, SkimmerPath);
         }
     }
 }
