@@ -66,7 +66,8 @@ namespace BL
                     if (PackageAssociatedWithSkimmer.PackageCollectionTime == null)
                     {
                         //Location will be at the station closest to the sender
-                        updatedSkimmer.CurrentLocation = ChecksSmallDistanceBetweenCustomerAndBaseStation(GetCustomer(PackageAssociatedWithSkimmer.IDSender)).Location;
+                        DO.BaseStation baseStation = ChecksSmallDistanceBetweenCustomerAndBaseStation(GetCustomer(PackageAssociatedWithSkimmer.IDSender));
+                        updatedSkimmer.CurrentLocation = new Location { Latitude = baseStation.Latitude, Longitude = baseStation.Longitude };
                     }
                     //The position of the skimmer will be at the position of the sender
                     if(PackageAssociatedWithSkimmer.PackageCollectionTime!=null && PackageAssociatedWithSkimmer.TimeArrivalRecipient==null)
@@ -98,42 +99,86 @@ namespace BL
                     updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
                 }
 
-                //If the glider does not ship, its condition will be raffled off between maintenance and disposal
-                if (PackageAssociatedWithSkimmer.ID == 0)
+                if (mayDal.GetSkimmerLoadingList().Count() == 0)
                 {
-                    updatedSkimmer.SkimmerStatus = (SkimmerStatuses)(r.Next(2));
-                }
-                //If the skimmer is in maintenance, Its location will be raffled between the existing stations and Battery status will be raffled between 0% and 20%
-                if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.maintenance)
-                {
-                    int counts = GetBaseStationList().Count();
-                    List<DO.BaseStation> B = new List<DO.BaseStation>();
-                    foreach (DO.BaseStation item1 in mayDal.GetBaseStationList())
+                    //If the glider does not ship, its condition will be raffled off between maintenance and disposal
+                    if (PackageAssociatedWithSkimmer.ID == 0)
                     {
-                        B.Add(new DO.BaseStation
-                        {
-                            UniqueID = item1.UniqueID,
-                            StationName = item1.StationName,
-                            SeveralPositionsArgument = item1.SeveralPositionsArgument,
-                            Latitude = item1.Latitude,
-                            Longitude = item1.Longitude
-                        });
+                        updatedSkimmer.SkimmerStatus = (SkimmerStatuses)(r.Next(2));
                     }
-                    DO.BaseStation baseStation = B[r.Next(counts)];
-                    updatedSkimmer.CurrentLocation = new Location { Latitude = baseStation.Latitude, Longitude = baseStation.Longitude };
-                    baseStation.SeveralPositionsArgument = baseStation.SeveralPositionsArgument--;
-                    mayDal.UpadteB(baseStation);
-                    SkimmerLoading skimmerLoading = new SkimmerLoading { SkimmerID = updatedSkimmer.Id, StationID = baseStation.UniqueID };
-                    mayDal.AddSkimmerLoading(skimmerLoading);
-                    updatedSkimmer.BatteryStatus = r.Next(21);
+                    //If the skimmer is in maintenance, Its location will be raffled between the existing stations and Battery status will be raffled between 0% and 20%
+                    if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.maintenance)
+                    {
+                        updatedSkimmer.EntertimeLoading = DateTime.Now;
+                        int counts = mayDal.GetBaseStationList().Count();
+                        List<DO.BaseStation> B = new List<DO.BaseStation>();
+                        foreach (DO.BaseStation item1 in mayDal.GetBaseStationList())
+                        {
+                            B.Add(new DO.BaseStation
+                            {
+                                UniqueID = item1.UniqueID,
+                                StationName = item1.StationName,
+                                SeveralPositionsArgument = item1.SeveralPositionsArgument,
+                                Latitude = item1.Latitude,
+                                Longitude = item1.Longitude
+                            });
+                        }
+                        DO.BaseStation baseStation = B[r.Next(counts)];
+                        updatedSkimmer.CurrentLocation = new Location { Latitude = baseStation.Latitude, Longitude = baseStation.Longitude };
+                        baseStation.SeveralPositionsArgument = baseStation.SeveralPositionsArgument--;
+                        mayDal.UpadteB(baseStation);
+                        SkimmerLoading skimmerLoading = new SkimmerLoading { SkimmerID = updatedSkimmer.Id, StationID = baseStation.UniqueID };
+                        mayDal.AddSkimmerLoading(skimmerLoading);
+                        updatedSkimmer.BatteryStatus = r.Next(21);
+                    }
+                    // If the skimmer is available
+                    if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.free)
+                    {
+                        updatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
+                        double minBattery = MinimalChargeToGetToTheNearestStation(updatedSkimmer);
+                        updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
+
+                    }
                 }
-                // If the skimmer is available
-                if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.free)
+                else
                 {
-                    updatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
-                    double minBattery = MinimalChargeToGetToTheNearestStation(updatedSkimmer);
-                    updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
                     
+                    //If the skimmer is in maintenance, Its location will be raffled between the existing stations and Battery status will be raffled between 0% and 20%
+                   
+                    if (mayDal.GetSkimmerLoadingList().Any(s=>s.SkimmerID==updatedSkimmer.Id))
+                    {
+                        updatedSkimmer.SkimmerStatus = SkimmerStatuses.maintenance;
+                        updatedSkimmer.EntertimeLoading = DateTime.Now;
+                       int counts = mayDal.GetBaseStationList().Count();
+                        List<DO.BaseStation> B = new List<DO.BaseStation>();
+                        foreach (DO.BaseStation item1 in mayDal.GetBaseStationList())
+                        {
+                            B.Add(new DO.BaseStation
+                            {
+                                UniqueID = item1.UniqueID,
+                                StationName = item1.StationName,
+                                SeveralPositionsArgument = item1.SeveralPositionsArgument,
+                                Latitude = item1.Latitude,
+                                Longitude = item1.Longitude
+                            });
+                        }
+                        DO.BaseStation baseStation = B[r.Next(counts)];
+                        updatedSkimmer.CurrentLocation = new Location { Latitude = baseStation.Latitude, Longitude = baseStation.Longitude };
+                        baseStation.SeveralPositionsArgument = baseStation.SeveralPositionsArgument--;
+                        mayDal.UpadteB(baseStation);
+                        
+                        
+                        updatedSkimmer.BatteryStatus = r.Next(21);
+                    }
+                    else
+                    // If the skimmer is available
+                    {
+                        updatedSkimmer.SkimmerStatus = SkimmerStatuses.free;
+                        updatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
+                        double minBattery = MinimalChargeToGetToTheNearestStation(updatedSkimmer);
+                        updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
+
+                    }
                 }
                 lst.Add(updatedSkimmer);
             }
@@ -146,8 +191,8 @@ namespace BL
         /// <returns></returns>
         private double MinimalChargeToGetToTheNearestStation(SkimmerToList updatedSkimmer)
         {             
-            BO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(updatedSkimmer);
-            double distance =Tools.Utils.GetDistance(baseStation.Location.Longitude, baseStation.Location.Latitude, updatedSkimmer.CurrentLocation.Longitude, updatedSkimmer.CurrentLocation.Latitude);
+            DO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(updatedSkimmer);
+            double distance =Tools.Utils.GetDistance(baseStation.Longitude, baseStation.Latitude, updatedSkimmer.CurrentLocation.Longitude, updatedSkimmer.CurrentLocation.Latitude);
             double minimalCharge = (distance * Free);
             return minimalCharge;
         }
@@ -180,8 +225,8 @@ namespace BL
                 Battery = distance * MediumWeightCarrier;
             if (updatedSkimmer.WeightCategory == Weight.Light)
                 Battery = distance * LightWeightCarrier;
-            BO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(updatedSkimmer);
-            double distance1 = Tools.Utils.GetDistance(baseStation.Location.Longitude, baseStation.Location.Latitude, locationSend.Longitude, locationSend.Latitude);
+            DO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(updatedSkimmer);
+            double distance1 = Tools.Utils.GetDistance(baseStation.Longitude, baseStation.Latitude, locationSend.Longitude, locationSend.Latitude);
             double minimalCharge = (distance * Free)+ Battery;
             return minimalCharge;
         }
@@ -190,7 +235,7 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <param name="ChargingTime"></param>
-        public void ReleaseSkimmerFromCharging(int id, double ChargingTime)
+        public void ReleaseSkimmerFromCharging(int id)
         {
             SkimmerToList skimmer= skimmersList.Find(item => item.Id == id);
             // Only a skimmer in maintenance will be able to be released from charging
@@ -205,7 +250,6 @@ namespace BL
             
             //The skimmer mode will change to free
             skimmer.SkimmerStatus = SkimmerStatuses.free;
-            int IDb=0;
             //Search v skimmer by id
             SkimmerLoading skimmerLoading = new SkimmerLoading();
             foreach (SkimmerLoading item in mayDal.GetSkimmerLoadingList())
@@ -220,17 +264,18 @@ namespace BL
             TimeSpan timeSpan = DateTime.Now - dt;
             int time = (int)timeSpan.TotalMinutes;
             skimmer.BatteryStatus = (time * SkimmerLoadingRate) % 100;
-            DO.BaseStation station = mayDal.GetBaseStation(IDb);
+            DO.BaseStation station = mayDal.GetBaseStation(skimmerLoading.StationID);
             station.SeveralPositionsArgument++;
             mayDal.UpadteB(station);
-            foreach (SkimmerLoading item in mayDal.GetSkimmerLoadingList())
-            {
-                if (item.SkimmerID == skimmer.Id)
-                {
-                    mayDal.DeleteSkimmerLoading(skimmer.Id);
-                    break;
-                }
-            }
+            mayDal.DeleteSkimmerLoading(skimmerLoading.SkimmerID);
+            //foreach (SkimmerLoading item in mayDal.GetSkimmerLoadingList())
+            //{
+            //    if (item.SkimmerID == skimmer.Id)
+            //    {
+            //        mayDal.DeleteSkimmerLoading(skimmer.Id);
+            //        break;
+            //    }
+            //}
         }
         /// <summary>
         /// Finding a glider-related package
@@ -429,8 +474,9 @@ namespace BL
             if (skimmer.SkimmerStatus == SkimmerStatuses.free)
             {
                 //Find a very small distance between a skimmer and a base station
-                BO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
+                DO.BaseStation dalBaseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmer);
                 //If there are free charging stations
+                BO.BaseStation baseStation = GetBeseStation(dalBaseStation.UniqueID);
                 if (baseStation.SeveralClaimPositionsVacant != 0)
                 {
                     //Check if there is enough battery
@@ -468,7 +514,7 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private BO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(SkimmerToList s)
+        private DO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(SkimmerToList s)
         {
             DO.BaseStation minDistance = default;
             double smallDistance = Double.MaxValue;
@@ -481,14 +527,14 @@ namespace BL
                     minDistance = bs;
                 }
             }          
-            return GetBeseStation(minDistance.UniqueID);
+            return mayDal.GetBaseStation(minDistance.UniqueID);
         }
         /// <summary>
         /// Checks a small distance between Customer and base station
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private BO.BaseStation ChecksSmallDistanceBetweenCustomerAndBaseStation(Customer c)
+        private DO.BaseStation ChecksSmallDistanceBetweenCustomerAndBaseStation(Customer c)
         {
             DO.BaseStation station = default;
             double smallDistance = Double.MaxValue;
@@ -502,7 +548,7 @@ namespace BL
                     station = bs;
                 }
             }
-            return GetBeseStation(station.UniqueID);
+            return mayDal.GetBaseStation(station.UniqueID);
         }
         /// <summary>
         /// Calculation of battery by distance and weight of package

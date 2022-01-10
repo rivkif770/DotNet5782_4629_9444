@@ -81,8 +81,6 @@ namespace PL
                     package.WeightCategory = (Weight)(ComboWeightCategory.SelectedItem);
                     bL.AddPackage(package);
                     MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                    //CloseWindowEvent(this);
-                    this.Close();
                 }
                 catch (Exception ex)
                 {
@@ -134,14 +132,21 @@ namespace PL
         }
         private void btnDeletePackage_Click(object sender, RoutedEventArgs e)
         {
-            BO.Package package = bL.GetPackage(newPackage.Id);
-            if(package.AssignmentTime==null)
+            try
             {
-                bL.DeletePackage(newPackage.Id);
-                MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (package1.AssignmentTime == null)
+                {
+                    bL.DeletePackage(package1.Id);
+                    MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                    MessageBox.Show($"This package could not be deleted", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else
-                MessageBox.Show("The package was associated", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
         
         private void SkimmerInPackage_Click(object sender, RoutedEventArgs e)

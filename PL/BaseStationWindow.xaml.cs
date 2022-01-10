@@ -68,7 +68,7 @@ namespace PL
         private void textLatitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textLatitude.Text != "" && textLatitude.Text.All(char.IsDigit) && Int32.Parse(textLatitude.Text) <= 50 && Int32.Parse(textLatitude.Text) >= (-50) && Int32.Parse(textLatitude.Text) != 0)
+            if (textLatitude.Text != "" && textLatitude.Text.All(char.IsDigit) && Convert.ToInt32(textLatitude.Text) <= 50 && Convert.ToInt32(textLatitude.Text) >= (-50) && Int32.Parse(textLatitude.Text) != 0)
             {
                 textLatitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
@@ -77,7 +77,7 @@ namespace PL
         private void textLongitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textLongitude.Text != "" && textLongitude.Text.All(char.IsDigit) && Int32.Parse(textLongitude.Text) <= 50 && Int32.Parse(textLongitude.Text) >= (-50) && Int32.Parse(textLongitude.Text) != 0)
+            if (textLongitude.Text != "" && textLongitude.Text.All(char.IsDigit) && Convert.ToInt32(textLongitude.Text) <= 50 && Convert.ToInt32(textLongitude.Text) >= (-50) && Int32.Parse(textLongitude.Text) != 0)
             {
                 textLongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
@@ -111,12 +111,6 @@ namespace PL
             this.Close();
         }
 
-        //private void btnDeletBaseStation_Click(object sender, RoutedEventArgs e)
-        //{
-        //    BL.DeleteBaseStation(newBaseStation.Id);
-        //    MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-        //    this.Close();
-        //}
 
         private void btnUpdat_Click(object sender, RoutedEventArgs e)
         {
@@ -137,21 +131,6 @@ namespace PL
             }
         }
 
-        //private void textUpdateCharging_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    var bc = new BrushConverter();
-        //    if (textUpdateCharging.Text.All(char.IsDigit) && Int32.Parse(textUpdateCharging.Text) > 0)
-        //    {
-
-        //        textUpdateCharging.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
-        //    }
-        //    else textUpdateCharging.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
-        //}
-
-        //private void btnEXIT2_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.Close();
-        //}
         private void RefreshListView(object ob, EventArgs ev)
         {
             SkimmerListOfChargeView.ItemsSource = bL.GetListOfSkimmersCharge(baseStation1);
@@ -171,12 +150,17 @@ namespace PL
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                bL.DeleteBaseStation(newBaseStation.Id);
+                MessageBox.Show("The Delete was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        //private void Button_Click_1(object sender, RoutedEventArgs e)
-        //{
-        //    new SkimmerListWindow(mybl).Show();
-        //}
+        
     }
 }

@@ -106,6 +106,13 @@
                       HorizontalAlignment="Left" VerticalAlignment="Center" SelectedItem="{Binding SkimmerStatus, Mode=OneWay}" 
                           IsEnabled="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"
                           SelectedIndex="{Binding SkimmerStatus, Converter={StaticResource EnumToInt}}" 
+                            IsEditable="True" IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"/>
+                <ComboBox x:Name="ComboSkimmerStatus" Width="150" Height="26" Grid.Row="3" Grid.Column="1" 
+                      HorizontalAlignment="Left" VerticalAlignment="Center" SelectedItem="{Binding SkimmerStatus, Mode=OneWay}" 
+                          IsEnabled="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"
+                          SelectedIndex="{Binding SkimmerStatus, Converter={StaticResource EnumToInt}}" 
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"
                             IsEditable="True" IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <ComboBox Name="ComboWeightCategory" Width="150" Height="25"
                       HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" Grid.Column="1"  
@@ -280,7 +287,7 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="4" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
                     <Button x:Name="btnCollectThePackage" Content="Collect the package" ToolTip="Package collection" Foreground="White" FontSize="20" FontWeight="Medium"
-                   Click="Button_Package_Delivery" Width="300" Height="30"  
+                   Click="Button_Package_Collect" Width="300" Height="30"  
                         Style="{StaticResource myButtonStyle}" >
 
                         <Button.Template>
@@ -320,32 +327,6 @@
                     <BitmapImage UriSource ="/skimmer.png"/>
                 </Image.Source>
             </Image>-->
-
-        </Grid>
-
-
-        <Grid x:Name="Updates" Visibility="Collapsed" >
-
-
-            <Label x:Name="labUpdate" Margin="10,165,0,0" Width="244"
-               Content="Please introduce a new model for the skimmer" 
-               FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Bahnschrift Condensed" />
-            <TextBox x:Name="textUpdate" Margin="40,200,0,0" Width="154"
-                 HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFD3CBCD"
-                 TextChanged="textUpdate_TextChanged" BorderBrush="#FFE92617" RenderTransformOrigin="-2.833,0.598" Height="25" />
-            <Label x:Name="labRelease" Margin="15,270,0,0" Width="244"
-               Content="       Please enter skimmer loading time" FontFamily="Bahnschrift Condensed"
-               FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <TextBox x:Name="textRelease" Margin="40,300,0,0" Width="154"
-                 HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFD3CBCD"
-                 TextChanged="textRelease_TextChanged" BorderBrush="#FFE92617" RenderTransformOrigin="-2.833,0.598" Height="22"/>
-
-
-
-            <TextBox x:Name="showSkimmer" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Background="#FFE2DADC"
-                HorizontalAlignment="Left" Margin="255,10,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="300" Height="317" />
-
-
 
         </Grid>
 

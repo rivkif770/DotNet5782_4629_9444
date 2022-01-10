@@ -111,10 +111,10 @@
 
                 <ComboBox x:Name="ComboPrioritys" Width="150" Height="20" Grid.Row="5" Grid.Column="1"  
                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                           ToolTip="Choose a Priority" IsReadOnly="True"
+                           ToolTip="Choose a Priority" 
                           IsEnabled="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"
-                          IsEditable="True" SelectedItem="{Binding WeightCategory, Mode=OneWay}" 
-                          SelectedIndex="{Binding WeightCategory, Converter={StaticResource EnumToInt}}"/>
+                          IsEditable="True" SelectedItem="{Binding priority, Mode=OneWay}" 
+                          SelectedIndex="{Binding priority, Converter={StaticResource EnumToInt}}"/>
                 <ComboBox Name="ComboWeightCategory"  Width="150" Height="20"
                       HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Grid.Column="1" ToolTip="Choose Weight"  
                       IsEnabled="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"

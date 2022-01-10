@@ -24,19 +24,19 @@ namespace DalApi
         DalXml()
         {
             DalObject.DataSource.Initialize();
-            //xml.XMLTools.SetBaseStationListFile(DalObject.DataSource.ListBaseStation, BaseStationPath);
-            //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListPackage, PackagePath);
-            //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListClient, ClientPath);
-            //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListQuadocopter, SkimmerPath);
-            //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListSkimmerLoading, SkimmerLoadingPath);
-            //xml.XMLTools.Config(ConfigPsth);
+            xml.XMLTools.SetBaseStationListFile(DalObject.DataSource.ListBaseStation, BaseStationPath);
+            xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListPackage, PackagePath);
+            xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListClient, ClientPath);
+            xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListQuadocopter, SkimmerPath);
+            xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListSkimmerLoading, SkimmerLoadingPath);
+            xml.XMLTools.Config(ConfigPsth);
         }
 
         public void AddBaseStation(BaseStation baseStation)
         {
             XElement rootBaseStationElemnt = xml.XMLTools.LoadListFromXmlElement(BaseStationPath);
             XElement baseStationElemnt = (from b in rootBaseStationElemnt.Elements()
-                                          where Convert.ToInt32(b.Element("Id").Value) == baseStation.UniqueID
+                                          where Convert.ToInt32(b.Element("UniqueID").Value) == baseStation.UniqueID
                                           select b).FirstOrDefault();
             if (baseStationElemnt != null)
                 throw new ExistsInSystemException("BaseStation Save to system", baseStation.UniqueID);
@@ -52,7 +52,7 @@ namespace DalApi
                 rootBaseStationElemnt.Add(newBaseStation);
                 xml.XMLTools.SaveListToXmlElement(rootBaseStationElemnt, BaseStationPath);
             }
-        }
+        }//עובד
 
         public void AddClient(Client client)
         {
@@ -60,7 +60,7 @@ namespace DalApi
             if (clients.Any(c => c.ID == client.ID)) throw new ExistsInSystemException($"Customer {client.ID} Save to system", Severity.Mild);
             clients.Add(client);
             xml.XMLTools.SaveListToXMLSerializer(clients, ClientPath);
-        }
+        }//עובד
 
         public void AddPackage(Package package)
         {
@@ -78,7 +78,7 @@ namespace DalApi
             package.ID = id;
             packages.Add(package);
             xml.XMLTools.SaveListToXMLSerializer(packages, PackagePath);
-        }
+        }//עובד
 
         public void AddSkimmer(Quadocopter quadocopter)
         {
@@ -91,10 +91,10 @@ namespace DalApi
         public void AddSkimmerLoading(SkimmerLoading SL)
         {
             List<SkimmerLoading> SkimmerLoadings = xml.XMLTools.LoadListFromXMLSerializer<SkimmerLoading>(SkimmerLoadingPath);
-            if (SkimmerLoadings.Any(s => s.SkimmerID == SL.SkimmerID)) throw new ExistsInSystemException($"SkimmerLoading {SL.SkimmerID} Save to system", Severity.Mild);
+            //if (SkimmerLoadings.Any(s => s.SkimmerID == SL.SkimmerID)) throw new ExistsInSystemException($"SkimmerLoading {SL.SkimmerID} Save to system", Severity.Mild);
             SkimmerLoadings.Add(SL);
             xml.XMLTools.SaveListToXMLSerializer(SkimmerLoadings, SkimmerLoadingPath);
-        }
+        }//עובד
 
         public void AssignPackageSkimmer(int idp, int idq)
         {
@@ -106,7 +106,7 @@ namespace DalApi
             Packages.RemoveAll(packag => packag.ID == idp);
             Packages.Add(temp_p);
             xml.XMLTools.SaveListToXMLSerializer(Packages, PackagePath);
-        }
+        }//עובד
 
         public void CollectionPackage(int idp)
         {
@@ -117,13 +117,13 @@ namespace DalApi
             Packages.RemoveAll(packag => packag.ID == idp);
             Packages.Add(temp_p);
             xml.XMLTools.SaveListToXMLSerializer(Packages, PackagePath);
-        }
+        }//עובד
 
         public void DeleteBaseStation(int idb)
         {
             XElement rootBaseStationElemnt = xml.XMLTools.LoadListFromXmlElement(BaseStationPath);
             XElement baseStationElemnt = (from b in rootBaseStationElemnt.Elements()
-                                          where Convert.ToInt32(b.Element("Id").Value) == idb
+                                          where Convert.ToInt32(b.Element("UniqueID").Value) == idb
                                           select b).FirstOrDefault();
             if (baseStationElemnt == null)
                 throw new ExistsInSystemException("BaseStation dont Save to system", idb);
@@ -132,7 +132,7 @@ namespace DalApi
                 baseStationElemnt.Remove();
                 xml.XMLTools.SaveListToXmlElement(rootBaseStationElemnt, BaseStationPath);
             }
-        }
+        }//עובד
 
         public void DeleteClient(int IDc)
         {
@@ -142,7 +142,7 @@ namespace DalApi
             Client client = clientList.Find(c => c.ID == IDc);
             clientList.Remove(client);
             xml.XMLTools.SaveListToXMLSerializer(clientList, ClientPath);
-        }
+        }//עובד
 
         public void DeletePackage(int id)
         {
@@ -151,7 +151,7 @@ namespace DalApi
             Package package = packages.Find(p => p.ID == id);
             packages.Remove(package);
             xml.XMLTools.SaveListToXMLSerializer(packages, PackagePath);
-        }
+        }//עובד
 
         public void DeleteSkimmer(int idq)
         {
@@ -160,7 +160,7 @@ namespace DalApi
             Quadocopter skimmer = skimmers.Find(s => s.IDNumber == idq);
             skimmers.Remove(skimmer);
             xml.XMLTools.SaveListToXMLSerializer(skimmers, SkimmerPath);
-        }
+        }//עובד
 
         public void DeleteSkimmerLoading(int idsl)
         {
@@ -169,14 +169,14 @@ namespace DalApi
                 throw new ExistsInSystemException($"Skimmer {idsl} Save to system of SkimmerLoading", Severity.Mild);
             SkimmerLoading skimmerLoading = SkimmerLoadingList.Find(s => s.SkimmerID == idsl);
             SkimmerLoadingList.Remove(skimmerLoading);
-            xml.XMLTools.SaveListToXMLSerializer(SkimmerLoadingList, SkimmerPath);
-        }
+            xml.XMLTools.SaveListToXMLSerializer(SkimmerLoadingList, SkimmerLoadingPath);
+        }//עובד
 
         public BaseStation GetBaseStation(int IDb)
         {
             XElement rootBaseStationElemnt = xml.XMLTools.LoadListFromXmlElement(BaseStationPath);
             XElement baseStationElemnt = (from b in rootBaseStationElemnt.Elements()
-                                          where Convert.ToInt32(b.Element("Id").Value) == IDb
+                                          where Convert.ToInt32(b.Element("UniqueID").Value) == IDb
                                           select b).FirstOrDefault();
             if (baseStationElemnt == null)
                 throw new ExistsInSystemException("id does not exist!!", IDb);
@@ -184,8 +184,8 @@ namespace DalApi
             {
                 BaseStation newBaseStation = new BaseStation()
                 {
-                    UniqueID = Convert.ToInt32(baseStationElemnt.Element("Id").Value),
-                    StationName = baseStationElemnt.Element("Name").Value.ToString(),
+                    UniqueID = Convert.ToInt32(baseStationElemnt.Element("UniqueID").Value),
+                    StationName = baseStationElemnt.Element("StationName").Value.ToString(),
                     Latitude = Convert.ToDouble(baseStationElemnt.Element("Latitude").Value),
                     Longitude = Convert.ToDouble(baseStationElemnt.Element("Longitude").Value),
                     SeveralPositionsArgument = Convert.ToInt32(baseStationElemnt.Element("SeveralPositionsArgument").Value)
@@ -193,7 +193,7 @@ namespace DalApi
                       
                 return newBaseStation;
             }
-        }
+        }//עובד
 
         public IEnumerable<BaseStation> GetBaseStationList(Func<BaseStation, bool> predicate = null)
         {
@@ -202,15 +202,15 @@ namespace DalApi
             baseStations = (from b in rootBaseStationElemnt.Elements()
                             select new BaseStation()
                             {
-                                UniqueID = Convert.ToInt32(b.Element("Id").Value),
-                                StationName = b.Element("Name").Value.ToString(),
+                                UniqueID = Convert.ToInt32(b.Element("UniqueID").Value),
+                                StationName = b.Element("StationName").Value.ToString(),
                                 Latitude = Convert.ToDouble(b.Element("Latitude").Value),
                                 Longitude = Convert.ToDouble(b.Element("Longitude").Value),
                                 SeveralPositionsArgument = Convert.ToInt32(b.Element("SeveralPositionsArgument").Value)
-                            });
+                            }).ToList();
             if (predicate == null) return baseStations;
             return baseStations.Where(predicate);
-        }
+        }//עובד
 
         public Client GetClient(int IDc)
         {
@@ -219,13 +219,13 @@ namespace DalApi
                 throw new IdDoesNotExistException($"id : {IDc} does not exist!!", Severity.Mild);
             Client client = clientList.Find(c => c.ID == IDc);
             return client;
-        }
+        }//עובד
 
         public IEnumerable<Client> GetClientList(Func<Client, bool> predicate = null)
         {
             if (predicate == null) return xml.XMLTools.LoadListFromXMLSerializer<Client>(ClientPath);
             return xml.XMLTools.LoadListFromXMLSerializer<Client>(ClientPath).Where(predicate);
-        }
+        }//עובד
 
         public Package GetPackage(int idp)
         {
@@ -233,19 +233,19 @@ namespace DalApi
             if (!packages.Any(p => p.ID == idp)) throw new ExistsInSystemException("Package dont Save to system", idp);
             Package package = packages.Find(p => p.ID == idp);
             return package;
-        }
+        }//עובד
 
         public IEnumerable<Package> GetPackageList(Func<Package, bool> predicate = null)
         {
             if (predicate == null) return xml.XMLTools.LoadListFromXMLSerializer<DO.Package>(PackagePath);
             return xml.XMLTools.LoadListFromXMLSerializer<DO.Package>(PackagePath).Where(predicate);
-        }
+        }//עובד
 
         public IEnumerable<Quadocopter> GetQuadocopterList(Func<Quadocopter, bool> predicate = null)
         {
             if (predicate == null) return xml.XMLTools.LoadListFromXMLSerializer<DO.Quadocopter>(SkimmerPath);
             return xml.XMLTools.LoadListFromXMLSerializer<DO.Quadocopter>(SkimmerPath).Where(predicate);
-        }
+        }//עובד
 
         public Quadocopter GetQuadrocopter(int IDq)
         {
@@ -253,7 +253,7 @@ namespace DalApi
             if (!skimmers.Any(s => s.IDNumber == IDq)) throw new ExistsInSystemException("Package dont Save to system", IDq);
             Quadocopter skimmer = skimmers.Find(s => s.IDNumber == IDq);
             return skimmer;
-        }
+        }//עובד
 
         public SkimmerLoading GetSkimmerLoading(int IDsl)
         {
@@ -262,12 +262,12 @@ namespace DalApi
                 throw new IdDoesNotExistException($"id : {IDsl} does not exist!!", Severity.Mild);
             SkimmerLoading skimmerLoading = skimmerLoadingList.Find(s => s.SkimmerID == IDsl);
             return skimmerLoading;
-        }
+        }//עובד
 
         public IEnumerable<SkimmerLoading> GetSkimmerLoadingList()
         {
             return xml.XMLTools.LoadListFromXMLSerializer<SkimmerLoading>(SkimmerLoadingPath);
-        }
+        }//עובד
 
         public void PackageDelivery(int idp)
         {
@@ -285,38 +285,31 @@ namespace DalApi
             XElement rootConfigElement = xml.XMLTools.LoadListFromXmlElement(ConfigPsth);
 
             double[] arry = new double[5];
-            arry[0] = Convert.ToInt32(rootConfigElement.Element("Free").Value);
-            arry[1] = Convert.ToInt32(rootConfigElement.Element("LightWeightCarrier").Value);
-            arry[2] = Convert.ToInt32(rootConfigElement.Element("MediumWeightCarrier").Value);
-            arry[3] = Convert.ToInt32(rootConfigElement.Element("HeavyWeightCarrier").Value);
-            arry[4] = Convert.ToInt32(rootConfigElement.Element("SkimmerLoadingRate").Value);
+            arry[0] = Convert.ToDouble(rootConfigElement.Element("Free").Value);
+            arry[1] = Convert.ToDouble(rootConfigElement.Element("LightWeightCarrier").Value);
+            arry[2] = Convert.ToDouble(rootConfigElement.Element("MediumWeightCarrier").Value);
+            arry[3] = Convert.ToDouble(rootConfigElement.Element("HeavyWeightCarrier").Value);
+            arry[4] = Convert.ToDouble(rootConfigElement.Element("SkimmerLoadingRate").Value);
 
             return arry;
-        }
+        }//עובד
 
         public void UpadteB(BaseStation baseStation)
         {
             XElement rootBaseStationElemnt = xml.XMLTools.LoadListFromXmlElement(BaseStationPath);
             XElement baseStationElemnt = (from b in rootBaseStationElemnt.Elements()
-                                          where Convert.ToInt32(b.Element("Id").Value) == baseStation.UniqueID
+                                          where Convert.ToInt32(b.Element("UniqueID").Value) == baseStation.UniqueID
                                           select b).FirstOrDefault();
-            if (baseStationElemnt != null)
+            if (baseStationElemnt == null)
                 throw new ExistsInSystemException("BaseStation Not Find", baseStation.UniqueID);
             else
             {
                 baseStationElemnt.Remove();
-                BaseStation newBaseStation = new BaseStation()
-                {
-                    UniqueID = baseStation.UniqueID,
-                    StationName = baseStation.StationName,
-                    Latitude = baseStation.Latitude,
-                    Longitude = baseStation.Longitude,
-                    SeveralPositionsArgument = baseStation.SeveralPositionsArgument
-                };
-                rootBaseStationElemnt.Add(newBaseStation);
                 xml.XMLTools.SaveListToXmlElement(rootBaseStationElemnt, BaseStationPath);
+                AddBaseStation(baseStation);
+                
             }
-        }
+        }//עובד
 
         public void UpadteC(Client client)
         {
@@ -326,7 +319,7 @@ namespace DalApi
             newclient = client;
             clientList.Add(newclient);
             xml.XMLTools.SaveListToXMLSerializer(clientList, ClientPath);
-        }
+        }//עובד
 
         public void UpadteP(Package package)
         {
@@ -336,7 +329,7 @@ namespace DalApi
             newpackage = package;
             packages.Add(newpackage);
             xml.XMLTools.SaveListToXMLSerializer(packages, PackagePath);
-        }
+        }//עובד
 
         public void UpadteQ(Quadocopter quadocopter)
         {
@@ -346,6 +339,6 @@ namespace DalApi
             newskimmer = quadocopter;
             skimmers.Add(newskimmer);
             xml.XMLTools.SaveListToXMLSerializer(skimmers, SkimmerPath);
-        }
+        }//עובד
     }
 }

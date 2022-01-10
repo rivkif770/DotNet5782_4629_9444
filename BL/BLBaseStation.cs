@@ -54,12 +54,13 @@ namespace BL
             List<SkimmerInCharging> skimmerInCharging = new List<SkimmerInCharging>();
             foreach (DO.SkimmerLoading item in mayDal.GetSkimmerLoadingList())
             {
-                if (item.StationID == somoeBaseStation.UniqueID)
+                if (item.StationID == somoeBaseStation.UniqueID && skimmersList.Count() != 0)
                 {
                     SkimmerInCharging skimmerInCharging1 = new SkimmerInCharging
                     {
                         Id = item.SkimmerID,
-                        BatteryStatus = GetSkimmerToList(item.SkimmerID).BatteryStatus
+                        BatteryStatus = skimmersList.Find(s => s.Id == item.SkimmerID).BatteryStatus
+                        //BatteryStatus = GetSkimmerToList(item.SkimmerID).BatteryStatus
                     };
                     skimmerInCharging.Add(skimmerInCharging1);
                 }

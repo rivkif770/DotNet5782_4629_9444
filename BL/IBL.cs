@@ -39,7 +39,7 @@ namespace BlApi
         void AddSkimmer(Skimmer newSkimmer, int station);
         public SkimmerToList GetSkimmerToList(int id);
         public Skimmer GetSkimmerr(int id);
-        public void ReleaseSkimmerFromCharging(int id, double ChargingTime);
+        public void ReleaseSkimmerFromCharging(int id);
         public void UpdateSkimmerName(int ids, string name);
         public void SendingSkimmerForCharging(int id);
         IEnumerable<SkimmerToList> GetSkimmerList(Func<SkimmerToList, bool> predicate = null);

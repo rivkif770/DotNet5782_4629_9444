@@ -56,7 +56,7 @@ namespace PL
             bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
-            ComboStationID.ItemsSource = Enum.GetValues(typeof(BO.Priority));
+            ComboSkimmerStatus.ItemsSource = Enum.GetValues(typeof(BO.Priority));
             help.IsChecked = true;
             DataContext = bL.GetSkimmerr(skimmerToList.Id);
             newSkimmer = new SkimmerToList();
@@ -73,10 +73,11 @@ namespace PL
         {
             try
             {
-                //bL.AddSkimmer(skimmer, Int32.Parse(ComboStationID.Text));
-                BaseStation baseStation = (BaseStation)ComboStationID.SelectedItem;
-                bL.AddSkimmer(skimmer1, baseStation.Id);
+                int baseStation = Convert.ToInt32(((ComboBoxItem)ComboStationID.SelectedItem).Content);
+
+                bL.AddSkimmer(skimmer1, baseStation);
                 MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                skimmer1 = new Skimmer();
             }
             catch (Exception ex)
             {
@@ -175,55 +176,18 @@ namespace PL
         /// <param name="e"></param>
         private void Button_Release(object sender, RoutedEventArgs e)
         {
-            SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            if (SolidColorBrush.Equals(((SolidColorBrush)textRelease.BorderBrush).Color, red.Color))
-                MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
-            else
+            try
             {
-                int Time = Int32.Parse(textRelease.Text);
-                try
-                {
-                    bL.ReleaseSkimmerFromCharging(newSkimmer.Id, Time);
-                    MessageBox.Show("The skimmer was successfully released for loading", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                    //CloseWindowEvent(this);
-                    //this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                bL.ReleaseSkimmerFromCharging(newSkimmer.Id);
+                MessageBox.Show("The skimmer was successfully released for loading", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                //CloseWindowEvent(this);
+                //this.Close();
             }
-        }
-        /// <summary>
-        /// /// Enter the new name from the user and color the field according to the correctness of the input
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textUpdate_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string text = textUpdate.Text;
-            var bc = new BrushConverter();
-            if (text != "" && char.IsLetter(text.ElementAt(0)))
+            catch (Exception ex)
             {
-                textUpdate.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else
-                textUpdate.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
-        }
-        /// <summary>
-        /// /// Enter the number of hours of charging from the user and color the field according to the correctness of the input
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textRelease_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var bc = new BrushConverter();
-            if (textRelease.Text.All(char.IsDigit))
-            {
 
-                textRelease.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
-            }
-            else textRelease.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
         /// <summary>
         /// /// /// Attempt to associate a package with a glider Sender Try to update on bl, update the new glider, send an appropriate message and close the window
@@ -236,8 +200,6 @@ namespace PL
             {
                 bL.AssigningPackageToSkimmer(newSkimmer.Id);
                 MessageBox.Show("The glider was successfully shipped", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                //CloseWindowEvent(this);
-                //this.Close();
             }
             catch (Exception ex)
             {
@@ -245,7 +207,7 @@ namespace PL
             }
         }
         /// <summary>
-        /// /// /// Attempt to collect a package, sends to try to update on bl, updates the new glider, sends an appropriate message and closes the window
+        /// /// Attempt to collect a package, sends to try to update on bl, updates the new glider, sends an appropriate message and closes the window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -255,8 +217,6 @@ namespace PL
             {
                 bL.CollectingPackageBySkimmer(newSkimmer.Id);
                 MessageBox.Show("The package was successfully collected", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                //CloseWindowEvent(this);
-                //this.Close();
             }
             catch (Exception ex)
             {
@@ -264,7 +224,7 @@ namespace PL
             }
         }
         /// <summary>
-        /// /// /// Attempt to deliver a package, sends to try to update on bl, updates the new glider, sends an appropriate message and closes the window
+        /// /// Attempt to deliver a package, sends to try to update on bl, updates the new glider, sends an appropriate message and closes the window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -274,8 +234,6 @@ namespace PL
             {
                 bL.DeliveryOfPackageBySkimmer(newSkimmer.Id);
                 MessageBox.Show("The shipment reached its destination successfully", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                //CloseWindowEvent(this);
-                //this.Close();
             }
             catch (Exception ex)
             {
@@ -314,9 +272,9 @@ namespace PL
 
         private void IdOfPackageInTransfer_Click(object sender, RoutedEventArgs e)
         {
-            if (skimmer1.PackageInTransfer.Id != 0)
+            if (newSkimmer.PackageNumberTransferred != 0)
             {
-                Package package = bL.GetPackage(skimmer1.PackageInTransfer.Id);
+                Package package = bL.GetPackage(newSkimmer.PackageNumberTransferred);
                 PackageToList packageToList = new PackageToList
                 {
                     Id = package.Id,
@@ -332,6 +290,19 @@ namespace PL
             else
             {
                 MessageBox.Show($"No package in transfer", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Button_Package_Collect(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bL.CollectingPackageBySkimmer(newSkimmer.Id);
+                MessageBox.Show("Package collection was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
