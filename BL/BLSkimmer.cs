@@ -98,88 +98,91 @@ namespace BL
                     double minBattery = MinimalLoadingPerformTheShipmentAndArriveForLoading(updatedSkimmer, tempS, tempG);
                     updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
                 }
-
-                if (mayDal.GetSkimmerLoadingList().Count() == 0)
-                {
-                    //If the glider does not ship, its condition will be raffled off between maintenance and disposal
-                    if (PackageAssociatedWithSkimmer.ID == 0)
-                    {
-                        updatedSkimmer.SkimmerStatus = (SkimmerStatuses)(r.Next(2));
-                    }
-                    //If the skimmer is in maintenance, Its location will be raffled between the existing stations and Battery status will be raffled between 0% and 20%
-                    if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.maintenance)
-                    {
-                        updatedSkimmer.EntertimeLoading = DateTime.Now;
-                        int counts = mayDal.GetBaseStationList().Count();
-                        List<DO.BaseStation> B = new List<DO.BaseStation>();
-                        foreach (DO.BaseStation item1 in mayDal.GetBaseStationList())
-                        {
-                            B.Add(new DO.BaseStation
-                            {
-                                UniqueID = item1.UniqueID,
-                                StationName = item1.StationName,
-                                SeveralPositionsArgument = item1.SeveralPositionsArgument,
-                                Latitude = item1.Latitude,
-                                Longitude = item1.Longitude
-                            });
-                        }
-                        DO.BaseStation baseStation = B[r.Next(counts)];
-                        updatedSkimmer.CurrentLocation = new Location { Latitude = baseStation.Latitude, Longitude = baseStation.Longitude };
-                        baseStation.SeveralPositionsArgument = baseStation.SeveralPositionsArgument--;
-                        mayDal.UpadteB(baseStation);
-                        SkimmerLoading skimmerLoading = new SkimmerLoading { SkimmerID = updatedSkimmer.Id, StationID = baseStation.UniqueID };
-                        mayDal.AddSkimmerLoading(skimmerLoading);
-                        updatedSkimmer.BatteryStatus = r.Next(21);
-                    }
-                    // If the skimmer is available
-                    if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.free)
-                    {
-                        updatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
-                        double minBattery = MinimalChargeToGetToTheNearestStation(updatedSkimmer);
-                        updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
-
-                    }
-                }
                 else
                 {
-                    
-                    //If the skimmer is in maintenance, Its location will be raffled between the existing stations and Battery status will be raffled between 0% and 20%
-                   
-                    if (mayDal.GetSkimmerLoadingList().Any(s=>s.SkimmerID==updatedSkimmer.Id))
+                    if (mayDal.GetSkimmerLoadingList().Count() == 0)
                     {
-                        updatedSkimmer.SkimmerStatus = SkimmerStatuses.maintenance;
-                        updatedSkimmer.EntertimeLoading = DateTime.Now;
-                       int counts = mayDal.GetBaseStationList().Count();
-                        List<DO.BaseStation> B = new List<DO.BaseStation>();
-                        foreach (DO.BaseStation item1 in mayDal.GetBaseStationList())
+                        //If the glider does not ship, its condition will be raffled off between maintenance and disposal
+                        if (PackageAssociatedWithSkimmer.ID == 0)
                         {
-                            B.Add(new DO.BaseStation
-                            {
-                                UniqueID = item1.UniqueID,
-                                StationName = item1.StationName,
-                                SeveralPositionsArgument = item1.SeveralPositionsArgument,
-                                Latitude = item1.Latitude,
-                                Longitude = item1.Longitude
-                            });
+                            updatedSkimmer.SkimmerStatus = (SkimmerStatuses)(r.Next(2));
                         }
-                        DO.BaseStation baseStation = B[r.Next(counts)];
-                        updatedSkimmer.CurrentLocation = new Location { Latitude = baseStation.Latitude, Longitude = baseStation.Longitude };
-                        baseStation.SeveralPositionsArgument = baseStation.SeveralPositionsArgument--;
-                        mayDal.UpadteB(baseStation);
-                        
-                        
-                        updatedSkimmer.BatteryStatus = r.Next(21);
+                        //If the skimmer is in maintenance, Its location will be raffled between the existing stations and Battery status will be raffled between 0% and 20%
+                        if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.maintenance)
+                        {
+                            updatedSkimmer.EntertimeLoading = DateTime.Now;
+                            int counts = mayDal.GetBaseStationList().Count();
+                            List<DO.BaseStation> B = new List<DO.BaseStation>();
+                            foreach (DO.BaseStation item1 in mayDal.GetBaseStationList())
+                            {
+                                B.Add(new DO.BaseStation
+                                {
+                                    UniqueID = item1.UniqueID,
+                                    StationName = item1.StationName,
+                                    SeveralPositionsArgument = item1.SeveralPositionsArgument,
+                                    Latitude = item1.Latitude,
+                                    Longitude = item1.Longitude
+                                });
+                            }
+                            DO.BaseStation baseStation = B[r.Next(counts)];
+                            updatedSkimmer.CurrentLocation = new Location { Latitude = baseStation.Latitude, Longitude = baseStation.Longitude };
+                            baseStation.SeveralPositionsArgument = baseStation.SeveralPositionsArgument--;
+                            mayDal.UpadteB(baseStation);
+                            SkimmerLoading skimmerLoading = new SkimmerLoading { SkimmerID = updatedSkimmer.Id, StationID = baseStation.UniqueID };
+                            mayDal.AddSkimmerLoading(skimmerLoading);
+                            updatedSkimmer.BatteryStatus = r.Next(21);
+                        }
+                        // If the skimmer is available
+                        if (updatedSkimmer.SkimmerStatus == SkimmerStatuses.free)
+                        {
+                            updatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
+                            double minBattery = MinimalChargeToGetToTheNearestStation(updatedSkimmer);
+                            updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
+
+                        }
                     }
                     else
-                    // If the skimmer is available
                     {
-                        updatedSkimmer.SkimmerStatus = SkimmerStatuses.free;
-                        updatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
-                        double minBattery = MinimalChargeToGetToTheNearestStation(updatedSkimmer);
-                        updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
 
+                        //If the skimmer is in maintenance, Its location will be raffled between the existing stations and Battery status will be raffled between 0% and 20%
+
+                        if (mayDal.GetSkimmerLoadingList().Any(s => s.SkimmerID == updatedSkimmer.Id))
+                        {
+                            updatedSkimmer.SkimmerStatus = SkimmerStatuses.maintenance;
+                            updatedSkimmer.EntertimeLoading = DateTime.Now;
+                            int counts = mayDal.GetBaseStationList().Count();
+                            List<DO.BaseStation> B = new List<DO.BaseStation>();
+                            foreach (DO.BaseStation item1 in mayDal.GetBaseStationList())
+                            {
+                                B.Add(new DO.BaseStation
+                                {
+                                    UniqueID = item1.UniqueID,
+                                    StationName = item1.StationName,
+                                    SeveralPositionsArgument = item1.SeveralPositionsArgument,
+                                    Latitude = item1.Latitude,
+                                    Longitude = item1.Longitude
+                                });
+                            }
+                            DO.BaseStation baseStation = B[r.Next(counts)];
+                            updatedSkimmer.CurrentLocation = new Location { Latitude = baseStation.Latitude, Longitude = baseStation.Longitude };
+                            baseStation.SeveralPositionsArgument = baseStation.SeveralPositionsArgument--;
+                            mayDal.UpadteB(baseStation);
+
+
+                            updatedSkimmer.BatteryStatus = r.Next(21);
+                        }
+                        else
+                        // If the skimmer is available
+                        {
+                            updatedSkimmer.SkimmerStatus = SkimmerStatuses.free;
+                            updatedSkimmer.CurrentLocation = SkimmerLocationAvailable();
+                            double minBattery = MinimalChargeToGetToTheNearestStation(updatedSkimmer);
+                            updatedSkimmer.BatteryStatus = (double)r.Next((int)minBattery, 100);
+
+                        }
                     }
                 }
+                
                 lst.Add(updatedSkimmer);
             }
 
