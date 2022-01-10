@@ -343,6 +343,7 @@ namespace BL
             if (!GetCustomerList().Any(p => p.Id == customerID)) throw new IdDoesNotExistExceptionBL("ID not found");
             PackageShipped = PackageShipped.Where(p => (GetPackage(p.Id)).ReceivesPackage.Id == customerID);
             return PackageShipped;
+      
         }
     }
 }
