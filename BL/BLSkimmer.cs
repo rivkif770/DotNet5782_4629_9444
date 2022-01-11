@@ -17,7 +17,7 @@ namespace BL
         static BL() { }
 
         static Random r ;
-        public DalApi.IDal mayDal;
+        internal DalApi.IDal mayDal;
         private List<SkimmerToList> skimmersList;
         public double Free;
         public double LightWeightCarrier;

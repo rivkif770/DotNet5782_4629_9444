@@ -15,7 +15,7 @@ using System.Drawing;
 using System.Collections;
 using BO;
 using System.Runtime.CompilerServices;
-
+using System.ComponentModel;
 
 namespace PL
 {
@@ -25,6 +25,7 @@ namespace PL
         SkimmerToList newSkimmer;
         Skimmer skimmer1 = new Skimmer();
         BlApi.IBL bL;
+        BackgroundWorker backgroundWorker;
         public delegate void CloseWindow(object ob);
         //public event CloseWindow CloseWindowEvent;
         /// <summary>
@@ -54,6 +55,8 @@ namespace PL
         /// <param name="skimmerListWindow"></param>
         public SkimmerWindow(SkimmerToList skimmerToList)
         {
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += SimulatorDoWork;
             bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
@@ -64,6 +67,14 @@ namespace PL
             newSkimmer = skimmerToList;
             skimmer1 = bL.GetSkimmerr(skimmerToList.Id);
             //showSkimmer.Text = bl.GetSkimmerr(newSkimmer.Id).ToString();
+        }
+        private void SimulatorDoWork(object sender, DoWorkEventArgs e)
+        {
+            bL.SimulatorActive(skimmer1.Id, update, stop);
+        }
+        bool stop()
+        {
+            return backgroundWorker.CancellationPending;
         }
         /// <summary>
         /// Button attempt to add skimmer-checks whether all the required fields are filled correctly and sends to try to add in bl, updates the new skimmer, sends a suitable message and closes the window
