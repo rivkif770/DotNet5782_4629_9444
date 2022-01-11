@@ -10,6 +10,7 @@ namespace DalObject
 {
     public partial class DalObject :DalApi.IDal
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpadteB(BaseStation b)
         {
             for (int i = 0; i < DataSource.ListBaseStation.Count; i++)
@@ -21,6 +22,7 @@ namespace DalObject
                 }
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddBaseStation(BaseStation b)//Adding a station
         {
             if (DataSource.ListBaseStation.Exists(item => item.UniqueID == b.UniqueID))//If finds an existing base station throws an error.
@@ -29,6 +31,7 @@ namespace DalObject
             }
             DataSource.ListBaseStation.Add(b);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBaseStation(int IDb)//Base station view by appropriate ID
         {
             if (!DataSource.ListBaseStation.Exists(item => item.UniqueID == IDb))
@@ -37,12 +40,14 @@ namespace DalObject
             }
             return DataSource.ListBaseStation.FirstOrDefault(b => b.UniqueID == IDb);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> GetBaseStationList(Func<BaseStation,bool> predicate = null)//return a list of base stations
         {
             if(predicate==null)
                 return DataSource.ListBaseStation.Take(DataSource.ListBaseStation.Count).ToList();
             return DataSource.ListBaseStation.Where(predicate).ToList();
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteBaseStation(int idb)//Adding a station
         {
             if (!DataSource.ListBaseStation.Exists(item => item.UniqueID == idb))//If finds an existing base station throws an error.

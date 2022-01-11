@@ -10,6 +10,7 @@ namespace DalObject
 {
     public partial class DalObject: DalApi.IDal
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpadteC(Client c)
         {
             for (int i = 0; i < DataSource.ListClient.Count; i++)
@@ -21,6 +22,7 @@ namespace DalObject
                 }
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddClient(Client c)//Adding a customer
         {
             if (DataSource.ListClient.Exists(item => item.ID == c.ID))//If finds an existing Customer throws an error.
@@ -29,6 +31,7 @@ namespace DalObject
             }
             DataSource.ListClient.Add(c);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Client GetClient(int IDc)//Client view by appropriate ID
         {
             if (!DataSource.ListClient.Exists(item => item.ID == IDc))
@@ -37,13 +40,14 @@ namespace DalObject
             }
             return DataSource.ListClient.Find(c => c.ID == IDc);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Client> GetClientList(Func<Client, bool> predicate = null)//Displays a list of Client
         {
             if (predicate == null)
                 return DataSource.ListClient.Take(DataSource.ListClient.Count).ToList();
             return DataSource.ListClient.Where(predicate).ToList();
         }
-        
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteClient(int IDc)//Adding a customer
         {
             if (!DataSource.ListClient.Exists(item => item.ID == IDc))//If finds an existing Customer throws an error.

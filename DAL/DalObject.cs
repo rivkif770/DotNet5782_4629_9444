@@ -18,6 +18,7 @@ namespace DalObject
         {
             DataSource.Initialize();
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] PowerConsumptionRequest()
         {
             return new double[] {
@@ -27,6 +28,7 @@ namespace DalObject
                 DataSource.Config.HeavyWeightCarrier,
                 DataSource.Config.SkimmerLoadingRate};
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AssignPackageSkimmer(int idp, int idq)//Assign a package to a skimmer
         {
             Package temp_p = this.GetPackage(idp);
@@ -36,6 +38,7 @@ namespace DalObject
             DataSource.ListPackage.RemoveAll(packag => packag.ID == idp);//Deleting the old Package object
             DataSource.ListPackage.Add(temp_p);//Deleting the new Package object includes the change
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CollectionPackage(int idp)//Update package collection by skimmer
         {
             Package temp_p = this.GetPackage(idp);
@@ -44,6 +47,7 @@ namespace DalObject
             DataSource.ListPackage.RemoveAll(packag => packag.ID == idp);//Deleting the old Package object
             DataSource.ListPackage.Add(temp_p);//Deleting the new Package object includes the change
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void PackageDelivery(int idp)//Delivery of a package to the customer
         {
             Package temp_p = this.GetPackage(idp);
@@ -52,6 +56,7 @@ namespace DalObject
             DataSource.ListPackage.RemoveAll(packag => packag.ID == idp);//Deleting the old Package object
             DataSource.ListPackage.Add(temp_p);//Deleting the new Package object includes the change
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendingSkimmerForCharging(int idq, int idBS)//Sending a skimmer for charging at a base station
         {
             BaseStation temp_BS = this.GetBaseStation(idBS);
@@ -60,6 +65,7 @@ namespace DalObject
             DataSource.ListBaseStation.RemoveAll(Base => Base.UniqueID == idBS);//Deleting the old BaseStation object
             DataSource.ListBaseStation.Add(temp_BS);//Deleting the new BaseStation object includes the change
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SkimmerRelease(int idq, int IdBS)//Release skimmer from base charge
         {            
             BaseStation temp_BS = this.GetBaseStation(IdBS);
