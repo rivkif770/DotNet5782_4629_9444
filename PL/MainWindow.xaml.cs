@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BL;
 using BO;
+using System.Runtime.CompilerServices;
 
 namespace PL
 {
