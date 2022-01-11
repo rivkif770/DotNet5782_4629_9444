@@ -29,7 +29,10 @@ namespace BL
 
             try
             {
-                mayDal.AddClient(tempC);
+                lock (mayDal)
+                {
+                    mayDal.AddClient(tempC);
+                }
             }
             catch (ExistsInSystemException exception)
             {
@@ -47,61 +50,68 @@ namespace BL
             DO.Client somoeone;
             try
             {
-                somoeone = mayDal.GetClient(id);
+                lock (mayDal)
+                {
+                    somoeone = mayDal.GetClient(id);
+                }
             }
             catch (DO.IdDoesNotExistException cex)
             {
                 throw new IdDoesNotExistExceptionBL(cex.Message + " from dal");
             }
             List<PackageAtCustomer> sentParcels = new List<PackageAtCustomer>();
-            foreach (DO.Package item in mayDal.GetPackageList())
+            lock (mayDal)
             {
-                if (item.IDSender == somoeone.ID)
+                foreach (DO.Package item in mayDal.GetPackageList())
                 {
-                    PackageAtCustomer packageAtCustomer = new PackageAtCustomer
+                    if (item.IDSender == somoeone.ID)
                     {
-                        Id = item.ID,
-                        WeightCategory = (Weight)(int)item.Weight,
-                        priority = (Priority)(int)item.priority,
-                        PackageMode = (ParcelStatus)ReturnsSkimmerMode(item),
-                        customerInParcel = new CustomerInParcel
+                        PackageAtCustomer packageAtCustomer = new PackageAtCustomer
                         {
-                            Id = ReturnsCustomerContrary(id,item).ID,
-                            Name = ReturnsCustomerContrary(id, item).Name
-                        }
-                    };
-                    sentParcels.Add(packageAtCustomer);
+                            Id = item.ID,
+                            WeightCategory = (Weight)(int)item.Weight,
+                            priority = (Priority)(int)item.priority,
+                            PackageMode = (ParcelStatus)ReturnsSkimmerMode(item),
+                            customerInParcel = new CustomerInParcel
+                            {
+                                Id = ReturnsCustomerContrary(id, item).ID,
+                                Name = ReturnsCustomerContrary(id, item).Name
+                            }
+                        };
+                        sentParcels.Add(packageAtCustomer);
+                    }
                 }
-            }
-            List<PackageAtCustomer> ReceiveParcels = new List<PackageAtCustomer>();
-            foreach (DO.Package item in mayDal.GetPackageList())
-            {
-                if (item.IDgets == somoeone.ID)
+                List<PackageAtCustomer> ReceiveParcels = new List<PackageAtCustomer>();
+                foreach (DO.Package item in mayDal.GetPackageList())
                 {
-                    PackageAtCustomer packageAtCustomer = new PackageAtCustomer
+                    if (item.IDgets == somoeone.ID)
                     {
-                        Id = item.ID,
-                        WeightCategory = (Weight)(int)item.Weight,
-                        priority = (Priority)(int)item.priority,
-                        PackageMode = (ParcelStatus)ReturnsSkimmerMode(item),
-                        customerInParcel = new CustomerInParcel
+                        PackageAtCustomer packageAtCustomer = new PackageAtCustomer
                         {
-                            Id = item.IDSender,
-                            Name = mayDal.GetClient(item.IDgets).Name
-                        }
-                    };
-                    ReceiveParcels.Add(packageAtCustomer);
+                            Id = item.ID,
+                            WeightCategory = (Weight)(int)item.Weight,
+                            priority = (Priority)(int)item.priority,
+                            PackageMode = (ParcelStatus)ReturnsSkimmerMode(item),
+                            customerInParcel = new CustomerInParcel
+                            {
+                                Id = item.IDSender,
+                                Name = mayDal.GetClient(item.IDgets).Name
+                            }
+                        };
+                        ReceiveParcels.Add(packageAtCustomer);
+                    }
                 }
+                return new Customer
+                {
+                    Id = somoeone.ID,
+                    Name = somoeone.Name,
+                    Phone = somoeone.Telephone,
+                    Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude },
+                    SentParcels = sentParcels,
+                    ReceiveParcels = ReceiveParcels,
+                };
             }
-            return new Customer
-            {
-                Id = somoeone.ID,
-                Name = somoeone.Name,
-                Phone = somoeone.Telephone,
-                Location = new Location { Latitude = somoeone.Latitude, Longitude = somoeone.Longitude },
-                SentParcels = sentParcels,
-                ReceiveParcels = ReceiveParcels,
-            };
+     
         }
         /// <summary>
         /// Returns to customer in contrast (the other side of the package - the recipient for the sender and the sender for the recipient)
@@ -109,12 +119,14 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="package"></param>
         /// <returns></returns>
-        [MethodImpl(MethodImplOptions.Synchronized)]
         private Client ReturnsCustomerContrary(int id, DO.Package package)
         {
-            if (id == package.IDSender)
-                return mayDal.GetClient(package.IDgets);
-            return mayDal.GetClient(package.IDSender);
+            lock (mayDal)
+            {
+                if (id == package.IDSender)
+                    return mayDal.GetClient(package.IDgets);
+                return mayDal.GetClient(package.IDSender);
+            }
         }
         /// <summary>
         /// Update customer data
@@ -134,22 +146,24 @@ namespace BL
             if (phone != "")
                 customer.Phone = phone;
             //Adding a new customer with the new data and deleting the old customer with the out-of-date data
-            Client client = new Client
+            lock (mayDal)
             {
-                ID = customer.Id,
-                Name = customer.Name,
-                Telephone = customer.Phone,
-                Latitude = customer.Location.Latitude,
-                Longitude = customer.Location.Longitude
-            };
-            mayDal.UpadteC(client);
+                Client client = new Client
+                {
+                    ID = customer.Id,
+                    Name = customer.Name,
+                    Telephone = customer.Phone,
+                    Latitude = customer.Location.Latitude,
+                    Longitude = customer.Location.Longitude
+                };
+                mayDal.UpadteC(client);
+            }
         }
         /// <summary>
         /// Returns skimmer mode
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        [MethodImpl(MethodImplOptions.Synchronized)]
         private int ReturnsSkimmerMode(DO.Package p)
         {
             if (p.TimeArrivalRecipient != null)
@@ -170,20 +184,23 @@ namespace BL
         public IEnumerable<CustomerToList> GetCustomerList()
         {
             List<CustomerToList> customerToList= new List<CustomerToList>();
-            foreach (DO.Client item in mayDal.GetClientList())
+            lock (mayDal)
             {
-                CustomerToList customer = new CustomerToList
+                foreach (DO.Client item in mayDal.GetClientList())
                 {
-                    Id = item.ID,
-                    Name = item.Name,
-                    Phone = item.Telephone,
-                    ParcelSentAndDelivered = mayDal.GetPackageList().Count(x => x.IDSender == item.ID && x.PackageCreationTime != null && x.TimeAssignGlider != null),
-                    ParcelSentAndNotDelivered = mayDal.GetPackageList().Count(x => x.IDSender == item.ID && x.PackageCreationTime != null && x.TimeAssignGlider == null),
-                    PackagesHeReceived = GetCustomer(item.ID).ReceiveParcels.Count(),
-                    PackagesOnTheWayToCustomer =mayDal.GetPackageList().Count(x => x.IDSender == item.ID && x.PackageCollectionTime != null && x.TimeAssignGlider == null)
-                };
-                customerToList.Add(customer);
-            }
+                    CustomerToList customer = new CustomerToList
+                    {
+                        Id = item.ID,
+                        Name = item.Name,
+                        Phone = item.Telephone,
+                        ParcelSentAndDelivered = mayDal.GetPackageList().Count(x => x.IDSender == item.ID && x.PackageCreationTime != null && x.TimeAssignGlider != null),
+                        ParcelSentAndNotDelivered = mayDal.GetPackageList().Count(x => x.IDSender == item.ID && x.PackageCreationTime != null && x.TimeAssignGlider == null),
+                        PackagesHeReceived = GetCustomer(item.ID).ReceiveParcels.Count(),
+                        PackagesOnTheWayToCustomer = mayDal.GetPackageList().Count(x => x.IDSender == item.ID && x.PackageCollectionTime != null && x.TimeAssignGlider == null)
+                    };
+                    customerToList.Add(customer);
+                }
+            }      
             return customerToList.Take(customerToList.Count).ToList();
         }
         /// <summary>
@@ -195,7 +212,10 @@ namespace BL
         {
             try
             {
-                mayDal.DeleteClient(id);
+                lock (mayDal)
+                {
+                    mayDal.DeleteClient(id);
+                }
             }
             catch (IdDoesNotExistException exception)
             {
@@ -246,11 +266,14 @@ namespace BL
         {
             try
             {
-                foreach (DO.Client item in mayDal.GetClientList())
+                lock (mayDal)
                 {
-                    if (id == item.ID)
+                    foreach (DO.Client item in mayDal.GetClientList())
                     {
-                        if (item.Name == name) return GetCustomer(id);
+                        if (id == item.ID)
+                        {
+                            if (item.Name == name) return GetCustomer(id);
+                        }
                     }
                 }
             }
