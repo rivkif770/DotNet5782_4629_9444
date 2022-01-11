@@ -9,6 +9,7 @@ namespace BlApi
 {
     public static class BlFactory
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public static IBL GetBL()
         {
             return BL.BL.Instance;

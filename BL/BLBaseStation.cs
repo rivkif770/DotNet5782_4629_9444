@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
-
 namespace BL
 {
     public partial class BL : BlApi.IBL
@@ -28,7 +27,10 @@ namespace BL
 
             try
             {
-                mayDal.AddBaseStation(tempBS);
+                lock (mayDal)
+                {
+                    mayDal.AddBaseStation(tempBS);
+                }
             }
             catch (ExistsInSystemException exception)
             {
@@ -45,7 +47,10 @@ namespace BL
             DO.BaseStation somoeBaseStation;
             try
             {
-                somoeBaseStation = mayDal.GetBaseStation(id);
+                lock (mayDal)
+                {
+                    somoeBaseStation = mayDal.GetBaseStation(id);
+                }
             }
             catch (DO.IdDoesNotExistException cex)
             {
@@ -53,17 +58,20 @@ namespace BL
             }
             //List of skimmers charged at this station
             List<SkimmerInCharging> skimmerInCharging = new List<SkimmerInCharging>();
-            foreach (DO.SkimmerLoading item in mayDal.GetSkimmerLoadingList())
+            lock (mayDal)
             {
-                if (item.StationID == somoeBaseStation.UniqueID && skimmersList.Count() != 0)
+                foreach (DO.SkimmerLoading item in mayDal.GetSkimmerLoadingList())
                 {
-                    SkimmerInCharging skimmerInCharging1 = new SkimmerInCharging
+                    if (item.StationID == somoeBaseStation.UniqueID && skimmersList.Count() != 0)
                     {
-                        Id = item.SkimmerID,
-                        BatteryStatus = skimmersList.Find(s => s.Id == item.SkimmerID).BatteryStatus
-                        //BatteryStatus = GetSkimmerToList(item.SkimmerID).BatteryStatus
-                    };
-                    skimmerInCharging.Add(skimmerInCharging1);
+                        SkimmerInCharging skimmerInCharging1 = new SkimmerInCharging
+                        {
+                            Id = item.SkimmerID,
+                            BatteryStatus = skimmersList.Find(s => s.Id == item.SkimmerID).BatteryStatus
+                            //BatteryStatus = GetSkimmerToList(item.SkimmerID).BatteryStatus
+                        };
+                        skimmerInCharging.Add(skimmerInCharging1);
+                    }
                 }
             }
             return new BO.BaseStation

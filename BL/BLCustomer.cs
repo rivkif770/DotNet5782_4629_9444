@@ -15,6 +15,7 @@ namespace BL
         /// Adding a customer
         /// </summary>
         /// <param name="newCustomer"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(BO.Customer newCustomer)
         {
             DO.Client tempC = new DO.Client
@@ -40,6 +41,7 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(int id)
         {
             DO.Client somoeone;
@@ -107,6 +109,7 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="package"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private Client ReturnsCustomerContrary(int id, DO.Package package)
         {
             if (id == package.IDSender)
@@ -119,6 +122,7 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="phone"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomerData(int id, string name, string phone)
         {
             BO.Customer customer = GetCustomer(id); 
@@ -145,6 +149,7 @@ namespace BL
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private int ReturnsSkimmerMode(DO.Package p)
         {
             if (p.TimeArrivalRecipient != null)
@@ -161,6 +166,7 @@ namespace BL
         /// Returns an entity of the Customer list type
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerToList> GetCustomerList()
         {
             List<CustomerToList> customerToList= new List<CustomerToList>();
@@ -184,6 +190,7 @@ namespace BL
         /// Delete Customer
         /// </summary>
         /// <param name="id"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteCustomer(int id)
         {
             try
@@ -200,6 +207,7 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.CustomerInParcel GetCustomerInParcel(int id)
         {
             try
@@ -219,18 +227,21 @@ namespace BL
 
 
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<PackageAtCustomer> GetSentParcels(BO.Customer customer)
         {
             List<PackageAtCustomer> result = new List<PackageAtCustomer>();
             result = customer.SentParcels;
             return result;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<PackageAtCustomer> GetReceiveParcels(Customer customer)
         {
             List<PackageAtCustomer> result = new List<PackageAtCustomer>();
             result = customer.ReceiveParcels;
             return result;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomerListID(int id, string name)
         {
             try
