@@ -53,7 +53,7 @@ namespace DalApi
                 rootBaseStationElemnt.Add(newBaseStation);
                 xml.XMLTools.SaveListToXmlElement(rootBaseStationElemnt, BaseStationPath);
             }
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddClient(Client client)
         {
@@ -61,7 +61,7 @@ namespace DalApi
             if (clients.Any(c => c.ID == client.ID)) throw new ExistsInSystemException($"Customer {client.ID} Save to system", Severity.Mild);
             clients.Add(client);
             xml.XMLTools.SaveListToXMLSerializer(clients, ClientPath);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddPackage(Package package)
         {
@@ -79,7 +79,7 @@ namespace DalApi
             package.ID = id;
             packages.Add(package);
             xml.XMLTools.SaveListToXMLSerializer(packages, PackagePath);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddSkimmer(Quadocopter quadocopter)
         {
@@ -95,7 +95,7 @@ namespace DalApi
             //if (SkimmerLoadings.Any(s => s.SkimmerID == SL.SkimmerID)) throw new ExistsInSystemException($"SkimmerLoading {SL.SkimmerID} Save to system", Severity.Mild);
             SkimmerLoadings.Add(SL);
             xml.XMLTools.SaveListToXMLSerializer(SkimmerLoadings, SkimmerLoadingPath);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AssignPackageSkimmer(int idp, int idq)
         {
@@ -107,7 +107,7 @@ namespace DalApi
             Packages.RemoveAll(packag => packag.ID == idp);
             Packages.Add(temp_p);
             xml.XMLTools.SaveListToXMLSerializer(Packages, PackagePath);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void CollectionPackage(int idp)
         {
@@ -118,7 +118,7 @@ namespace DalApi
             Packages.RemoveAll(packag => packag.ID == idp);
             Packages.Add(temp_p);
             xml.XMLTools.SaveListToXMLSerializer(Packages, PackagePath);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteBaseStation(int idb)
         {
@@ -133,7 +133,7 @@ namespace DalApi
                 baseStationElemnt.Remove();
                 xml.XMLTools.SaveListToXmlElement(rootBaseStationElemnt, BaseStationPath);
             }
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteClient(int IDc)
         {
@@ -143,7 +143,7 @@ namespace DalApi
             Client client = clientList.Find(c => c.ID == IDc);
             clientList.Remove(client);
             xml.XMLTools.SaveListToXMLSerializer(clientList, ClientPath);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeletePackage(int id)
         {
@@ -152,7 +152,7 @@ namespace DalApi
             Package package = packages.Find(p => p.ID == id);
             packages.Remove(package);
             xml.XMLTools.SaveListToXMLSerializer(packages, PackagePath);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteSkimmer(int idq)
         {
@@ -161,7 +161,7 @@ namespace DalApi
             Quadocopter skimmer = skimmers.Find(s => s.IDNumber == idq);
             skimmers.Remove(skimmer);
             xml.XMLTools.SaveListToXMLSerializer(skimmers, SkimmerPath);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteSkimmerLoading(int idsl)
         {
@@ -171,7 +171,7 @@ namespace DalApi
             SkimmerLoading skimmerLoading = SkimmerLoadingList.Find(s => s.SkimmerID == idsl);
             SkimmerLoadingList.Remove(skimmerLoading);
             xml.XMLTools.SaveListToXMLSerializer(SkimmerLoadingList, SkimmerLoadingPath);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBaseStation(int IDb)
         {
@@ -211,7 +211,7 @@ namespace DalApi
                             }).ToList();
             if (predicate == null) return baseStations;
             return baseStations.Where(predicate);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Client GetClient(int IDc)
         {
@@ -220,13 +220,13 @@ namespace DalApi
                 throw new IdDoesNotExistException($"id : {IDc} does not exist!!", Severity.Mild);
             Client client = clientList.Find(c => c.ID == IDc);
             return client;
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Client> GetClientList(Func<Client, bool> predicate = null)
         {
             if (predicate == null) return xml.XMLTools.LoadListFromXMLSerializer<Client>(ClientPath);
             return xml.XMLTools.LoadListFromXMLSerializer<Client>(ClientPath).Where(predicate);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Package GetPackage(int idp)
         {
@@ -234,19 +234,19 @@ namespace DalApi
             if (!packages.Any(p => p.ID == idp)) throw new ExistsInSystemException("Package dont Save to system", idp);
             Package package = packages.Find(p => p.ID == idp);
             return package;
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Package> GetPackageList(Func<Package, bool> predicate = null)
         {
             if (predicate == null) return xml.XMLTools.LoadListFromXMLSerializer<DO.Package>(PackagePath);
             return xml.XMLTools.LoadListFromXMLSerializer<DO.Package>(PackagePath).Where(predicate);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Quadocopter> GetQuadocopterList(Func<Quadocopter, bool> predicate = null)
         {
             if (predicate == null) return xml.XMLTools.LoadListFromXMLSerializer<DO.Quadocopter>(SkimmerPath);
             return xml.XMLTools.LoadListFromXMLSerializer<DO.Quadocopter>(SkimmerPath).Where(predicate);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Quadocopter GetQuadrocopter(int IDq)
         {
@@ -254,7 +254,7 @@ namespace DalApi
             if (!skimmers.Any(s => s.IDNumber == IDq)) throw new ExistsInSystemException("Package dont Save to system", IDq);
             Quadocopter skimmer = skimmers.Find(s => s.IDNumber == IDq);
             return skimmer;
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public SkimmerLoading GetSkimmerLoading(int IDsl)
         {
@@ -263,12 +263,12 @@ namespace DalApi
                 throw new IdDoesNotExistException($"id : {IDsl} does not exist!!", Severity.Mild);
             SkimmerLoading skimmerLoading = skimmerLoadingList.Find(s => s.SkimmerID == IDsl);
             return skimmerLoading;
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<SkimmerLoading> GetSkimmerLoadingList()
         {
             return xml.XMLTools.LoadListFromXMLSerializer<SkimmerLoading>(SkimmerLoadingPath);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void PackageDelivery(int idp)
         {
@@ -293,7 +293,7 @@ namespace DalApi
             arry[4] = Convert.ToDouble(rootConfigElement.Element("SkimmerLoadingRate").Value);
 
             return arry;
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpadteB(BaseStation baseStation)
         {
@@ -310,7 +310,7 @@ namespace DalApi
                 AddBaseStation(baseStation);
                 
             }
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpadteC(Client client)
         {
@@ -320,7 +320,7 @@ namespace DalApi
             newclient = client;
             clientList.Add(newclient);
             xml.XMLTools.SaveListToXMLSerializer(clientList, ClientPath);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpadteP(Package package)
         {
@@ -330,7 +330,7 @@ namespace DalApi
             newpackage = package;
             packages.Add(newpackage);
             xml.XMLTools.SaveListToXMLSerializer(packages, PackagePath);
-        }//עובד
+        }//worke
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpadteQ(Quadocopter quadocopter)
         {
@@ -340,6 +340,6 @@ namespace DalApi
             newskimmer = quadocopter;
             skimmers.Add(newskimmer);
             xml.XMLTools.SaveListToXMLSerializer(skimmers, SkimmerPath);
-        }//עובד
+        }//worke
     }
 }
