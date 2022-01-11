@@ -315,7 +315,7 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("Charging time:");
                                         success = double.TryParse(Console.ReadLine(), out ChargingTime);
                                     } while (!success || ChargingTime < 0);
-                                    myBL.ReleaseSkimmerFromCharging(ids, ChargingTime);
+                                    myBL.ReleaseSkimmerFromCharging(ids);
                                     break;
                                 //Assigning a package to a skimmer
                                 case UpdateOption.AssigningPackageToSkimmer:

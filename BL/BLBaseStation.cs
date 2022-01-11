@@ -94,7 +94,10 @@ namespace BL
         {
             try
             {
-                mayDal.DeleteBaseStation(id);
+                lock (mayDal)
+                {
+                    mayDal.DeleteBaseStation(id);
+                }
             }
             catch (IdDoesNotExistException exception)
             {
@@ -131,7 +134,10 @@ namespace BL
                 Longitude = baseStation.Location.Longitude,
                 SeveralPositionsArgument = baseStation.SeveralClaimPositionsVacant,
             };
-            mayDal.UpadteB(baseStation1);
+            lock (mayDal)
+            {
+                mayDal.UpadteB(baseStation1);
+            }
         }
         /// <summary>
         /// Returns an entity of the base station list type
@@ -141,16 +147,19 @@ namespace BL
         public IEnumerable<BO.BaseStationToList> GetBaseStationList()
         {
             List<BaseStationToList> baseStationToLists = new List<BaseStationToList>();
-            foreach (DO.BaseStation item in mayDal.GetBaseStationList())
+            lock (mayDal)
             {
-                BaseStationToList station = new BaseStationToList
+                foreach (DO.BaseStation item in mayDal.GetBaseStationList())
                 {
-                    Id = item.UniqueID,
-                    StationName = item.StationName,
-                    FreeChargingstations = item.SeveralPositionsArgument,
-                    CatchChargingstations = GetBeseStation(item.UniqueID).ListOfSkimmersCharge.Count()
-                };
-                baseStationToLists.Add(station);
+                    BaseStationToList station = new BaseStationToList
+                    {
+                        Id = item.UniqueID,
+                        StationName = item.StationName,
+                        FreeChargingstations = item.SeveralPositionsArgument,
+                        CatchChargingstations = GetBeseStation(item.UniqueID).ListOfSkimmersCharge.Count()
+                    };
+                    baseStationToLists.Add(station);
+                }
             }
             return baseStationToLists.Take(baseStationToLists.Count).ToList();
         }
@@ -161,20 +170,23 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.BaseStationToList> GetBaseStationFreeCharging()
         {
-            IEnumerable<DO.BaseStation> dalList = mayDal.GetBaseStationList(x => x.SeveralPositionsArgument != 0);
-            List<BO.BaseStationToList> result = new List<BO.BaseStationToList>();
-            foreach (var item in dalList)
+            lock (mayDal)
             {
-                result.Add(new BaseStationToList
+                IEnumerable<DO.BaseStation> dalList = mayDal.GetBaseStationList(x => x.SeveralPositionsArgument != 0);
+                List<BO.BaseStationToList> result = new List<BO.BaseStationToList>();
+                foreach (var item in dalList)
                 {
-                    Id = item.UniqueID,
-                    StationName = item.StationName,
-                    FreeChargingstations = item.SeveralPositionsArgument,
-                    CatchChargingstations = GetBeseStation(item.UniqueID).ListOfSkimmersCharge.Count()
-                });
+                    result.Add(new BaseStationToList
+                    {
+                        Id = item.UniqueID,
+                        StationName = item.StationName,
+                        FreeChargingstations = item.SeveralPositionsArgument,
+                        CatchChargingstations = GetBeseStation(item.UniqueID).ListOfSkimmersCharge.Count()
+                    });
 
+                }
+                return result;
             }
-            return result;
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<SkimmerInCharging> GetListOfSkimmersCharge(BO.BaseStation baseStation)
