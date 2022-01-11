@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <listbasestation>
   <listbasestation>
-    <UniqueID>1328</UniqueID>
-    <StationName>BaseStation1</StationName>
-    <Latitude>5</Latitude>
-    <Longitude>-50</Longitude>
-    <SeveralPositionsArgument>4</SeveralPositionsArgument>
+    <UniqueID>9170</UniqueID>
+    <StationName>BaseStation0</StationName>
+    <Latitude>14</Latitude>
+    <Longitude>47</Longitude>
+    <SeveralPositionsArgument>3</SeveralPositionsArgument>
   </listbasestation>
   <BaseStation>
-    <UniqueID>9264</UniqueID>
-    <StationName>BaseStation0</StationName>
-    <Latitude>-25</Latitude>
-    <Longitude>-17</Longitude>
-    <SeveralPositionsArgument>6</SeveralPositionsArgument>
+    <UniqueID>1114</UniqueID>
+    <StationName>BaseStation1</StationName>
+    <Latitude>-12</Latitude>
+    <Longitude>36</Longitude>
+    <SeveralPositionsArgument>3</SeveralPositionsArgument>
   </BaseStation>
 </listbasestation>

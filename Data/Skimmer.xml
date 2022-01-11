@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
 <ArrayOfQuadocopter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Quadocopter>
-    <IDNumber>852</IDNumber>
+    <IDNumber>537</IDNumber>
     <SkimmerModel>A20</SkimmerModel>
-    <Weight>low</Weight>
-  </Quadocopter>
-  <Quadocopter>
-    <IDNumber>935</IDNumber>
-    <SkimmerModel>A21</SkimmerModel>
     <Weight>middle</Weight>
   </Quadocopter>
   <Quadocopter>
-    <IDNumber>634</IDNumber>
+    <IDNumber>846</IDNumber>
+    <SkimmerModel>A21</SkimmerModel>
+    <Weight>heavy</Weight>
+  </Quadocopter>
+  <Quadocopter>
+    <IDNumber>998</IDNumber>
     <SkimmerModel>A22</SkimmerModel>
     <Weight>heavy</Weight>
   </Quadocopter>
   <Quadocopter>
-    <IDNumber>765</IDNumber>
+    <IDNumber>712</IDNumber>
     <SkimmerModel>A23</SkimmerModel>
-    <Weight>heavy</Weight>
+    <Weight>low</Weight>
   </Quadocopter>
   <Quadocopter>
-    <IDNumber>915</IDNumber>
+    <IDNumber>114</IDNumber>
     <SkimmerModel>A24</SkimmerModel>
     <Weight>low</Weight>
   </Quadocopter>
