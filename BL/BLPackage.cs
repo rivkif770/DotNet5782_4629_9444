@@ -15,6 +15,7 @@ namespace BL
         /// Adding a package, all times initialized to zero time except for a creation date that will be initialized to DateTime.Now, the glider will be initialized to null
         /// </summary>
         /// <param name="newPackage"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddPackage(BO.Package newPackage)
         {
             DO.Package tempP = new DO.Package
@@ -40,6 +41,7 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Package GetPackage(int id)
         {
             DO.Package somoePackage;
@@ -96,6 +98,7 @@ namespace BL
         /// Collecting a package by skimmer
         /// </summary>
         /// <param name="id"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CollectingPackageBySkimmer(int id)
         {
             SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
@@ -128,6 +131,7 @@ namespace BL
         /// Assigning package to skimmer
         /// </summary>
         /// <param name="id"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AssigningPackageToSkimmer(int id)
         {
             SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
@@ -203,6 +207,7 @@ namespace BL
         /// </summary>
         /// <param name="skimmer"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private DO.Package ChecksSmallDistanceBetweenSkimmerAndPackage(SkimmerToList skimmer , List<DO.Package> filteredPackage)
         {
             DO.Package package = default;
@@ -225,6 +230,7 @@ namespace BL
         /// Delivery of a package by skimmer
         /// </summary>
         /// <param name="id"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeliveryOfPackageBySkimmer(int id)
         {
             SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
@@ -254,6 +260,7 @@ namespace BL
         /// Returns a list of packages.
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.PackageToList> GetPackageList(Func<BO.PackageToList, bool> predicate = null)
         {
             List<PackageToList> packageToList = new List<PackageToList>();
@@ -280,6 +287,7 @@ namespace BL
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int PackageMode(BO.Package p)
         {
             if (p.SupplyTime != null)
@@ -296,6 +304,7 @@ namespace BL
         /// Returns a package that does not belong to a skimmer.
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<PackageToList> GetPackagesWithoutSkimmer()
         {
             IEnumerable<DO.Package> packageFromDal = mayDal.GetPackageList(x => x.TimeAssignGlider == null);
@@ -320,6 +329,7 @@ namespace BL
         /// Delete Package
         /// </summary>
         /// <param name="id"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeletePackage(int id)
         {
             try
@@ -331,6 +341,7 @@ namespace BL
                 throw new ExistsInSystemExceptionBL(exception.Message + " from dal");
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<PackageToList> GetListOfPackageShipped(int customerID)
         {
             IEnumerable<PackageToList> PackageShipped = GetPackageList();
@@ -338,6 +349,7 @@ namespace BL
             PackageShipped = PackageShipped.Where(p => (GetPackage(p.Id)).SendPackage.Id == customerID);
             return PackageShipped;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<PackageToList> GetListOfPackageReceived(int customerID)
         {
             IEnumerable<PackageToList> PackageShipped = GetPackageList();
