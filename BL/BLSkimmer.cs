@@ -43,6 +43,7 @@ namespace BL
         /// <summary>
         /// Skimmer Updates
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private void SkimmerUpdates(List<SkimmerToList>  lst)
         {
             //For each skimmer from the skimmer list
@@ -193,6 +194,7 @@ namespace BL
         /// </summary>
         /// <param name="updatedSkimmer"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private double MinimalChargeToGetToTheNearestStation(SkimmerToList updatedSkimmer)
         {             
             DO.BaseStation baseStation = ChecksSmallDistanceBetweenSkimmerAndBaseStation(updatedSkimmer);
@@ -206,6 +208,7 @@ namespace BL
         /// <param name="updatedSkimmer"></param>
         /// <param name="senderClient"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private double MinimumPaymentToGetToThePackage(SkimmerToList updatedSkimmer, DO.Client senderClient)
         {
             double distance = Tools.Utils.GetDistance(senderClient.Longitude, senderClient.Latitude, updatedSkimmer.CurrentLocation.Longitude, updatedSkimmer.CurrentLocation.Latitude);
@@ -217,6 +220,7 @@ namespace BL
         /// </summary>
         /// <param name="updatedSkimmer"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private double MinimalLoadingPerformTheShipmentAndArriveForLoading (SkimmerToList updatedSkimmer, DO.Client senderClient, DO.Client getClient)
         {
             Customer customerGet = GetCustomer(getClient.ID);
@@ -239,6 +243,7 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <param name="ChargingTime"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleaseSkimmerFromCharging(int id)
         {
             SkimmerToList skimmer= skimmersList.Find(item => item.Id == id);
@@ -286,6 +291,7 @@ namespace BL
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private Client FindingClientSender(DO.Package p)
         {
             return mayDal.GetClient(p.IDSender);
@@ -295,6 +301,7 @@ namespace BL
         /// </summary>
         /// <param name="q"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private DO.Package FindingPackageAssociatedWithGlider(Quadocopter q)
         {
             DO.Package X = new DO.Package
@@ -316,6 +323,7 @@ namespace BL
         /// </summary>
         /// <param name="newSkimmer"></param>
         /// <param name="station"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddSkimmer(BO.Skimmer newSkimmer, int station)
         {
             // Battery status will be raffled off between 20 % and 40 %
@@ -383,6 +391,7 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public SkimmerToList GetSkimmerToList(int id)
         {
             return skimmersList.FirstOrDefault(x => x.Id == id);
@@ -392,6 +401,7 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Skimmer GetSkimmerr(int id)
         {
             if (!skimmersList.Any(d => d.Id == id))
@@ -448,6 +458,7 @@ namespace BL
         /// </summary>
         /// <param name="ids"></param>
         /// <param name="name"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateSkimmerName(int ids, string name)
         {
             SkimmerToList toUpdate = skimmersList.Find(item => item.Id == ids);
@@ -466,6 +477,7 @@ namespace BL
         /// Sends skimmer for charging
         /// </summary>
         /// <param name="id"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendingSkimmerForCharging(int id)
         {
             SkimmerToList skimmer = skimmersList.Find(item => item.Id == id);
@@ -518,6 +530,7 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private DO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(SkimmerToList s)
         {
             DO.BaseStation minDistance = default;
@@ -538,6 +551,7 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private DO.BaseStation ChecksSmallDistanceBetweenCustomerAndBaseStation(Customer c)
         {
             DO.BaseStation station = default;
@@ -561,6 +575,7 @@ namespace BL
         /// <param name="location2"></param>
         /// <param name="weight"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private double BatteryCalculation( Location location1,Location location2, Weight weight)
         {
             //distance calculation
@@ -578,6 +593,7 @@ namespace BL
         ///Available skimmer location will be raffled between customers who have packages provided to them
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private Location SkimmerLocationAvailable()
         {
             List<Location> CustomersWhoReceivedPackages = new List<Location>();
@@ -603,6 +619,7 @@ namespace BL
         /// Returns an entity of the Skimmer list type
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<SkimmerToList> GetSkimmerList(Func<SkimmerToList, bool> predicate = null)
         {
             if (predicate == null)

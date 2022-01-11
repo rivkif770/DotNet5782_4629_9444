@@ -14,6 +14,7 @@ namespace BL
         /// Adding a skimmer
         /// </summary>
         /// <param name="newBaseStation"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddBaseStation(BO.BaseStation newBaseStation)
         {
             DO.BaseStation tempBS = new DO.BaseStation
@@ -42,6 +43,7 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.BaseStation GetBeseStation(int id)
         {
             DO.BaseStation somoeBaseStation;
@@ -87,6 +89,7 @@ namespace BL
         /// Delete BaseStation
         /// </summary>
         /// <param name="id"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteBaseStation(int id)
         {
             try
@@ -104,6 +107,7 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="countOfChargingStations"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateBaseStation(int id, string name, string countOfChargingStations)
         {
             BO.BaseStation baseStation = GetBeseStation(id);
@@ -133,6 +137,7 @@ namespace BL
         /// Returns an entity of the base station list type
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.BaseStationToList> GetBaseStationList()
         {
             List<BaseStationToList> baseStationToLists = new List<BaseStationToList>();
@@ -153,6 +158,7 @@ namespace BL
         /// Returns a base station-type entity with available charging stations,
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.BaseStationToList> GetBaseStationFreeCharging()
         {
             IEnumerable<DO.BaseStation> dalList = mayDal.GetBaseStationList(x => x.SeveralPositionsArgument != 0);
@@ -170,6 +176,7 @@ namespace BL
             }
             return result;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<SkimmerInCharging> GetListOfSkimmersCharge(BO.BaseStation baseStation)
         {
             List<SkimmerInCharging> result = new List<SkimmerInCharging>();
