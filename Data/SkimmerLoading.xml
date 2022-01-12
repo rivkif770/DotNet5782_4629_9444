@@ -1,2 +1,13 @@
 <?xml version="1.0"?>
-<ArrayOfSkimmerLoading xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfSkimmerLoading xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SkimmerLoading>
+    <StationID>5022</StationID>
+    <SkimmerID>505</SkimmerID>
+    <EnteredLoading>0001-01-01T00:00:00</EnteredLoading>
+  </SkimmerLoading>
+  <SkimmerLoading>
+    <StationID>5022</StationID>
+    <SkimmerID>335</SkimmerID>
+    <EnteredLoading>2022-01-12T20:55:48.8527856+02:00</EnteredLoading>
+  </SkimmerLoading>
+</ArrayOfSkimmerLoading>
