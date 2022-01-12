@@ -131,6 +131,9 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal"  Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"/>
+
                 <StackPanel Orientation="Horizontal" Grid.Row="5" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}">
                     <Button x:Name="btnADD" Content="ADD" Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Add a skimmer to the pool"
                 Click="btnAddSkimmer_Click" Width="300" Height="30" 
@@ -322,6 +325,66 @@
                     </Button>
                 </StackPanel>
             </Grid>
+            <Button x:Name="btnSimulator" Content="Simulator" Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Add a skimmer to the pool"
+                    Click="btnSimulator_Click" 
+                       Margin="456,69,44,351" 
+                       >
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#FF4FE899"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF20CB73"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+            <Button x:Name="btnStop" Content="Stop" Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Add a skimmer to the pool"
+                 Click="btnStop_Click" 
+                       Margin="456,33,44,387" 
+                       >
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="#FF4FE899"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF20CB73"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Height="30"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
             <!--<Image x:Name="skimmerA" Margin="225,132,198,-102" >
                 <Image.Source>
                     <BitmapImage UriSource ="/skimmer.png"/>

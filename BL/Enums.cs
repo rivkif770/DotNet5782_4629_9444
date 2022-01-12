@@ -11,7 +11,6 @@
     public enum ParcelStatus
     {
         Creation, Assignment, Collection, Supply
-        //Waiting, OnGoing
     }
     public enum SkimmerStatuses
     {

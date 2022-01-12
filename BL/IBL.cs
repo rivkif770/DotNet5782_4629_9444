@@ -6,9 +6,10 @@ namespace BlApi
 {
     public interface IBL
     {
-        public void SimulatorActive(int id, Action act, Func<bool> func);
+        void SimulatorActive(int id, Action act, Func<bool> func);
+        void UploadCharge(Skimmer skimmer);
 
-       void AddBaseStation(BaseStation newBaseStation);
+        void AddBaseStation(BaseStation newBaseStation);
         public void UpdateBaseStation(int id, string name, string countOfChargingStations);
         BaseStation GetBeseStation(int id);
         public void DeleteBaseStation(int id);

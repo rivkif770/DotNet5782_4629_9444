@@ -25,7 +25,7 @@ namespace DalObject
             public static double LightWeightCarrier = 0.003;
             public static double MediumWeightCarrier = 0.004;
             public static double HeavyWeightCarrier = 0.006;
-            public static double SkimmerLoadingRate = 20;
+            public static double SkimmerLoadingRate = 5;
         }
 
         public static void Initialize()

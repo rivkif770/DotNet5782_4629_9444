@@ -641,5 +641,14 @@ namespace BL
                 return skimmersList.Take(skimmersList.Count).ToList();
             return skimmersList.Where(predicate).ToList();
         }
+        public void SimulatorActive(int id, Action act, Func<bool> func)
+        {
+            new Simulator(this, id, act, func);
+        }
+        public void UploadCharge(Skimmer skimmer)
+        {
+            skimmersList.Find(s => s.Id == skimmer.Id).BatteryStatus += SkimmerLoadingRate;
+            if (skimmer.BatteryStatus > 100) skimmersList.Find(s => s.Id == skimmer.Id).BatteryStatus = 100;
+        }
     }       
 }

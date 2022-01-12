@@ -57,10 +57,15 @@ namespace PL
         {
             backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += SimulatorDoWork;
+            backgroundWorker.ProgressChanged += SimulatorProgressChanged;
+            backgroundWorker.WorkerReportsProgress = true;
+            backgroundWorker.WorkerSupportsCancellation = true;
+
+
             bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
-            ComboSkimmerStatus.ItemsSource = Enum.GetValues(typeof(BO.Priority));
+            ComboSkimmerStatus.ItemsSource = Enum.GetValues(typeof(BO.SkimmerStatuses));
             help.IsChecked = true;
             DataContext = bL.GetSkimmerr(skimmerToList.Id);
             newSkimmer = new SkimmerToList();
@@ -68,9 +73,19 @@ namespace PL
             skimmer1 = bL.GetSkimmerr(skimmerToList.Id);
             //showSkimmer.Text = bl.GetSkimmerr(newSkimmer.Id).ToString();
         }
+
+        private void SimulatorProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            DataContext = bL.GetSkimmerr(skimmer1.Id);
+        }
+
         private void SimulatorDoWork(object sender, DoWorkEventArgs e)
         {
             bL.SimulatorActive(skimmer1.Id, update, stop);
+        }
+        void update()
+        {
+            backgroundWorker.ReportProgress(0);
         }
         bool stop()
         {
@@ -316,6 +331,17 @@ namespace PL
             {
                 MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void btnSimulator_Click(object sender, RoutedEventArgs e)
+        {
+            if (backgroundWorker.IsBusy != true) backgroundWorker.RunWorkerAsync();
+
+        }
+
+        private void btnStop_Click(object sender, RoutedEventArgs e)
+        {
+            backgroundWorker.CancelAsync();
         }
     }
 }
