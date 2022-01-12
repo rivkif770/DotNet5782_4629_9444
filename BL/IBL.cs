@@ -8,6 +8,7 @@ namespace BlApi
     {
         void SimulatorActive(int id, Action act, Func<bool> func);
         void UploadCharge(Skimmer skimmer);
+        public void UploadLocation(Skimmer skimmer);
 
         void AddBaseStation(BaseStation newBaseStation);
         public void UpdateBaseStation(int id, string name, string countOfChargingStations);
@@ -46,7 +47,9 @@ namespace BlApi
         public void UpdateSkimmerName(int ids, string name);
         public void SendingSkimmerForCharging(int id);
         IEnumerable<SkimmerToList> GetSkimmerList(Func<SkimmerToList, bool> predicate = null);
+        public DO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(SkimmerToList s);
 
-  
+
+
     }
 }

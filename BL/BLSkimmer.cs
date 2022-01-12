@@ -540,7 +540,7 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private DO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(SkimmerToList s)
+        public DO.BaseStation ChecksSmallDistanceBetweenSkimmerAndBaseStation(SkimmerToList s)
         {
             DO.BaseStation minDistance = default;
             double smallDistance = Double.MaxValue;
@@ -649,6 +649,10 @@ namespace BL
         {
             skimmersList.Find(s => s.Id == skimmer.Id).BatteryStatus += SkimmerLoadingRate;
             if (skimmer.BatteryStatus > 100) skimmersList.Find(s => s.Id == skimmer.Id).BatteryStatus = 100;
+        }
+        public void UploadLocation(Skimmer skimmer)
+        {
+
         }
     }       
 }

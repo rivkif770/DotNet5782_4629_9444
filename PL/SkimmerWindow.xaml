@@ -103,11 +103,11 @@
                            Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
 
                 <ComboBox x:Name="ComboStationID" Width="150" Height="26" Grid.Row="3" Grid.Column="1" 
-                      HorizontalAlignment="Left" VerticalAlignment="Center" SelectedItem="{Binding SkimmerStatus, Mode=OneWay}" 
+                      HorizontalAlignment="Center" VerticalAlignment="Bottom" SelectedItem="{Binding SkimmerStatus, Mode=OneWay}" 
                           IsEnabled="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"
                           SelectedIndex="{Binding SkimmerStatus, Converter={StaticResource EnumToInt}}" 
                             IsEditable="True" IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
-                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"/>
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}" Margin="0,0,0,6"/>
                 <ComboBox x:Name="ComboSkimmerStatus" Width="150" Height="26" Grid.Row="3" Grid.Column="1" 
                       HorizontalAlignment="Left" VerticalAlignment="Center" SelectedItem="{Binding SkimmerStatus, Mode=OneWay}" 
                           IsEnabled="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"
@@ -119,7 +119,7 @@
                           IsEnabled="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"
                       IsEditable="True" SelectedItem="{Binding WeightCategory, Mode=OneWay}"
                           SelectedIndex="{Binding WeightCategory, Converter={StaticResource EnumToInt}}"
-                      IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" Margin="0,6,0,0" />
+                      IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" Margin="0,6,0,0"  />
             </Grid>
             <Grid Margin="450,135,10,10">
                 <Grid.RowDefinitions>

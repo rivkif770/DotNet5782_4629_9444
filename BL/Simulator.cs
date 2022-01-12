@@ -22,10 +22,24 @@ namespace BL
                         switch (skimmer.PackageInTransfer.PackageMode)
                         {
                             case ParcelStatus.Assignment:
-                                bL.CollectingPackageBySkimmer(skimmer.Id);
+                                if(skimmer.Location==bL.GetCustomer(skimmer.PackageInTransfer.CustomerSends.Id).Location)
+                                {
+                                    bL.CollectingPackageBySkimmer(skimmer.Id);
+                                }
+                                else
+                                {
+                                    bL.UploadLocation(skimmer);
+                                }
                                 break;
                             case ParcelStatus.Collection:
-                                bL.DeliveryOfPackageBySkimmer(skimmer.Id);
+                                if (skimmer.Location == bL.GetCustomer(skimmer.PackageInTransfer.CustomerReceives.Id).Location)
+                                {
+                                    bL.DeliveryOfPackageBySkimmer(skimmer.Id);
+                                }
+                                else
+                                {
+                                    bL.UploadLocation(skimmer);
+                                }
                                 break;
                         }
                         break;
@@ -42,7 +56,23 @@ namespace BL
                         }
                         catch (Exception ex)
                         {
-                            bL.SendingSkimmerForCharging(skimmer.Id);
+                            SkimmerToList skimmerToList = bL.GetSkimmerToList(skimmer.Id);
+                            DO.BaseStation baseStation = bL.ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmerToList);
+                            Location location = new Location { Latitude = baseStation.Latitude, Longitude = baseStation.Longitude };
+                            if (skimmer.Location == location)
+                            {
+                                try
+                                {
+                                    bL.SendingSkimmerForCharging(skimmer.Id);
+                                }
+                                catch (Exception)
+                                {
+                                }
+                            }
+                            else
+                            {
+                                bL.UploadLocation(skimmer);
+                            } 
                         }
                         break;
                 }

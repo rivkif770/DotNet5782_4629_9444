@@ -188,8 +188,7 @@ namespace PL
             {
                 bL.SendingSkimmerForCharging(newSkimmer.Id);
                 MessageBox.Show("The skimmer was successfully shipped for loading", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                //CloseWindowEvent(this);
-                //this.Close();
+                ComboSkimmerStatus.SelectedItem = SkimmerStatuses.maintenance;
             }
             catch (Exception ex)
             {
@@ -207,8 +206,8 @@ namespace PL
             {
                 bL.ReleaseSkimmerFromCharging(newSkimmer.Id);
                 MessageBox.Show("The skimmer was successfully released for loading", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                //CloseWindowEvent(this);
-                //this.Close();
+                ComboSkimmerStatus.SelectedItem = SkimmerStatuses.free;
+
             }
             catch (Exception ex)
             {
@@ -227,6 +226,7 @@ namespace PL
             {
                 bL.AssigningPackageToSkimmer(newSkimmer.Id);
                 MessageBox.Show("The glider was successfully shipped", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                ComboSkimmerStatus.SelectedItem = SkimmerStatuses.shipping;
             }
             catch (Exception ex)
             {
@@ -261,6 +261,7 @@ namespace PL
             {
                 bL.DeliveryOfPackageBySkimmer(newSkimmer.Id);
                 MessageBox.Show("The shipment reached its destination successfully", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                ComboSkimmerStatus.SelectedItem = SkimmerStatuses.free;
             }
             catch (Exception ex)
             {
