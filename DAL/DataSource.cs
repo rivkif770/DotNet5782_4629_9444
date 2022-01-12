@@ -21,10 +21,10 @@ namespace DalObject
         internal class Config
         {
             public static int IDPackage = 1000;
-            public static double Free = 0.001;
-            public static double LightWeightCarrier = 0.003;
-            public static double MediumWeightCarrier = 0.004;
-            public static double HeavyWeightCarrier = 0.006;
+            public static double Free = 1;
+            public static double LightWeightCarrier = 3;
+            public static double MediumWeightCarrier = 4;
+            public static double HeavyWeightCarrier = 5;
             public static double SkimmerLoadingRate = 5;
         }
 
@@ -38,8 +38,8 @@ namespace DalObject
                     UniqueID = r.Next(999, 10000),
                     StationName = $"BaseStation{i}",
                     SeveralPositionsArgument = r.Next(3, 10),
-                    Longitude = r.Next(-50, 50),
-                    Latitude = r.Next(-50, 50)
+                    Longitude = r.NextDouble() + 35,
+                    Latitude = r.NextDouble() + 31
                 }); ;
             }
 
@@ -56,8 +56,8 @@ namespace DalObject
             {
                 ListClient.Add(new Client()
                 {
-                    Latitude = r.Next(-50, 50),
-                    Longitude = r.Next(-50, 50),
+                    Longitude = r.NextDouble() + 35,
+                    Latitude = r.NextDouble() + 31,
                     ID = r.Next(99999999, 1000000000),
                     Telephone = $"0{r.Next(50, 59)}{r.Next(1000000, 10000000)}",
                     Name = clientsNames[r.Next(clientsNames.Length)]

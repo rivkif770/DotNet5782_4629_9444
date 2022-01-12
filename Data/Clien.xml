@@ -1,73 +1,73 @@
 <?xml version="1.0"?>
 <ArrayOfClient xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Client>
-    <ID>468971140</ID>
-    <Name>Henry</Name>
-    <Telephone>0505677348</Telephone>
-    <Latitude>35</Latitude>
-    <Longitude>2</Longitude>
-  </Client>
-  <Client>
-    <ID>170923780</ID>
-    <Name>Allen</Name>
-    <Telephone>0543708898</Telephone>
-    <Latitude>-28</Latitude>
-    <Longitude>40</Longitude>
-  </Client>
-  <Client>
-    <ID>520406622</ID>
-    <Name>Monica</Name>
-    <Telephone>0545590535</Telephone>
-    <Latitude>-33</Latitude>
-    <Longitude>-21</Longitude>
-  </Client>
-  <Client>
-    <ID>634758288</ID>
+    <ID>558617381</ID>
     <Name>Raj</Name>
-    <Telephone>0544854751</Telephone>
-    <Latitude>-38</Latitude>
-    <Longitude>-24</Longitude>
+    <Telephone>0587232498</Telephone>
+    <Latitude>31.309852695702507</Latitude>
+    <Longitude>35.85815771895375</Longitude>
   </Client>
   <Client>
-    <ID>121641573</ID>
-    <Name>Dave</Name>
-    <Telephone>0527948283</Telephone>
-    <Latitude>48</Latitude>
-    <Longitude>-28</Longitude>
-  </Client>
-  <Client>
-    <ID>848153989</ID>
-    <Name>Mike</Name>
-    <Telephone>0573224432</Telephone>
-    <Latitude>6</Latitude>
-    <Longitude>-9</Longitude>
-  </Client>
-  <Client>
-    <ID>901093507</ID>
-    <Name>Henry</Name>
-    <Telephone>0517185680</Telephone>
-    <Latitude>-17</Latitude>
-    <Longitude>41</Longitude>
-  </Client>
-  <Client>
-    <ID>251111061</ID>
+    <ID>385438524</ID>
     <Name>Allen</Name>
-    <Telephone>0527887111</Telephone>
-    <Latitude>1</Latitude>
-    <Longitude>49</Longitude>
+    <Telephone>0522991702</Telephone>
+    <Latitude>31.64955305804012</Latitude>
+    <Longitude>35.44066393908144</Longitude>
   </Client>
   <Client>
-    <ID>732698962</ID>
-    <Name>Allen</Name>
-    <Telephone>0572685231</Telephone>
-    <Latitude>-39</Latitude>
-    <Longitude>46</Longitude>
+    <ID>432582977</ID>
+    <Name>Monica</Name>
+    <Telephone>0561778366</Telephone>
+    <Latitude>31.82211368848668</Latitude>
+    <Longitude>35.867821469375784</Longitude>
   </Client>
   <Client>
-    <ID>188009498</ID>
+    <ID>521811768</ID>
+    <Name>Jeff</Name>
+    <Telephone>0567853587</Telephone>
+    <Latitude>31.95657496152286</Latitude>
+    <Longitude>35.88943021366812</Longitude>
+  </Client>
+  <Client>
+    <ID>177233641</ID>
+    <Name>Jeff</Name>
+    <Telephone>0509297254</Telephone>
+    <Latitude>31.088903608307664</Latitude>
+    <Longitude>35.01130294660633</Longitude>
+  </Client>
+  <Client>
+    <ID>673550317</ID>
+    <Name>Rose</Name>
+    <Telephone>0552241439</Telephone>
+    <Latitude>31.233582608976207</Latitude>
+    <Longitude>35.00731580099431</Longitude>
+  </Client>
+  <Client>
+    <ID>452566530</ID>
+    <Name>Monica</Name>
+    <Telephone>0567499166</Telephone>
+    <Latitude>31.73786671680299</Latitude>
+    <Longitude>35.568492760215186</Longitude>
+  </Client>
+  <Client>
+    <ID>733509852</ID>
     <Name>Dave</Name>
-    <Telephone>0562070874</Telephone>
-    <Latitude>-5</Latitude>
-    <Longitude>-18</Longitude>
+    <Telephone>0546335184</Telephone>
+    <Latitude>31.937176096689505</Latitude>
+    <Longitude>35.92504029019039</Longitude>
+  </Client>
+  <Client>
+    <ID>303346888</ID>
+    <Name>Raj</Name>
+    <Telephone>0575857083</Telephone>
+    <Latitude>31.54305275974006</Latitude>
+    <Longitude>35.800275001116226</Longitude>
+  </Client>
+  <Client>
+    <ID>593508667</ID>
+    <Name>Raj</Name>
+    <Telephone>0539892980</Telephone>
+    <Latitude>31.146267603685274</Latitude>
+    <Longitude>35.19259492084039</Longitude>
   </Client>
 </ArrayOfClient>
