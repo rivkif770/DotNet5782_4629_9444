@@ -24,13 +24,13 @@ namespace DalApi
         readonly string ConfigPsth = "Config.xml";
         DalXml()
         {
-            DalObject.DataSource.Initialize();
-            xml.XMLTools.SetBaseStationListFile(DalObject.DataSource.ListBaseStation, BaseStationPath);
-            xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListPackage, PackagePath);
-            xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListClient, ClientPath);
-            xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListQuadocopter, SkimmerPath);
-            xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListSkimmerLoading, SkimmerLoadingPath);
-            xml.XMLTools.Config(ConfigPsth);
+            //DalObject.DataSource.Initialize();
+            //xml.XMLTools.SetBaseStationListFile(DalObject.DataSource.ListBaseStation, BaseStationPath);
+            //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListPackage, PackagePath);
+            //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListClient, ClientPath);
+            //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListQuadocopter, SkimmerPath);
+            //xml.XMLTools.SaveListToXMLSerializer(DalObject.DataSource.ListSkimmerLoading, SkimmerLoadingPath);
+            //xml.XMLTools.Config(ConfigPsth);
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddBaseStation(BaseStation baseStation)
