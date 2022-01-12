@@ -86,17 +86,17 @@
                 <Button x:Name="IdOfPackageInTransfer" Content="View package" Width="150" Height="25" Grid.Row="5" Grid.Column="1"
                         HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD"
                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" Click="IdOfPackageInTransfer_Click"/>
-                <TextBox x:Name="textLatitude"  Margin="2,0,0,8" Width="50" Height="20" Grid.Row="6" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                <TextBox x:Name="textLatitude"  Margin="2,4,0,0" Width="67" Height="20" Grid.Row="6" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFD3CBCD" 
                      BorderBrush="#FFE92617" ToolTip="Enter latitude" IsReadOnly="True"
                           Text="{Binding Location.Latitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
-                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
-                <TextBox x:Name="textLongitude"  Margin="100,0,0,8" Width="50" Height="20" Grid.Row="6" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"/>
+                <TextBox x:Name="textLongitude"  Margin="83,4,0,0" Width="67" Height="20" Grid.Row="6" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFD3CBCD" 
                      BorderBrush="#FFE92617" ToolTip="Enter longitude"
                           Text="{Binding Location.Longitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="True"
-                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"/>
                 <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,23,0,2" FontSize="10" Grid.Row="6" Text="Latitude" TextWrapping="Wrap"
                            Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="103,23,0,2" FontSize="10" Grid.Row="6" Text="Longitude" TextWrapping="Wrap"
