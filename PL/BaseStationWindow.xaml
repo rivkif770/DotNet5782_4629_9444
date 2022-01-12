@@ -194,13 +194,13 @@
                          Text="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"/>
                 <TextBox x:Name="textLatitude"  Margin="2,0,0,0" Width="50" Height="25" Grid.Row="2" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textLatitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter latitude"
+                     TextChanged="textLatitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter latitude between 31 and 32"
                           Text="{Binding Location.Latitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
 
                 <TextBox x:Name="textLongitude"  Margin="100,0,0,0" Width="50" Height="25" Grid.Row="2" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textLongitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter longitude"
+                     TextChanged="textLongitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter longitude between 35 and 36"
                           Text="{Binding Location.Longitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
                 <TextBox x:Name="textCharging"  Margin="2,0,0,0" Width="150" Height="25" Grid.Row="3" Grid.Column="1"  
