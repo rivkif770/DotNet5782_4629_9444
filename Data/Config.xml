@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Config>
   <IDPackage>1010</IDPackage>
-  <Free>1</Free>
-  <LightWeightCarrier>3</LightWeightCarrier>
-  <MediumWeightCarrier>4</MediumWeightCarrier>
-  <HeavyWeightCarrier>5</HeavyWeightCarrier>
+  <Free>0.1</Free>
+  <LightWeightCarrier>0.3</LightWeightCarrier>
+  <MediumWeightCarrier>0.4</MediumWeightCarrier>
+  <HeavyWeightCarrier>0.5</HeavyWeightCarrier>
   <SkimmerLoadingRate>5</SkimmerLoadingRate>
 </Config>

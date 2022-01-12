@@ -53,10 +53,10 @@ namespace xml
         {
             XElement rootId = new XElement("Config",
                new XElement("IDPackage", 1010),
-               new XElement("Free", 1),
-               new XElement("LightWeightCarrier", 3),
-               new XElement("MediumWeightCarrier", 4),
-               new XElement("HeavyWeightCarrier", 5),
+               new XElement("Free", 0.1),
+               new XElement("LightWeightCarrier", 0.3),
+               new XElement("MediumWeightCarrier", 0.4),
+               new XElement("HeavyWeightCarrier", 0.5),
                new XElement("SkimmerLoadingRate", 5)
                );
             rootId.Save(dirPath + configPath);
