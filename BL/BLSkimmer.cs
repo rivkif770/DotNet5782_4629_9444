@@ -591,7 +591,6 @@ namespace BL
         /// <returns></returns>
         private double BatteryCalculation( Location location1,Location location2, Weight weight)
         {
-            //distance calculation
             double distance = Tools.Utils.GetDistance(location1.Longitude, location1.Latitude, location2.Longitude, location2.Latitude);
             double Battery=0;
             if (weight == Weight.Heavy)
@@ -600,6 +599,19 @@ namespace BL
                 Battery = MediumWeightCarrier * distance;
             if (weight == Weight.Light)
                 Battery = LightWeightCarrier * distance;
+            return Battery;
+        }
+        public double BatteryCalculation2(double distance, int weight)
+        {
+            double Battery = 0;
+            if (weight == (int)Weight.Heavy)
+                Battery = HeavyWeightCarrier * distance;
+            if (weight == (int)Weight.Medium)
+                Battery = MediumWeightCarrier * distance;
+            if (weight == (int)Weight.Light)
+                Battery = LightWeightCarrier * distance;
+            if(weight == -1)
+                Battery = Free * distance;
             return Battery;
         }
         /// <summary>
@@ -648,11 +660,17 @@ namespace BL
         public void UploadCharge(Skimmer skimmer)
         {
             skimmersList.Find(s => s.Id == skimmer.Id).BatteryStatus += SkimmerLoadingRate;
+            skimmer.BatteryStatus += SkimmerLoadingRate;
             if (skimmer.BatteryStatus > 100) skimmersList.Find(s => s.Id == skimmer.Id).BatteryStatus = 100;
         }
-        public void UploadLocation(Skimmer skimmer)
+        public void UploadLessBattry(int id ,double lessBattry)
         {
-
+            skimmersList.Find(s => s.Id == id).BatteryStatus -= lessBattry;
+        }
+        public void UploadLocation(int id,double lonPlus,double logPlus)
+        {
+            skimmersList.Find(s => s.Id == id).CurrentLocation.Latitude += lonPlus;
+            skimmersList.Find(s => s.Id == id).CurrentLocation.Longitude += logPlus;
         }
     }       
 }

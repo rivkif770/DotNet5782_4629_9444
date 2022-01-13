@@ -11,34 +11,47 @@ namespace BL
 {
     class Simulator
     {
+        public int StepTimer = 1000;
+        public int SkimmerSpeed = 5;
+        double differenceLat, differenceLon, latPlus, lonPlus;
         public Simulator(BL bL, int id, Action act, Func<bool> func)
         {
             while (!func.Invoke())
             {
                 Skimmer skimmer = bL.GetSkimmerr(id);
-                switch(skimmer.SkimmerStatus)
+                if (skimmer.PackageInTransfer != null)
+                {
+                    differenceLat = skimmer.PackageInTransfer.CollectionLocation.Latitude - skimmer.Location.Latitude;
+                    differenceLon = skimmer.PackageInTransfer.CollectionLocation.Longitude - skimmer.Location.Longitude;
+
+                    latPlus = differenceLat / skimmer.PackageInTransfer.TransportDistance * SkimmerSpeed;
+                    lonPlus = differenceLon / skimmer.PackageInTransfer.TransportDistance * SkimmerSpeed;
+                }
+                switch (skimmer.SkimmerStatus)
                 {
                     case SkimmerStatuses.shipping:
                         switch (skimmer.PackageInTransfer.PackageMode)
                         {
                             case ParcelStatus.Assignment:
-                                if(skimmer.Location==bL.GetCustomer(skimmer.PackageInTransfer.CustomerSends.Id).Location)
+                                if(skimmer.PackageInTransfer.TransportDistance < 5)
                                 {
                                     bL.CollectingPackageBySkimmer(skimmer.Id);
                                 }
                                 else
                                 {
-                                    bL.UploadLocation(skimmer);
+                                    bL.UploadLessBattry(skimmer.Id, bL.BatteryCalculation2((1 * SkimmerSpeed), (int)skimmer.PackageInTransfer.WeightCategory));
+                                    bL.UploadLocation(skimmer.Id, latPlus, lonPlus);
                                 }
                                 break;
                             case ParcelStatus.Collection:
-                                if (skimmer.Location == bL.GetCustomer(skimmer.PackageInTransfer.CustomerReceives.Id).Location)
+                                if (skimmer.PackageInTransfer.TransportDistance < 5)
                                 {
                                     bL.DeliveryOfPackageBySkimmer(skimmer.Id);
                                 }
                                 else
                                 {
-                                    bL.UploadLocation(skimmer);
+                                    bL.UploadLessBattry(skimmer.Id, bL.BatteryCalculation2((1 * SkimmerSpeed), (int)skimmer.PackageInTransfer.WeightCategory));
+                                    bL.UploadLocation(skimmer.Id, latPlus, lonPlus);
                                 }
                                 break;
                         }
@@ -58,8 +71,8 @@ namespace BL
                         {
                             SkimmerToList skimmerToList = bL.GetSkimmerToList(skimmer.Id);
                             DO.BaseStation baseStation = bL.ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmerToList);
-                            Location location = new Location { Latitude = baseStation.Latitude, Longitude = baseStation.Longitude };
-                            if (skimmer.Location == location)
+                            double Distance = Tools.Utils.GetDistance(skimmer.Location.Longitude, skimmer.Location.Latitude, baseStation.Longitude, baseStation.Latitude);
+                            if (Distance < 5)
                             {
                                 try
                                 {
@@ -71,8 +84,9 @@ namespace BL
                             }
                             else
                             {
-                                bL.UploadLocation(skimmer);
-                            } 
+                                bL.UploadLessBattry(skimmer.Id, bL.BatteryCalculation2((1 * SkimmerSpeed), -1));
+                                bL.UploadLocation(skimmer.Id, latPlus, lonPlus);
+                            }
                         }
                         break;
                 }
@@ -80,8 +94,5 @@ namespace BL
                 act();
             }
         }
-        public int StepTimer = 1000;
-        public int SkimmerSpeed = 20;
-
     }
 }

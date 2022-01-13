@@ -37,9 +37,8 @@
 
         <Grid x:Name="add" >
             <CheckBox x:Name="help" Visibility="Hidden" />
-            <Grid x:Name="AddSkimmerGrid" Margin="47,33,0,155" Width="404" HorizontalAlignment="Left" >
+            <Grid x:Name="AddSkimmerGrid" Margin="47,33,0,100" Width="275" HorizontalAlignment="Left" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -48,80 +47,75 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="124"/>
+                    <ColumnDefinition Width="Auto" MinWidth="226"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Id" FontFamily="Bahnschrift Condensed" FontSize="20"/>
-                <Label Content="Skimmer Model" Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="20" />
+                <Label Content="Id" FontFamily="Bahnschrift Condensed" FontSize="20" Margin="0,0,0,40" Grid.RowSpan="2"/>
+                <Label Content="Skimmer Model" Grid.Row="1" FontFamily="Bahnschrift Condensed" FontSize="20" Margin="0,0,0,40" Grid.RowSpan="2" />
                 <Label Content="Weight Category" Grid.Row="2" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"/>
                 <Label Content="Skimmer Status" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"
                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
-                <Label Content="Battery Status" Grid.Row="4" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"
-                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
-                <Label Content="Package In Transfer" Grid.Row="5" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"
-                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
-                <Label Content="Location" Grid.Row="6" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="3"
-                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <Label Content="Battery Status" Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="4"
+                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" Margin="0,39,0,0"/>
+                <Label Content="Location" Grid.Row="4" FontFamily="Bahnschrift Condensed" FontSize="20"  Grid.RowSpan="2"
+                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" Margin="0,40,0,0"/>
 
                 <Label Content="Station ID"  Grid.Row="3" FontFamily="Bahnschrift Condensed" FontSize="20"
                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"/>
-                <TextBox  x:Name="textId" Width="150" Height="25" Grid.Column="1" 
-                      HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                <TextBox  x:Name="textId" Width="120" Height="25" Grid.Column="1" 
+                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                        TextChanged="textId_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 3-digit id number" 
                           Text="{Binding Id, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" 
                           IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
-                <TextBox x:Name="textSkimmerModel" Width="150" Height="25" Grid.Row="1" Grid.Column="1"  
-                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                <TextBox x:Name="textSkimmerModel" Width="120" Height="25" Grid.Row="1" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
                           Text="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
-                <TextBox x:Name="BatteryStatus" Width="150" Height="25" Grid.Row="4" Grid.Column="1"  
-                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" BorderBrush="#FFE92617" 
+                <TextBox x:Name="BatteryStatus" Width="120" Height="25" Grid.Row="4" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" BorderBrush="#FFE92617" 
                           Text="{Binding BatteryStatus, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
                          IsReadOnly="True"
                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
-                <TextBox x:Name="SkimmerStatus" Width="150" Height="25" Grid.Row="3" Grid.Column="1"  
-                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD" 
+                <TextBox x:Name="SkimmerStatus" Width="120" Height="25" Grid.Row="3" Grid.Column="1"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
                           Text="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
-                <Button x:Name="IdOfPackageInTransfer" Content="View package" Width="150" Height="25" Grid.Row="5" Grid.Column="1"
-                        HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD"
-                        Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" Click="IdOfPackageInTransfer_Click"/>
-                <TextBox x:Name="textLatitude"  Margin="2,4,0,0" Width="67" Height="20" Grid.Row="6" Grid.Column="1"  
+                <TextBox x:Name="textLatitude"  Margin="-15,4,0,0" Width="67" Height="20" Grid.Row="6" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFD3CBCD" 
                      BorderBrush="#FFE92617" ToolTip="Enter latitude" IsReadOnly="True"
                           Text="{Binding Location.Latitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
-                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"/>
-                <TextBox x:Name="textLongitude"  Margin="83,4,0,0" Width="67" Height="20" Grid.Row="6" Grid.Column="1"  
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                <TextBox x:Name="textLongitude"  Margin="70,4,0,0" Width="67" Height="20" Grid.Row="6" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFD3CBCD" 
                      BorderBrush="#FFE92617" ToolTip="Enter longitude"
                           Text="{Binding Location.Longitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="True"
-                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"/>
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
                 <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,23,0,2" FontSize="10" Grid.Row="6" Text="Latitude" TextWrapping="Wrap"
-                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" Width="36"/>
                 <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="103,23,0,2" FontSize="10" Grid.Row="6" Text="Longitude" TextWrapping="Wrap"
-                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" Width="45"/>
 
-                <ComboBox x:Name="ComboStationID" Width="150" Height="26" Grid.Row="3" Grid.Column="1" 
-                      HorizontalAlignment="Center" VerticalAlignment="Bottom" SelectedItem="{Binding SkimmerStatus, Mode=OneWay}" 
+                <ComboBox x:Name="ComboStationID" Width="120" Height="26" Grid.Row="3" Grid.Column="1" 
+                      HorizontalAlignment="Left" VerticalAlignment="Center" SelectedItem="{Binding SkimmerStatus, Mode=OneWay}" 
                           IsEnabled="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"
                           SelectedIndex="{Binding SkimmerStatus, Converter={StaticResource EnumToInt}}" 
                             IsEditable="True" IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"
-                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}" Margin="0,0,0,6"/>
-                <ComboBox x:Name="ComboSkimmerStatus" Width="150" Height="26" Grid.Row="3" Grid.Column="1" 
+                          Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"/>
+                <ComboBox x:Name="ComboSkimmerStatus" Width="120" Height="26" Grid.Row="3" Grid.Column="1" 
                       HorizontalAlignment="Left" VerticalAlignment="Center" SelectedItem="{Binding SkimmerStatus, Mode=OneWay}" 
                           IsEnabled="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"
                           SelectedIndex="{Binding SkimmerStatus, Converter={StaticResource EnumToInt}}" 
                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"
                             IsEditable="True" IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}"/>
-                <ComboBox Name="ComboWeightCategory" Width="150" Height="25"
-                      HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" Grid.Column="1"  
+                <ComboBox Name="ComboWeightCategory" Width="120" Height="25"
+                      HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1"  
                           IsEnabled="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"
                       IsEditable="True" SelectedItem="{Binding WeightCategory, Mode=OneWay}"
                           SelectedIndex="{Binding WeightCategory, Converter={StaticResource EnumToInt}}"
                       IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" Margin="0,6,0,0"  />
             </Grid>
-            <Grid Margin="450,135,10,10">
+            <Grid Margin="585,135,10,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -136,7 +130,7 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="5" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}">
                     <Button x:Name="btnADD" Content="ADD" Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Add a skimmer to the pool"
-                Click="btnAddSkimmer_Click" Width="300" Height="30" 
+                Click="btnAddSkimmer_Click" Width="200" Height="30" 
                        >
 
                         <Button.Style>
@@ -168,7 +162,7 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="8">
                     <Button x:Name="btnEXIT1" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
                          ToolTip="Exit this window"
-                Click="Button_Click" Width="300" Height="30">
+                Click="Button_Click" Width="200" Height="30">
 
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
@@ -199,7 +193,7 @@
                 <StackPanel Orientation="Horizontal" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
                     <!--<Image x:Name="skimmerU" Source="/skimmer.png" Width="300" Height="170" Margin="-20,-250,0,0"/>-->
                     <Button x:Name="btnUpdate" Content="Update name" ToolTip="Update skimmer name" Foreground="White"
-                        FontSize="20" FontWeight="Medium" Click="Button_Update" Width="300" 
+                        FontSize="20" FontWeight="Medium" Click="Button_Update" Width="200" 
                         Height="30"  Style="{StaticResource myButtonStyle}">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
@@ -216,7 +210,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
                     <Button x:Name="btnSend" Content="Send for loading" ToolTip="Sending a skimmer for charging" Foreground="White" FontSize="20" FontWeight="Medium"
-                 Click="Button_Sending_Loading" Width="300" Height="30" Style="{StaticResource myButtonStyle}"
+                 Click="Button_Sending_Loading" Width="200" Height="30" Style="{StaticResource myButtonStyle}"
                         >
 
                         <Button.Template>
@@ -234,7 +228,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
                     <Button x:Name="btnRelease" Content="Release from charging" ToolTip="Release skimmer from charging"
-                        Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_Release" Width="300" 
+                        Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_Release" Width="200" 
                         Height="30" Style="{StaticResource myButtonStyle}" 
                         >
                         <Button.Template>
@@ -271,7 +265,7 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
                     <Button x:Name="btnSendingSkimmer" Content="Sending a skimmer" ToolTip="Sending the skimmer for delivery (only for available skimmer)" Foreground="White" FontSize="20" FontWeight="Medium"
-                  Click="Button_Sending_Skimmer_For_Delivery" Width="300" Height="30"  
+                  Click="Button_Sending_Skimmer_For_Delivery" Width="200" Height="30"  
                         Style="{StaticResource myButtonStyle}" >
 
                         <Button.Template>
@@ -290,7 +284,7 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="4" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
                     <Button x:Name="btnCollectThePackage" Content="Collect the package" ToolTip="Package collection" Foreground="White" FontSize="20" FontWeight="Medium"
-                   Click="Button_Package_Collect" Width="300" Height="30"  
+                   Click="Button_Package_Collect" Width="200" Height="30"  
                         Style="{StaticResource myButtonStyle}" >
 
                         <Button.Template>
@@ -308,7 +302,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="5" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
                     <Button x:Name="btnPackageDelivery" Content="Package delivery" ToolTip="Package delivery" Foreground="White" FontSize="20" FontWeight="Medium" 
-                        Click="Button_Package_Delivery" Width="300" Height="30" Style="{StaticResource myButtonStyle}"
+                        Click="Button_Package_Delivery" Width="200" Height="30" Style="{StaticResource myButtonStyle}"
                             >
 
                         <Button.Template>
@@ -327,7 +321,7 @@
             </Grid>
             <Button x:Name="btnSimulator" Content="Simulator" Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Add a skimmer to the pool"
                     Click="btnSimulator_Click" 
-                       Margin="456,69,44,351" 
+                       Margin="23,385,477,35" 
                        >
 
                 <Button.Style>
@@ -357,7 +351,7 @@
             </Button>
             <Button x:Name="btnStop" Content="Stop" Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Add a skimmer to the pool"
                  Click="btnStop_Click" 
-                       Margin="456,33,44,387" 
+                       Margin="23,350,477,70" 
                        >
 
                 <Button.Style>
@@ -390,7 +384,32 @@
                     <BitmapImage UriSource ="/skimmer.png"/>
                 </Image.Source>
             </Image>-->
+            <TreeView  Margin="340,28,235,76"  ToolTip="Double click to open a package page" >
+                <TreeViewItem Header="Package" IsExpanded="True" FontWeight="Bold">
 
+                    <TreeViewItem Header="{Binding PackageInTransfer.Id}" FontWeight="Regular"/>
+                    <TreeViewItem Header="{Binding PackageInTransfer.PackageMode}" FontWeight="Regular"/>
+                    <TreeViewItem Header="{Binding PackageInTransfer.priority}" FontWeight="Regular"/>
+                    <TreeViewItem Header="{Binding PackageInTransfer.WeightCategory}" FontWeight="Regular"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Sender" IsExpanded="True" FontWeight="Bold">
+                    <TreeViewItem Header="{Binding PackageInTransfer.CustomerSends.Id}" FontWeight="Regular"/>
+                    <TreeViewItem Header="{Binding PackageInTransfer.CustomerSends.Name}" FontWeight="Regular"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Receiver" IsExpanded="True" FontWeight="Bold">
+                    <TreeViewItem Header="{Binding PackageInTransfer.CustomerReceives.Id}" FontWeight="Regular"/>
+                    <TreeViewItem Header="{Binding PackageInTransfer.CustomerReceives.Name}" FontWeight="Regular"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Collect Location" IsExpanded="True" FontWeight="Bold">
+                    <TreeViewItem Header="{Binding PackageInTransfer.CollectionLocation}" FontWeight="Regular"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Destination Location" IsExpanded="True" FontWeight="Bold">
+                    <TreeViewItem Header="{Binding PackageInTransfer.DeliveryDestinationLocation}" FontWeight="Regular"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Current distance" IsExpanded="True" FontWeight="Bold">
+                    <TreeViewItem Header="{Binding PackageInTransfer.TransportDistance}" FontWeight="Regular"/>
+                </TreeViewItem>
+            </TreeView>
         </Grid>
 
     </Grid>

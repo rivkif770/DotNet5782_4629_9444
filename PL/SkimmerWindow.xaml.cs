@@ -298,28 +298,28 @@ namespace PL
             }
         }
 
-        private void IdOfPackageInTransfer_Click(object sender, RoutedEventArgs e)
-        {
-            if (newSkimmer.PackageNumberTransferred != 0)
-            {
-                Package package = bL.GetPackage(newSkimmer.PackageNumberTransferred);
-                PackageToList packageToList = new PackageToList
-                {
-                    Id = package.Id,
-                    CustomerNameSends = package.SendPackage.Name,
-                    CustomerNameGets = package.ReceivesPackage.Name,
-                    WeightCategory = package.WeightCategory,
-                    priority = package.priority,
-                    PackageMode = (ParcelStatus)bL.PackageMode(package)
-                };
-                packageWindow = new PackageWindow(packageToList);
-                packageWindow.Show();
-            }
-            else
-            {
-                MessageBox.Show($"No package in transfer", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+        //private void IdOfPackageInTransfer_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (newSkimmer.PackageNumberTransferred != 0)
+        //    {
+        //        Package package = bL.GetPackage(newSkimmer.PackageNumberTransferred);
+        //        PackageToList packageToList = new PackageToList
+        //        {
+        //            Id = package.Id,
+        //            CustomerNameSends = package.SendPackage.Name,
+        //            CustomerNameGets = package.ReceivesPackage.Name,
+        //            WeightCategory = package.WeightCategory,
+        //            priority = package.priority,
+        //            PackageMode = (ParcelStatus)bL.PackageMode(package)
+        //        };
+        //        packageWindow = new PackageWindow(packageToList);
+        //        packageWindow.Show();
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show($"No package in transfer", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
 
         private void Button_Package_Collect(object sender, RoutedEventArgs e)
         {
