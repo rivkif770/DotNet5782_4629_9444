@@ -1,4 +1,4 @@
-﻿<Window x:Class="PL.SkimmerWindow" WindowStartupLocation="CenterScreen"
+﻿<Window x:Class="PL.SkimmerWindow" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,6 +13,8 @@
         <local:TrueToHidden x:Key="TrueToHidden"></local:TrueToHidden>
         <local:EnumToInt x:Key="EnumToInt"></local:EnumToInt>
         <local:TrueToFalse x:Key="TrueToFalse"></local:TrueToFalse>
+        <local:NullToHidden x:Key="NullToHidden"></local:NullToHidden>
+        <local:ButtonsInSimulator x:Key="ButtonsInSimulator"></local:ButtonsInSimulator>
         <Style x:Key="myButtonStyle"  TargetType="Button">
 
             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -37,6 +39,7 @@
 
         <Grid x:Name="add" >
             <CheckBox x:Name="help" Visibility="Hidden" />
+            <CheckBox x:Name="Simulator" Visibility="Hidden" />
             <Grid x:Name="AddSkimmerGrid" Margin="47,33,0,100" Width="275" HorizontalAlignment="Left" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -71,11 +74,17 @@
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
                           Text="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
-                <TextBox x:Name="BatteryStatus" Width="120" Height="25" Grid.Row="4" Grid.Column="1"  
+                <!--<TextBox x:Name="BatteryStatus" Width="120" Height="25" Grid.Row="4" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" BorderBrush="#FFE92617" 
                           Text="{Binding BatteryStatus, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
                          IsReadOnly="True"
-                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
+                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>-->
+                <ProgressBar Grid.Row="4" Grid.Column="1" Width="120" Height="25"  ClipToBounds="True"  Minimum="0" Maximum="100" 
+                             Value="{Binding BatteryStatus, NotifyOnValidationError=True, ValidatesOnExceptions=True}" Name="BatteryStatus"  
+                             Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" HorizontalAlignment="Left" VerticalAlignment="Center" ></ProgressBar>
+                <TextBlock Grid.Column="1"    Grid.Row="4" Text="{Binding ElementName=BatteryStatus, Path=Value, StringFormat={}{0:0}%}" Width="120" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+
                 <TextBox x:Name="SkimmerStatus" Width="120" Height="25" Grid.Row="3" Grid.Column="1"  
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
@@ -111,8 +120,8 @@
                 <ComboBox Name="ComboWeightCategory" Width="120" Height="25"
                       HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1"  
                           IsEnabled="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"
-                      IsEditable="True" SelectedItem="{Binding WeightCategory, Mode=OneWay}"
-                          SelectedIndex="{Binding WeightCategory, Converter={StaticResource EnumToInt}}"
+                      IsEditable="True" SelectedItem="{Binding WeightCategory, Mode=TwoWay}"
+                          SelectedIndex="{Binding WeightCategory, Mode=TwoWay, Converter={StaticResource EnumToInt}}"
                       IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" Margin="0,6,0,0"  />
             </Grid>
             <Grid Margin="585,135,10,10">
@@ -195,6 +204,9 @@
                     <Button x:Name="btnUpdate" Content="Update name" ToolTip="Update skimmer name" Foreground="White"
                         FontSize="20" FontWeight="Medium" Click="Button_Update" Width="200" 
                         Height="30"  Style="{StaticResource myButtonStyle}">
+                        <Button.Visibility>                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                            </MultiBinding>                        </Button.Visibility>
+
+
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Border Height="30"
@@ -384,7 +396,7 @@
                     <BitmapImage UriSource ="/skimmer.png"/>
                 </Image.Source>
             </Image>-->
-            <TreeView  Margin="340,28,235,76"  ToolTip="Double click to open a package page" >
+            <TreeView  Margin="340,28,235,76" Visibility="{Binding PackageInTransfer, Converter={StaticResource NullToHidden}}" ToolTip="Double click to open a package page" MouseDoubleClick="TreeView_MouseDoubleClick" >
                 <TreeViewItem Header="Package" IsExpanded="True" FontWeight="Bold">
 
                     <TreeViewItem Header="{Binding PackageInTransfer.Id}" FontWeight="Regular"/>

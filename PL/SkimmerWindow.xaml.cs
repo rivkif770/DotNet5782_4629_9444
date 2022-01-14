@@ -25,7 +25,7 @@ namespace PL
         SkimmerToList newSkimmer;
         Skimmer skimmer1 = new Skimmer();
         BlApi.IBL bL;
-        BackgroundWorker backgroundWorker;
+        internal BackgroundWorker backgroundWorker;
         public delegate void CloseWindow(object ob);
         //public event CloseWindow CloseWindowEvent;
         /// <summary>
@@ -336,13 +336,30 @@ namespace PL
 
         private void btnSimulator_Click(object sender, RoutedEventArgs e)
         {
-            if (backgroundWorker.IsBusy != true) backgroundWorker.RunWorkerAsync();
+            if (backgroundWorker.IsBusy != true)
+            {
+                backgroundWorker.RunWorkerAsync();
+                Simulator.IsChecked = true;
+            }
 
         }
 
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
             backgroundWorker.CancelAsync();
+            Simulator.IsChecked = false;
+        }
+
+        private void TreeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+             if (skimmer1.PackageInTransfer != null)
+            {
+                PackageToList packageToList = new PackageToList
+                {
+                    Id = skimmer1.PackageInTransfer.Id
+                };
+                new PackageWindow(packageToList).Show();
+            }
         }
     }
 }

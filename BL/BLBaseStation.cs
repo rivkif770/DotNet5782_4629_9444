@@ -17,6 +17,10 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddBaseStation(BO.BaseStation newBaseStation)
         {
+            if(newBaseStation.Location.Latitude<31|| newBaseStation.Location.Latitude > 32 && newBaseStation.Location.Longitude < 35 || newBaseStation.Location.Longitude > 36)
+            {
+                throw new LocationExceptionBL("Location is incorrect");
+            }
             DO.BaseStation tempBS = new DO.BaseStation
             {
                 UniqueID = newBaseStation.Id,

@@ -29,6 +29,7 @@ namespace DalApi
         Package GetPackage(int idp);
         IEnumerable<Package> GetPackageList(Func<Package, bool> predicate = null);
         public void DeletePackage(int id);
+        //public void AddPackages();
 
         void UpadteQ(Quadocopter qc);
         void AddSkimmer(Quadocopter q);

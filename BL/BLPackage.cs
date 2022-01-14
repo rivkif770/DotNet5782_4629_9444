@@ -382,5 +382,25 @@ namespace BL
             return PackageShipped;
       
         }
+        internal void AddPackages()
+        {
+            for(int i = 0; i < 5; i++)
+            {
+                BO.Package package = new BO.Package
+                {
+                    SendPackage = new CustomerInParcel
+                    {
+                        Id = mayDal.GetClientList().ElementAt(r.Next(3)).ID
+                    },
+                    ReceivesPackage = new CustomerInParcel
+                    {
+                        Id = mayDal.GetClientList().ElementAt(r.Next(3)).ID
+                    },
+                    WeightCategory = (Weight)r.Next(3),
+                    priority = (Priority)r.Next(3),
+                };
+                AddPackage(package);
+            }
+        }
     }
 }

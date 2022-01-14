@@ -120,6 +120,7 @@ namespace PL
             {
                 skimmerWindow = new SkimmerWindow((BO.SkimmerToList)SkimmerListView.SelectedItem);
                 skimmerWindow.Closed += RefreshListView;
+                skimmerWindow.backgroundWorker.ProgressChanged += RefreshListView;
                 skimmerWindow.Show();             
             }
         }

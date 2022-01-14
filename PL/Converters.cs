@@ -12,12 +12,43 @@ namespace PL
     class Converters
     {
     }
+
+    public class ButtonsInSimulator : IMultiValueConverter // multi binding
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((bool)values[1] == true) return Visibility.Hidden;
+            else if ((bool)values[0] == false) return Visibility.Hidden;
+            else return Visibility.Visible;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class NullToHidden : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if(value !=null) return Visibility.Visible;
+            else return Visibility.Hidden;
+           
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class FalseToHidden : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((bool)value == false) return Visibility.Hidden;
-            else return Visibility.Visible;
+            if (value != null && (bool)value == true) return Visibility.Visible;
+            else return Visibility.Hidden;
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

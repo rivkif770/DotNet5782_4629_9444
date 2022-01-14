@@ -272,8 +272,10 @@ namespace BL
             }
             DateTime dt = skimmerLoading.EnteredLoading;
             TimeSpan timeSpan = DateTime.Now - dt;
-            int time = (int)timeSpan.TotalMinutes;
-            skimmer.BatteryStatus = (time * SkimmerLoadingRate) % 100;
+            int time = (int)timeSpan.TotalSeconds;
+            skimmer.BatteryStatus += (time * SkimmerLoadingRate);
+            if (skimmer.BatteryStatus >= 100)
+                skimmer.BatteryStatus = 100;
             DO.BaseStation station = mayDal.GetBaseStation(skimmerLoading.StationID);
             station.SeveralPositionsArgument++;
             mayDal.UpadteB(station);
@@ -453,7 +455,10 @@ namespace BL
 
                     skimmer.PackageInTransfer.CollectionLocation = collectLocation;
                     skimmer.PackageInTransfer.DeliveryDestinationLocation = destinationLocation;
-                    skimmer.PackageInTransfer.TransportDistance = Tools.Utils.GetDistance(collectLocation.Longitude, collectLocation.Latitude, destinationLocation.Longitude, destinationLocation.Latitude);
+                    if (skimmer.PackageInTransfer.PackageMode == ParcelStatus.Assignment)
+                        skimmer.PackageInTransfer.TransportDistance = Tools.Utils.GetDistance(skimmer.Location.Longitude, skimmer.Location.Latitude, collectLocation.Longitude, collectLocation.Latitude);
+                    if (skimmer.PackageInTransfer.PackageMode == ParcelStatus.Collection)
+                        skimmer.PackageInTransfer.TransportDistance = Tools.Utils.GetDistance(skimmer.Location.Longitude, skimmer.Location.Latitude, destinationLocation.Longitude, destinationLocation.Latitude);
                 }
             }
             else

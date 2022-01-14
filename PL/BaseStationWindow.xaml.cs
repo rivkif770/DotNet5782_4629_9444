@@ -95,16 +95,16 @@ namespace PL
         }
         private void btnAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
-                try
-                {
+            try
+            {
                 bL.AddBaseStation(baseStation1);
-                    MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void EXIT_Click(object sender, RoutedEventArgs e)

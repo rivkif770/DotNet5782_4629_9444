@@ -10,6 +10,7 @@ namespace DalObject
 {
     public partial class DalObject: DalApi.IDal
     {
+        internal static Random r = new Random();
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpadteP(Package p)
         {

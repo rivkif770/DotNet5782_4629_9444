@@ -99,7 +99,6 @@ namespace PL
             var bc = new BrushConverter();
             if (textIdSender.Text.All(char.IsDigit) && textIdSender.Text.Length ==9)
             {
-
                 textIdSender.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
             else textIdSender.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
@@ -116,11 +115,6 @@ namespace PL
             else textIdGet.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
 
         }
-        /// <summary>
-        /// Input the Skimmer Model from the user and color the field according to the correctness of the input
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
 
         /// <summary>
         /// Button for closing the window

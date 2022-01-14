@@ -19,14 +19,6 @@ namespace BL
             while (!func.Invoke())
             {
                 Skimmer skimmer = bL.GetSkimmerr(id);
-                if (skimmer.PackageInTransfer != null)
-                {
-                    differenceLat = skimmer.PackageInTransfer.CollectionLocation.Latitude - skimmer.Location.Latitude;
-                    differenceLon = skimmer.PackageInTransfer.CollectionLocation.Longitude - skimmer.Location.Longitude;
-
-                    latPlus = differenceLat / skimmer.PackageInTransfer.TransportDistance * SkimmerSpeed;
-                    lonPlus = differenceLon / skimmer.PackageInTransfer.TransportDistance * SkimmerSpeed;
-                }
                 switch (skimmer.SkimmerStatus)
                 {
                     case SkimmerStatuses.shipping:
@@ -39,7 +31,13 @@ namespace BL
                                 }
                                 else
                                 {
-                                    bL.UploadLessBattry(skimmer.Id, bL.BatteryCalculation2((1 * SkimmerSpeed), (int)skimmer.PackageInTransfer.WeightCategory));
+                                    differenceLat = skimmer.PackageInTransfer.CollectionLocation.Latitude - skimmer.Location.Latitude;
+                                    differenceLon = skimmer.PackageInTransfer.CollectionLocation.Longitude - skimmer.Location.Longitude;
+
+                                    latPlus = differenceLat / skimmer.PackageInTransfer.TransportDistance * SkimmerSpeed;
+                                    lonPlus = differenceLon / skimmer.PackageInTransfer.TransportDistance * SkimmerSpeed;
+
+                                    bL.UploadLessBattry(skimmer.Id, bL.BatteryCalculation2((1 * SkimmerSpeed), -1));
                                     bL.UploadLocation(skimmer.Id, latPlus, lonPlus);
                                 }
                                 break;
@@ -50,6 +48,11 @@ namespace BL
                                 }
                                 else
                                 {
+                                    differenceLat = skimmer.PackageInTransfer.DeliveryDestinationLocation.Latitude - skimmer.Location.Latitude;
+                                    differenceLon = skimmer.PackageInTransfer.DeliveryDestinationLocation.Longitude - skimmer.Location.Longitude;
+
+                                    latPlus = differenceLat / skimmer.PackageInTransfer.TransportDistance * SkimmerSpeed;
+                                    lonPlus = differenceLon / skimmer.PackageInTransfer.TransportDistance * SkimmerSpeed;
                                     bL.UploadLessBattry(skimmer.Id, bL.BatteryCalculation2((1 * SkimmerSpeed), (int)skimmer.PackageInTransfer.WeightCategory));
                                     bL.UploadLocation(skimmer.Id, latPlus, lonPlus);
                                 }
@@ -69,23 +72,15 @@ namespace BL
                         }
                         catch (Exception ex)
                         {
-                            SkimmerToList skimmerToList = bL.GetSkimmerToList(skimmer.Id);
-                            DO.BaseStation baseStation = bL.ChecksSmallDistanceBetweenSkimmerAndBaseStation(skimmerToList);
-                            double Distance = Tools.Utils.GetDistance(skimmer.Location.Longitude, skimmer.Location.Latitude, baseStation.Longitude, baseStation.Latitude);
-                            if (Distance < 5)
+                            try
                             {
-                                try
-                                {
+                                if (skimmer.BatteryStatus != 100)
                                     bL.SendingSkimmerForCharging(skimmer.Id);
-                                }
-                                catch (Exception)
-                                {
-                                }
+                                else
+                                    bL.AddPackages();
                             }
-                            else
+                            catch (Exception)
                             {
-                                bL.UploadLessBattry(skimmer.Id, bL.BatteryCalculation2((1 * SkimmerSpeed), -1));
-                                bL.UploadLocation(skimmer.Id, latPlus, lonPlus);
                             }
                         }
                         break;
