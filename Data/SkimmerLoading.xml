@@ -5,4 +5,14 @@
     <SkimmerID>181</SkimmerID>
     <EnteredLoading>2022-01-14T04:22:29.0931917+02:00</EnteredLoading>
   </SkimmerLoading>
+  <SkimmerLoading>
+    <StationID>7644</StationID>
+    <SkimmerID>269</SkimmerID>
+    <EnteredLoading>2022-01-14T13:02:25.8705293+02:00</EnteredLoading>
+  </SkimmerLoading>
+  <SkimmerLoading>
+    <StationID>1254</StationID>
+    <SkimmerID>950</SkimmerID>
+    <EnteredLoading>2022-01-21T01:13:56.0979257+02:00</EnteredLoading>
+  </SkimmerLoading>
 </ArrayOfSkimmerLoading>

@@ -5,14 +5,7 @@
     <StationName>BaseStation0</StationName>
     <Latitude>31.685558514523116</Latitude>
     <Longitude>35.81888370626554</Longitude>
-    <SeveralPositionsArgument>7</SeveralPositionsArgument>
-  </BaseStation>
-  <BaseStation>
-    <UniqueID>1324</UniqueID>
-    <StationName>BaseStation1</StationName>
-    <Latitude>31.438366126938895</Latitude>
-    <Longitude>35.192705984782755</Longitude>
-    <SeveralPositionsArgument>7</SeveralPositionsArgument>
+    <SeveralPositionsArgument>6</SeveralPositionsArgument>
   </BaseStation>
   <BaseStation>
     <UniqueID>7896</UniqueID>
@@ -26,6 +19,13 @@
     <StationName>hhvjhc</StationName>
     <Latitude>31.2</Latitude>
     <Longitude>35.36</Longitude>
-    <SeveralPositionsArgument>2</SeveralPositionsArgument>
+    <SeveralPositionsArgument>1</SeveralPositionsArgument>
+  </BaseStation>
+  <BaseStation>
+    <UniqueID>1324</UniqueID>
+    <StationName>BaseStation1</StationName>
+    <Latitude>31.438366126938895</Latitude>
+    <Longitude>35.192705984782755</Longitude>
+    <SeveralPositionsArgument>7</SeveralPositionsArgument>
   </BaseStation>
 </listbasestation>
