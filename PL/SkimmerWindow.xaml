@@ -74,15 +74,11 @@
                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" 
                      TextChanged="textSkimmerModel_TextChanged" BorderBrush="#FFE92617" ToolTip="Insert a skimmer model with a first letter and 2 digits"
                           Text="{Binding SkimmerModel, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
-                <!--<TextBox x:Name="BatteryStatus" Width="120" Height="25" Grid.Row="4" Grid.Column="1"  
-                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FFD3CBCD" BorderBrush="#FFE92617" 
-                          Text="{Binding BatteryStatus, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
-                         IsReadOnly="True"
-                         Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>-->
                 <ProgressBar Grid.Row="4" Grid.Column="1" Width="120" Height="25"  ClipToBounds="True"  Minimum="0" Maximum="100" 
                              Value="{Binding BatteryStatus, NotifyOnValidationError=True, ValidatesOnExceptions=True}" Name="BatteryStatus"  
                              Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}" HorizontalAlignment="Left" VerticalAlignment="Center" ></ProgressBar>
-                <TextBlock Grid.Column="1"    Grid.Row="4" Text="{Binding ElementName=BatteryStatus, Path=Value, StringFormat={}{0:0}%}" Width="120" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1"    Grid.Row="4" Text="{Binding ElementName=BatteryStatus, Path=Value, StringFormat={}{0:0}%}" Width="120" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                           Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
 
 
                 <TextBox x:Name="SkimmerStatus" Width="120" Height="25" Grid.Row="3" Grid.Column="1"  
@@ -134,13 +130,10 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal"  Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"/>
-                <StackPanel Orientation="Horizontal" Grid.Row="3" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToFalse}}"/>
 
-                <StackPanel Orientation="Horizontal" Grid.Row="5" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}">
+                <StackPanel Orientation="Horizontal" Grid.Row="5" >
                     <Button x:Name="btnADD" Content="ADD" Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Add a skimmer to the pool"
-                Click="btnAddSkimmer_Click" Width="200" Height="30" 
-                       >
+                Click="btnAddSkimmer_Click" Width="200" Height="30" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}">
 
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
@@ -170,7 +163,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="8">
                     <Button x:Name="btnEXIT1" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
-                         ToolTip="Exit this window"
+                         ToolTip="Exit this window" Visibility="{Binding ElementName=Simulator, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"
                 Click="Button_Click" Width="200" Height="30">
 
                         <Button.Style>
@@ -199,8 +192,7 @@
 
                     </Button>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
-                    <!--<Image x:Name="skimmerU" Source="/skimmer.png" Width="300" Height="170" Margin="-20,-250,0,0"/>-->
+                <StackPanel Orientation="Horizontal">
                     <Button x:Name="btnUpdate" Content="Update name" ToolTip="Update skimmer name" Foreground="White"
                         FontSize="20" FontWeight="Medium" Click="Button_Update" Width="200" 
                         Height="30"  Style="{StaticResource myButtonStyle}">
@@ -220,11 +212,10 @@
 
                     </Button>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
                     <Button x:Name="btnSend" Content="Send for loading" ToolTip="Sending a skimmer for charging" Foreground="White" FontSize="20" FontWeight="Medium"
-                 Click="Button_Sending_Loading" Width="200" Height="30" Style="{StaticResource myButtonStyle}"
-                        >
-
+                 Click="Button_Sending_Loading" Width="200" Height="30" Style="{StaticResource myButtonStyle}">
+                        <Button.Visibility>                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                            </MultiBinding>                        </Button.Visibility>
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Height="30"
@@ -238,11 +229,11 @@
 
                     </Button>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="2" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
                     <Button x:Name="btnRelease" Content="Release from charging" ToolTip="Release skimmer from charging"
                         Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_Release" Width="200" 
-                        Height="30" Style="{StaticResource myButtonStyle}" 
-                        >
+                        Height="30" Style="{StaticResource myButtonStyle}" >
+                        <Button.Visibility>                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                            </MultiBinding>                        </Button.Visibility>
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Height="30"
@@ -256,30 +247,11 @@
 
                     </Button>
                 </StackPanel>
-                <!--<StackPanel Orientation="Horizontal" Grid.Row="6" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
-                    <Button x:Name="btnShowPackage" Content="Show package in transfer" ToolTip="Displays the package associated with the skimmer" 
-                            Foreground="White" FontSize="20" FontWeight="Medium"
-                        Width="300" Style="{StaticResource myButtonStyle}"
-                        Height="30" Click="btnShowPackage_Click">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Height="30"
-                            CornerRadius="12"
-                            Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-
-                    </Button>
-                </StackPanel>-->
-
-                <StackPanel Orientation="Horizontal" Grid.Row="3" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                <StackPanel Orientation="Horizontal" Grid.Row="3">
                     <Button x:Name="btnSendingSkimmer" Content="Sending a skimmer" ToolTip="Sending the skimmer for delivery (only for available skimmer)" Foreground="White" FontSize="20" FontWeight="Medium"
                   Click="Button_Sending_Skimmer_For_Delivery" Width="200" Height="30"  
                         Style="{StaticResource myButtonStyle}" >
-
+                        <Button.Visibility>                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                            </MultiBinding>                        </Button.Visibility>
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Height="30"
@@ -293,12 +265,11 @@
 
                     </Button>
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Grid.Row="4" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                <StackPanel Orientation="Horizontal" Grid.Row="4">
                     <Button x:Name="btnCollectThePackage" Content="Collect the package" ToolTip="Package collection" Foreground="White" FontSize="20" FontWeight="Medium"
                    Click="Button_Package_Collect" Width="200" Height="30"  
                         Style="{StaticResource myButtonStyle}" >
-
+                        <Button.Visibility>                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                            </MultiBinding>                        </Button.Visibility>
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Height="30"
@@ -312,11 +283,10 @@
 
                     </Button>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="5" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                <StackPanel Orientation="Horizontal" Grid.Row="5">
                     <Button x:Name="btnPackageDelivery" Content="Package delivery" ToolTip="Package delivery" Foreground="White" FontSize="20" FontWeight="Medium" 
-                        Click="Button_Package_Delivery" Width="200" Height="30" Style="{StaticResource myButtonStyle}"
-                            >
-
+                        Click="Button_Package_Delivery" Width="200" Height="30" Style="{StaticResource myButtonStyle}">
+                        <Button.Visibility>                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                            </MultiBinding>                        </Button.Visibility>
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Border Height="30"
@@ -331,71 +301,69 @@
                     </Button>
                 </StackPanel>
             </Grid>
-            <Button x:Name="btnSimulator" Content="Simulator" Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Add a skimmer to the pool"
-                    Click="btnSimulator_Click" 
-                       Margin="23,385,477,35" 
-                       >
+            
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnSimulator" Content="Simulator"  Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Add a skimmer to the pool"
+                    Click="btnSimulator_Click" Width="200" Height="30"
+                       Margin="23,385,477,35" >
+                    <Button.Visibility>                        <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                            <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                            <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                        </MultiBinding>                    </Button.Visibility>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                            <Setter Property="Background" Value="#FF4FE899"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF20CB73"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
 
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                        <Setter Property="Background" Value="#FF4FE899"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF20CB73"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Height="30"
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Height="30"
                             CornerRadius="12"
                             Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
+                                <ContentPresenter VerticalAlignment="Center"
                                               HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
 
-            </Button>
-            <Button x:Name="btnStop" Content="Stop" Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Add a skimmer to the pool"
-                 Click="btnStop_Click" 
-                       Margin="23,350,477,70" 
-                       >
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnStop" Content="Stop" Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Add a skimmer to the pool"
+                 Click="btnStop_Click" Width="200" Height="30" Visibility="{Binding ElementName=Simulator, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"
+                       Margin="23,385,477,35" >
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                            <Setter Property="Background" Value="#FF4FE899"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF20CB73"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
 
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                        <Setter Property="Background" Value="#FF4FE899"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF20CB73"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Height="30"
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Height="30"
                             CornerRadius="12"
                             Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
+                                <ContentPresenter VerticalAlignment="Center"
                                               HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
 
-            </Button>
-            <!--<Image x:Name="skimmerA" Margin="225,132,198,-102" >
-                <Image.Source>
-                    <BitmapImage UriSource ="/skimmer.png"/>
-                </Image.Source>
-            </Image>-->
+                </Button>
+            </StackPanel>
+            
             <TreeView  Margin="340,28,235,76" Visibility="{Binding PackageInTransfer, Converter={StaticResource NullToHidden}}" ToolTip="Double click to open a package page" MouseDoubleClick="TreeView_MouseDoubleClick" >
                 <TreeViewItem Header="Package" IsExpanded="True" FontWeight="Bold">
 
