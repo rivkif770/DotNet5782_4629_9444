@@ -158,5 +158,60 @@ namespace PL
                 MessageBox.Show("There is no associated skimmer", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void textId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var bc = new BrushConverter();
+            if (textId.Text !="" && textId.Text.All(char.IsDigit) && textId.Text.Length == 4)
+            {
+
+                textId.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else textId.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        }
+
+        private void textPackageCreationTime_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var bc = new BrushConverter();
+            if (textPackageCreationTime.Text != "")
+            {
+
+                textPackageCreationTime.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else textPackageCreationTime.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        }
+
+        private void textAssignmentTime_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var bc = new BrushConverter();
+            if (textAssignmentTime.Text != "")
+            {
+
+                textAssignmentTime.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else textAssignmentTime.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        }
+
+        private void textCollectionTime_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var bc = new BrushConverter();
+            if (textCollectionTime.Text != "")
+            {
+
+                textCollectionTime.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else textCollectionTime.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        }
+
+        private void textSupplyTime_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var bc = new BrushConverter();
+            if (textSupplyTime.Text != "")
+            {
+
+                textSupplyTime.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else textSupplyTime.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+        }
     }
 }

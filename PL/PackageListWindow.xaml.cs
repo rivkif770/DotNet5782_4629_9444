@@ -60,6 +60,14 @@ namespace PL
 
         private void PackageListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            string text = textSelectorCustomer.Text;
+            var bc = new BrushConverter();
+            if (text != "" && char.IsLetter(text.ElementAt(0)))
+            {
+                textSelectorCustomer.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+            }
+            else
+                textSelectorCustomer.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
             if ((BO.PackageToList)PackageListView.SelectedItem != null)
             {
                 packageWindow = new PackageWindow((BO.PackageToList)PackageListView.SelectedItem);
