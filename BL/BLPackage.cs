@@ -301,7 +301,7 @@ namespace BL
             return packageToList.Where((Func<PackageToList, bool>)predicate).ToList();
         }
         /// <summary>
-        /// Returns the skimmer mat.
+        /// Returns the skimmer mode.
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
@@ -365,6 +365,11 @@ namespace BL
                 throw new ExistsInSystemExceptionBL(exception.Message + " from dal");
             }
         }
+        /// <summary>
+        /// Returns a list of Package Shipped as IEnumerable
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<PackageToList> GetListOfPackageShipped(int customerID)
         {
@@ -373,6 +378,11 @@ namespace BL
             PackageShipped = PackageShipped.Where(p => (GetPackage(p.Id)).SendPackage.Id == customerID);
             return PackageShipped;
         }
+        /// <summary>
+        /// Returns a list of Package Received as IEnumerable
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<PackageToList> GetListOfPackageReceived(int customerID)
         {
@@ -382,6 +392,9 @@ namespace BL
             return PackageShipped;
       
         }
+        /// <summary>
+        /// Add a package to the package database
+        /// </summary>
         internal void AddPackages()
         {
             for(int i = 0; i < 5; i++)

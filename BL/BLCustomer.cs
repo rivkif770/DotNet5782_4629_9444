@@ -247,6 +247,11 @@ namespace BL
 
 
         }
+        /// <summary>
+        /// Returns a list of Sent Parcels as IEnumerable
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<PackageAtCustomer> GetSentParcels(BO.Customer customer)
         {
@@ -254,6 +259,11 @@ namespace BL
             result = customer.SentParcels;
             return result;
         }
+        /// <summary>
+        /// Returns a list of Receive Parcels as IEnumerable
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<PackageAtCustomer> GetReceiveParcels(Customer customer)
         {
@@ -261,6 +271,12 @@ namespace BL
             result = customer.ReceiveParcels;
             return result;
         }
+        /// <summary>
+        /// Returns customer by name and id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomerListID(int id, string name)
         {
