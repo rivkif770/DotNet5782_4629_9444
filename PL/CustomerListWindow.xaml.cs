@@ -15,10 +15,17 @@ using System.Runtime.CompilerServices;
 
 namespace PL
 {
+    /// <summary>
+    /// Interaction logic for CustomerListWindow.xaml
+    /// </summary>
     public partial class CustomerListWindow : Window
     {
         BlApi.IBL bL;
         CustomerWindow customerWindow;
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="customer1"></param>
         public CustomerListWindow()
         {
             InitializeComponent();
@@ -26,16 +33,16 @@ namespace PL
             CustomerListView.ItemsSource = bL.GetCustomerList();
             DataContext = this;
         }
+        /// <summary>
+        /// Refreshing the customer list
+        /// </summary>
+        /// <param name="ob"></param>
+        /// <param name="ev"></param>
         private void RefreshListView(object ob, EventArgs ev)
         {
             CustomerListView.Items.Refresh();
             CustomerListView.ItemsSource = bL.GetCustomerList();
         }
-        /// <summary>
-        /// Filter by skimmer status (checks whether there is filter by weight and combines them)
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         /// <summary>
         /// Submit by tapping the Add Customer button to the Add and Update the New Customer window in the list afterwards
         /// </summary>
@@ -56,15 +63,20 @@ namespace PL
         {
             CustomerListView.ItemsSource = bL.GetCustomerList();
         }
+        ///// <summary>
+        ///// Close the window
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void EXIT_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.Close();
+        //}
         /// <summary>
-        /// Close the window
+        /// Displays a specific client window by double-clicking
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void EXIT_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if ((BO.CustomerToList)CustomerListView.SelectedItem != null)
@@ -74,7 +86,11 @@ namespace PL
                 customerWindow.Show();
             }
         }
-
+        /// <summary>
+        /// Close the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EXIT_Click2(object sender, RoutedEventArgs e)
         {
             this.Close();
