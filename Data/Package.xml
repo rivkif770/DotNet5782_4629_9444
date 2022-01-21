@@ -97,18 +97,6 @@
     <TimeArrivalRecipient xsi:nil="true" />
   </Package>
   <Package>
-    <ID>1016</ID>
-    <IDSender>971217727</IDSender>
-    <IDgets>819419583</IDgets>
-    <Weight>heavy</Weight>
-    <priority>fast</priority>
-    <IDSkimmerOperation>0</IDSkimmerOperation>
-    <PackageCreationTime>2022-01-14T04:21:25.7611595+02:00</PackageCreationTime>
-    <TimeAssignGlider xsi:nil="true" />
-    <PackageCollectionTime xsi:nil="true" />
-    <TimeArrivalRecipient xsi:nil="true" />
-  </Package>
-  <Package>
     <ID>1017</ID>
     <IDSender>819419583</IDSender>
     <IDgets>819419583</IDgets>
@@ -116,18 +104,6 @@
     <priority>regular</priority>
     <IDSkimmerOperation>0</IDSkimmerOperation>
     <PackageCreationTime>2022-01-14T04:21:25.790953+02:00</PackageCreationTime>
-    <TimeAssignGlider xsi:nil="true" />
-    <PackageCollectionTime xsi:nil="true" />
-    <TimeArrivalRecipient xsi:nil="true" />
-  </Package>
-  <Package>
-    <ID>1023</ID>
-    <IDSender>819419583</IDSender>
-    <IDgets>835840024</IDgets>
-    <Weight>middle</Weight>
-    <priority>regular</priority>
-    <IDSkimmerOperation>0</IDSkimmerOperation>
-    <PackageCreationTime>2022-01-14T04:21:27.0299292+02:00</PackageCreationTime>
     <TimeAssignGlider xsi:nil="true" />
     <PackageCollectionTime xsi:nil="true" />
     <TimeArrivalRecipient xsi:nil="true" />

@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <listbasestation>
   <BaseStation>
-    <UniqueID>7644</UniqueID>
-    <StationName>BaseStation0</StationName>
-    <Latitude>31.685558514523116</Latitude>
-    <Longitude>35.81888370626554</Longitude>
-    <SeveralPositionsArgument>6</SeveralPositionsArgument>
+    <UniqueID>1324</UniqueID>
+    <StationName>BaseStation1</StationName>
+    <Latitude>31.438366126938895</Latitude>
+    <Longitude>35.192705984782755</Longitude>
+    <SeveralPositionsArgument>7</SeveralPositionsArgument>
   </BaseStation>
   <BaseStation>
     <UniqueID>1324</UniqueID>
@@ -20,6 +20,13 @@
     <Latitude>20</Latitude>
     <Longitude>70</Longitude>
     <SeveralPositionsArgument>3</SeveralPositionsArgument>
+  </BaseStation>
+  <BaseStation>
+    <UniqueID>7644</UniqueID>
+    <StationName>BaseStation0</StationName>
+    <Latitude>31.685558514523116</Latitude>
+    <Longitude>35.81888370626554</Longitude>
+    <SeveralPositionsArgument>6</SeveralPositionsArgument>
   </BaseStation>
   <BaseStation>
     <UniqueID>1254</UniqueID>

@@ -26,6 +26,9 @@ namespace PL
         static Weight? weightFilter;
         static Priority? PriorityFilter;
         static ParcelStatus? statusesFilter;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public PackageListWindow()
         {
             InitializeComponent();
@@ -42,6 +45,11 @@ namespace PL
             comboStatus.ItemsSource = Enum.GetValues(typeof(BO.ParcelStatus));
             DataContext = this;
         }
+        /// <summary>
+        /// Refreshing the package list
+        /// </summary>
+        /// <param name="ob"></param>
+        /// <param name="ev"></param>
         private void RefreshListView(object ob, EventArgs ev)
         {
             PackageListView.Items.Refresh();
@@ -57,7 +65,11 @@ namespace PL
             if (comboStatus.SelectedItem != null) comboStatus_SelectionChanged(this, null);
             if (comboPriority.SelectedItem != null) comboPriority_SelectionChanged(this, null);
         }
-
+        /// <summary>
+        /// Displays a specific package window by double-clicking
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PackageListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             string text = textSelectorCustomer.Text;
@@ -75,7 +87,11 @@ namespace PL
                 packageWindow.Show();
             }
         }
-
+        /// <summary>
+        /// Checking and coloring the textbox of package filtering by customer sending or receiving
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textSelectorCustomer_TextChanged(object sender, TextChangedEventArgs e)
         {
             string text = textSelectorCustomer.Text;
@@ -87,7 +103,11 @@ namespace PL
             else
                 textSelectorCustomer.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
+        /// <summary>
+        /// Button for filtering packages by customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSelectorCustomer_Click(object sender, RoutedEventArgs e)
         {
             if (comboSelectorCustomer.SelectedItem == null)
@@ -118,12 +138,20 @@ namespace PL
                 }
             }
         }
-
+        /// <summary>
+        /// Button for closing the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void butEXIT_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-
+        /// <summary>
+        /// Button for clearing the filter list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void butClear_Click(object sender, RoutedEventArgs e)
         {
             comboWeight.SelectedIndex = -1;
@@ -139,14 +167,22 @@ namespace PL
             else send.IsChecked = false;
             textSelectorCustomer.Clear();
         }
-
+        /// <summary>
+        /// Button for opening a package Add window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             packageWindow = new PackageWindow();
             packageWindow.Closed += RefreshListView;
             packageWindow.Show();
         }
-
+        /// <summary>
+        /// Filter by weight category (cancel other filtering)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboWeight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (geter.IsChecked == true) geter.IsChecked = false;
@@ -164,7 +200,6 @@ namespace PL
                     {
                         PackageListView.Items.Add(packageToList);
                     }
-                   // PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter);
                 }
                 else
                 {
@@ -174,7 +209,6 @@ namespace PL
                         {
                             PackageListView.Items.Add(packageToList);
                         }
-                        //PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter && x.priority == PriorityFilter);
                     }
                     else
                     {
@@ -184,7 +218,6 @@ namespace PL
                             {
                                 PackageListView.Items.Add(packageToList);
                             }
-                            //PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter && x.PackageMode == statusesFilter);
                         }
                         else
                         {
@@ -193,8 +226,6 @@ namespace PL
                                 PackageListView.Items.Add(packageToList);
                             }
                         }
-                        //PackageListView.ItemsSource = bL.GetPackageList(x => x.WeightCategory == weightFilter && x.PackageMode == statusesFilter && x.priority == PriorityFilter);
-
                     }
                 }
             }
@@ -205,7 +236,11 @@ namespace PL
                 comboWeight.Text = "Choose a Weight";
             }
         }
-
+        /// <summary>
+        /// Filter by Priority Category (Cancel Other Filter)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboPriority_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (geter.IsChecked == true) geter.IsChecked = false;
@@ -262,7 +297,11 @@ namespace PL
                 comboPriority.Text = "Choose a Priority";
             }
         }
-
+        /// <summary>
+        /// Filter by Status Category (Cancel Other Filter)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (geter.IsChecked == true) geter.IsChecked = false;
@@ -319,7 +358,11 @@ namespace PL
                 comboPriority.Text = "Choose a Priority";
             }
         }
-
+        /// <summary>
+        /// Filter by customer category (cancel other filtering)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboSelectorCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (comboSelectorCustomer.SelectedIndex == -1)
@@ -328,7 +371,11 @@ namespace PL
                 comboSelectorCustomer.Text = "Choose a Priority";
             }
         }
-
+        /// <summary>
+        /// Filter by geter Customer Category (Cancel Other Filter)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Geter_CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             if (PackageListView.Items != null)
@@ -342,7 +389,11 @@ namespace PL
                 }
             }
         }
-
+        /// <summary>
+        /// Filter by Sender Customer Category (Cancel Other Filter)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Sender_CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             if (PackageListView.Items != null)
@@ -356,7 +407,11 @@ namespace PL
                 }
             }
         }
-
+        /// <summary>
+        /// Filter by customer category (cancel other filtering)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GeterAndSender_CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             PackageListView.Items.Refresh();
