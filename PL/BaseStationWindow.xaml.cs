@@ -91,11 +91,23 @@ namespace PL
         private void textLatitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textLatitude.Text != "" && textLatitude.Text.All(char.IsDigit) && Convert.ToInt32(textLatitude.Text) <= 32 && Convert.ToInt32(textLatitude.Text) >= 31 && Convert.ToInt32(textLatitude.Text) != 0)
+            string Latitude = textLatitude.Text;
+            if (Latitude.Count() > 3)
             {
-                textLatitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                if (textLatitude.Text != "" && Latitude.Substring(0, 2) == "31" && Latitude.Substring(2, 1) == "." && Latitude.Substring(3).All(char.IsDigit))
+                {
+                    textLatitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                }
+                else textLatitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
             }
-            else textLatitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+            else
+            {
+                if (textLatitude.Text != "" && textLatitude.Text.All(char.IsDigit) && Convert.ToInt32(textLatitude.Text) <= 32 && Convert.ToInt32(textLatitude.Text) >= 31 && Convert.ToInt32(textLatitude.Text) != 0)
+                {
+                    textLatitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                }
+                else textLatitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+            }
         }
         /// <summary>
         /// To test and color the TextBox of the Longitude
@@ -105,11 +117,23 @@ namespace PL
         private void textLongitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textLongitude.Text != "" && textLongitude.Text.All(char.IsDigit) && Convert.ToInt32(textLongitude.Text) <= 36 && Convert.ToInt32(textLongitude.Text) >= 35 && Convert.ToInt32(textLongitude.Text) != 0)
+            string Longitude = textLongitude.Text;
+            if(Longitude.Count() > 3)
             {
-                textLongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                if (textLongitude.Text != "" && Longitude.Substring(0, 2) == "35" && Longitude.Substring(2, 1) == "." && Longitude.Substring(3).All(char.IsDigit))
+                {
+                    textLongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                }
+                else textLongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
             }
-            else textLongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+            else
+            {
+                if (textLongitude.Text != "" && textLongitude.Text.All(char.IsDigit) && Convert.ToInt32(textLongitude.Text) <= 36 && Convert.ToInt32(textLongitude.Text) >= 35 && Convert.ToInt32(textLongitude.Text) != 0)
+                {
+                    textLongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                }
+                else textLongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+            }
         }
         /// <summary>
         /// To test and color the TextBox of the Number of charging stations

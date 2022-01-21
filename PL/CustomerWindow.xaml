@@ -72,9 +72,9 @@
                       HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD3CBCD"
                       TextChanged="textCustomerPhone_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a 10-digit number for Customer phon " 
                            Text="{Binding Phone, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"/>
-                <TextBox x:Name="textlongitude" Width="150" Grid.Row="3" Grid.Column="1"  
+                <TextBox x:Name="textLongitude" Width="150" Grid.Row="3" Grid.Column="1"  
                      HorizontalAlignment="Center" Background="#FFD3CBCD" 
-                     TextChanged="textlongitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a number of longitude between 35 and 36"
+                     TextChanged="textLongitude_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter a number of longitude between 35 and 36"
                           Text="{Binding Location.Longitude, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}"
                          IsReadOnly="{Binding ElementName=help, Path=IsChecked, Mode=TwoWay}" Margin="0,6,0,6"/>
                 <TextBox x:Name="textLatitude" Width="150" Height="24" Grid.Row="4" Grid.Column="1"  
