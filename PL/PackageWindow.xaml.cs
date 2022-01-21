@@ -64,7 +64,7 @@ namespace PL
         private void btnAddPackage_Click(object sender, RoutedEventArgs e)
         {
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            if (ComboWeightCategory.SelectedItem == null || ComboPrioritys.SelectedItem == null || SolidColorBrush.Equals(((SolidColorBrush)textIdSender.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textIdGet.BorderBrush).Color, red.Color))
+            if (ComboWeightCategory.SelectedItem == null || ComboPrioritys.SelectedItem == null || SolidColorBrush.Equals(((SolidColorBrush)textIdSender.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textIdGet.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textIdSender.BorderBrush).Color, red.Color))
             {
                 MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
             }
