@@ -25,7 +25,9 @@ namespace PL
         BlApi.IBL bL;
         SkimmerWindow skimmerWindow;
         static Weight? weightFilter;
-        static SkimmerStatuses? statusesFilter;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public SkimmerListWindow()
         {
             InitializeComponent();
@@ -33,51 +35,26 @@ namespace PL
             foreach (SkimmerToList skimmer in bL.GetSkimmerList())
             {
                 SkimmerListView.Items.Add(skimmer);}
-            //SkimmerListView.ItemsSource = bl.GetSkimmerList();
-            //StatusSelector.ItemsSource = Enum.GetValues(typeof(BO.SkimmerStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.Weight));
         }
-
+        /// <summary>
+        /// Refreshes the list whenever there is a change
+        /// </summary>
+        /// <param name="ob"></param>
+        /// <param name="ev"></param>
         private void RefreshListView(object ob,EventArgs ev)
         {
             SkimmerListView.Items.Refresh();
-            if (WeightSelector.SelectedItem == null /*&& StatusSelector.SelectedItem == null*/)
+            if (WeightSelector.SelectedItem == null)
                 SkimmerListView.Items.Clear();
-                foreach (SkimmerToList skimmer in bL.GetSkimmerList())
-                {
-                    SkimmerListView.Items.Add(skimmer);
-                }
+            foreach (SkimmerToList skimmer in bL.GetSkimmerList())
+            {
+                SkimmerListView.Items.Add(skimmer);
+            }
             if (WeightSelector.SelectedItem != null) WeightSelector_SelectionChanged(this, null);
-            //if (StatusSelector.SelectedItem != null) SkimmerListView_MouseDoubleClick(this, null);
         }
         /// <summary>
-        /// Filter by skimmer status (checks whether there is filter by weight and combines them)
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (StatusSelector.SelectedIndex != -1)
-        //    {
-        //        statusesFilter = (SkimmerStatuses)StatusSelector.SelectedItem;
-        //        if (weightFilter == null)
-        //        {
-        //            SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.SkimmerStatus == statusesFilter);
-        //        }
-        //        else
-        //        {
-        //            SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.SkimmerStatus == statusesFilter && x.WeightCategory == weightFilter);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        StatusSelector.SelectedIndex = -1;
-        //        statusesFilter = null;
-        //        StatusSelector.Text = "Choose a Status";
-        //    }
-        //}
-        /// <summary>
-        /// Filter by weight of skimmer (checks whether there is a filter by status and combines them)
+        /// Sorts a list by weight selected by the user
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -87,26 +64,16 @@ namespace PL
             if (WeightSelector.SelectedIndex != -1)
             {
                 weightFilter = (Weight)WeightSelector.SelectedItem;
-                //if (statusesFilter == null)
-                // {
                 foreach (SkimmerToList skimmer in bL.GetSkimmerList())
                 {
                     if (skimmer.WeightCategory == weightFilter)
                         SkimmerListView.Items.Add(skimmer);
                 }
-                //SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weightFilter);
-                //    }
-                //    else
-                //    {
-
-                //        SkimmerListView.ItemsSource = bL.GetSkimmerList(x => x.WeightCategory == weightFilter && x.SkimmerStatus == statusesFilter);
-                //    }
             }
             else
             {
-                WeightSelector.SelectedIndex = -1;
-                weightFilter = null;
-                WeightSelector.Text = "Choose a Weight";
+               WeightSelector.SelectedIndex = -1;
+               weightFilter = null;
             }
         }
         /// <summary>
@@ -149,8 +116,6 @@ namespace PL
             {
                 SkimmerListView.Items.Add(skimmer);
             }
-            //StatusSelector.SelectedIndex = -1;
-            
         }
         /// <summary>
         /// Close the window
@@ -161,8 +126,12 @@ namespace PL
         {
             this.Close();
         }
-
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// List of groups by number of Skimmer Status
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Status_Checked(object sender, RoutedEventArgs e)
         {
             if(SkimmerListView.Items != null)
                 SkimmerListView.Items.Clear();
@@ -174,12 +143,12 @@ namespace PL
                     SkimmerListView.Items.Add(skimmer);
                 }
             }
-            //SkimmerListView.ItemsSource = bL.GetBaseStationList();
-            //CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(SkimmerListView.ItemsSource);
-            //PropertyGroupDescription groupDescription = new PropertyGroupDescription("SkimmerStatus");
-            //view.GroupDescriptions.Add(groupDescription);
         }
-
+        /// <summary>
+        /// When CheckBox of status is off, the list returns to normal
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void status_Unchecked(object sender, RoutedEventArgs e)
         {
             SkimmerListView.Items.Clear();

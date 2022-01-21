@@ -27,6 +27,9 @@ namespace PL
         private SkimmerWindow skimmerWindow;
 
         public delegate void CloseWindow(object ob);
+        /// <summary>
+        /// Builder of insert window
+        /// </summary>
         public BaseStationWindow()
         {
             bL = BlApi.BlFactory.GetBL();
@@ -35,6 +38,11 @@ namespace PL
             //baseStation1.ListOfSkimmersCharge = new List<SkimmerInCharging>();
             DataContext = baseStation1;
         }
+        /// <summary>
+        /// Builder of update window
+        /// </summary>
+        /// <param name="baseStationToList"></param>
+        /// <param name="baseStationListWindow"></param>
         public BaseStationWindow(BaseStationToList baseStationToList, BaseStationListWindow baseStationListWindow)
         {
             bL = BlApi.BlFactory.GetBL();
@@ -45,16 +53,25 @@ namespace PL
             DataContext = baseStation1;
             SkimmerListOfChargeView.ItemsSource = bL.GetListOfSkimmersCharge(baseStation1);
         }
-
+        /// <summary>
+        /// To test and color the TextBox of the id
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textId_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textId.Text.All(char.IsDigit) && textId.Text.Length < 5 && textId.Text.Length > 3)
+            if (textId.Text == "" && textId.Text.All(char.IsDigit) && textId.Text.Length < 5 && textId.Text.Length > 3)
             {
                 textId.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
             else textId.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
+        /// <summary>
+        /// To test and color the TextBox of the Name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textName_TextChanged(object sender, TextChangedEventArgs e)
         {
             string text = textName.Text;
@@ -66,6 +83,11 @@ namespace PL
             else
                 textName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
+        /// <summary>
+        /// To test and color the TextBox of the Latitude
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textLatitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -75,6 +97,11 @@ namespace PL
             }
             else textLatitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
+        /// <summary>
+        /// To test and color the TextBox of the Longitude
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textLongitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -84,6 +111,11 @@ namespace PL
             }
             else textLongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
+        /// <summary>
+        /// To test and color the TextBox of the Number of charging stations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textCharging_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -93,6 +125,11 @@ namespace PL
             }
             else textCharging.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
+        /// <summary>
+        /// Button Adding Base Station
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -106,13 +143,20 @@ namespace PL
                 MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// Button that closes the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EXIT_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-
-
+        /// <summary>
+        /// Button that updates the base station by name and charging stations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpdat_Click(object sender, RoutedEventArgs e)
         {
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
@@ -131,16 +175,24 @@ namespace PL
                 MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// Refreshes the list
+        /// </summary>
+        /// <param name="ob"></param>
+        /// <param name="ev"></param>
         private void RefreshListView(object ob, EventArgs ev)
         {
             SkimmerListOfChargeView.ItemsSource = bL.GetListOfSkimmersCharge(baseStation1);
         }
+        /// <summary>
+        /// A skimmer window loaded at this base station opens
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SkimmerListOfChargeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if ((BO.SkimmerInCharging)SkimmerListOfChargeView.SelectedItem != null)
             {
-                
                 SkimmerToList skimmer = new SkimmerToList();
                 skimmer.Id = ((SkimmerInCharging)SkimmerListOfChargeView.SelectedItem).Id;
                 skimmerWindow = new SkimmerWindow(skimmer);
@@ -148,7 +200,11 @@ namespace PL
                 skimmerWindow.Show();
             }
         }
-
+        /// <summary>
+        /// Deletes base station
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -161,7 +217,5 @@ namespace PL
                 MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-        
     }
 }

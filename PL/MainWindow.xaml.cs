@@ -24,69 +24,92 @@ namespace PL
     public partial class MainWindow : Window
     {
         private BlApi.IBL mybl;
+        /// <summary>
+        /// A builder who opens an entrance window
+        /// </summary>
         public MainWindow()
         {
             mybl = BlApi.BlFactory.GetBL();
             InitializeComponent();
         }
+        /// <summary>
+        /// A builder that opens an administrator window
+        /// </summary>
+        /// <param name="mybL"></param>
         public MainWindow(BlApi.IBL mybL)
         {
             mybl = mybL;
             InitializeComponent();
             help.IsChecked = true;
         }
-
+        /// <summary>
+        /// Opening a Skimmer window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btSkimmerListView_Click(object sender, RoutedEventArgs e)
         {
             new SkimmerListWindow().Show();
         }
-
+        /// <summary>
+        /// Exit this window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EXIT_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-
+        /// <summary>
+        /// Opening a Customer window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btCustomerListView_Click(object sender, RoutedEventArgs e)
         {
             new CustomerListWindow().Show();
         }
-
+        /// <summary>
+        /// Opening a base station window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BaseStation_Click(object sender, RoutedEventArgs e)
         {
             new BaseStationListWindow().Show();
         }
-
+        /// <summary>
+        /// Opening a Package window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Package_Click(object sender, RoutedEventArgs e)
         {
             new PackageListWindow().Show();
         }
-
+        /// <summary>
+        /// Open an administrator window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void manager_Click(object sender, RoutedEventArgs e)
         {
             new MainWindow(mybl).Show();
-
-            //if(textPasswordM.Text== "123456789")
-            //{
-            //    new MainWindow(mybl).Show();
-            //}
-            //else MessageBox.Show("The password is incorrect", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-
-        //private void textPasswordM_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    var bc = new BrushConverter();
-        //    if (textPasswordM.Text.All(char.IsDigit) && textPasswordM.Text.Length == 9)
-        //    {
-
-        //        textPasswordM.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
-        //    }
-        //    else textPasswordM.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
-        //}
-
+        /// <summary>
+        /// Opening a New Customer window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NewCustomer_Click(object sender, RoutedEventArgs e)
         {
             new CustomerWindow().Show();
         }
+        /// <summary>
+        /// Login as an existing customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -103,28 +126,25 @@ namespace PL
                  MessageBox.Show("The password is incorrect", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        //private void textName_TextChanged(object sender, RoutedEventArgs e)
-        //{
-        //    string text = textName.Text;
-        //    var bc = new BrushConverter();
-        //    if (text != "" && char.IsLetter(text.ElementAt(0)))
-        //    {
-        //        textName.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
-        //    }
-        //    else
-        //        textName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
-        //}
+        /// <summary>
+        /// Testing and coloring the TextBox of the Password
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textPassword_TextChanged(object sender, RoutedEventArgs e)
         {
             var bc = new BrushConverter();
             if (textPassword.Text.All(char.IsDigit) && textPassword.Text.Length == 9)
             {
-
                 textPassword.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
             else textPassword.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
+        /// <summary>
+        /// Testing and coloring the TextBox of the Name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textName_TextChanged(object sender, TextChangedEventArgs e)
         {
             string text = textName.Text;

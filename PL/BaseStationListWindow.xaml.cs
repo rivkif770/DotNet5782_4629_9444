@@ -22,6 +22,9 @@ namespace PL
     {
         BlApi.IBL bL;
         BaseStationWindow baseStationWindow;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public BaseStationListWindow()
         {
             bL = BlApi.BlFactory.GetBL();
@@ -32,6 +35,11 @@ namespace PL
                 BaseStationListView.Items.Add(baseStationToList);
             }
         }
+        /// <summary>
+        /// Refreshes the list whenever there is a change
+        /// </summary>
+        /// <param name="ob"></param>
+        /// <param name="ev"></param>
         private void RefreshListView(object ob, EventArgs ev)
         {
             BaseStationListView.Items.Refresh();
@@ -41,12 +49,22 @@ namespace PL
                 BaseStationListView.Items.Add(baseStationToList);
             }
         }
+        /// <summary>
+        /// Add button, opens a new window for adding a base station
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
             baseStationWindow = new BaseStationWindow();
             baseStationWindow.Closed += RefreshListView;
             baseStationWindow.Show();
         }
+        /// <summary>
+        /// An update window opens from the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BaseStationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if ((BO.BaseStationToList)BaseStationListView.SelectedItem != null)
@@ -56,7 +74,11 @@ namespace PL
                 baseStationWindow.Show();
             }
         }
-
+        /// <summary>
+        /// Cleans changes, returns the window to its normal state
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
             if (BaseStationListView.Items != null)
@@ -66,12 +88,20 @@ namespace PL
                 BaseStationListView.Items.Add(baseStationToList);
             }
         }
-
+        /// <summary>
+        /// Exit button from the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EXIT_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-
+        /// <summary>
+        /// Displays the list of skimmers with available charging stations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void freeCharging_Click(object sender, RoutedEventArgs e)
         {
             if (BaseStationListView.Items != null)
@@ -81,8 +111,12 @@ namespace PL
                 BaseStationListView.Items.Add(baseStationToList);
             }
         }
-
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// List of groups by number of available charging stations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AvailableChargingStations_Checked(object sender, RoutedEventArgs e)
         {
             if (BaseStationListView.Items != null)
                 BaseStationListView.Items.Clear();
@@ -95,8 +129,12 @@ namespace PL
                 }
             }
         }
-
-        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// When CheckBox is off, the list returns to normal
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AvailableChargingStations_Unchecked(object sender, RoutedEventArgs e)
         {
             BaseStationListView.Items.Refresh();
             BaseStationListView.Items.Clear();

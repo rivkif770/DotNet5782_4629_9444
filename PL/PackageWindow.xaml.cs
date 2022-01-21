@@ -25,9 +25,6 @@ namespace PL
         Package package1 = new Package();
         BlApi.IBL bL;
         private SkimmerWindow skimmerWindow;
-
-        //public delegate void CloseWindow(object ob);
-        //public event CloseWindow CloseWindowEvent;
         /// <summary>
         /// Builder to add
         /// </summary>
@@ -60,7 +57,7 @@ namespace PL
             help.IsChecked = true;
         }
         /// <summary>
-        /// Button attempt to add skimmer-checks whether all the required fields are filled correctly and sends to try to add in bl, updates the new skimmer, sends a suitable message and closes the window
+        /// Button for adding a package
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -90,7 +87,7 @@ namespace PL
             }
         }
         /// <summary>
-        /// Input the id from the user and color the field according to the correctness of the input
+        /// To test and color the TextBox of the IdSender
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -104,6 +101,11 @@ namespace PL
             else textIdSender.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
 
         }
+        /// <summary>
+        /// To test and color the TextBox of the IdGet
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textIdGet_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -115,7 +117,6 @@ namespace PL
             else textIdGet.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
 
         }
-
         /// <summary>
         /// Button for closing the window
         /// </summary>
@@ -125,6 +126,11 @@ namespace PL
         {
             this.Close();
         }
+        /// <summary>
+        /// Deleting a package from the repository
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDeletePackage_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -143,7 +149,11 @@ namespace PL
             }
 
         }
-        
+        /// <summary>
+        /// Displays a skimmer that sends the package (if the package is associated)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SkimmerInPackage_Click(object sender, RoutedEventArgs e)
         {
             if (package1.SkimmerInPackage != null)
@@ -158,7 +168,11 @@ namespace PL
                 MessageBox.Show("There is no associated skimmer", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// To test and color the TextBox of the id
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textId_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -169,7 +183,11 @@ namespace PL
             }
             else textId.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
+        /// <summary>
+        /// To test and color the TextBox of the Creation Time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textPackageCreationTime_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -180,7 +198,11 @@ namespace PL
             }
             else textPackageCreationTime.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
+        /// <summary>
+        /// To test and color the TextBox of the Assignment Time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textAssignmentTime_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -191,7 +213,11 @@ namespace PL
             }
             else textAssignmentTime.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
+        /// <summary>
+        /// To test and color the TextBox of the Collection Time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textCollectionTime_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -202,7 +228,11 @@ namespace PL
             }
             else textCollectionTime.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
-
+        /// <summary>
+        /// To test and color the TextBox of the Supply Time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textSupplyTime_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();

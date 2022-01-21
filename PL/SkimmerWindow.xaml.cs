@@ -21,15 +21,13 @@ namespace PL
 {
     public partial class SkimmerWindow : Window
     {
-        PackageWindow packageWindow;
         SkimmerToList newSkimmer;
         Skimmer skimmer1 = new Skimmer();
         BlApi.IBL bL;
         internal BackgroundWorker backgroundWorker;
         public delegate void CloseWindow(object ob);
-        //public event CloseWindow CloseWindowEvent;
         /// <summary>
-        /// Builder to add
+        /// Builder of insert
         /// </summary>
         /// <param name="bl"></param>
         public SkimmerWindow()
@@ -37,7 +35,6 @@ namespace PL
             bL = BlApi.BlFactory.GetBL();                      
             InitializeComponent();
             ComboWeightCategory.ItemsSource = Enum.GetValues(typeof(BO.Weight));
-            //ComboStationID.ItemsSource = Enum.GetValues(typeof(BO.SkimmerStatuses));
             foreach (BaseStationToList item in bL.GetBaseStationFreeCharging())
             {
                 ComboBoxItem newItem = new ComboBoxItem();
@@ -48,7 +45,7 @@ namespace PL
             DataContext = skimmer1;
         }
         /// <summary>
-        /// Builder for update
+        /// Builder of update
         /// </summary>
         /// <param name="bl"></param>
         /// <param name="skimmerToList"></param>
@@ -71,28 +68,42 @@ namespace PL
             newSkimmer = new SkimmerToList();
             newSkimmer = skimmerToList;
             skimmer1 = bL.GetSkimmerr(skimmerToList.Id);
-            //showSkimmer.Text = bl.GetSkimmerr(newSkimmer.Id).ToString();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SimulatorProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             DataContext = bL.GetSkimmerr(skimmer1.Id);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SimulatorDoWork(object sender, DoWorkEventArgs e)
         {
             bL.SimulatorActive(skimmer1.Id, update, stop);
         }
+        /// <summary>
+        /// 
+        /// </summary>
         void update()
         {
             backgroundWorker.ReportProgress(0);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         bool stop()
         {
             return backgroundWorker.CancellationPending;
         }
         /// <summary>
-        /// Button attempt to add skimmer-checks whether all the required fields are filled correctly and sends to try to add in bl, updates the new skimmer, sends a suitable message and closes the window
+        /// Button for adding a skimmer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -112,7 +123,7 @@ namespace PL
             }
         }
         /// <summary>
-        /// Input the id from the user and color the field according to the correctness of the input
+        /// To test and color the TextBox of the Id
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -127,7 +138,7 @@ namespace PL
 
         }
         /// <summary>
-        /// Input the Skimmer Model from the user and color the field according to the correctness of the input
+        /// To test and color the TextBox of the Skimmer Model
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -152,7 +163,7 @@ namespace PL
             this.Close();
         }
         /// <summary>
-        /// /// Attempt to update skimmer name checks if all required fields are filled in correctly and sends to try to update in bl, updates the new skimmer, sends a suitable message and closes the window
+        /// Button updating name skimmer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -168,7 +179,6 @@ namespace PL
                 {
                     bL.UpdateSkimmerName(newSkimmer.Id, name);
                     MessageBox.Show("The update was successful", "Updated a skimmer", MessageBoxButton.OK, MessageBoxImage.Information);
-                    //CloseWindowEvent(this);
                 }
                 catch (Exception ex)
                 {
@@ -178,7 +188,7 @@ namespace PL
             }
         }
         /// <summary>
-        /// /// Attempt button to send skimmer for charging sends to try to update in bl, updates the new skimmer, sends a suitable message and closes the window
+        /// Button that sends a skimmer for charging
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -196,7 +206,7 @@ namespace PL
             }
         }
         /// <summary>
-        /// /// Attempt to release skimmer charger checks if all required fields are filled in correctly and sends to try to update in bl, updates the new skimmer, sends a suitable message and closes the window
+        /// A button that releases a skimmer from a charger
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -216,7 +226,7 @@ namespace PL
 
         }
         /// <summary>
-        /// /// /// Attempt to associate a package with a glider Sender Try to update on bl, update the new glider, send an appropriate message and close the window
+        /// A button assigns a skimmer to the package
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -234,24 +244,7 @@ namespace PL
             }
         }
         /// <summary>
-        /// /// Attempt to collect a package, sends to try to update on bl, updates the new glider, sends an appropriate message and closes the window
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Button_Collect_The_Package(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                bL.CollectingPackageBySkimmer(newSkimmer.Id);
-                MessageBox.Show("The package was successfully collected", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-        /// <summary>
-        /// /// Attempt to deliver a package, sends to try to update on bl, updates the new glider, sends an appropriate message and closes the window
+        /// Delivery of the package to the customer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -269,58 +262,10 @@ namespace PL
             }
         }
         /// <summary>
-        /// A button that displays the package in transit
+        /// Package collection by skimmer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnShowPackage_Click(object sender, RoutedEventArgs e)
-        {
-            if (newSkimmer.PackageNumberTransferred != 0)
-            {
-                //skimmerWindow.Closed += RefreshListView;
-                //skimmerWindow.Show();
-                Package package = bL.GetPackage(newSkimmer.PackageNumberTransferred);
-                PackageToList packageToList = new PackageToList
-                {
-                    Id = package.Id,
-                    CustomerNameSends = package.SendPackage.Name,
-                    CustomerNameGets = package.ReceivesPackage.Name,
-                    WeightCategory = package.WeightCategory,
-                    priority = package.priority,
-                    PackageMode = (ParcelStatus)bL.PackageMode(package)
-                };
-                packageWindow = new PackageWindow(packageToList);
-                packageWindow.Show();
-            }
-            else
-            {
-                MessageBox.Show($"No package in transfer", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        //private void IdOfPackageInTransfer_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (newSkimmer.PackageNumberTransferred != 0)
-        //    {
-        //        Package package = bL.GetPackage(newSkimmer.PackageNumberTransferred);
-        //        PackageToList packageToList = new PackageToList
-        //        {
-        //            Id = package.Id,
-        //            CustomerNameSends = package.SendPackage.Name,
-        //            CustomerNameGets = package.ReceivesPackage.Name,
-        //            WeightCategory = package.WeightCategory,
-        //            priority = package.priority,
-        //            PackageMode = (ParcelStatus)bL.PackageMode(package)
-        //        };
-        //        packageWindow = new PackageWindow(packageToList);
-        //        packageWindow.Show();
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show($"No package in transfer", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-        //    }
-        //}
-
         private void Button_Package_Collect(object sender, RoutedEventArgs e)
         {
             try
@@ -333,7 +278,11 @@ namespace PL
                 MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// Button that activates the simulator
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSimulator_Click(object sender, RoutedEventArgs e)
         {
             if (backgroundWorker.IsBusy != true)
@@ -343,13 +292,21 @@ namespace PL
             }
 
         }
-
+        /// <summary>
+        /// Button that stops the simulator
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
             backgroundWorker.CancelAsync();
             Simulator.IsChecked = false;
         }
-
+        /// <summary>
+        /// Displays the package being sent
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TreeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
              if (skimmer1.PackageInTransfer != null)

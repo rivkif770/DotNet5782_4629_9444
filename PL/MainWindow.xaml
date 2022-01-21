@@ -33,7 +33,7 @@
                         <GradientStop Color="#FF797993" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <Image x:Name="skimmerM" Source="/skimmer.png" Width="300" Margin="426,210,74,-22"/>
+                <Image x:Name="skimmerM" Source="/skimmer.png" Margin="-124,-85,305,139"/>
             </Border>
         </Grid>
         <StackPanel Orientation="Horizontal">
@@ -49,23 +49,6 @@
         <Grid x:Name="ManagerGrid">
             <CheckBox x:Name="help" Visibility="Hidden" />
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btSkimmerListView" Content="Skimmer" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" FontWeight="Medium"
-                Click="btSkimmerListView_Click" Width="200" Margin="0,289,226,64" Height="30"
-                     Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
-
-
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Height="25"
-                            CornerRadius="12"
-                            Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-
-                </Button>
                 <Button x:Name="btClintListView" Content="Clint" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" FontWeight="Medium"
                 Click="btCustomerListView_Click" Width="200" Margin="-600,270,50,120" Height="30"
                      Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
@@ -84,11 +67,21 @@
 
                 </Button>
             </StackPanel>
-
             <StackPanel Orientation="Horizontal" Margin="10,370,567,10">
-                <Button x:Name="EXIT" Content="EXIT" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" FontWeight="Medium"
+                <Button x:Name="EXIT" Content="EXIT" Foreground="White" FontSize="20" FontWeight="Medium"
                  Width="200" Height="30" Click="EXIT_Click">
-
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                            <Setter Property="Background" Value="#FF4FE899"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF20CB73"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Height="25"
@@ -101,7 +94,6 @@
                     </Button.Template>
 
                 </Button>
-
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10,305,567,10" >
                 <Button x:Name="NewCustomer" Content="New Customer" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" FontWeight="Medium"
@@ -120,41 +112,42 @@
                     </Button.Template>
 
                 </Button>
-
             </StackPanel>
-            <Button x:Name="Login" Margin="304,307,286,90" Content="Login" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Click="Login_Click"
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="Login" Margin="304,307,286,90" Width="200" Height="25" Content="Login" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" Click="Login_Click"
                          Visibility="{Binding IsChecked, Converter={StaticResource TrueToHidden}, ElementName=help, Mode=OneWay}">
 
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Height="30"
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Height="25"
                             CornerRadius="12"
                             Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
+                                <ContentPresenter VerticalAlignment="Center"
                                               HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
 
-            </Button>
-
-            <Button x:Name="manager" Margin="10,321,590,99" Content="manager" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" 
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="manager" Margin="10,321,590,99" Content="manager" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" 
                  Width="200" Height="30" Click="manager_Click"
                          Visibility="{Binding IsChecked, Converter={StaticResource TrueToHidden}, ElementName=help, Mode=OneWay}">
 
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Height="25"
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Height="25"
                             CornerRadius="12"
                             Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
+                                <ContentPresenter VerticalAlignment="Center"
                                               HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
 
-            </Button>
-
+                </Button>
+            </StackPanel>
 
 
             <Label Content="Enter your name:" Margin="316,158,296,251" FontFamily="Bahnschrift Condensed" FontSize="30" Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"></Label>
@@ -170,18 +163,28 @@
                      TextChanged="textPassword_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter your ID"
                           DataContext="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" Margin="0,270,0,0"
                       Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"/>
-            <!--<Label Content="Enter your ID:" Margin="515,223,135,195" FontFamily="Bahnschrift Condensed" FontSize="25"  Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"></Label>-->
-            <!--<TextBox x:Name="textPasswordM" Width="150" Height="24"  
-                     HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFD3CBCD" 
-                     TextChanged="textPasswordM_TextChanged" BorderBrush="#FFE92617" ToolTip="Enter your ID"
-                          DataContext="{Binding Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, Mode=TwoWay}" Margin="496,271,0,0"
-                      Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource TrueToHidden}}"/>-->
+
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btSkimmerListView" Content="Skimmer" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" FontWeight="Medium"
+                Click="btSkimmerListView_Click" Width="200" Margin="10,289,226,64" Height="30"
+                     Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+            </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="BaseStation" Content="Base Station" Style="{StaticResource myButtonStyle}" Foreground="White" FontSize="20" FontWeight="Medium"
-                 Width="200" Margin="0,360,226,64" Height="30" Click="BaseStation_Click"
+                 Width="200" Margin="10,360,226,64" Height="30" Click="BaseStation_Click"
                      Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
-
-
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Height="25"
@@ -195,10 +198,9 @@
 
                 </Button>
             </StackPanel>
-
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="Package" Content="Package" Style="{StaticResource myButtonStyle}"  Foreground="White" FontSize="20" FontWeight="Medium"
-                 Width="200" Margin="0,85,0,0" Height="30" Click="Package_Click"
+                 Width="200" Margin="10,85,0,0" Height="30" Click="Package_Click"
                      Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
 
                     <Button.Template>
@@ -213,24 +215,23 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="Customer" Content="Customer" Style="{StaticResource myButtonStyle}"  Foreground="White" FontSize="20" FontWeight="Medium"
+                 Width="200" Margin="10,150,0,0" Height="30" Click="btCustomerListView_Click"
+                     Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}">
 
-            <TextBlock Margin="10,110,430,344" Height="40" Width="360" FontSize="36"
-               Text="Dear user!" FontFamily="Bahnschrift Condensed"/>
-            <TextBlock Margin="10,100,105,289" Height="60" FontSize="36"
-                   FontFamily="Bahnschrift Condensed" 
-               Text="Here is an operating system for shipments using skimmers"
-                    Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
-
-            <TextBlock Margin="10,150,267,249" Height="60" FontSize="36"
-                   FontFamily="Bahnschrift Condensed"
-               Text="In it you can manage and track the skimmers."
-                    Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
-
-            <TextBlock Margin="10,180,440,178" Height="60" Width="360" FontSize="36"
-                   FontFamily="Bahnschrift Condensed"
-               Text="have a nice time!"
-                    Visibility="{Binding ElementName=help, Mode=OneWay, Path=IsChecked, Converter={StaticResource FalseToHidden}}"/>
-
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Height="25"
+                            CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

@@ -8,6 +8,13 @@
     <SeveralPositionsArgument>6</SeveralPositionsArgument>
   </BaseStation>
   <BaseStation>
+    <UniqueID>1324</UniqueID>
+    <StationName>BaseStation1</StationName>
+    <Latitude>31.438366126938895</Latitude>
+    <Longitude>35.192705984782755</Longitude>
+    <SeveralPositionsArgument>7</SeveralPositionsArgument>
+  </BaseStation>
+  <BaseStation>
     <UniqueID>7896</UniqueID>
     <StationName>mmm</StationName>
     <Latitude>20</Latitude>
@@ -20,12 +27,5 @@
     <Latitude>31.2</Latitude>
     <Longitude>35.36</Longitude>
     <SeveralPositionsArgument>1</SeveralPositionsArgument>
-  </BaseStation>
-  <BaseStation>
-    <UniqueID>1324</UniqueID>
-    <StationName>BaseStation1</StationName>
-    <Latitude>31.438366126938895</Latitude>
-    <Longitude>35.192705984782755</Longitude>
-    <SeveralPositionsArgument>7</SeveralPositionsArgument>
   </BaseStation>
 </listbasestation>
