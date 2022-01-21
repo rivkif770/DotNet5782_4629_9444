@@ -25,6 +25,10 @@ namespace PL
         CustomerToList newCustomer = new CustomerToList();
         BlApi.IBL bL;
         BO.Customer customer = new BO.Customer();
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="customer1"></param>
         public CustomerCard( Customer customer1)
         {
             bL = BlApi.BlFactory.GetBL();
@@ -46,7 +50,11 @@ namespace PL
             package1.SendPackage.Name = customer.Name;
             DataContext = package1;
         }
-
+        /// <summary>
+        /// Button for adding a new package to this customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddPackage_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -61,7 +69,11 @@ namespace PL
                 MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// Checking and coloring the textbox of the ID of the receiving customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textIdGet_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -73,12 +85,20 @@ namespace PL
             else textIdGet.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
 
         }
-
+        /// <summary>
+        /// Button for closing the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-
+        /// <summary>
+        /// Button for deleting a package (only if this customer sent it and it is not yet associated with the glider)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonDeletPackage_Click_1(object sender, RoutedEventArgs e)
         {
             try
@@ -92,13 +112,16 @@ namespace PL
                 MessageBox.Show($"Can not delete package {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// Package collection confirmation (only packages sent from this customer and they were associated)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonConfimCollection_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 int id = bL.GetPackage(((BO.PackageToList)PackageShippedListView.SelectedItem).Id).SkimmerInPackage.Id;
-                //bL.CollectingPackageBySkimmer(((BO.PackageToList)PackageShippedListView.SelectedItem).Id);
                 bL.CollectingPackageBySkimmer(id);
                 MessageBox.Show("The package collection confirmation was successful !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 PackageShippedListView.ItemsSource = bL.GetListOfPackageShipped(customer.Id);
@@ -110,7 +133,11 @@ namespace PL
                 ;
             }
         }
-
+        /// <summary>
+        /// Confirmation of delivery of the package (only packages received by this customer)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonConfimDelivery_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -128,32 +155,5 @@ namespace PL
                 ;
             }
         }
-
-
-        //private void buttonDeletPackage_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        help.
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
-
-        //private void buttonDeletPackage_Click(object sender, RoutedEventArgs e)
-        //{
-        //    BO.Package package = bL.GetPackage(newPackage.Id);
-        //    if (package.AssignmentTime == null)
-        //    {
-        //        bL.DeletePackage(newPackage.Id);
-        //        MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-        //        this.Close();
-        //    }
-        //    else
-        //        MessageBox.Show("The package was associated", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
-        //}
     }
 }
