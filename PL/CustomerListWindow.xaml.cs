@@ -94,5 +94,12 @@ namespace PL
         {
             this.Close();
         }
+        /// <summary>
+        /// Close the window
+        /// </summary>
+        private void EXIT_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

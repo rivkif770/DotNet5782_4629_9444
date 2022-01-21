@@ -194,14 +194,14 @@ namespace PL
         /// <param name="e"></param>
         private void textUpdateName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string text = textUpdateName.Text;
+            string text = textCustomerName.Text;
             var bc = new BrushConverter();
             if (text != "" && char.IsLetter(text.ElementAt(0)))
             {
-                textUpdateName.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                textCustomerName.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
             else
-                textUpdateName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+                textCustomerName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
         /// <summary>
         /// Checking and coloring the textbox of the customer's new phone
@@ -210,14 +210,14 @@ namespace PL
         /// <param name="e"></param>
         private void textUpdatePhon_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string text = textUpdatePhon.Text;
+            string text = textCustomerPhone.Text;
             var bc = new BrushConverter();
-            if (text.All(char.IsDigit) && textUpdatePhon.Text.Length == 10)
+            if (text.All(char.IsDigit) && textCustomerPhone.Text.Length == 10)
             {
-                textUpdatePhon.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                textCustomerPhone.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
             else
-                textUpdatePhon.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
+                textCustomerPhone.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
         /// <summary>
         /// Refresh the list of packages sent by the customer
