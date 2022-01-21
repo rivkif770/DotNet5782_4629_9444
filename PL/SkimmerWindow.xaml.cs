@@ -109,17 +109,25 @@ namespace PL
         /// <param name="e"></param>
         private void btnAddSkimmer_Click(object sender, RoutedEventArgs e)
         {
-            try
+            SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
+            if (ComboWeightCategory.SelectedItem == null || ComboStationID.SelectedItem == null || SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textSkimmerModel.BorderBrush).Color, red.Color) )
             {
-                int baseStation = Convert.ToInt32(((ComboBoxItem)ComboStationID.SelectedItem).Content);
-
-                bL.AddSkimmer(skimmer1, baseStation);
-                MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                skimmer1 = new Skimmer();
+                MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    int baseStation = Convert.ToInt32(((ComboBoxItem)ComboStationID.SelectedItem).Content);
+
+                    bL.AddSkimmer(skimmer1, baseStation);
+                    MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                    skimmer1 = new Skimmer();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         /// <summary>

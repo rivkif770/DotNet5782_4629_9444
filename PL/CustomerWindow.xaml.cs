@@ -61,17 +61,26 @@ namespace PL
         /// <param name="e"></param>
         private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
         {
-            try
+            SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
+            if (SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerName.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerPhone.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textlongitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLatitude.BorderBrush).Color, red.Color))
             {
-                bL.AddCustomer(customer);
-                MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                customer = new Customer();
-
+                MessageBox.Show($"Insert input", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }       
+                try
+                {
+                    bL.AddCustomer(customer);
+                    MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                    customer = new Customer();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+       
         }
         /// <summary>
         /// Input the id from the user and color the field according to the correctness of the input
@@ -190,8 +199,9 @@ namespace PL
         /// <param name="e"></param>
         private void Button_Update(object sender, RoutedEventArgs e)
         {
+
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            if (SolidColorBrush.Equals(((SolidColorBrush)textCustomerName.BorderBrush).Color, red.Color) && SolidColorBrush.Equals(((SolidColorBrush)textCustomerPhone.BorderBrush).Color, red.Color))
+            if (SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerName.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerPhone.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textlongitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLatitude.BorderBrush).Color, red.Color))
                 MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {

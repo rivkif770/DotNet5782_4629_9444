@@ -61,7 +61,7 @@ namespace PL
         private void textId_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
-            if (textId.Text == "" && textId.Text.All(char.IsDigit) && textId.Text.Length < 5 && textId.Text.Length > 3)
+            if (textId.Text != "" && textId.Text.All(char.IsDigit) && textId.Text.Length < 5 && textId.Text.Length > 3)
             {
                 textId.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
             }
@@ -156,15 +156,23 @@ namespace PL
         /// <param name="e"></param>
         private void btnAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
-            try
+            SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
+            if (SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textName.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLatitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLongitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCharging.BorderBrush).Color, red.Color))
             {
-                bL.AddBaseStation(baseStation1);
-                MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                MessageBox.Show($"Insert input", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    bL.AddBaseStation(baseStation1);
+                    MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         /// <summary>
@@ -184,19 +192,22 @@ namespace PL
         private void btnUpdat_Click(object sender, RoutedEventArgs e)
         {
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            if (SolidColorBrush.Equals(((SolidColorBrush)textName.BorderBrush).Color, red.Color) && SolidColorBrush.Equals(((SolidColorBrush)textCharging.BorderBrush).Color, red.Color))
+            if (SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textName.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLatitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLongitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCharging.BorderBrush).Color, red.Color))
             {
                 MessageBox.Show($"Insert input", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            try
+            else
             {
-                bL.UpdateBaseStation(newBaseStation.Id,textName.Text, textCharging.Text);
-                MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                //this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    bL.UpdateBaseStation(newBaseStation.Id, textName.Text, textCharging.Text);
+                    MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         /// <summary>
