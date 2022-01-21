@@ -25,7 +25,6 @@ namespace PL
         /// <summary>
         /// constructor
         /// </summary>
-        /// <param name="customer1"></param>
         public CustomerListWindow()
         {
             InitializeComponent();

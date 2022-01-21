@@ -30,7 +30,6 @@ namespace PL
         /// <summary>
         /// constructor to add
         /// </summary>
-        /// <param name="bl"></param>
         public CustomerWindow()
         {
             bL = BlApi.BlFactory.GetBL();
@@ -42,9 +41,7 @@ namespace PL
         /// <summary>
         /// constructor for update
         /// </summary>
-        /// <param name="bl"></param>
-        /// <param name="CustomerToList"></param>
-        /// <param name="CustomerListWindow"></param>
+        /// <param name="customerToList"></param>
         public CustomerWindow(CustomerToList customerToList)
         {
             bL = BlApi.BlFactory.GetBL();
