@@ -606,6 +606,12 @@ namespace BL
                 Battery = LightWeightCarrier * distance;
             return Battery;
         }
+        /// <summary>
+        /// Calculation of battery utilization by weight and distance
+        /// </summary>
+        /// <param name="distance"></param>
+        /// <param name="weight"></param>
+        /// <returns></returns>
         public double BatteryCalculation2(double distance, int weight)
         {
             double Battery = 0;
@@ -658,20 +664,41 @@ namespace BL
                 return skimmersList.Take(skimmersList.Count).ToList();
             return skimmersList.Where(predicate).ToList();
         }
+        /// <summary>
+        /// Running the simulator
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="act"></param>
+        /// <param name="func"></param>
         public void SimulatorActive(int id, Action act, Func<bool> func)
         {
             new Simulator(this, id, act, func);
         }
+        /// <summary>
+        /// Adds battery by charging time (simulator)
+        /// </summary>
+        /// <param name="skimmer"></param>
         public void UploadCharge(Skimmer skimmer)
         {
             skimmersList.Find(s => s.Id == skimmer.Id).BatteryStatus += SkimmerLoadingRate;
             skimmer.BatteryStatus += SkimmerLoadingRate;
             if (skimmer.BatteryStatus > 100) skimmersList.Find(s => s.Id == skimmer.Id).BatteryStatus = 100;
         }
+        /// <summary>
+        /// Lowers battery by distance and weight (simulator)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="lessBattry"></param>
         public void UploadLessBattry(int id ,double lessBattry)
         {
             skimmersList.Find(s => s.Id == id).BatteryStatus -= lessBattry;
         }
+        /// <summary>
+        /// Updates the distance left to the glider according to its location
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="lonPlus"></param>
+        /// <param name="logPlus"></param>
         public void UploadLocation(int id,double lonPlus,double logPlus)
         {
             skimmersList.Find(s => s.Id == id).CurrentLocation.Latitude += lonPlus;

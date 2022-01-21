@@ -192,6 +192,11 @@ namespace BL
                 return result;
             }
         }
+        /// <summary>
+        /// Returns a list of skimmers loaded as IEnumerable
+        /// </summary>
+        /// <param name="baseStation"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<SkimmerInCharging> GetListOfSkimmersCharge(BO.BaseStation baseStation)
         {
