@@ -12,8 +12,10 @@ namespace PL
     class Converters
     {
     }
-
-    public class ButtonsInSimulator : IMultiValueConverter // multi binding
+    /// <summary>
+    /// multi binding to simulator
+    /// </summary>
+    public class ButtonsInSimulator : IMultiValueConverter 
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
@@ -27,7 +29,9 @@ namespace PL
             throw new NotImplementedException();
         }
     }
-
+    /// <summary>
+    /// When the value Null disappears the object
+    /// </summary>
     public class NullToHidden : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -42,6 +46,9 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+    /// <summary>
+    /// When the value False disappears the object
+    /// </summary>
     public class FalseToHidden : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -56,6 +63,9 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+    /// <summary>
+    /// When the value True disappears the object
+    /// </summary>
     public class TrueToHidden : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -69,6 +79,9 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+    /// <summary>
+    /// Returns true value if the package was created
+    /// </summary>
     public class TrueIfStatusCreated : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -82,6 +95,9 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+    /// <summary>
+    /// Returns true value if the package was Assignment
+    /// </summary>
     public class TrueIfStatusAssignment : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -95,6 +111,9 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+    /// <summary>
+    /// Returns true value if the package was Collection
+    /// </summary>
     public class TrueIfStatusCollection : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -108,6 +127,9 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+    /// <summary>
+    /// Replaces Enum To Int value
+    /// </summary>
     public class EnumToInt : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -120,6 +142,9 @@ namespace PL
             return (int)value;
         }
     }
+    /// <summary>
+    /// Replaces True Value To False
+    /// </summary>
     public class TrueToFalse : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

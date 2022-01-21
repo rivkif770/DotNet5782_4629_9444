@@ -70,7 +70,7 @@ namespace PL
             skimmer1 = bL.GetSkimmerr(skimmerToList.Id);
         }
         /// <summary>
-        /// 
+        /// Skimmer page update while the simulator is running
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -79,7 +79,7 @@ namespace PL
             DataContext = bL.GetSkimmerr(skimmer1.Id);
         }
         /// <summary>
-        /// 
+        /// Runs the simulator according to the values it receives from reporting changes and according to the Boolean value for stopping the simulator
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -88,14 +88,14 @@ namespace PL
             bL.SimulatorActive(skimmer1.Id, update, stop);
         }
         /// <summary>
-        /// 
+        /// Reports changes
         /// </summary>
         void update()
         {
             backgroundWorker.ReportProgress(0);
         }
         /// <summary>
-        /// 
+        /// Boolean value returns if the stop button is pressed and the simulator needs to be stopped
         /// </summary>
         /// <returns></returns>
         bool stop()
