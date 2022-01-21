@@ -27,24 +27,20 @@ namespace PL
         private PackageWindow PackageWindow;
 
         public delegate void CloseWindow(object ob);
-        //public event CloseWindow CloseWindowEvent;
-        //CustomerWindow customerWindow;
         /// <summary>
-        /// Builder to add
+        /// constructor to add
         /// </summary>
         /// <param name="bl"></param>
         public CustomerWindow()
         {
             bL = BlApi.BlFactory.GetBL();
             InitializeComponent();
-            //add.Visibility = Visibility.Visible;
-            // customer = (Customer)DataContext;
             customer.Location = new Location();
             DataContext = customer;
 
         }
         /// <summary>
-        /// Builder for update
+        /// constructor for update
         /// </summary>
         /// <param name="bl"></param>
         /// <param name="CustomerToList"></param>
@@ -62,7 +58,7 @@ namespace PL
 
         }
         /// <summary>
-        /// Button attempt to add skimmer-checks whether all the required fields are filled correctly and sends to try to add in bl, updates the new skimmer, sends a suitable message and closes the window
+        /// Add client button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -78,31 +74,7 @@ namespace PL
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            //SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            //if (SolidColorBrush.Equals(((SolidColorBrush)textlongitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLatitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerPhone.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerName.BorderBrush).Color, red.Color))
-            //{
-            //    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
-            //else
-            //{
-            //    BO.Customer customer = new Customer();
-            //    customer.Id = Int32.Parse(textId.Text);
-            //    customer.Name = textCustomerName.Text;
-            //    customer.Phone = textCustomerPhone.Text;
-            //    customer.Location.Longitude = Int32.Parse(textlongitude.Text);
-            //    customer.Location.Latitude = Int32.Parse(textLatitude.Text);
-            //    try
-            //    {
-            //        bL.AddCustomer(customer);
-            //        MessageBox.Show("The addition was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-            //        this.Close();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    }
-            //}
+            }       
         }
         /// <summary>
         /// Input the id from the user and color the field according to the correctness of the input
@@ -136,6 +108,11 @@ namespace PL
             else
                 textCustomerName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
+        /// <summary>
+        /// Input the Customer phon from the user and color the field according to the correctness of the input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textCustomerPhone_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -147,6 +124,11 @@ namespace PL
             else textCustomerPhone.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
 
         }
+        /// <summary>
+        /// Input the Customer longitude from the user and color the field according to the correctness of the input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textlongitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -157,6 +139,11 @@ namespace PL
             else textlongitude.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
 
         }
+        /// <summary>
+        /// Input the Customer Latitude from the user and color the field according to the correctness of the input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textLatitude_TextChanged(object sender, TextChangedEventArgs e)
         {
             var bc = new BrushConverter();
@@ -178,7 +165,7 @@ namespace PL
             this.Close();
         }
         /// <summary>
-        /// /// Attempt to update skimmer name checks if all required fields are filled in correctly and sends to try to update in bl, updates the new skimmer, sends a suitable message and closes the window
+        /// Rename button or customer phone 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -203,6 +190,11 @@ namespace PL
 
             }
         }
+        /// <summary>
+        /// Checking and coloring the textbox of the customer's new name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textUpdateName_TextChanged(object sender, TextChangedEventArgs e)
         {
             string text = textUpdateName.Text;
@@ -214,6 +206,11 @@ namespace PL
             else
                 textUpdateName.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
+        /// <summary>
+        /// Checking and coloring the textbox of the customer's new phone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textUpdatePhon_TextChanged(object sender, TextChangedEventArgs e)
         {
             string text = textUpdatePhon.Text;
@@ -225,11 +222,20 @@ namespace PL
             else
                 textUpdatePhon.BorderBrush = (Brush)bc.ConvertFrom("#FFE92617");
         }
+        /// <summary>
+        /// Refresh the list of packages sent by the customer
+        /// </summary>
+        /// <param name="ob"></param>
+        /// <param name="ev"></param>
         private void RefreshListSendView(object ob, EventArgs ev)
         {
             PackgeListOfSenderView.ItemsSource = bL.GetSentParcels(customer);
         }
-        
+        /// <summary>
+        /// Open a specific package window from the list of packages sent by the customer by double-clicking
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PackgeListOfSenderView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (PackgeListOfSenderView.SelectedItem != null)
@@ -242,11 +248,20 @@ namespace PL
                 PackageWindow.Show();
             }
         }
+        /// <summary>
+        /// Refresh the list of packages gets by the customer
+        /// </summary>
+        /// <param name="ob"></param>
+        /// <param name="ev"></param>
         private void RefreshListGetView(object ob, EventArgs ev)
         {
             PackgeListOfGetView.ItemsSource = bL.GetReceiveParcels(customer);
         }
-
+        /// <summary>
+        /// Open a specific package window from the list of packages gets by the customer by double-clicking
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PackgeListOfGetView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if ((BO.PackageAtCustomer)PackgeListOfGetView.SelectedItem != null)
@@ -259,11 +274,6 @@ namespace PL
                 PackageWindow.Show();
             }
         }
-        //private void Button_UpdateDelete(object sender, RoutedEventArgs e)
-        //{
-        //    bL.DeleteCustomer(newCustomer.Id);
-        //    MessageBox.Show("The deletion was successful", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-        //    this.Close();
-        //}
+
     }
 } 
