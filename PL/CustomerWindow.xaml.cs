@@ -62,7 +62,7 @@ namespace PL
         private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
         {
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            if (SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerName.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerPhone.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textlongitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLatitude.BorderBrush).Color, red.Color))
+            if (SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerName.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerPhone.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLongitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLatitude.BorderBrush).Color, red.Color))
             {
                 MessageBox.Show($"Insert input", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -201,7 +201,7 @@ namespace PL
         {
 
             SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-            if (SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerName.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerPhone.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textlongitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLatitude.BorderBrush).Color, red.Color))
+            if (SolidColorBrush.Equals(((SolidColorBrush)textId.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerName.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textCustomerPhone.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLongitude.BorderBrush).Color, red.Color) || SolidColorBrush.Equals(((SolidColorBrush)textLatitude.BorderBrush).Color, red.Color))
                 MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {

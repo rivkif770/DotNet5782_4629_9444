@@ -131,7 +131,7 @@ namespace BL
                                 updatedSkimmer.CurrentLocation = new Location { Latitude = baseStation.Latitude, Longitude = baseStation.Longitude };
                                 baseStation.SeveralPositionsArgument = baseStation.SeveralPositionsArgument--;
                                 mayDal.UpadteB(baseStation);
-                                SkimmerLoading skimmerLoading = new SkimmerLoading { SkimmerID = updatedSkimmer.Id, StationID = baseStation.UniqueID };
+                                SkimmerLoading skimmerLoading = new SkimmerLoading { SkimmerID = updatedSkimmer.Id, StationID = baseStation.UniqueID, EnteredLoading = DateTime.Now };
                                 mayDal.AddSkimmerLoading(skimmerLoading);
                                 updatedSkimmer.BatteryStatus = r.Next(21);
                             }
