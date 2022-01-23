@@ -399,7 +399,7 @@
                 </Button>
             </StackPanel>
             
-            <TreeView  Margin="340,28,235,76" Visibility="{Binding PackageInTransfer, Converter={StaticResource NullToHidden}}" ToolTip="Double click to open a package page" MouseDoubleClick="TreeView_MouseDoubleClick" >
+            <TreeView  Margin="340,28,235,52" Visibility="{Binding PackageInTransfer, Converter={StaticResource NullToHidden}}" ToolTip="Double click to open a package page" MouseDoubleClick="TreeView_MouseDoubleClick" >
                 <TreeViewItem Header="Package" IsExpanded="True" FontWeight="Bold">
 
                     <TreeViewItem Header="{Binding PackageInTransfer.Id}" FontWeight="Regular"/>

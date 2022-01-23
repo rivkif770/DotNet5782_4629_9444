@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <ArrayOfSkimmerLoading xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SkimmerLoading>
-    <StationID>8532</StationID>
-    <SkimmerID>473</SkimmerID>
-    <EnteredLoading>0001-01-01T00:00:00</EnteredLoading>
+    <StationID>3482</StationID>
+    <SkimmerID>507</SkimmerID>
+    <EnteredLoading>2022-01-23T15:09:32.674153+02:00</EnteredLoading>
   </SkimmerLoading>
 </ArrayOfSkimmerLoading>
