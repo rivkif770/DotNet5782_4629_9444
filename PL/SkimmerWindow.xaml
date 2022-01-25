@@ -196,7 +196,12 @@
                     <Button x:Name="btnUpdate" Content="Update name" ToolTip="Update skimmer name" Foreground="White"
                         FontSize="20" FontWeight="Medium" Click="Button_Update" Width="200" 
                         Height="30"  Style="{StaticResource myButtonStyle}">
-                        <Button.Visibility>                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                            </MultiBinding>                        </Button.Visibility>
+                        <Button.Visibility>
+                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">
+                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />
+                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>
+                            </MultiBinding>
+                        </Button.Visibility>
 
 
                         <Button.Template>
@@ -215,7 +220,12 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
                     <Button x:Name="btnSend" Content="Send for loading" ToolTip="Sending a skimmer for charging" Foreground="White" FontSize="20" FontWeight="Medium"
                  Click="Button_Sending_Loading" Width="200" Height="30" Style="{StaticResource myButtonStyle}">
-                        <Button.Visibility>                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                            </MultiBinding>                        </Button.Visibility>
+                        <Button.Visibility>
+                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">
+                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />
+                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>
+                            </MultiBinding>
+                        </Button.Visibility>
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Height="30"
@@ -233,7 +243,12 @@
                     <Button x:Name="btnRelease" Content="Release from charging" ToolTip="Release skimmer from charging"
                         Foreground="White" FontSize="20" FontWeight="Medium" Click="Button_Release" Width="200" 
                         Height="30" Style="{StaticResource myButtonStyle}" >
-                        <Button.Visibility>                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                            </MultiBinding>                        </Button.Visibility>
+                        <Button.Visibility>
+                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">
+                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />
+                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>
+                            </MultiBinding>
+                        </Button.Visibility>
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Height="30"
@@ -251,7 +266,12 @@
                     <Button x:Name="btnSendingSkimmer" Content="Sending a skimmer" ToolTip="Sending the skimmer for delivery (only for available skimmer)" Foreground="White" FontSize="20" FontWeight="Medium"
                   Click="Button_Sending_Skimmer_For_Delivery" Width="200" Height="30"  
                         Style="{StaticResource myButtonStyle}" >
-                        <Button.Visibility>                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                            </MultiBinding>                        </Button.Visibility>
+                        <Button.Visibility>
+                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">
+                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />
+                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>
+                            </MultiBinding>
+                        </Button.Visibility>
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Height="30"
@@ -269,7 +289,12 @@
                     <Button x:Name="btnCollectThePackage" Content="Collect the package" ToolTip="Package collection" Foreground="White" FontSize="20" FontWeight="Medium"
                    Click="Button_Package_Collect" Width="200" Height="30"  
                         Style="{StaticResource myButtonStyle}" >
-                        <Button.Visibility>                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                            </MultiBinding>                        </Button.Visibility>
+                        <Button.Visibility>
+                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">
+                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />
+                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>
+                            </MultiBinding>
+                        </Button.Visibility>
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Height="30"
@@ -286,7 +311,12 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="5">
                     <Button x:Name="btnPackageDelivery" Content="Package delivery" ToolTip="Package delivery" Foreground="White" FontSize="20" FontWeight="Medium" 
                         Click="Button_Package_Delivery" Width="200" Height="30" Style="{StaticResource myButtonStyle}">
-                        <Button.Visibility>                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                            </MultiBinding>                        </Button.Visibility>
+                        <Button.Visibility>
+                            <MultiBinding Converter="{StaticResource ButtonsInSimulator}">
+                                <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />
+                                <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>
+                            </MultiBinding>
+                        </Button.Visibility>
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Border Height="30"
@@ -306,7 +336,12 @@
                 <Button x:Name="btnSimulator" Content="Simulator"  Foreground="White" FontSize="20" FontWeight="Medium" ToolTip="Add a skimmer to the pool"
                     Click="btnSimulator_Click" Width="200" Height="30"
                        Margin="23,385,477,35" >
-                    <Button.Visibility>                        <MultiBinding Converter="{StaticResource ButtonsInSimulator}">                            <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />                            <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>                        </MultiBinding>                    </Button.Visibility>
+                    <Button.Visibility>
+                        <MultiBinding Converter="{StaticResource ButtonsInSimulator}">
+                            <Binding ElementName="help"  Mode="OneWay" Path="IsChecked" />
+                            <Binding ElementName="Simulator" Mode="OneWay" Path="IsChecked"/>
+                        </MultiBinding>
+                    </Button.Visibility>
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -364,7 +399,7 @@
                 </Button>
             </StackPanel>
             
-            <TreeView  Margin="340,28,235,76" Visibility="{Binding PackageInTransfer, Converter={StaticResource NullToHidden}}" ToolTip="Double click to open a package page" MouseDoubleClick="TreeView_MouseDoubleClick" >
+            <TreeView  Margin="340,28,235,52" Visibility="{Binding PackageInTransfer, Converter={StaticResource NullToHidden}}" ToolTip="Double click to open a package page" MouseDoubleClick="TreeView_MouseDoubleClick" >
                 <TreeViewItem Header="Package" IsExpanded="True" FontWeight="Bold">
 
                     <TreeViewItem Header="{Binding PackageInTransfer.Id}" FontWeight="Regular"/>
