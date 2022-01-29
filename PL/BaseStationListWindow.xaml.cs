@@ -20,7 +20,8 @@ namespace PL
     /// </summary>
     public partial class BaseStationListWindow : Window
     {
-        BlApi.IBL bL;
+        BlApi.IBL bL
+
         BaseStationWindow baseStationWindow;
         /// <summary>
         /// constructor
