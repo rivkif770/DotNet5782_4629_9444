@@ -116,6 +116,7 @@ namespace PL
             {
                 SkimmerListView.Items.Add(skimmer);
             }
+            if (status.IsChecked == true) status.IsChecked = false;
         }
         /// <summary>
         /// Close the window

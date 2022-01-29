@@ -87,6 +87,7 @@ namespace PL
             {
                 BaseStationListView.Items.Add(baseStationToList);
             }
+            if (AvailableChargingStations.IsChecked == true) AvailableChargingStations.IsChecked = false;
         }
         /// <summary>
         /// Exit button from the window
